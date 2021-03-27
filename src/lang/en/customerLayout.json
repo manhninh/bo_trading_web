@@ -1,0 +1,12 @@
+{
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "competitions": "Competitions",
+    "calendar": "Calendar",
+    "news": "News",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "register": "Register"
+  }
+}

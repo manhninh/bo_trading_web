@@ -1,0 +1,24 @@
+{
+  "message": {
+    "email": "Email không đúng định dạng",
+    "success": "Gửi thông tin liên hệ thành công"
+  },
+  "slide": {
+    "title": "Tiêu đề",
+    "image": "Ảnh",
+    "btnSearch": "Tìm kiếm theo tiêu đề",
+    "titleAdd": "Thêm slide",
+    "titleEdit": "Sửa slide",
+    "titleDel": "Xóa slide",
+    "contentDel": "Có chắc chắn muốn xóa slide không?",
+    "status": "Trạng thái"
+  },
+  "getInTouch": {
+    "titleModal": "Chi tiết liên hệ",
+    "fullName": "Người liên hệ",
+    "titleDel": "Xóa liên hệ",
+    "contentDel": "Có chắc chắn muốn xóa liên hệ không?",
+    "email": "Email",
+    "content": "Nội dung"
+  }
+}

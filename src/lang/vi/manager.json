@@ -1,0 +1,285 @@
+{
+  "userInfo": {
+    "userName": "Tài khoản",
+    "name": "Họ và tên",
+    "password": "Mật khẩu cũ",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "email": "Email",
+    "phoneNumber": "Số điện thoại",
+    "unitWork": "Đơn vị",
+    "message": {
+      "comparePassword": "Xác nhận không đúng mật khẩu ở trên",
+      "email": "Email không đúng định dạng"
+    }
+  },
+  "danceTypes": {
+    "titleDel": "Xóa loại điệu nhảy",
+    "contentDel": "Có chắc chắn muốn xóa loại điệu nhảy không?",
+    "name": "Loại điệu nhảy",
+    "titleModalEdit": "Sửa loại điệu nhảy",
+    "titleModalAdd": "Thêm loại điệu nhảy",
+    "titleAdd": "Thêm loại điệu nhảy",
+    "titleEdit": "Sửa loại điệu nhảy",
+    "btnSearch": "Tìm kiếm tên loại"
+  },
+  "dance": {
+    "name": "Tên điệu",
+    "idKindOfDance": "Loại điệu nhảy",
+    "code": "Ký hiệu",
+    "type": "Loại",
+    "titleEdit": "Sửa điệu nhảy",
+    "titleAdd": "Thêm điệu nhảy",
+    "titleDel": "Xóa điệu nhảy",
+    "contentDel": "Có chắc chắn muốn xóa điệu nhảy không?",
+    "btnSearch": "Tìm kiếm tên điệu, kí hiệu"
+  },
+  "topic": {
+    "name": "Tên chủ đề",
+    "titleEdit": "Sửa chủ đề",
+    "titleAdd": "Thêm chủ đề",
+    "titleDel": "Xóa chủ đề",
+    "contentDel": "Có chắc chắn muốn xóa chủ đề không?",
+    "btnSearch": "Tìm kiếm theo tên chủ đề"
+  },
+  "level": {
+    "name": "Tên hạng",
+    "idKindOfDance": "Loại điệu nhảy",
+    "idDances": "Điệu nhảy",
+    "type": "Loại",
+    "titleEdit": "Sửa hạng thi đấu",
+    "titleAdd": "Thêm hạng thi đấu",
+    "titleDel": "Xóa hạng thi đấu",
+    "contentDel": "Có chắc chắn muốn xóa hạng thi đấu không?",
+    "btnSearch": "Tìm kiếm tên hạng"
+  },
+  "event": {
+    "titleDel": "Xóa sự kiện",
+    "contentDel": "Có chắc chắn muốn xóa sự kiện không?",
+    "title": "Sự kiện",
+    "description": "Ghi chú",
+    "timeRange": "Thời gian",
+    "link": "Đường dẫn",
+    "file": "Tài liệu",
+    "titleModalEdit": "Sửa sự kiện",
+    "titleModalAdd": "Thêm sự kiện",
+    "titleAdd": "Thêm sự kiện",
+    "titleEdit": "Sửa sự kiện",
+    "btnSearch": "Tìm kiếm tên sự kiện"
+  },
+  "managerCompe": {
+    "btnSearch": "Tìm kiếm theo tên nội dung",
+    "addCompetition": "Thêm nội dung có sẵn"
+  },
+  "types": {
+    "name": "Tên lệ phí",
+    "fees": "Lệ phí",
+    "currency": "Tiền tệ",
+    "typeCompetition": "Hình thức",
+    "titleEdit": "Sửa lệ phí",
+    "titleAdd": "Thêm lệ phí",
+    "titleDel": "Xóa lệ phí",
+    "contentDel": "Có chắc chắn muốn xóa lệ phí không?",
+    "amount": {
+      "notNumber": "Lệ phí phải là số"
+    },
+    "btn": {
+      "search": "Tìm kiếm lệ phí"
+    }
+  },
+  "club": {
+    "nameVi": "Tên đơn vị (Tiếng Việt)",
+    "nameEng": "Tên đơn vị (English)",
+    "addressVi": "Địa chỉ (Tiếng Việt)",
+    "addressEng": "Địa chỉ (English)",
+    "contactPerson": "Người liên hệ",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "titleModalEdit": "Sửa đơn vị",
+    "titleModalAdd": "Thêm đơn vị",
+    "titleDel": "Xóa đơn vị",
+    "contentDel": "Có chắc chắn muốn xóa đơn vị không?"
+  },
+  "account": {
+    "name": "Tên",
+    "userName": "Tên đăng nhập",
+    "address": "Địa chỉ",
+    "contactPerson": "Người liên hệ",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "role": "Loại tài khoản",
+    "titleEdit": "Sửa tài khoản",
+    "titleAdd": "Thêm tài khoản",
+    "organizer": "Ban tổ chức",
+    "member": "Đơn vị",
+    "unitWork": "Tên",
+    "status": "Trạng thái",
+    "message": {
+      "email": "Email không đúng định dạng"
+    },
+    "titleDel": "Xóa tài khoản",
+    "contentDel": "Có chắc chắn muốn xóa tài khoản không?",
+    "btnSearch": "Tìm kiếm tên, email, số điện thoại"
+  },
+  "athlete": {
+    "codeAthlete": "Số đeo",
+    "tournament": "Giải đấu",
+    "fullnameAthlete": "Họ tên VĐV",
+    "birthDateAthlete": "NS",
+    "phone": "Điện thoại",
+    "email": "Email",
+    "club": "Đơn vị",
+    "type": "Hình thức",
+    "titleEdit": "Sửa vận động viên",
+    "titleAdd": "Thêm vận động viên",
+    "titleView": "Thông tin vận động viên",
+    "titleCompetition": "Chọn nội dung thi đấu",
+    "openCompetition": "Nội dung mở",
+    "closeCompetition": "Nội dung đóng",
+    "codeContentOpen": "Mã nội dung mở",
+    "codeContentClose": "Mã nội dung đóng",
+    "buttonChoose": "Chọn",
+    "status": "Trạng thái",
+    "rank": "Hạng",
+    "createdAt": "Ngày đăng ký",
+    "fees": "Lệ phí",
+    "charged": "Đã thu phí",
+    "chargedShort": "Thu phí",
+    "noCharge": "Chưa thu phí",
+    "sort": "",
+    "message": {
+      "email": "Email không đúng định dạng",
+      "yearAthleteByNumber": "Năm sinh VĐV phải là số",
+      "yearAthleteLower": "Năm sinh phải nhỏ hơn năm hiện tại",
+      "yearAthleteHigher": "Năm sinh phải lớn hơn năm 1900"
+    },
+    "titleDel": "Xóa vận động viên",
+    "contentDel": "Có chắc chắn muốn xóa vận động viên không?",
+    "btnSearch": "Tìm kiếm theo tên vận động viên, SĐT hoặc email",
+    "confirmModal": {
+      "chargeTitle": "Thông tin người thu phí",
+      "chargeBy": "Người thu phí",
+      "contenConfirm": "Bạn có chắc chắn muốn bỏ người thu phí?"
+    }
+  },
+  "ensemble": {
+    "codeEnsemble": "Số đeo",
+    "tournament": "Giải đấu",
+    "nameEnsemble": "Tên bài thi",
+    "numberAthlete": "Số lượng VĐV",
+    "nameAthletes": "Tên các VĐV",
+    "phone": "Điện thoại",
+    "email": "Email",
+    "club": "Đơn vị",
+    "codeRegistration": "Mã user đăng ký",
+    "titleEdit": "Sửa đồng diễn",
+    "titleAdd": "Thêm đồng diễn",
+    "titleView": "Thông tin đồng diễn",
+    "titleCompetition": "Chọn nội dung thi đấu",
+    "ensembleCompetition": "N.D đồng diễn",
+    "codeContentensemble": "Mã nội dung đồng diễn",
+    "buttonChoose": "Chọn",
+    "status": "Trạng thái",
+    "rank": "Hạng",
+    "createdAt": "Ngày đăng ký",
+    "fees": "Lệ phí",
+    "charged": "Đã thu phí",
+    "noCharge": "Chưa thu phí",
+    "messageTextArea": "Tên các VĐV cách nhau dấu phẩy",
+    "message": {
+      "email": "Email không đúng định dạng",
+      "yearAthleteByNumber": "Năm sinh VĐV phải là số",
+      "yearAthleteLower": "Năm sinh phải nhỏ hơn năm hiện tại",
+      "yearAthleteHigher": "Năm sinh phải lớn hơn năm 1900",
+      "countAthlete": "Phải có ít nhất 1 VĐV"
+    },
+    "titleDel": "Xóa bài thi",
+    "contentDel": "Có chắc chắn muốn xóa bài thi không?",
+    "btnSearch": "Tìm kiếm theo tên bài thi",
+    "confirmModal": {
+      "chargeTitle": "Thông tin người thu phí",
+      "chargeBy": "Người thu phí",
+      "contenConfirm": "Bạn có chắc chắn muốn bỏ người thu phí?"
+    }
+  },
+  "tournaments": {
+    "name": "Tên giải đấu",
+    "nameVI": "Vietnamese",
+    "nameEN": "English",
+    "timeRange": "Thời gian diễn ra",
+    "location": "Địa điểm",
+    "locationVI": "Vietnamese",
+    "locationEN": "English",
+    "age": "Tuổi",
+    "addAges": "Thêm tuổi",
+    "status": "Kích hoạt",
+    "description": "Nội dung chi tiết",
+    "titleEdit": "Sửa giải đấu",
+    "titleAdd": "Tạo giải đấu",
+    "currency": "Tiền tệ",
+    "excelButton": "Xuất file excel",
+    "titleTournament": "Chọn giải đấu",
+    "fileUpload": "Tải tệp",
+    "title": "Tiêu đề",
+    "file": "Thêm tài liệu",
+    "comment": "Cho phép bình luận",
+    "list": {
+      "createdAt": "Thời gian",
+      "name": "Tên giải đấu",
+      "location": "Địa điểm",
+      "startDate": "Thời gian",
+      "endDate": "Thời gian kết thúc",
+      "status": "Kích hoạt"
+    },
+    "btn": {
+      "search": "Tìm kiếm theo tên giải đấu"
+    },
+    "message": {
+      "required": "Không được để trống",
+      "checkStartDate": "Ngày bắt đầu không thể trước ngày hôm nay"
+    },
+    "addNew": "Tạo giải đấu",
+    "titleDel": "Xóa giải đấu",
+    "contentDel": "Có chắc chắn muốn xóa giải đấu không?"
+  },
+  "news": {
+    "nameVI": "Tên tin tức",
+    "nameEN": "Tên tin tức (English)",
+    "status": "Kích hoạt",
+    "idTopic": "Chủ đề",
+    "summary": "Nội dung tóm tắt",
+    "background": "Tải ảnh",
+    "description": "Nội dung chi tiết",
+    "titleEdit": "Sửa tin tức",
+    "titleAdd": "Tạo tin tức",
+    "list": {
+      "createdAt": "Thời gian",
+      "title": "Tên tin tức",
+      "status": "Kích hoạt",
+      "idTopic": "Chủ đề",
+      "summary": "Nội dung tóm tắt"
+    },
+    "btn": {
+      "search": "Tìm kiếm tin tức"
+    },
+    "message": {
+      "nameVI": "Tên tin tức không được để trống",
+      "nameEN": "Tên tin tức (English) không được để trống",
+      "description": "Nội dung chi tiết không được để trống"
+    },
+    "addNew": "Tạo tin tức",
+    "titleDel": "Xóa tin tức",
+    "contentDel": "Có chắc chắn muốn xóa tin tức không?",
+    "comment": "Cho phép bình luận"
+  },
+  "setting": {
+    "address": "Địa chỉ",
+    "email": "Email",
+    "phoneNumber": "Số điện thoại",
+    "linkFacebook": "Đường dẫn Facebook",
+    "linkTwitter": "Đường dẫn Twitter",
+    "linkYoutube": "Đường dẫn Youtube",
+    "contactPerson": "Người liên hệ",
+    "content": "Nội dung"
+  }
+}
