@@ -1,43 +1,36 @@
-import { RootState } from 'boot/rootReducers';
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import AppNavigationScreen from './AppNavigation';
-import GuestNavigationScreen from './GuestNavigation/guestNavigation';
-import { stateConditionString } from './helpers';
+import React, {lazy} from 'react';
+import {Redirect, Route, Switch} from 'react-router';
+import {ROUTE_PATH} from './helpers';
+import PrivateRoute from './PrivateRoutes';
+import TranslationRoute from './TranslationRoute';
 
-export type RootStackParamList = {
-  GUEST_NAVIGATION: undefined;
-  APP_NAVIGATION: undefined;
-  LOADING_SCREEN: undefined;
-};
+const Register = lazy(() => import('screens/authen/register'));
+const Login = lazy(() => import('screens/authen/login'));
+const ForgotPassword = lazy(() => import('screens/authen/forgotPassword'));
+const Trading = lazy(() => import('screens/trading'));
+const AffiliateLink = lazy(() => import('screens/affiliateLink'));
+const Commissions = lazy(() => import('screens/commissions'));
+const CopyTrade = lazy(() => import('screens/copyTrade'));
+const Wallet = lazy(() => import('screens/wallet'));
+
+const Dashboard = lazy(() => import('screens/dashboard'));
+const NotFound = lazy(() => import('containers/components/exceptions/404'));
 
 const NavigationComponent = () => {
-  const {authState} = useSelector((state: RootState) => ({
-    authState: state.authState,
-  }));
-
-  const guestNavigation = () => [];
-
-  const appNavigation = () => [];
-
-  const chooseScreen = useMemo(() => {
-    let arr = [];
-    let navigateTo = stateConditionString(authState);
-    switch (navigateTo) {
-      case 'GOTO_GUEST_SCREEN':
-        arr.push(<RootStack.Screen name={ROUTES.GUEST_NAVIGATION} component={GuestNavigationScreen} />);
-        break;
-      case 'GOTO_APP_SCREEN':
-        arr.push(<RootStack.Screen name={ROUTES.APP_NAVIGATION} component={AppNavigationScreen} />);
-        break;
-      default:
-        arr.push(<RootStack.Screen name={ROUTES.GUEST_NAVIGATION} component={GuestNavigationScreen} />);
-        break;
-    }
-    return arr[0];
-  }, [authState]);
-
-  return chooseScreen;
+  return (
+    <Switch>
+      <Redirect from={ROUTE_PATH.DASHBOARD} to="/" />
+      <TranslationRoute exact={true} path="/" component={Dashboard} />
+      <TranslationRoute path={ROUTE_PATH.LOGIN} comp={Login} />
+      <TranslationRoute path={ROUTE_PATH.REGISTER} comp={Register} />
+      <TranslationRoute path={ROUTE_PATH.FORGOT_PASSWORD} comp={ForgotPassword} />
+      <PrivateRoute path={ROUTE_PATH.TRADE} comp={Trading} />
+      <PrivateRoute path={ROUTE_PATH.AFFILIATE_LINK} comp={AffiliateLink} />
+      <PrivateRoute path={ROUTE_PATH.COMISSIONS} comp={Commissions} />
+      <PrivateRoute path={ROUTE_PATH.COPY_TRADE} comp={CopyTrade} />
+      <PrivateRoute path={ROUTE_PATH.WALLET} comp={Wallet} />
+      <Route component={NotFound} />
+    </Switch>
   );
 };
 

@@ -1,22 +1,20 @@
-import RootComponent from 'boot';
-import store from 'boot/configureStore';
+import {history, persistor, store} from 'boot/configureStore';
 import {ConnectedRouter} from 'connected-react-router';
+import LoaderPage from 'containers/components/loader';
 import ErrorProvider from 'containers/hooks/errorProvider';
 import {Suspense} from 'react';
 import {Provider} from 'react-redux';
-import {Switch} from 'react-router';
 import {PersistGate} from 'redux-persist/integration/react';
+import NavigationComponent from 'routers';
 
 const App = () => {
   return (
-    <Provider store={store.store}>
-      <PersistGate loading={null} persistor={store.persistor}>
-        <ConnectedRouter history={store.history}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ConnectedRouter history={history}>
           <ErrorProvider>
-            <Suspense fallback={<div>loading</div>}>
-              <Switch>
-                <RootComponent />
-              </Switch>
+            <Suspense fallback={<LoaderPage />}>
+              <NavigationComponent />
             </Suspense>
           </ErrorProvider>
         </ConnectedRouter>

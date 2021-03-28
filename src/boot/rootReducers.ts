@@ -1,10 +1,16 @@
-import {combineReducers} from '@reduxjs/toolkit';
+import {RouterState} from 'connected-react-router';
 import authState from 'routers/redux/slice';
 
-const rootReducers = combineReducers({
+const rootReducers = {
   authState,
-});
-
-export type RootState = ReturnType<typeof rootReducers>;
+};
 
 export default rootReducers;
+
+type GetReducerState<T> = {
+  [P in keyof T]: T[P] extends (...args: any[]) => infer Q ? Q : never;
+};
+
+export type RootState = GetReducerState<typeof rootReducers> & {
+  router: RouterState;
+};

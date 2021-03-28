@@ -5,6 +5,7 @@ import {TypedUseSelectorHook, useSelector} from 'react-redux';
 import {AnyAction} from 'redux';
 import {createLogger, LogEntryObject} from 'redux-logger';
 import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import allReducers, {RootState} from './rootReducers';
 
@@ -43,7 +44,7 @@ const rootReducer = (state: any, action: AnyAction) => {
 /** config redux-persist */
 const persistConfig = {
   key: 'root',
-  storage: localStorage,
+  storage,
   whitelist: ['authState'],
   blacklist: [''],
 };
@@ -63,6 +64,6 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-export default {store, persistor, history};
+export {store, persistor, history};
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
