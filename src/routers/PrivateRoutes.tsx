@@ -11,17 +11,17 @@ import { AccountInfor } from './redux/state';
 import { fetchUserInfor } from './services';
 
 const PrivateRoute = ({ comp: Component, ...rest }: any) => {
-  const [accepted, setAccepted] = useState(false);
+  const [accepted, setAccepted] = useState(true);
   const history = useHistory();
   const dispatch = useDispatch();
   const authState = useAppSelector((state) => state.authState);
 
   useEffect(() => {
-    if (authState.userToken) {
-      checkAuthenToken();
-    } else {
-      history.push(ROUTE_PATH.LOGIN);
-    }
+    // if (authState.userToken) {
+    //   checkAuthenToken();
+    // } else {
+    //   history.push(ROUTE_PATH.LOGIN);
+    // }
   }, []);
 
   const checkAuthenToken = async () => {

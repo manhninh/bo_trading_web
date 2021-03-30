@@ -8,7 +8,7 @@ const Register = lazy(() => import('screens/authen/register'));
 const Login = lazy(() => import('screens/authen/login'));
 const ForgotPassword = lazy(() => import('screens/authen/forgotPassword'));
 const VerifyEmail = lazy(() => import('screens/authen/verifyEmail'));
-const Trading = lazy(() => import('screens/trading'));
+const Trading = lazy(() => import('screens/trade'));
 const AffiliateLink = lazy(() => import('screens/affiliateLink'));
 const Commissions = lazy(() => import('screens/commissions'));
 const CopyTrade = lazy(() => import('screens/copyTrade'));
