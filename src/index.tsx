@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'styles/fonts';
 import App from './App';
 import './index.css';
 import './lang';

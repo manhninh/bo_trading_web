@@ -1,7 +1,7 @@
 import React from 'react';
 
-const SidebarComponent = () => {
+const SidebarLayout = () => {
   return <div>Sidebar</div>;
 };
 
-export default React.memo(SidebarComponent);
+export default React.memo(SidebarLayout);

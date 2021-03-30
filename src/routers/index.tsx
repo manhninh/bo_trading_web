@@ -1,6 +1,6 @@
-import React, { lazy } from 'react';
-import { Redirect, Route, Switch } from 'react-router';
-import { ROUTE_PATH } from './helpers';
+import React, {lazy} from 'react';
+import {Redirect, Route, Switch} from 'react-router';
+import {ROUTE_PATH} from './helpers';
 import PrivateRoute from './PrivateRoutes';
 import TranslationRoute from './TranslationRoute';
 

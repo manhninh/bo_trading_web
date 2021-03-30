@@ -1,9 +1,15 @@
 import React from 'react';
-import { ContainerStyled } from './styles';
+import Header from '../Header';
+import {Props} from './propState';
+import {ContainerStyled} from './styles';
 
-const ContainerComponent = () => {
-  return <ContainerStyled fluid>
-  </ContainerStyled>;
+const ContainerLayout = (props: Props) => {
+  return (
+    <ContainerStyled fluid>
+      <Header />
+      {props.children}
+    </ContainerStyled>
+  );
 };
 
-export default React.memo(ContainerComponent);
+export default React.memo(ContainerLayout);

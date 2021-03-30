@@ -6,6 +6,7 @@ import {Suspense} from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import NavigationComponent from 'routers';
+import './App.css';
 
 const App = () => {
   return (
