@@ -1,4 +1,4 @@
-import {AuthState} from './redux/state';
+import { AuthState } from './redux/state';
 
 export const stateConditionString = (state: AuthState) => {
   let navigateTo = '';
@@ -16,6 +16,7 @@ export enum ROUTE_PATH {
   LOGIN = '/login',
   REGISTER = '/register',
   FORGOT_PASSWORD = '/forgot-password',
+  VERIFY_EMAIL = '/verification/email/:uuid',
   TRADE = '/trade',
   AFFILIATE_LINK = '/affiliate-link',
   COMISSIONS = '/commissions',
