@@ -1,14 +1,24 @@
+import HeaderLayout from 'containers/components/layout/Header';
+import SidebarLayout from 'containers/components/layout/Sidebar';
 import React from 'react';
-import Header from '../Header';
 import {Props} from './propState';
-import {ContainerStyled} from './styles';
+import './styled.css';
 
 const ContainerLayout = (props: Props) => {
   return (
-    <ContainerStyled fluid>
-      <Header />
-      {props.children}
-    </ContainerStyled>
+    <>
+      <HeaderLayout />
+      <div className="d-flex align-items-stretch">
+        <SidebarLayout />
+        <div className="page-content active">
+          <section>
+            <div className="container-fluid">
+              <div className="row"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </>
   );
 };
 
