@@ -1,0 +1,38 @@
+nav.navbar {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.navbar-brand {
+  font-size: 2rem;
+}
+
+.logoIOGO {
+  color: #ffffff;
+}
+
+.logoETH {
+  color: #f04b4b;
+  margin-left: 10px;
+}
+
+nav.navbar a.nav-link {
+  text-align: center;
+  color: #ffffff;
+  padding: 0.5rem;
+}
+
+.d-sm-inline {
+  display: block !important;
+}
+
+nav.navbar a.nav-link .badge {
+  top: 8px;
+  right: 8px;
+}
+
+.dropdown-toggle::after {
+  vertical-align: top;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}

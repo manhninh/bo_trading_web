@@ -1,0 +1,22 @@
+nav#sidebar.shrinked {
+  width: 107px;
+}
+
+nav#sidebar.shrinked ul i {
+  font-size: 2rem;
+}
+
+nav#sidebar.shrinked ul a {
+  padding: 10px 5px;
+}
+
+nav#sidebar li.active::before {
+  background: #f04b4b;
+}
+
+nav#sidebar li.active > a,
+nav#sidebar li.active i,
+nav#sidebar li a:hover i,
+nav#sidebar li a:hover {
+  color: #f04b4b;
+}
