@@ -20,3 +20,7 @@ nav#sidebar li a:hover i,
 nav#sidebar li a:hover {
   color: #f04b4b;
 }
+
+nav#sidebar a {
+  color: #ffffff;
+}

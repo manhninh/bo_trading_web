@@ -19,7 +19,6 @@ nav.navbar {
 nav.navbar a.nav-link {
   text-align: center;
   color: #ffffff;
-  padding: 0.5rem;
 }
 
 .d-sm-inline {
@@ -35,4 +34,28 @@ nav.navbar a.nav-link .badge {
   vertical-align: top;
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.header-deposit {
+  position: relative;
+  bottom: 15px;
+  margin-right: 0.6rem;
+}
+
+nav.navbar .dropdown .dropdown-menu {
+  transform: translate(0px, 72px) !important;
+}
+
+nav.navbar .dropdown-menu {
+  min-width: 203.47px;
+}
+
+nav.navbar .dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+@media (max-width: 1199px) {
+  nav.navbar .visible {
+    display: none !important;
+  }
 }

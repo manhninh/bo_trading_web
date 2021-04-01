@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dropdown } from 'react-bootstrap';
 import './styled.css';
 
 const HeaderLayout = () => {
@@ -16,36 +17,33 @@ const HeaderLayout = () => {
           </div>
           <div className="right-menu list-inline no-margin-bottom">
             <div
-              className="list-inline-item dropdown"
-              style={{background: '#22252a', borderRadius: '0px 0px 10px 10px', marginRight: '2rem'}}>
-              <a
-                id="languages"
-                rel="nofollow"
-                data-target="#"
-                href="#"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                className="nav-link language dropdown-toggle">
-                <div style={{display: 'inline-block', marginLeft: '1rem'}}>
-                  <span style={{display: 'block', marginBottom: 5}}>Demo</span>
-                  <span style={{display: 'block'}}>$ 10.000.000</span>
-                </div>
-              </a>
-              <div aria-labelledby="languages" className="dropdown-menu">
-                <a rel="nofollow" href="#" className="dropdown-item">
-                  <span>Real</span>
-                  <span>$ 0</span>
-                </a>
-              </div>
+              className="list-inline-item dropdown visible">
+              <Dropdown>
+                <Dropdown.Toggle variant="danger" className="nav-link language dropdown-toggle"
+                  style={{ borderRadius: '0px 0px 10px 10px', marginRight: '2rem' }}>
+                  <div style={{ display: 'inline-block', marginLeft: '1rem', textAlign: "left" }}>
+                    <span style={{ display: 'block', marginBottom: 5, fontSize: 14 }}>Demo</span>
+                    <span style={{ display: 'block', fontSize: 18, fontWeight: "bold" }}>$ 10.000.000</span>
+                  </div>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu style={{ borderRadius: '0px 0px 10px 10px' }}>
+                  <Dropdown.Item href="#/action-1" className="dropdown-item" style={{ borderRadius: '0px 0px 10px 10px' }}>
+                    <div style={{ marginLeft: '1rem', textAlign: "left" }}>
+                      <span style={{ display: "block", marginBottom: 5, fontSize: 14 }} className="text-success">Real</span>
+                      <span style={{ display: "block", fontSize: 18, fontWeight: "bold" }} className="text-success">$ 0</span>
+                    </div>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
-            <div className="list-inline-item">
-              <input type="button" value="DEPOSIT" className="btn btn-primary" />
+            <div className="list-inline-item visible">
+              <input type="button" value="DEPOSIT" className="btn btn-primary header-deposit" />
             </div>
             <div className="list-inline-item">
               <a id="logout" href="login.html" className="nav-link">
                 <i className="icomoon-icon-user"></i>
-                <span className="d-none d-sm-inline">Mr.Dung</span>
+                <span className="d-none d-sm-inline">phammanhninh</span>
               </a>
             </div>
             <div className="list-inline-item">

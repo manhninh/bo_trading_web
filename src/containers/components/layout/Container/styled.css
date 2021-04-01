@@ -1,3 +1,4 @@
 .page-content {
-  min-height: calc(100vh - 71px);
+  min-height: calc(100vh - 72px);
+  padding-bottom: 0;
 }
