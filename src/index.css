@@ -155,3 +155,8 @@
   font-style: italic;
 }
 /* END Black Italic */
+
+@import-normalize;
+section {
+  padding: 0 1rem;
+}

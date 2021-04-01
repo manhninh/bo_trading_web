@@ -1,6 +1,6 @@
 import {history, persistor, store} from 'boot/configureStore';
 import {ConnectedRouter} from 'connected-react-router';
-import LoaderPage from 'containers/components/loader';
+import SpinnerLoader from 'containers/components/loader';
 import ErrorProvider from 'containers/hooks/errorProvider';
 import {Suspense} from 'react';
 import {Provider} from 'react-redux';
@@ -11,10 +11,10 @@ import './App.css';
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<SpinnerLoader />} persistor={persistor}>
         <ConnectedRouter history={history}>
           <ErrorProvider>
-            <Suspense fallback={<LoaderPage />}>
+            <Suspense fallback={<SpinnerLoader />}>
               <NavigationComponent />
             </Suspense>
           </ErrorProvider>
