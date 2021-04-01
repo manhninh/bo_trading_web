@@ -33,7 +33,7 @@ nav.navbar a.nav-link .badge {
 .dropdown-toggle::after {
   vertical-align: top;
   margin-left: 1rem;
-  margin-right: 1rem;
+  font-size: 30px;
 }
 
 .header-deposit {

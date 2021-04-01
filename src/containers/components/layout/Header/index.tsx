@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import {Dropdown} from 'react-bootstrap';
 import './styled.css';
 
 const HeaderLayout = () => {
@@ -16,22 +16,26 @@ const HeaderLayout = () => {
             </a>
           </div>
           <div className="right-menu list-inline no-margin-bottom">
-            <div
-              className="list-inline-item dropdown visible">
+            <div className="list-inline-item dropdown visible">
               <Dropdown>
-                <Dropdown.Toggle variant="danger" className="nav-link language dropdown-toggle"
-                  style={{ borderRadius: '0px 0px 10px 10px', marginRight: '2rem' }}>
-                  <div style={{ display: 'inline-block', marginLeft: '1rem', textAlign: "left" }}>
-                    <span style={{ display: 'block', marginBottom: 5, fontSize: 14 }}>Demo</span>
-                    <span style={{ display: 'block', fontSize: 18, fontWeight: "bold" }}>$ 10.000.000</span>
+                <Dropdown.Toggle
+                  variant="danger"
+                  className="nav-link language dropdown-toggle"
+                  style={{borderRadius: '0', marginRight: '2rem'}}>
+                  <div style={{display: 'inline-block', marginLeft: '1rem', textAlign: 'left'}}>
+                    <span style={{display: 'block', marginBottom: 5, fontSize: 14}}>Demo</span>
+                    <span style={{display: 'block', fontSize: 18, fontWeight: 'bold'}}>$ 10.000.000</span>
                   </div>
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu style={{ borderRadius: '0px 0px 10px 10px' }}>
-                  <Dropdown.Item href="#/action-1" className="dropdown-item" style={{ borderRadius: '0px 0px 10px 10px' }}>
-                    <div style={{ marginLeft: '1rem', textAlign: "left" }}>
-                      <span style={{ display: "block", marginBottom: 5, fontSize: 14 }} className="text-success">Real</span>
-                      <span style={{ display: "block", fontSize: 18, fontWeight: "bold" }} className="text-success">$ 0</span>
+                <Dropdown.Menu style={{borderRadius: '0px 0px 10px 10px'}}>
+                  <Dropdown.Item
+                    href="#/action-1"
+                    className="dropdown-item"
+                    style={{borderRadius: '0px 0px 10px 10px', background: '#28a745'}}>
+                    <div style={{marginLeft: '1rem', textAlign: 'left'}}>
+                      <span style={{display: 'block', marginBottom: 5, fontSize: 14, color: '#FFFFFF'}}>Real</span>
+                      <span style={{display: 'block', fontSize: 18, fontWeight: 'bold', color: '#FFFFFF'}}>$ 0</span>
                     </div>
                   </Dropdown.Item>
                 </Dropdown.Menu>
