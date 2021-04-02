@@ -1,5 +1,7 @@
 .block {
   margin-bottom: 10px;
+  background: #49505a;
+  border-radius: 10px;
 }
 
 .input-amount {
