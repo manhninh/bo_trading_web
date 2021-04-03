@@ -1,6 +1,7 @@
 nav.navbar {
   padding-top: 0;
   padding-bottom: 0;
+  min-height: 72px;
 }
 
 .navbar-brand {
@@ -33,7 +34,8 @@ nav.navbar a.nav-link .badge {
 .dropdown-toggle::after {
   vertical-align: top;
   margin-left: 1rem;
-  font-size: 30px;
+  font-size: 25px;
+  margin-top: 10px;
 }
 
 .header-deposit {
@@ -54,8 +56,20 @@ nav.navbar .dropdown-item {
   padding: 0.5rem 1rem;
 }
 
+nav.navbar .sidebar-toggle {
+  display: none;
+}
+
+.list-inline-item:not(:last-child) {
+  margin-right: 1rem;
+}
+
 @media (max-width: 1199px) {
   nav.navbar .visible {
     display: none !important;
+  }
+
+  nav.navbar .sidebar-toggle {
+    display: block !important;
   }
 }

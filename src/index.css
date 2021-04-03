@@ -160,3 +160,9 @@
 section {
   padding: 0 1rem;
 }
+
+.dropdown-toggle::after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: bold;
+  content: '\f103';
+}

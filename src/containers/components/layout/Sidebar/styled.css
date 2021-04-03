@@ -1,9 +1,14 @@
+nav#sidebar {
+  background: transparent;
+  border: 0;
+}
+
 nav#sidebar.shrinked {
-  width: 150px;
+  width: 100px;
 }
 
 nav#sidebar.shrinked ul i {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 nav#sidebar.shrinked ul a {
