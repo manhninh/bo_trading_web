@@ -13,7 +13,7 @@
       "*.js": "javascript"
     },
     "workbench.panel.defaultLocation": "bottom",
-    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "typescript.tsdk": "node_modules/typescript/lib",
     "typescript.format.semicolons": "insert"
   }
   

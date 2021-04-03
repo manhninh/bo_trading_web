@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dropdown} from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import './styled.css';
 
 const HeaderLayout = () => {
@@ -21,43 +21,46 @@ const HeaderLayout = () => {
                 <Dropdown.Toggle
                   variant="danger"
                   className="nav-link language dropdown-toggle"
-                  style={{borderRadius: '0', marginRight: '2rem'}}>
-                  <div style={{display: 'inline-block', marginLeft: '1rem', textAlign: 'left'}}>
-                    <span style={{display: 'block', marginBottom: 5, fontSize: 14}}>Demo</span>
-                    <span style={{display: 'block', fontSize: 18, fontWeight: 'bold'}}>$ 10.000.000</span>
+                  style={{ borderRadius: '0', marginRight: '2rem' }}>
+                  <div style={{ display: 'inline-block', marginLeft: '1rem', textAlign: 'left' }}>
+                    <span style={{ display: 'block', marginBottom: 5, fontSize: 14 }}>Demo</span>
+                    <span style={{ display: 'block', fontSize: 18, fontWeight: 'bold' }}>$ 10.000.000</span>
                   </div>
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu style={{borderRadius: '0px 0px 10px 10px'}}>
+                <Dropdown.Menu style={{ borderRadius: '0px 0px 10px 10px' }}>
                   <Dropdown.Item
                     href="#/action-1"
                     className="dropdown-item"
-                    style={{borderRadius: '0px 0px 10px 10px', background: '#28a745'}}>
-                    <div style={{marginLeft: '1rem', textAlign: 'left'}}>
-                      <span style={{display: 'block', marginBottom: 5, fontSize: 14, color: '#FFFFFF'}}>Real</span>
-                      <span style={{display: 'block', fontSize: 18, fontWeight: 'bold', color: '#FFFFFF'}}>$ 0</span>
+                    style={{ borderRadius: '0px 0px 10px 10px', background: '#28a745' }}>
+                    <div style={{ marginLeft: '1rem', textAlign: 'left' }}>
+                      <span style={{ display: 'block', marginBottom: 5, fontSize: 14, color: '#FFFFFF' }}>Real</span>
+                      <span style={{ display: 'block', fontSize: 18, fontWeight: 'bold', color: '#FFFFFF' }}>$ 0</span>
                     </div>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
+            <div className="list-inline-item">
+              <button className="sidebar-toggle"><i className="fas fa-align-justify"></i></button>
+            </div>
             <div className="list-inline-item visible">
               <input type="button" value="DEPOSIT" className="btn btn-primary header-deposit" />
             </div>
-            <div className="list-inline-item">
+            <div className="list-inline-item visible">
               <a id="logout" href="login.html" className="nav-link">
                 <i className="icomoon-icon-user"></i>
                 <span className="d-none d-sm-inline">phammanhninh</span>
               </a>
             </div>
-            <div className="list-inline-item">
+            <div className="list-inline-item visible">
               <a id="logout" href="login.html" className="nav-link">
                 <span className="badge dashbg-3">1</span>
                 <i className="icomoon-icon-notification"></i>
                 <span className="d-none d-sm-inline">Notification</span>
               </a>
             </div>
-            <div className="list-inline-item">
+            <div className="list-inline-item visible">
               <a id="logout" href="login.html" className="nav-link">
                 <i className="icomoon-icon-support"></i>
                 <span className="d-none d-sm-inline">Support</span>
