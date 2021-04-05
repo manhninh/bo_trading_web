@@ -1,14 +1,26 @@
 .page-header {
   margin-left: 100px;
   margin-bottom: 15px;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  top: 72px;
 }
 
 .page-content {
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 148px);
   padding-bottom: 0;
+  margin-top: 148px;
 }
 
 section {
   padding: 0;
   margin-left: 100px;
+}
+
+.backgroundSvg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
 }

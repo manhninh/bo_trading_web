@@ -1,5 +1,5 @@
 import React from 'react';
-import CountDownTimer from "./CountDown";
+import CountDownTimer from './CountDown';
 import './styled.css';
 
 const RightLayout = () => {
@@ -12,14 +12,14 @@ const RightLayout = () => {
         <div className="block-body">
           <div className="stats-2 d-flex">
             <div className="stats-2-content">
-              <strong className="d-block text-primary" style={{ fontSize: 22 }}>
+              <strong className="d-block text-primary" style={{fontSize: 22}}>
                 + 95000%
-                </strong>
+              </strong>
             </div>
             <div className="stats-2-content">
-              <strong className="d-block text-primary" style={{ fontSize: 16, marginLeft: '.5rem' }}>
+              <strong className="d-block text-primary" style={{fontSize: 16, marginLeft: '.5rem'}}>
                 + 95000%
-                </strong>
+              </strong>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@ const RightLayout = () => {
           <div className="form-group">
             <input type="email" placeholder="$ 0" className="form-control input-amount" />
           </div>
-          <div className="form-group" style={{ marginBottom: 0 }}>
+          <div className="form-group" style={{marginBottom: 0}}>
             <div className="input-group-append d-flex justify-content-between">
               <button type="button" className="btn btn-secondary btn-outline-secondary">
                 <i className="fas fa-plus" />
@@ -51,13 +51,15 @@ const RightLayout = () => {
         </div>
       </div>
       <CountDownTimer />
-      <div className="btn-group buy-sel-action justify-content-center">
-        <button className="btn btn-lg btn-info">
-          <i className="fas fa-chevron-circle-up" /> BUY
-          </button>
-        <button className="btn btn-lg btn-danger">
-          <i className="fas fa-chevron-circle-down" /> SELL
-          </button>
+      <div className="btn-group buy-sel-action">
+        <button className="btn btn-lg btn-info btn-buy-sel-action">
+          <i className="fas fa-chevron-circle-up btn-buy-sel-icon" />
+          BUY
+        </button>
+        <button className="btn btn-lg btn-danger btn-buy-sel-action">
+          <i className="fas fa-chevron-circle-down btn-buy-sel-icon" />
+          SELL
+        </button>
       </div>
     </>
   );
