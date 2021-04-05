@@ -1,0 +1,16 @@
+.action-img {
+  background-image: url('assets/images/wallet_card.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 500px;
+  height: 500px;
+  width: 500px;
+}
+
+.action-bottom {
+  position: absolute;
+  margin: 0 auto;
+  width: 100%;
+  bottom: 75px;
+  left: 0;
+}

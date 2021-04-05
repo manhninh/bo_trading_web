@@ -39,3 +39,7 @@ a:active {
 .w-120 {
   width: 120px;
 }
+
+.block {
+  margin-bottom: 15px;
+}

@@ -1,7 +1,8 @@
-import React, { lazy } from 'react';
-import { Redirect, Route, Switch } from 'react-router';
-import { ROUTE_PATH } from './helpers';
+import React, {lazy} from 'react';
+import {Redirect, Route, Switch} from 'react-router';
+import {ROUTE_PATH} from './helpers';
 import PrivateRoute from './PrivateRoutes';
+import './styled.css';
 import TranslationRoute from './TranslationRoute';
 
 const Register = lazy(() => import('screens/authen/register'));
