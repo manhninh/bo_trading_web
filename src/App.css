@@ -5,9 +5,37 @@ body {
   background: #22252c;
 }
 
+.background-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 a:hover,
 a:visited,
 a:link,
 a:active {
   text-decoration: none;
+}
+
+.p-40 {
+  padding: 40px;
+}
+
+.login-page .form-holder .form .form-group {
+  margin-bottom: 20px;
+}
+
+.sidebar-container {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  z-index: 2;
+  height: 100%;
+  background-color: #2d3035;
+  border-right: 1px solid #34373d;
+}
+
+.w-120 {
+  width: 120px;
 }

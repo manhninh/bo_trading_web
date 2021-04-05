@@ -51,7 +51,7 @@ const RightLayout = () => {
         </div>
       </div>
       <CountDownTimer />
-      <div className="btn-group buy-sel-action">
+      <div className="btn-group buy-sel-action justify-content-center">
         <button className="btn btn-lg btn-info">
           <i className="fas fa-chevron-circle-up" /> BUY
           </button>
