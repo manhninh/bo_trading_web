@@ -64,6 +64,11 @@ nav.navbar .sidebar-toggle {
   margin-right: 1rem;
 }
 
+.no-background {
+  background: transparent !important;
+  border: 0 !important;
+}
+
 @media (max-width: 1199px) {
   nav.navbar .visible {
     display: none !important;

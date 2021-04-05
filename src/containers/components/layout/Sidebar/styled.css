@@ -19,8 +19,8 @@ nav#sidebar li.active::before {
   background: #f04b4b;
 }
 
-nav#sidebar li.active > a,
-nav#sidebar li.active i,
+nav#sidebar li > a.active,
+nav#sidebar li i.active,
 nav#sidebar li a:hover i,
 nav#sidebar li a:hover {
   color: #f04b4b;

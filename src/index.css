@@ -166,3 +166,13 @@ section {
   font-weight: bold;
   content: '\f103';
 }
+
+.checkbox-template::after,
+.radio-template::after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: bold;
+}
+
+.page-content {
+  width: 100%;
+}

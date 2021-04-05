@@ -1,11 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ReactComponent as BackgroundSvg } from 'assets/images/back_login.svg';
+import BgLogin from "assets/images/bg_login.png";
 import { isLoading } from 'containers/redux/slice';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { ROUTE_PATH } from 'routers/helpers';
 import { fetchLogin } from 'routers/redux/thunks';
 import * as yup from 'yup';
+import "./styled.css";
 
 interface IFormInputs {
   username: string;
@@ -40,43 +42,53 @@ const LogInComponent = () => {
     }
   };
 
-  return (
-    <div className="container-fluid px-3">
-      <div className="row min-vh-100 bg-gray-dark">
-        <div className="col-md-5 col-lg-6 col-xl-4 px-lg-5 d-flex align-items-center">
-          <div className="w-100 py-5">
-            <div className="text-center">
-              <h1 className="display-4 text-gray-light mb-3">Sign in</h1>
-            </div>
-            <form className="form-validate">
-              <div className="form-group">
-                <label>Email Address</label>
-                <input name="loginUsername" type="email" placeholder="name@address.com" className="form-control" />
-              </div>
-              <div className="form-group mb-4">
-                <div className="row">
-                  <div className="col">
-                    <label>Password</label>
-                  </div>
-                  <div className="col-auto"><a href="#" className="form-text small text-muted">Forgot password?</a></div>
+  return <div className="login-page">
+    <div className="container d-flex align-items-center">
+      <div className="form-holder has-shadow">
+        <div className="row">
+          <div className="col-lg-6">
+            <div className="info d-flex align-items-center" style={{ backgroundImage: `url(${BgLogin})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "cover" }}>
+              <div className="content">
+                <div className="logo">
+                  <h1 className="d-inline-block">IOGO</h1> <h1 className="d-inline-block text-danger">ETH</h1>
                 </div>
-                <input name="loginPassword" placeholder="Password" type="password" className="form-control" />
+                <p>Nơi chấp cánh những giấc mơ biệt thự và siêu xe</p>
               </div>
-
-              <button className="btn btn-lg btn-block btn-primary mb-3">Sign in</button>
-
-              <p className="text-center"><small className="text-muted text-center">Don't have an account yet? <a href="register-2.html">Register</a>.</small></p>
-            </form>
-
+            </div>
           </div>
-        </div>
-        <div className="col-12 col-md-7 col-lg-6 col-xl-8 d-none d-lg-block">
-
-          <BackgroundSvg height="800" className="bg-cover h-100 mr-n3" />
+          <div className="col-lg-6">
+            <div className="form d-flex align-items-center">
+              <div className="content">
+                <a href={ROUTE_PATH.DASHBOARD} className="logo-link">
+                  <div className="text-uppercase">
+                    <strong className="logoIOGO">IOGO</strong>
+                    <strong className="logoETH">ETH</strong>
+                  </div>
+                </a>
+                <form className="form-validate">
+                  <div className="form-group">
+                    <label>Email or Username</label>
+                    <input id="login-username" type="text" name="loginUsername" className="form-control" />
+                  </div>
+                  <div className="form-group">
+                    <label>Password</label>
+                    <input id="login-password" type="password" name="loginPassword" className="form-control" />
+                  </div>
+                  <button type="submit" className="btn btn-primary">Login</button>
+                </form>
+                <br />
+                <a href="#" className="forgot-pass">Forgot Password?</a>
+                <br />
+                <br />
+                <small>Do not have an account? </small>
+                <a href={ROUTE_PATH.REGISTER} className="signup">Register</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  );
+  </div>;
 };
 
 export default React.memo(LogInComponent);

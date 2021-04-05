@@ -1,6 +1,6 @@
-import React, {lazy} from 'react';
-import {Redirect, Route, Switch} from 'react-router';
-import {ROUTE_PATH} from './helpers';
+import React, { lazy } from 'react';
+import { Redirect, Route, Switch } from 'react-router';
+import { ROUTE_PATH } from './helpers';
 import PrivateRoute from './PrivateRoutes';
 import TranslationRoute from './TranslationRoute';
 
@@ -9,6 +9,7 @@ const Login = lazy(() => import('screens/authen/login'));
 const ForgotPassword = lazy(() => import('screens/authen/forgotPassword'));
 const VerifyEmail = lazy(() => import('screens/authen/verifyEmail'));
 const Trading = lazy(() => import('screens/trade'));
+const TradeHistory = lazy(() => import('screens/tradeHistory'));
 const AffiliateLink = lazy(() => import('screens/affiliateLink'));
 const Commissions = lazy(() => import('screens/commissions'));
 const CopyTrade = lazy(() => import('screens/copyTrade'));
@@ -26,6 +27,7 @@ const NavigationComponent = () => {
       <TranslationRoute path={ROUTE_PATH.FORGOT_PASSWORD} comp={ForgotPassword} />
       <TranslationRoute path={ROUTE_PATH.VERIFY_EMAIL} comp={VerifyEmail} />
       <PrivateRoute path={ROUTE_PATH.TRADE} comp={Trading} />
+      <PrivateRoute path={ROUTE_PATH.TRADE_HISTORY} comp={TradeHistory} />
       <PrivateRoute path={ROUTE_PATH.AFFILIATE_LINK} comp={AffiliateLink} />
       <PrivateRoute path={ROUTE_PATH.COMISSIONS} comp={Commissions} />
       <PrivateRoute path={ROUTE_PATH.COPY_TRADE} comp={CopyTrade} />

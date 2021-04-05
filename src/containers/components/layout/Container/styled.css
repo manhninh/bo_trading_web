@@ -1,4 +1,14 @@
+.page-header {
+  margin-left: 100px;
+  margin-bottom: 15px;
+}
+
 .page-content {
   min-height: calc(100vh - 72px);
   padding-bottom: 0;
+}
+
+section {
+  padding: 0;
+  margin-left: 100px;
 }

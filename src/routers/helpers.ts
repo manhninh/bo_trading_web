@@ -14,10 +14,12 @@ export const stateConditionString = (state: AuthState) => {
 export enum ROUTE_PATH {
   DASHBOARD = '/dashboard',
   LOGIN = '/login',
-  REGISTER = '/register',
+  REGISTER = '/register/:referralUser?',
   FORGOT_PASSWORD = '/forgot-password',
   VERIFY_EMAIL = '/verification/email/:uuid',
   TRADE = '/trade',
+  TRADE_HISTORY = '/trade-hitory',
+  SETTINGS = '/settings',
   AFFILIATE_LINK = '/affiliate-link',
   COMISSIONS = '/commissions',
   COPY_TRADE = '/copy-trade',
