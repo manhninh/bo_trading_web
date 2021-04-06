@@ -1,15 +1,15 @@
-import {LOCAL_STORE, RESPONSE_STATUS} from 'constants/system';
-import React, {useCallback} from 'react';
-import {useTranslation} from 'react-i18next';
-import {useHistory} from 'react-router-dom';
+import { LOCAL_STORE, RESPONSE_STATUS } from 'constants/system';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 
 export const ErrorContext = React.createContext({
   addError: (err: Response, message: null) => ({}),
 });
 
-export default function ErrorProvider({children}: any) {
+export default function ErrorProvider({ children }: any) {
   const history = useHistory();
-  const {i18n} = useTranslation();
+  const { i18n } = useTranslation();
 
   const addError = async (err: Response, message: null) => {
     // if (err.status === RESPONSE_STATUS.NOT_FOUND)
