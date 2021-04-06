@@ -1,0 +1,9 @@
+.title-modal {
+  position: relative;
+  left: 1rem;
+  top: 0.3rem;
+}
+
+.modal-500w {
+  max-width: 600px;
+}

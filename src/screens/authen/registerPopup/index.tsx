@@ -39,7 +39,7 @@ const RegisterComponent = (props: Props) => {
     props.callbackToogle();
   };
 
-  const { control, handleSubmit, errors } = useForm<IFormInputs>({
+  const { control, handleSubmit } = useForm<IFormInputs>({
     defaultValues: {
       username: '',
       password: '',
