@@ -1,8 +1,11 @@
 import ContainerLayout from 'containers/components/layout/Container';
 import Pagination from 'containers/components/pagination';
 import React from 'react';
-import {Tab, Tabs} from 'react-bootstrap';
+import { Tab, Tabs } from 'react-bootstrap';
+import DepositComponent from "./deposit";
 import './styled.css';
+import TranferComponent from "./transfer";
+import WithdrawComponent from "./withdraw";
 
 const WalletComponent = () => {
   return (
@@ -11,15 +14,9 @@ const WalletComponent = () => {
         <div className="row">
           <div className="col-md-12 text-center action-img">
             <div className="action-bottom">
-              <button type="button" className="btn btn-primary">
-                DEPOSIT
-              </button>
-              <button type="button" className="btn btn-warning mx-3">
-                TRANSFER
-              </button>
-              <button type="button" className="btn btn-success">
-                WITHDRAW
-              </button>
+              <DepositComponent />
+              <TranferComponent />
+              <WithdrawComponent />
             </div>
           </div>
         </div>
@@ -106,7 +103,7 @@ const WalletComponent = () => {
                       </tbody>
                     </table>
                   </div>
-                  <Pagination page={1} perPage={20} count={3000} pageChange={(page: number) => {}} />
+                  <Pagination page={1} perPage={20} count={3000} pageChange={(page: number) => { }} />
                 </Tab>
                 <Tab eventKey="tranfer_history" title="Tranfer History">
                   <div>222333</div>

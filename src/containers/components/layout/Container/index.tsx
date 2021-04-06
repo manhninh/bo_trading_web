@@ -1,9 +1,11 @@
-import {ReactComponent as BackgroundSvg} from 'assets/images/back_map_world.svg';
+import { ReactComponent as BackgroundSvg } from 'assets/images/back_map_world.svg';
 import HeaderLayout from 'containers/components/layout/Header';
 import SidebarLayout from 'containers/components/layout/Sidebar';
 import React from 'react';
-import {Props} from './propState';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { Props } from './propState';
 import './styled.css';
+const height = window.innerHeight - 148;
 
 const ContainerLayout = (props: Props) => {
   return (
@@ -21,10 +23,12 @@ const ContainerLayout = (props: Props) => {
           </div>
         )}
         <section>
-          <div className="container-fluid">
-            <div className="backgroundSvg">{props.backgroundSvg || <BackgroundSvg />}</div>
-            {props.children}
-          </div>
+          <Scrollbars autoHide={true} style={{ height }}>
+            <div className="container-fluid">
+              <div className="backgroundSvg">{props.backgroundSvg || <BackgroundSvg />}</div>
+              {props.children}
+            </div>
+          </Scrollbars>
         </section>
       </div>
     </>

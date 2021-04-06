@@ -40,6 +40,10 @@ a:active {
   width: 120px;
 }
 
+.w-70 {
+  width: 70px;
+}
+
 .block {
   margin-bottom: 15px;
 }
