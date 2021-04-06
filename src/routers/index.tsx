@@ -1,6 +1,6 @@
-import React, {lazy} from 'react';
-import {Redirect, Route, Switch} from 'react-router';
-import {ROUTE_PATH} from './helpers';
+import React, { lazy } from 'react';
+import { Redirect, Route, Switch } from 'react-router';
+import { ROUTE_PATH } from './helpers';
 import PrivateRoute from './PrivateRoutes';
 import './styled.css';
 import TranslationRoute from './TranslationRoute';
@@ -17,6 +17,7 @@ const CopyTrade = lazy(() => import('screens/copyTrade'));
 const Wallet = lazy(() => import('screens/wallet'));
 const Dashboard = lazy(() => import('screens/dashboard'));
 const NotFound = lazy(() => import('containers/components/exceptions/404'));
+const Settings = lazy(() => import('screens/settings'));
 
 const NavigationComponent = () => {
   return (
@@ -33,6 +34,7 @@ const NavigationComponent = () => {
       <PrivateRoute path={ROUTE_PATH.COMISSIONS} comp={Commissions} />
       <PrivateRoute path={ROUTE_PATH.COPY_TRADE} comp={CopyTrade} />
       <PrivateRoute path={ROUTE_PATH.WALLET} comp={Wallet} />
+      <PrivateRoute path={ROUTE_PATH.SETTINGS} comp={Settings} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -41,7 +41,7 @@ const DepositComponent = () => {
               </div>
             </div>
           </form>
-          <div style={{ textAlign: "center" }}>
+          <div className="text-center">
             <QRCode value="http://facebook.github.io/react/" renderAs="svg" includeMargin={true} level="H" size={256} />
           </div>
         </Modal.Body>
