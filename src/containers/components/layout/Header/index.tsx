@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Dropdown} from 'react-bootstrap';
 import LogInPopupComponent from 'screens/authen/loginPopup';
-import RegisterPopupComponent from 'screens/authen/registerPopup';
+import RegisterPopupComponent from 'screens/authen/register/popup';
 import {Props, State} from './propState';
 import './styled.css';
 

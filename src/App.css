@@ -52,3 +52,8 @@ a:active {
 .block {
   margin-bottom: 15px;
 }
+
+.checkbox-template:checked::before,
+.radio-template:checked::before {
+  background: #bb414d;
+}
