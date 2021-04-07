@@ -1,3 +1,4 @@
+import BackImg from 'assets/images/back_img.jpg';
 import ActivateImg from 'assets/images/image_activate.png';
 import InviteFriendImg from 'assets/images/image_friend.png';
 import MemberF1Img from 'assets/images/image_member_f1.png';
@@ -7,7 +8,9 @@ import './styled.css';
 
 const AffiliateLinkComponent = () => {
   return (
-    <ContainerLayout headerTitle="Affiliate Link">
+    <ContainerLayout
+      headerTitle="Affiliate Link"
+      backgroundSvg={<img src={BackImg} style={{height: '100%', width: '100%'}} />}>
       <>
         <div className="row">
           <div className="col-lg-6">
