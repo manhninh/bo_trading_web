@@ -57,3 +57,11 @@ a:active {
 .radio-template:checked::before {
   background: #bb414d;
 }
+
+.Toastify__toast {
+  min-height: auto;
+}
+
+.Toastify__toast-body {
+  padding: 0 6px;
+}

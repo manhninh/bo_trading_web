@@ -5,4 +5,5 @@ export type Props = {
 export type State = {
   isOpenSignin: boolean;
   isOpenSignup: boolean;
+  isAuthen: boolean;
 };

@@ -1,7 +1,7 @@
 import BgLogin from 'assets/images/bg_login.png';
 import React from 'react';
-import {ROUTE_PATH} from 'routers/helpers';
-import RegisterComponent from './conponent';
+import { ROUTE_PATH } from 'routers/helpers';
+import RegisterComponent from '../conponent';
 import './styled.css';
 
 const RegisterForm = () => {

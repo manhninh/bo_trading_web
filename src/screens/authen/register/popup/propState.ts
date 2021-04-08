@@ -1,6 +1,4 @@
 export type State = {
-  username: string;
-  password: string;
   isOpen: boolean;
 };
 
