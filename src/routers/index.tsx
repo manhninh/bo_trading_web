@@ -5,9 +5,10 @@ import PrivateRoute from './PrivateRoutes';
 import './styled.css';
 import TranslationRoute from './TranslationRoute';
 
-const Register = lazy(() => import('screens/authen/register'));
-const Login = lazy(() => import('screens/authen/login'));
+const RegisterForm = lazy(() => import('screens/authen/register/form'));
+const LoginForm = lazy(() => import('screens/authen/login/form'));
 const ForgotPassword = lazy(() => import('screens/authen/forgotPassword'));
+const Wellcome = lazy(() => import('screens/authen/wellcome'));
 const VerifyEmail = lazy(() => import('screens/authen/verifyEmail'));
 const Trading = lazy(() => import('screens/trade'));
 const TradeHistory = lazy(() => import('screens/tradeHistory'));
@@ -24,9 +25,10 @@ const NavigationComponent = () => {
     <Switch>
       <Redirect from={ROUTE_PATH.DASHBOARD} to="/" />
       <TranslationRoute exact={true} path="/" component={Dashboard} />
-      <TranslationRoute path={ROUTE_PATH.LOGIN} comp={Login} />
-      <TranslationRoute path={ROUTE_PATH.REGISTER} comp={Register} />
+      <TranslationRoute path={ROUTE_PATH.LOGIN} comp={LoginForm} />
+      <TranslationRoute path={ROUTE_PATH.REGISTER} comp={RegisterForm} />
       <TranslationRoute path={ROUTE_PATH.FORGOT_PASSWORD} comp={ForgotPassword} />
+      <TranslationRoute path={ROUTE_PATH.WELLCOME} comp={Wellcome} />
       <TranslationRoute path={ROUTE_PATH.VERIFY_EMAIL} comp={VerifyEmail} />
       <PrivateRoute path={ROUTE_PATH.TRADE} comp={Trading} />
       <PrivateRoute path={ROUTE_PATH.TRADE_HISTORY} comp={TradeHistory} />

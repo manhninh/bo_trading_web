@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import BgLogin from "assets/images/bg_login.png";
-import { isLoading } from 'containers/redux/slice';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -19,7 +18,7 @@ const schema = yup.object().shape({
   password: yup.string().required('Mật khẩu không được để trống!'),
 });
 
-const LogInComponent = () => {
+const LogInFormComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => { }, []);
@@ -33,12 +32,10 @@ const LogInComponent = () => {
   });
 
   const onSubmit = async (data: IFormInputs) => {
-    dispatch(isLoading(true));
     try {
       await dispatch(fetchLogin({ username: data.username, password: data.password }));
     } catch (error) {
     } finally {
-      dispatch(isLoading(false));
     }
   };
 
@@ -91,4 +88,4 @@ const LogInComponent = () => {
   </div>;
 };
 
-export default React.memo(LogInComponent);
+export default React.memo(LogInFormComponent);
