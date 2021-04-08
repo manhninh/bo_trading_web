@@ -1,14 +1,14 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import useError from 'containers/hooks/errorProvider/useError';
-import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
-import { User } from 'models/users';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import {User} from 'models/users';
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
-import { toast } from 'react-toastify';
-import { ROUTE_PATH } from 'routers/helpers';
+import {useForm} from 'react-hook-form';
+import {useHistory} from 'react-router';
+import {toast} from 'react-toastify';
+import {ROUTE_PATH} from 'routers/helpers';
 import * as yup from 'yup';
-import { fetchCreateUserInfor } from './services';
+import {fetchRegister} from './services';
 
 interface IFormInputs {
   username: string;
@@ -18,13 +18,8 @@ interface IFormInputs {
 }
 
 const schema = yup.object().shape({
-  username: yup
-    .string()
-    .required('Username cannot be empty!'),
-  email: yup
-    .string()
-    .email('Email is not in the correct format!')
-    .required('Email cannot be empty!'),
+  username: yup.string().required('Username cannot be empty!'),
+  email: yup.string().email('Email is not in the correct format!').required('Email cannot be empty!'),
   password: yup
     .string()
     .min(6, 'Password must be at least 6 characters!')
@@ -38,10 +33,14 @@ const schema = yup.object().shape({
 
 const RegisterComponent = () => {
   const history = useHistory();
-  const { showLoading, hideLoading } = useLoading();
-  const { addError } = useError();
+  const {showLoading, hideLoading} = useLoading();
+  const {addError} = useError();
 
-  const { register, handleSubmit, formState: { errors }, } = useForm<IFormInputs>({
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<IFormInputs>({
     defaultValues: {
       username: '',
       email: '',
@@ -59,13 +58,11 @@ const RegisterComponent = () => {
         username: data.username,
         password: data.password,
       };
-      const res = await fetchCreateUserInfor(user);
-      if (res.data)
-        history.push(ROUTE_PATH.WELLCOME);
-      else
-        toast.error("Account registration failed! Please check your information.");
+      const res = await fetchRegister(user);
+      if (res.data) history.push(ROUTE_PATH.WELLCOME);
+      else toast.error('Register account failed! Please check your information.');
     } catch (error) {
-      addError(error, "Account registration failed! Please check your information.");
+      addError(error, 'Register account failed! Please check your information.');
     } finally {
       hideLoading();
     }
@@ -133,7 +130,7 @@ const RegisterComponent = () => {
         </div>
         <button className="btn btn-lg btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
           Create Account
-      </button>
+        </button>
       </form>
     </>
   );

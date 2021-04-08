@@ -1,9 +1,12 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { ROUTE_PATH } from 'routers/helpers';
-import { fetchLogin } from 'routers/redux/thunks';
+import {yupResolver} from '@hookform/resolvers/yup';
+import useError from 'containers/hooks/errorProvider/useError';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import React from 'react';
+import {useForm} from 'react-hook-form';
+import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router';
+import {ROUTE_PATH} from 'routers/helpers';
+import {fetchLogin} from 'routers/redux/thunks';
 import * as yup from 'yup';
 
 interface IFormInputs {
@@ -12,16 +15,21 @@ interface IFormInputs {
 }
 
 const schema = yup.object().shape({
-  username: yup.string().required('Tài khoản không được để trống!'),
-  password: yup.string().required('Mật khẩu không được để trống!'),
+  username: yup.string().required('Username or Email cannot be empty!'),
+  password: yup.string().required('Password cannot be empty!'),
 });
 
 const LogInComponent = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const {showLoading, hideLoading} = useLoading();
+  const {addError} = useError();
 
-  useEffect(() => { }, []);
-
-  const { control, handleSubmit } = useForm<IFormInputs>({
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<IFormInputs>({
     defaultValues: {
       username: '',
       password: '',
@@ -30,32 +38,49 @@ const LogInComponent = () => {
   });
 
   const onSubmit = async (data: IFormInputs) => {
+    showLoading();
     try {
-      await dispatch(fetchLogin({ username: data.username, password: data.password }));
+      await dispatch(fetchLogin({username: data.username, password: data.password}));
     } catch (error) {
+      addError(error, 'Account registration failed! Please check your information.');
     } finally {
+      hideLoading();
     }
   };
 
-  return <>
+  return (
     <form className="form-validate">
       <div className="form-group">
-        <label>Email or Username</label>
-        <input id="login-username" type="text" name="loginUsername" className="form-control" />
+        <label>Username or Email</label>
+        <input
+          type="text"
+          className={errors.username?.message ? 'form-control is-invalid' : 'form-control'}
+          {...register('username')}
+        />
+        <div className="is-invalid invalid-feedback">{errors.username?.message}</div>
       </div>
-      <div className="form-group">
+      <div className="form-group mb-4">
         <label>Password</label>
-        <input id="login-password" type="password" name="loginPassword" className="form-control" />
+        <input
+          type="password"
+          className={errors.password?.message ? 'form-control is-invalid' : 'form-control'}
+          {...register('password')}
+        />
+        <div className="is-invalid invalid-feedback">{errors.password?.message}</div>
       </div>
-      <button type="submit" className="btn btn-primary">Login</button>
+      <a href={ROUTE_PATH.FORGOT_PASSWORD} className="form-text small text-danger mb-4">
+        Forgot password?
+      </a>
+      <button className="btn btn-lg btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
+        Login
+      </button>
+      <p className="text-center">
+        <small className="text-muted text-center">
+          Don't have an account yet? <a href={ROUTE_PATH.REGISTER}>Register</a>.
+        </small>
+      </p>
     </form>
-    <br />
-    <a href="#" className="forgot-pass">Forgot Password?</a>
-    <br />
-    <br />
-    <small>Do not have an account? </small>
-    <a href={ROUTE_PATH.REGISTER} className="signup">Register</a>
-  </>;
+  );
 };
 
 export default React.memo(LogInComponent);

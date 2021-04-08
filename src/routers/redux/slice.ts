@@ -22,15 +22,6 @@ const authSlice = createSlice({
       userToken: null,
       accountInfor: {
         username: '',
-        ma_cty: '',
-        ma_nvgh: '',
-        ten_nvgh: '',
-        gioi_tinh: '',
-        so_cmnd: '',
-        dien_thoai: '',
-        dia_chi_thuong_tru: '',
-        dia_chi_cho_o: '',
-        is_kythuat: false,
       },
     }),
     signIn: (state: AuthState, action: PayloadAction<string>) => ({
@@ -59,7 +50,7 @@ const authSlice = createSlice({
           state.accountInfor = {
             username: action.payload.username,
           };
-        } else throw Error('Tài khoản hoặc mật khẩu không đúng!');
+        } else throw Error('Login fail!');
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         throw action.payload;
