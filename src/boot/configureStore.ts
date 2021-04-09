@@ -1,10 +1,11 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory, History } from 'history';
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { AnyAction } from 'redux';
-import { createLogger, LogEntryObject } from 'redux-logger';
-import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {connectRouter, routerMiddleware} from 'connected-react-router';
+import {LOCAL_STORE} from 'constants/system';
+import {createBrowserHistory, History} from 'history';
+import {TypedUseSelectorHook, useSelector} from 'react-redux';
+import {AnyAction} from 'redux';
+import {createLogger, LogEntryObject} from 'redux-logger';
+import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import allReducers from './rootReducers';
@@ -36,6 +37,8 @@ const allCombineReducers = combineReducers({
 
 const rootReducer = (state: any, action: AnyAction) => {
   if (action.type === 'auth/signOut') {
+    console.log('signout');
+    localStorage.removeItem(LOCAL_STORE.TOKEN);
     state = {};
   }
   return allCombineReducers(state, action);
@@ -46,7 +49,6 @@ const persistConfig = {
   key: 'root',
   storage,
   whitelist: ['authState'],
-  blacklist: [''],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -64,7 +66,7 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-export { store, persistor, history };
+export {store, persistor, history};
 
 export type RootState = ReturnType<typeof store.getState>;
 

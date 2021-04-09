@@ -1,4 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import config from 'constants/config';
 import configServices from 'utils/configServices';
 
 type Auth = {
@@ -8,11 +9,14 @@ type Auth = {
 
 export const fetchLogin = createAsyncThunk('auth/login', async (auth: Auth, thunkAPI) => {
   try {
-    const result = await configServices.getService(
-      'sys/login',
-      {username: auth.username, password: auth.password},
-      false,
-    );
+    const result = await configServices.postService('oauth/token', {
+      username: auth.username,
+      password: auth.password,
+      grant_type: config.GRANT_TYPE,
+      client_id: config.CLIENT_ID,
+      client_secret: config.CLIENT_SECRET,
+      scope: config.SCOPE,
+    });
     return {result, username: auth.username};
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
