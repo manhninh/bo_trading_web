@@ -1,14 +1,22 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RESPONSE_STATUS} from 'constants/system';
-import {AccountInfor, AuthState} from './state';
-import {fetchLogin} from './thunks';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LOCAL_STORE } from 'constants/system';
+import { AccountInfor, AuthState } from './state';
+import { fetchLogin } from './thunks';
 
 export const initialAuthState: AuthState = {
   isSignedOut: false,
   isSignedIn: false,
   userToken: null,
   accountInfor: {
-    username: '',
+    username: null,
+    refresh_token: null,
+    expires_in: 0,
+    email: null,
+    ref_code: null,
+    amount_trade: 0,
+    amount_demo: 0,
+    amount_expert: 0,
+    amount_copytrade: 0
   },
 };
 
@@ -21,7 +29,15 @@ const authSlice = createSlice({
       isSignedIn: false,
       userToken: null,
       accountInfor: {
-        username: '',
+        username: null,
+        refresh_token: null,
+        expires_in: 0,
+        email: null,
+        ref_code: null,
+        amount_trade: 0,
+        amount_demo: 0,
+        amount_expert: 0,
+        amount_copytrade: 0
       },
     }),
     signIn: (state: AuthState, action: PayloadAction<string>) => ({
@@ -34,21 +50,34 @@ const authSlice = createSlice({
       ...state,
       isSignedOut: true,
     }),
-    restoreToken: (state: AuthState, action: PayloadAction<AccountInfor>) => ({
-      ...state,
-      accountInfor: action.payload,
-    }),
+    restoreToken: (state: AuthState, action: PayloadAction<AccountInfor>) => {
+      const newAccountInfor = { ...state.accountInfor, ...action.payload };
+      console.log(newAccountInfor, "newAccountInfor");
+      return {
+        ...state,
+        accountInfor: newAccountInfor,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchLogin.fulfilled, (state, action) => {
         const payload = action.payload;
-        if (payload.result.status.code === RESPONSE_STATUS.SUCESS && payload.result.data.token) {
+        if (payload.result) {
           state.isSignedOut = false;
           state.isSignedIn = true;
-          state.userToken = action.payload.result.data?.token;
+          state.userToken = `${action.payload.result.token_type} ${action.payload.result.access_token}`;
+          localStorage.setItem(LOCAL_STORE.TOKEN, `${action.payload.result.token_type} ${action.payload.result.access_token}`);
           state.accountInfor = {
             username: action.payload.username,
+            refresh_token: action.payload.result.refresh_token,
+            expires_in: action.payload.result.expires_in,
+            email: null,
+            ref_code: null,
+            amount_trade: 0,
+            amount_demo: 0,
+            amount_expert: 0,
+            amount_copytrade: 0
           };
         } else throw Error('Login fail!');
       })
@@ -58,6 +87,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {toSignInPage, restoreToken, signIn, signOut} = authSlice.actions;
+export const { toSignInPage, restoreToken, signIn, signOut } = authSlice.actions;
 
 export default authSlice.reducer;

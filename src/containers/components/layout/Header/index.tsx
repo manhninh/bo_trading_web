@@ -1,12 +1,11 @@
 import { useAppSelector } from 'boot/configureStore';
-import { RESPONSE_STATUS } from 'constants/system';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { ROUTE_PATH } from 'routers/helpers';
 import { restoreToken, signOut } from 'routers/redux/slice';
-import { AccountInfor } from 'routers/redux/state';
 import LogInPopupComponent from 'screens/authen/login/popup';
 import RegisterPopupComponent from 'screens/authen/register/popup';
 import { Props, State } from './propState';
@@ -19,22 +18,23 @@ const HeaderLayout = (props: Props) => {
     isOpenSignup: false,
     isAuthen: false
   });
-
   const history = useHistory();
   const dispatch = useDispatch();
   const authState = useAppSelector((state) => state.authState);
+  const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
     if (authState.userToken) checkAuthenToken();
-  }, [authState]);
+  }, [authState.userToken]);
 
   const checkAuthenToken = async () => {
+    showLoading();
     try {
-      const res = await fetchUserInfor(authState.accountInfor.username);
-      if (res.status.code === RESPONSE_STATUS.SUCESS && res.data && res.data.length > 0) {
-        const accountInfor: AccountInfor = { ...res.data[0], username: authState.accountInfor.username };
-        await dispatch(restoreToken(accountInfor));
+      const res = await fetchUserInfor();
+      if (res.data && res.data.length > 0) {
+        await dispatch(restoreToken(res.data[0]));
         setState(state => ({ ...state, isAuthen: true }));
+        toggleSignIn();
       } else {
         dispatch(signOut());
         history.push(ROUTE_PATH.LOGIN);
@@ -42,13 +42,15 @@ const HeaderLayout = (props: Props) => {
     } catch (error) {
       dispatch(signOut());
       history.push(ROUTE_PATH.LOGIN);
+    } finally {
+      hideLoading();
     }
   };
 
   const toggleSignUp = () => setState((prevState) => ({ ...prevState, isOpenSignup: !prevState.isOpenSignup }));
 
   const toggleSignIn = () => setState((prevState) => ({ ...prevState, isOpenSignin: !prevState.isOpenSignin }));
-
+  console.log("sss");
   return (
     <>
       <header className="header">
@@ -109,6 +111,12 @@ const HeaderLayout = (props: Props) => {
                       <span className="badge dashbg-3">1</span>
                       <i className="icomoon-icon-notification"></i>
                       <span className="d-none d-sm-inline">Notification</span>
+                    </a>
+                  </div>
+                  <div className="list-inline-item visible">
+                    <a id="logout" href="login.html" className="nav-link">
+                      <i className="fas fa-sign-out-alt"></i>
+                      <span className="d-none d-sm-inline">Log out</span>
                     </a>
                   </div>
                 </>

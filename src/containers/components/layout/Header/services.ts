@@ -1,8 +1,8 @@
 import configServices from "utils/configServices";
 
-export const fetchUserInfor = async (username: string) => {
+export const fetchUserInfor = async () => {
   try {
-    const result = await configServices.getService('mobile/nhanvien', { username });
+    const result = await configServices.getService('users');
     return result;
   } catch (error) {
     throw error;
