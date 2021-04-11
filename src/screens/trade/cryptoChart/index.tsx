@@ -1,19 +1,16 @@
+import ETHUSDT from 'assets/images/eth.png';
 import config from 'constants/config';
 import {EVENTS} from 'constants/socketEvent';
+import SpinnerLoader from 'containers/components/loader';
 import React, {useEffect, useRef, useState} from 'react';
-import {Nav, Tab} from 'react-bootstrap';
 import {useDispatch} from 'react-redux';
 import socketIOClient, {Socket} from 'socket.io-client';
-import ContainerLayout from './containerLayout';
-import CryptoChart from './cryptoChart';
-import Indicator from './indicator';
-import LastResult from './lastResult';
-import {setTimeTick} from './redux/slice';
+import {setTimeTick} from '../redux/slice';
+import {IProps} from './propsState';
+import StockChart from './StockChart';
 import './styled.css';
 
-const height = window.innerHeight - 322;
-
-const TradingComponent = () => {
+const CryptoChartComponent = (props: IProps) => {
   const dispatch = useDispatch();
   const [dataChart, setDataChart] = useState([]);
   const [candlestick, setCandlestick] = useState({
@@ -46,7 +43,7 @@ const TradingComponent = () => {
       candlestick.data.is_open = !candlestick.data.is_open;
       initialData[initialData.length - 1] = candlestick.data;
 
-      if (candlestick.timeTick === 0 || candlestick.timeTick === 30) {
+      if (candlestick.timeTick === 0) {
         const newBlock = Object.assign({}, candlestick.data);
         newBlock.open = initialData[initialData.length - 1].close;
         newBlock.close = initialData[initialData.length - 1].close;
@@ -66,60 +63,34 @@ const TradingComponent = () => {
     socketRef.current = socketIOClient(config.WS_CANDLESTICK?.toString() || '');
 
     socketRef.current?.on('connect', () => {
-      console.log(socketRef.current?.id);
       socketRef.current?.emit('ethusdt');
     });
 
-    socketRef.current?.on(EVENTS.BLOCKS_ETHUSDT, function (data) {
-      console.log('load block');
-      setDataChart(data);
+    socketRef.current?.on(EVENTS.BLOCKS_ETHUSDT, function (result) {
+      // thêm object vào mảng block cuối cùng để front-end runtime data
+      let cryptoBlocks: any = [...result];
+      cryptoBlocks.push(cryptoBlocks[cryptoBlocks.length - 1]);
+      console.log(cryptoBlocks, 'cryptoBlocks');
+      setDataChart(cryptoBlocks);
     });
 
     socketRef.current?.on(EVENTS.ETHUSDT_REALTIME, function (data) {
-      console.log(data, 'data');
       dispatch(setTimeTick(data.timeTick % 30));
       setCandlestick({
         data: data.candlestick,
-        timeTick: data.timeTick,
+        timeTick: data.timeTick % 30,
       });
     });
   };
 
-  return (
-    <ContainerLayout>
-      <div className="row">
-        <div className="col-lg-12" style={{height}}>
-          <CryptoChart height={height} />
-        </div>
-        <div className="col-lg-12">
-          <div className="card text-center" style={{height: '250px', marginBottom: 0, width: '100%'}}>
-            <Tab.Container defaultActiveKey="indicator">
-              <div className="card-header">
-                <Nav className="nav-tabs card-header-tabs">
-                  <Nav.Item>
-                    <Nav.Link eventKey="indicator">Indicator</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="last_result">Last Result</Nav.Link>
-                  </Nav.Item>
-                </Nav>
-              </div>
-              <div className="card-body py-0">
-                <Tab.Content>
-                  <Tab.Pane eventKey="indicator">
-                    <Indicator />
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="last_result">
-                    <LastResult />
-                  </Tab.Pane>
-                </Tab.Content>
-              </div>
-            </Tab.Container>
-          </div>
-        </div>
-      </div>
-    </ContainerLayout>
+  return dataChart.length >= 77 && candlestick.data ? (
+    <>
+      <img src={ETHUSDT} className="icon-eth" />
+      <StockChart data={dataChart} height={props.height} />
+    </>
+  ) : (
+    <SpinnerLoader />
   );
 };
 
-export default React.memo(TradingComponent);
+export default React.memo(CryptoChartComponent);

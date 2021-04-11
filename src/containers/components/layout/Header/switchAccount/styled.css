@@ -1,0 +1,39 @@
+.div-group {
+  display: inline-block;
+  text-align: left;
+}
+
+.type-account {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #28a745;
+}
+
+.amount-account {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.div-main::after {
+  color: #28a745;
+}
+
+.div-main,
+.div-main:hover,
+.div-main:focus {
+  background-color: #2d3035 !important;
+  border-color: #28a745 !important;
+  border-top: 0;
+}
+
+.border-new {
+  border-radius: 0px 0px 10px 10px;
+  min-width: 200px;
+}
+
+.m-1-3rem {
+  margin-left: 1.3rem;
+}

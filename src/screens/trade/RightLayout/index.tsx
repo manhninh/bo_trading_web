@@ -1,4 +1,5 @@
 import React from 'react';
+import BuySellAction from './BuySellAction';
 import CountDownTimer from './CountDown';
 import './styled.css';
 
@@ -7,7 +8,7 @@ const RightLayout = () => {
     <>
       <div className="block block-container">
         <div className="title">
-          <strong className="d-block">Income</strong>
+          <strong className="d-block">Profit</strong>
         </div>
         <div className="block-body">
           <div className="stats-2 d-flex">
@@ -26,7 +27,7 @@ const RightLayout = () => {
       </div>
       <div className="block block-container">
         <div className="title">
-          <strong className="d-block">Amount</strong>
+          <strong className="d-block">Invesment</strong>
         </div>
         <div className="block-body">
           <div className="form-group">
@@ -51,16 +52,7 @@ const RightLayout = () => {
         </div>
       </div>
       <CountDownTimer />
-      <div className="btn-group buy-sel-action">
-        <button className="btn btn-lg btn-info btn-buy-sel-action">
-          <i className="fas fa-chevron-circle-up btn-buy-sel-icon" />
-          BUY
-        </button>
-        <button className="btn btn-lg btn-danger btn-buy-sel-action">
-          <i className="fas fa-chevron-circle-down btn-buy-sel-icon" />
-          SELL
-        </button>
-      </div>
+      <BuySellAction />
     </>
   );
 };

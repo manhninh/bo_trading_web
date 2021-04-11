@@ -1,28 +1,37 @@
-import React from "react";
-import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import {useAppSelector} from 'boot/configureStore';
+import React from 'react';
+import {buildStyles, CircularProgressbarWithChildren} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import "./styled.css";
+import './styled.css';
 
 const CountDownTimer = () => {
-  const percentage = 20;
+  const timeTick = useAppSelector((state) => state.tradeState.timeTick);
+  console.log(timeTick, 'timeTick');
+
   return (
     <div className="timer-wrapper">
       <div className="timer-container">
         <CircularProgressbarWithChildren
-          value={percentage}
+          value={timeTick}
           minValue={0}
-          maxValue={30}
+          maxValue={29}
           background={true}
           backgroundPadding={5}
-          styles={buildStyles({ pathColor: `#16ceb9`, trailColor: '#FFFFFF', backgroundColor: 'rgb(73, 80, 90)', })}
-        >
+          strokeWidth={8}
+          styles={buildStyles({
+            pathColor: 30 - timeTick > 10 ? '#16ceb9' : '#F04B4B',
+            trailColor: '#FFFFFF',
+            backgroundColor: 'rgb(73, 80, 90)',
+            pathTransition: timeTick === 0 ? 'none' : 'stroke-dashoffset 0.5s ease 0s',
+          })}>
           <div className="timer">
-            <div className="value">30</div>
-            <div className="text">seconds</div>
+            <div className="value" style={{color: 30 - timeTick > 10 ? '#16ceb9' : '#F04B4B'}}>
+              {30 - timeTick}
+            </div>
           </div>
         </CircularProgressbarWithChildren>
       </div>
-    </div >
+    </div>
   );
 };
 

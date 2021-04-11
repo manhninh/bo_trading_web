@@ -4,10 +4,10 @@ import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
-import {useHistory} from 'react-router';
 import {ROUTE_PATH} from 'routers/helpers';
 import {fetchLogin} from 'routers/redux/thunks';
 import * as yup from 'yup';
+import {Props} from './propState';
 
 interface IFormInputs {
   username: string;
@@ -19,9 +19,8 @@ const schema = yup.object().shape({
   password: yup.string().required('Password cannot be empty!'),
 });
 
-const LogInComponent = () => {
+const LogInComponent = (props: Props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
 
@@ -41,6 +40,7 @@ const LogInComponent = () => {
     showLoading();
     try {
       await dispatch(fetchLogin({username: data.username, password: data.password}));
+      if (props.fnAfterLogin) props.fnAfterLogin();
     } catch (error) {
       addError(error, 'Account registration failed! Please check your information.');
     } finally {

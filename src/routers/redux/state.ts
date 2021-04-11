@@ -8,6 +8,7 @@ export type AccountInfor = {
   amount_demo: number;
   amount_expert: number;
   amount_copytrade: number;
+  type_user: number;
 };
 
 export type AuthState = {
