@@ -1,6 +1,6 @@
 import React from 'react';
-import BuySellAction from './BuySellAction';
-import CountDownTimer from './CountDown';
+import BuySellAction from './buySellAction';
+import CountDownTimer from './countDown';
 import './styled.css';
 
 const RightLayout = () => {
@@ -13,12 +13,12 @@ const RightLayout = () => {
         <div className="block-body">
           <div className="stats-2 d-flex">
             <div className="stats-2-content">
-              <strong className="d-block text-primary" style={{fontSize: 22}}>
+              <strong className="d-block text-primary" style={{ fontSize: 22 }}>
                 + 95000%
               </strong>
             </div>
             <div className="stats-2-content">
-              <strong className="d-block text-primary" style={{fontSize: 16, marginLeft: '.5rem'}}>
+              <strong className="d-block text-primary" style={{ fontSize: 16, marginLeft: '.5rem' }}>
                 + 95000%
               </strong>
             </div>
@@ -33,7 +33,7 @@ const RightLayout = () => {
           <div className="form-group">
             <input type="email" placeholder="$ 0" className="form-control input-amount" />
           </div>
-          <div className="form-group" style={{marginBottom: 0}}>
+          <div className="form-group" style={{ marginBottom: 0 }}>
             <div className="input-group-append d-flex justify-content-between">
               <button type="button" className="btn btn-secondary btn-outline-secondary">
                 <i className="fas fa-plus" />
