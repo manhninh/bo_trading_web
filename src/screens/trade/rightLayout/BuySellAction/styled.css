@@ -1,0 +1,22 @@
+.buy-sel-action {
+  padding: 0px 15px;
+  width: 100%;
+}
+
+.btn-buy-sel-action {
+  border-radius: 10px;
+  height: 55px;
+}
+
+.btn-buy-sel-icon {
+  height: 26px;
+  margin-right: 10px;
+}
+
+.btn-buy-sel-text {
+  font-size: 20px;
+  line-height: 26px;
+  vertical-align: middle;
+  margin-left: 10px;
+  font-weight: bold;
+}

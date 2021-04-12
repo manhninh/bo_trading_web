@@ -5,8 +5,8 @@
 }
 
 .timer-container {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
 }
 
 .timer {
@@ -17,6 +17,6 @@
 }
 
 .value {
-  font-size: 40px;
+  font-size: 50px;
   font-weight: bold;
 }

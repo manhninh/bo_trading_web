@@ -1,7 +1,6 @@
 import {useAppSelector} from 'boot/configureStore';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useEffect, useState} from 'react';
-import {Dropdown} from 'react-bootstrap';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
 import {ROUTE_PATH} from 'routers/helpers';
@@ -11,6 +10,7 @@ import RegisterPopupComponent from 'screens/authen/register/popup';
 import {Props, State} from './propState';
 import {fetchUserInfor} from './services';
 import './styled.css';
+import SwitchAccountComponent from './switchAccount';
 
 const HeaderLayout = (props: Props) => {
   const [state, setState] = useState<State>({
@@ -63,8 +63,7 @@ const HeaderLayout = (props: Props) => {
             <div className="navbar-header">
               <a href={ROUTE_PATH.DASHBOARD} className="navbar-brand">
                 <div className="brand-big text-uppercase">
-                  <strong className="logoIOGO">IOGO</strong>
-                  <strong className="logoETH">ETH</strong>
+                  <img src={process.env.PUBLIC_URL + '/logo512.png'} style={{height: '40px', marginBottom: '10px'}} />
                 </div>
               </a>
             </div>
@@ -72,33 +71,7 @@ const HeaderLayout = (props: Props) => {
               {state.isAuthen ? (
                 <>
                   <div className="list-inline-item dropdown visible">
-                    <Dropdown>
-                      <Dropdown.Toggle
-                        variant="danger"
-                        className="nav-link language dropdown-toggle"
-                        style={{borderRadius: '0', marginRight: '2rem'}}>
-                        <div style={{display: 'inline-block', marginLeft: '1rem', textAlign: 'left'}}>
-                          <span style={{display: 'block', marginBottom: 5, fontSize: 14}}>Demo</span>
-                          <span style={{display: 'block', fontSize: 18, fontWeight: 'bold'}}>$ 10.000.000</span>
-                        </div>
-                      </Dropdown.Toggle>
-
-                      <Dropdown.Menu style={{borderRadius: '0px 0px 10px 10px'}}>
-                        <Dropdown.Item
-                          href="#/action-1"
-                          className="dropdown-item"
-                          style={{borderRadius: '0px 0px 10px 10px', background: '#28a745'}}>
-                          <div style={{marginLeft: '1rem', textAlign: 'left'}}>
-                            <span style={{display: 'block', marginBottom: 5, fontSize: 14, color: '#FFFFFF'}}>
-                              Real
-                            </span>
-                            <span style={{display: 'block', fontSize: 18, fontWeight: 'bold', color: '#FFFFFF'}}>
-                              $ 0
-                            </span>
-                          </div>
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
+                    <SwitchAccountComponent />
                   </div>
                   <div className="list-inline-item">
                     <button className="sidebar-toggle">
@@ -106,7 +79,7 @@ const HeaderLayout = (props: Props) => {
                     </button>
                   </div>
                   <div className="list-inline-item visible">
-                    <input type="button" value="DEPOSIT" className="btn btn-primary header-deposit" />
+                    <input type="button" value="DEPOSIT" className="btn btn-info header-deposit" />
                   </div>
                   <div className="list-inline-item visible">
                     <a className="nav-link">
@@ -123,7 +96,7 @@ const HeaderLayout = (props: Props) => {
                   </div>
                   <div className="list-inline-item visible">
                     <a className="nav-link" onClick={logOut}>
-                      <i className="fas fa-sign-out-alt"></i>
+                      <i className="icomoon-icon-logout"></i>
                       <span className="d-none d-sm-inline">Log out</span>
                     </a>
                   </div>
@@ -131,7 +104,7 @@ const HeaderLayout = (props: Props) => {
               ) : (
                 <>
                   <div className="list-inline-item visible">
-                    <input type="button" value="LogIn" className="btn btn-primary" onClick={toggleSignIn} />
+                    <input type="button" value="LogIn" className="btn btn-info" onClick={toggleSignIn} />
                   </div>
                   <div className="list-inline-item visible">
                     <input type="button" value="Register" className="btn btn-danger" onClick={toggleSignUp} />

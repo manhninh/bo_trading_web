@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { ROUTE_PATH } from 'routers/helpers';
+import {NavLink} from 'react-router-dom';
+import {ROUTE_PATH} from 'routers/helpers';
 import './styled.css';
 
 const SidebarLayout = () => {
@@ -33,18 +33,13 @@ const SidebarLayout = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to={ROUTE_PATH.SETTINGS}>
-            <i className="icomoon-icon-settings"></i>Settings
-          </NavLink>
-        </li>
-        <li>
           <NavLink to={ROUTE_PATH.AFFILIATE_LINK}>
             <i className="icomoon-icon-affiliate_link"></i>Affiliate link
           </NavLink>
         </li>
         <li>
-          <NavLink to={ROUTE_PATH.DASHBOARD}>
-            <i className="icomoon-icon-logout"></i>Logout
+          <NavLink to={ROUTE_PATH.SETTINGS}>
+            <i className="icomoon-icon-settings"></i>Settings
           </NavLink>
         </li>
       </ul>
