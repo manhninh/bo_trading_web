@@ -1,14 +1,14 @@
-import {useAppSelector} from 'boot/configureStore';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {useHistory} from 'react-router';
-import {ROUTE_PATH} from 'routers/helpers';
-import {restoreToken, signOut} from 'routers/redux/slice';
+import { useAppSelector } from 'boot/configureStore';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { ROUTE_PATH } from 'routers/helpers';
+import { restoreToken, signOut } from 'routers/redux/slice';
 import LogInPopupComponent from 'screens/authen/login/popup';
 import RegisterPopupComponent from 'screens/authen/register/popup';
-import {Props, State} from './propState';
-import {fetchUserInfor} from './services';
+import { Props, State } from './propState';
+import { fetchUserInfor } from './services';
 import './styled.css';
 import SwitchAccountComponent from './switchAccount';
 
@@ -21,7 +21,7 @@ const HeaderLayout = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const authState = useAppSelector((state) => state.authState);
-  const {showLoading, hideLoading} = useLoading();
+  const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
     if (authState.userToken) checkAuthenToken();
@@ -33,26 +33,27 @@ const HeaderLayout = (props: Props) => {
       const res = await fetchUserInfor();
       if (res.data && res.data.length > 0) {
         await dispatch(restoreToken(res.data[0]));
-        setState((state) => ({...state, isAuthen: true, isOpenSignin: false}));
+        setState((state) => ({ ...state, isAuthen: true, isOpenSignin: false }));
       } else {
         dispatch(signOut());
-        history.push(ROUTE_PATH.LOGIN);
+        history.push(ROUTE_PATH.DASHBOARD);
       }
     } catch (error) {
       dispatch(signOut());
-      history.push(ROUTE_PATH.LOGIN);
+      history.push(ROUTE_PATH.DASHBOARD);
     } finally {
       hideLoading();
     }
   };
 
-  const toggleSignUp = () => setState((prevState) => ({...prevState, isOpenSignup: !prevState.isOpenSignup}));
+  const toggleSignUp = () => setState((prevState) => ({ ...prevState, isOpenSignup: !prevState.isOpenSignup }));
 
-  const toggleSignIn = () => setState((prevState) => ({...prevState, isOpenSignin: !prevState.isOpenSignin}));
+  const toggleSignIn = () => setState((prevState) => ({ ...prevState, isOpenSignin: !prevState.isOpenSignin }));
 
   const logOut = () => {
-    setState((state) => ({...state, isAuthen: false}));
+    setState((state) => ({ ...state, isAuthen: false }));
     dispatch(signOut());
+    history.push(ROUTE_PATH.DASHBOARD);
   };
 
   return (
@@ -63,7 +64,7 @@ const HeaderLayout = (props: Props) => {
             <div className="navbar-header">
               <a href={ROUTE_PATH.DASHBOARD} className="navbar-brand">
                 <div className="brand-big text-uppercase">
-                  <img src={process.env.PUBLIC_URL + '/logo512.png'} style={{height: '40px', marginBottom: '10px'}} />
+                  <img src={process.env.PUBLIC_URL + '/logo512.png'} style={{ height: '40px', marginBottom: '10px' }} />
                 </div>
               </a>
             </div>
