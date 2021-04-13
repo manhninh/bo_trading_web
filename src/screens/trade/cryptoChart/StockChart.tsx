@@ -1,21 +1,21 @@
-import {format} from 'd3-format';
+import { format } from 'd3-format';
 import moment from 'moment';
 import React from 'react';
-import {isMobile} from 'react-device-detect';
-import {Chart, ChartCanvas} from 'react-stockcharts';
-import {XAxis, YAxis} from 'react-stockcharts/lib/axes';
+import { isMobile } from 'react-device-detect';
+import { Chart, ChartCanvas } from 'react-stockcharts';
+import { XAxis, YAxis } from 'react-stockcharts/lib/axes';
 import {
   CrossHairCursor,
   EdgeIndicator,
   MouseCoordinateX,
   MouseCoordinateY,
-  PriceCoordinate,
+  PriceCoordinate
 } from 'react-stockcharts/lib/coordinates';
-import {fitWidth} from 'react-stockcharts/lib/helper';
-import {tma} from 'react-stockcharts/lib/indicator';
-import {discontinuousTimeScaleProvider} from 'react-stockcharts/lib/scale';
-import {BarSeries, CandlestickSeries, LineSeries} from 'react-stockcharts/lib/series';
-import {OHLCTooltip} from 'react-stockcharts/lib/tooltip';
+import { fitWidth } from 'react-stockcharts/lib/helper';
+import { tma } from 'react-stockcharts/lib/indicator';
+import { discontinuousTimeScaleProvider } from 'react-stockcharts/lib/scale';
+import { BarSeries, CandlestickSeries, LineSeries } from 'react-stockcharts/lib/series';
+import { OHLCTooltip } from 'react-stockcharts/lib/tooltip';
 import MyOHLCTooltip from './TooltipChart';
 
 const mouseEdgeAppearance = {
@@ -35,10 +35,10 @@ interface IProps {
 }
 
 const CandleStickChartWithMACDIndicator = React.forwardRef((props: IProps, ref) => {
-  const {data: initialData, ratio, width, height} = props;
+  const { data: initialData, ratio, width, height } = props;
   const tma10 = tma()
     .id(1)
-    .options({windowSize: 12})
+    .options({ windowSize: 12 })
     .merge((d: any, c: any) => {
       d.tma10 = c;
     })
@@ -47,7 +47,7 @@ const CandleStickChartWithMACDIndicator = React.forwardRef((props: IProps, ref) 
 
   const tma3 = tma()
     .id(2)
-    .options({windowSize: 8})
+    .options({ windowSize: 8 })
     .merge((d: any, c: any) => {
       d.tma3 = c;
     })
@@ -62,12 +62,12 @@ const CandleStickChartWithMACDIndicator = React.forwardRef((props: IProps, ref) 
   });
   const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor((d: any) => d.date);
 
-  const {data, xScale, xAccessor, displayXAccessor} = xScaleProvider(calculatedData);
+  const { data, xScale, xAccessor, displayXAccessor } = xScaleProvider(calculatedData);
 
   const xExtents = [isMobile ? 50.3 : 20.3, data.length];
 
-  const margin = {left: 0, right: 80, top: 35, bottom: 30};
-  const yGrid = {innerTickSize: -1 * (width - margin.left - margin.right)};
+  const margin = { left: 0, right: 80, top: 35, bottom: 30 };
+  const yGrid = { innerTickSize: -1 * (width - margin.left - margin.right) };
   const closeLast = data[data.length - 1].close;
   const openLast = data[data.length - 1].open;
 
@@ -177,7 +177,7 @@ const CandleStickChartWithMACDIndicator = React.forwardRef((props: IProps, ref) 
             fontSize={13}
           />
           <BarSeries
-            yAccessor={(d: any) => d.volume + 20}
+            yAccessor={(d: any) => d.volume > 80 ? 80 : d.volume}
             fill={(d: any) => (d.close < d.open ? '#F04B4B' : '#16CEB9')}
             opacity={1}
           />

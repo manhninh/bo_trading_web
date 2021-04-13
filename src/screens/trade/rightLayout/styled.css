@@ -14,8 +14,35 @@
   color: #ffffff;
 }
 
-.input-amount {
+.amount-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 5px;
   background: #5f6773;
-  border: 0.5px solid #c4c4c4;
+  border: 0.5px solid #868e96;
   border-radius: 5px 5px 0 0;
+  font-size: 20px;
+}
+
+.text-input {
+  flex: 1;
+  width: 100%;
+  margin-left: 5px;
+  background: transparent;
+  border: none;
+  color: #16ceb9;
+}
+
+.text-currency {
+  color: #16ceb9;
+  font-size: 20px;
+}
+
+.profit-text {
+  font-size: 22px;
+}
+
+.profit-result {
+  font-size: 16px;
+  margin-left: 0.5rem;
 }

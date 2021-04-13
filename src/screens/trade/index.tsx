@@ -1,5 +1,5 @@
 import React from 'react';
-import {Nav, Tab} from 'react-bootstrap';
+import { Nav, Tab } from 'react-bootstrap';
 import ContainerLayout from './containerLayout';
 import CryptoChart from './cryptoChart';
 import Indicator from './indicator';
@@ -14,11 +14,11 @@ const TradingComponent = () => {
     <SocketProvider>
       <ContainerLayout>
         <div className="row">
-          <div className="col-lg-12 pr-0" style={{height}}>
+          <div className="col-lg-12 pr-0" style={{ height }}>
             <CryptoChart height={height} />
           </div>
-          <div className="col-lg-12">
-            <div className="card text-center" style={{height: '250px', marginBottom: 0, width: '100%'}}>
+          <div className="col-lg-12 px-0">
+            <div className="card text-center" style={{ height: '250px', marginBottom: 0, width: '100%' }}>
               <Tab.Container defaultActiveKey="indicator">
                 <div className="card-header">
                   <Nav className="nav-tabs card-header-tabs">
