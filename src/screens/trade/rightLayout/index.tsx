@@ -1,17 +1,17 @@
-import { MaxAmountPlace, PlaceType } from 'constants/system';
-import React, { useContext, useState } from 'react';
+import {MaxAmountPlace, PlaceType} from 'constants/system';
+import React, {useContext, useState} from 'react';
 import NumberFormat from 'react-number-format';
-import SocketContext, { ContextType } from '../socketContext/context';
+import SocketContext, {ContextType} from '../socketContext/context';
 import BuySellAction from './buySellAction';
 import CountDownTimer from './countDown';
 import './styled.css';
 
 const RightLayout = () => {
-  const { timeTick, isTrade } = useContext<ContextType>(SocketContext);
+  const {timeTick, isTrade} = useContext<ContextType>(SocketContext);
   const [place, setPlace] = useState(1);
 
   const onChangeAmount = (e: any) => {
-    const { value } = e.target;
+    const {value} = e.target;
     setPlace(value ? parseInt(value.toString().replace(/,/g, '')) : 0);
   };
 
@@ -38,14 +38,10 @@ const RightLayout = () => {
         <div className="block-body">
           <div className="stats-2 d-flex">
             <div className="stats-2-content">
-              <strong className="d-block text-primary profit-text">
-                + 95%
-              </strong>
+              <strong className="d-block text-primary profit-text">+ 95%</strong>
             </div>
             <div className="stats-2-content">
-              <strong className="d-block text-primary profit-result">
-                + ${((place || 0) * 95) / 100}
-              </strong>
+              <strong className="d-block text-primary profit-result">+ ${((place || 0) * 95) / 100}</strong>
             </div>
           </div>
         </div>
@@ -101,8 +97,20 @@ const RightLayout = () => {
           </div>
         </div>
       </div>
-      <CountDownTimer timeTick={timeTick} isTrade={isTrade} />
-      <BuySellAction isTrade={isTrade} />
+      <div className="time-action">
+        <BuySellAction isTrade={isTrade} />
+        <CountDownTimer timeTick={timeTick} isTrade={isTrade} />
+      </div>
+      <div className="time-action justify-content-around">
+        <div className="title text-center" style={{display: 'inline-block', verticalAlign: 'middle'}}>
+          <h2 className="text-info">BUY</h2>
+          <h2 className="text-info">0</h2>
+        </div>
+        <div className="title text-center" style={{display: 'inline-block', verticalAlign: 'middle'}}>
+          <h2 className="text-danger">SELL</h2>
+          <h2 className="text-danger">0</h2>
+        </div>
+      </div>
     </>
   );
 };

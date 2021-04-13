@@ -1,6 +1,5 @@
 .buy-sel-action {
-  padding: 0px 15px;
-  width: 100%;
+  display: inline-block;
 }
 
 .btn-buy-sel-action {
@@ -17,6 +16,5 @@
   font-size: 20px;
   line-height: 26px;
   vertical-align: middle;
-  margin-left: 10px;
   font-weight: bold;
 }
