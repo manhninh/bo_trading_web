@@ -1,0 +1,19 @@
+.div-win {
+  background-color: #16ceb9;
+  border-radius: 5px;
+  height: 1.3rem;
+  width: 1.3rem;
+  display: inline-block;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.div-loss {
+  background-color: #f04b4b;
+  border-radius: 5px;
+  height: 1.3rem;
+  width: 1.3rem;
+  display: inline-block;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}

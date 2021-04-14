@@ -5,5 +5,6 @@ export const fetchUserInfor = async (username: string) => {
     const result = await configServices.getService('mobile/nhanvien', { username });
     return result;
   } catch (error) {
+    throw error;
   }
-}
+};

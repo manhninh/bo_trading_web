@@ -1,10 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'styles/fonts';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
 import './index.css';
 import './lang';
 import reportWebVitals from './reportWebVitals';
+
+toast.configure({
+  position: 'top-right',
+  autoClose: 3000,
+  hideProgressBar: true,
+  newestOnTop: true,
+  closeOnClick: true,
+  rtl: false,
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+});
 
 ReactDOM.render(
   <React.StrictMode>

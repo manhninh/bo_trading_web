@@ -12,9 +12,10 @@ export const stateConditionString = (state: AuthState) => {
 };
 
 export enum ROUTE_PATH {
-  DASHBOARD = '/dashboard',
+  DASHBOARD = '/',
   LOGIN = '/login',
-  REGISTER = '/register/:referralUser?',
+  REGISTER = '/register',
+  REGISTER_PARAM = '/register/:referralUser?',
   FORGOT_PASSWORD = '/forgot-password',
   VERIFY_EMAIL = '/verification/email/:uuid',
   TRADE = '/trade',
@@ -24,4 +25,5 @@ export enum ROUTE_PATH {
   COMISSIONS = '/commissions',
   COPY_TRADE = '/copy-trade',
   WALLET = '/wallet',
+  WELLCOME = '/wellcome',
 }

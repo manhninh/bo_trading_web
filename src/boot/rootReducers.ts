@@ -1,15 +1,11 @@
+import commonState from 'containers/redux/slice';
 import authState from 'routers/redux/slice';
+import tradeState from 'screens/trade/redux/slice';
 
 const rootReducers = {
   authState,
+  commonState,
+  tradeState,
 };
 
 export default rootReducers;
-
-// type GetReducerState<T> = {
-//   [P in keyof T]: T[P] extends (...args: any[]) => infer Q ? Q : never;
-// };
-
-// export type RootState = GetReducerState<typeof rootReducers> & {
-//   router: RouterState;
-// };

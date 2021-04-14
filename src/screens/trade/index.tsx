@@ -1,41 +1,51 @@
-import SpinnerLoader from 'containers/components/loader';
-import React, {useEffect, useState} from 'react';
-import {Tab, Tabs} from 'react-bootstrap';
-import ContainerLayout from './ContainerLayout';
-import StockChart from './StockChart';
+import React from 'react';
+import {Nav, Tab} from 'react-bootstrap';
+import ContainerLayout from './containerLayout';
+import CryptoChart from './cryptoChart';
+import Indicator from './indicator';
+import LastResult from './lastResult';
+import SocketProvider from './socketContext';
 import './styled.css';
-import {getData} from './utils';
-const height = window.innerWidth < 768 ? window.innerHeight - 270 : window.innerHeight - 432;
+
+const height = window.innerHeight - 322;
 
 const TradingComponent = () => {
-  const [dataChart, setDataChart] = useState([]);
-
-  useEffect(() => {
-    getData().then((data) => {
-      setDataChart(data);
-    });
-  }, []);
-
   return (
-    <ContainerLayout>
-      <div className="row">
-        <div className="col-lg-12" style={{height}}>
-          {dataChart.length > 0 ? <StockChart data={dataChart} height={height} /> : <SpinnerLoader />}
-        </div>
-        <div className="col-lg-12">
-          <div className="card" style={{height: '300px', marginBottom: 0, width: '100%'}}>
-            <Tabs defaultActiveKey="indicator">
-              <Tab eventKey="indicator" title="Indicator">
-                <div>2222</div>
-              </Tab>
-              <Tab eventKey="last_result" title="Last Result">
-                <div>222333</div>
-              </Tab>
-            </Tabs>
+    <SocketProvider>
+      <ContainerLayout>
+        <div className="row">
+          <div className="col-lg-12 pr-0" style={{height}}>
+            <CryptoChart height={height} />
+          </div>
+          <div className="col-lg-12 px-0">
+            <div className="card text-center" style={{height: '250px', marginBottom: 0, width: '100%'}}>
+              <Tab.Container defaultActiveKey="indicator">
+                <div className="card-header">
+                  <Nav className="nav-tabs card-header-tabs">
+                    <Nav.Item>
+                      <Nav.Link eventKey="indicator">Indicator</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="last_result">Last Result</Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </div>
+                <div className="card-body py-0">
+                  <Tab.Content>
+                    <Tab.Pane eventKey="indicator">
+                      <Indicator />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="last_result">
+                      <LastResult />
+                    </Tab.Pane>
+                  </Tab.Content>
+                </div>
+              </Tab.Container>
+            </div>
           </div>
         </div>
-      </div>
-    </ContainerLayout>
+      </ContainerLayout>
+    </SocketProvider>
   );
 };
 

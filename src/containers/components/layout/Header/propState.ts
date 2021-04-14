@@ -1,8 +1,13 @@
-export type Props = {
+export type IProps = {
   noBackground?: boolean;
 };
 
+export const Props: IProps = {
+  noBackground: false,
+};
+
 export type State = {
-  isOpenSignin: boolean;
-  isOpenSignup: boolean;
+  openSignIn: boolean;
+  openSignUp: boolean;
+  isAuthen: boolean;
 };

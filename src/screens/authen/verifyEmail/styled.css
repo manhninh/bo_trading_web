@@ -1,0 +1,17 @@
+.m-t-10-per {
+  margin-top: 10%;
+}
+
+.card-custom {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.fontsize50 {
+  font-size: 50px;
+}
+
+.loader-div {
+  padding: 10px 0 25px;
+}

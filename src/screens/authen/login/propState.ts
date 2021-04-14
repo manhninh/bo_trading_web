@@ -1,4 +1,3 @@
-export interface IState {
-  username: string;
-  password: string;
-}
+export type Props = {
+  fnAfterLogin?: () => void;
+};
