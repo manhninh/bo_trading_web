@@ -1,17 +1,17 @@
-import {MaxAmountPlace, PlaceType} from 'constants/system';
-import React, {useContext, useState} from 'react';
+import { MaxAmountPlace, PlaceType } from 'constants/system';
+import React, { useContext, useState } from 'react';
 import NumberFormat from 'react-number-format';
-import SocketContext, {ContextType} from '../socketContext/context';
+import SocketContext, { ContextType } from '../socketContext/context';
 import BuySellAction from './buySellAction';
 import CountDownTimer from './countDown';
 import './styled.css';
 
 const RightLayout = () => {
-  const {timeTick, isTrade} = useContext<ContextType>(SocketContext);
+  const { timeTick, isTrade } = useContext<ContextType>(SocketContext);
   const [place, setPlace] = useState(1);
 
   const onChangeAmount = (e: any) => {
-    const {value} = e.target;
+    const { value } = e.target;
     setPlace(value ? parseInt(value.toString().replace(/,/g, '')) : 0);
   };
 
@@ -101,15 +101,15 @@ const RightLayout = () => {
         <BuySellAction isTrade={isTrade} />
         <CountDownTimer timeTick={timeTick} isTrade={isTrade} />
       </div>
-      <div className="time-action justify-content-around">
-        <div className="title text-center" style={{display: 'inline-block', verticalAlign: 'middle'}}>
-          <h2 className="text-info">BUY</h2>
-          <h2 className="text-info">0</h2>
-        </div>
-        <div className="title text-center" style={{display: 'inline-block', verticalAlign: 'middle'}}>
-          <h2 className="text-danger">SELL</h2>
-          <h2 className="text-danger">0</h2>
-        </div>
+      <div className="title display-flex" style={{ padding: "0 15px" }}>
+        <h3 className="text-info" style={{ display: 'inline-block', verticalAlign: 'middle', width: "4rem" }}>BUY</h3>
+        <h3 className="text-info" style={{ display: 'inline-block', verticalAlign: 'middle', width: "1.5rem" }}>-</h3>
+        <h2 className="text-info" style={{ display: 'inline-block', verticalAlign: 'middle' }}>0</h2>
+      </div>
+      <div className="title display-flex" style={{ padding: "0 15px" }}>
+        <h3 className="text-danger" style={{ display: 'inline-block', verticalAlign: 'middle', width: "4rem" }}>SELL</h3>
+        <h3 className="text-danger" style={{ display: 'inline-block', verticalAlign: 'middle', width: "1.5rem" }}>-</h3>
+        <h2 className="text-danger" style={{ display: 'inline-block', verticalAlign: 'middle' }}>0</h2>
       </div>
     </>
   );

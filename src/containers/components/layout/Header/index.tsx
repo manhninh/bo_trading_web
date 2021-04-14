@@ -7,15 +7,15 @@ import { ROUTE_PATH } from 'routers/helpers';
 import { restoreToken, signOut } from 'routers/redux/slice';
 import LogInPopupComponent from 'screens/authen/login/popup';
 import RegisterPopupComponent from 'screens/authen/register/popup';
-import { Props, State } from './propState';
+import { IProps, Props, State } from './propState';
 import { fetchUserInfor } from './services';
 import './styled.css';
 import SwitchAccountComponent from './switchAccount';
 
-const HeaderLayout = (props: Props) => {
+const HeaderLayout = (props: IProps = Props) => {
   const [state, setState] = useState<State>({
-    isOpenSignin: false,
-    isOpenSignup: false,
+    openSignIn: false,
+    openSignUp: false,
     isAuthen: false,
   });
   const history = useHistory();
@@ -24,8 +24,13 @@ const HeaderLayout = (props: Props) => {
   const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
+    console;
     if (authState.userToken) checkAuthenToken();
-  }, [authState.userToken]);
+    if (!authState.userToken && history.location.pathname === ROUTE_PATH.LOGIN)
+      setState((prevState) => ({ ...prevState, openSignIn: true }));
+    if (!authState.userToken && history.location.pathname.includes(ROUTE_PATH.REGISTER))
+      setState((prevState) => ({ ...prevState, openSignUp: true }));
+  }, [authState.userToken, history.location.pathname]);
 
   const checkAuthenToken = async () => {
     showLoading();
@@ -33,22 +38,22 @@ const HeaderLayout = (props: Props) => {
       const res = await fetchUserInfor();
       if (res.data && res.data.length > 0) {
         await dispatch(restoreToken(res.data[0]));
-        setState((state) => ({ ...state, isAuthen: true, isOpenSignin: false }));
+        setState((state) => ({ ...state, isAuthen: true, openSignin: false }));
       } else {
         dispatch(signOut());
-        history.push(ROUTE_PATH.DASHBOARD);
+        history.push(ROUTE_PATH.LOGIN);
       }
     } catch (error) {
       dispatch(signOut());
-      history.push(ROUTE_PATH.DASHBOARD);
+      history.push(ROUTE_PATH.LOGIN);
     } finally {
       hideLoading();
     }
   };
 
-  const toggleSignUp = () => setState((prevState) => ({ ...prevState, isOpenSignup: !prevState.isOpenSignup }));
+  const toggleSignUp = () => setState((prevState) => ({ ...prevState, openSignUp: !prevState.openSignUp }));
 
-  const toggleSignIn = () => setState((prevState) => ({ ...prevState, isOpenSignin: !prevState.isOpenSignin }));
+  const toggleSignIn = () => setState((prevState) => ({ ...prevState, openSignIn: !prevState.openSignIn }));
 
   const logOut = () => {
     setState((state) => ({ ...state, isAuthen: false }));
@@ -116,8 +121,12 @@ const HeaderLayout = (props: Props) => {
           </div>
         </nav>
       </header>
-      <LogInPopupComponent isOpen={state.isOpenSignin} callbackToogle={toggleSignIn} />
-      <RegisterPopupComponent isOpen={state.isOpenSignup} callbackToogle={toggleSignUp} />
+      {!state.isAuthen &&
+        <>
+          <LogInPopupComponent isOpen={state.openSignIn} callbackToogle={toggleSignIn} />
+          <RegisterPopupComponent isOpen={state.openSignUp} callbackToogle={toggleSignUp} />
+        </>
+      }
     </>
   );
 };

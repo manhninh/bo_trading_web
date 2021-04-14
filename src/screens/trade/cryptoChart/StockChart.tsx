@@ -16,6 +16,7 @@ import { tma } from 'react-stockcharts/lib/indicator';
 import { discontinuousTimeScaleProvider } from 'react-stockcharts/lib/scale';
 import { BarSeries, CandlestickSeries, LineSeries } from 'react-stockcharts/lib/series';
 import { OHLCTooltip } from 'react-stockcharts/lib/tooltip';
+import { random } from 'utils/formatter';
 import MyOHLCTooltip from './TooltipChart';
 
 const mouseEdgeAppearance = {
@@ -177,7 +178,7 @@ const CandleStickChartWithMACDIndicator = React.forwardRef((props: IProps, ref) 
             fontSize={13}
           />
           <BarSeries
-            yAccessor={(d: any) => d.volume > 80 ? 80 : d.volume}
+            yAccessor={(d: any) => d.volume > 80 ? 80 - random(0, 10) : d.volume}
             fill={(d: any) => (d.close < d.open ? '#F04B4B' : '#16CEB9')}
             opacity={1}
           />
