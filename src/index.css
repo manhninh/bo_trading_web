@@ -82,3 +82,7 @@ section {
 .page-content {
   width: 100%;
 }
+
+.Toastify__toast--info {
+  background-color: #16ceb9;
+}

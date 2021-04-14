@@ -1,12 +1,10 @@
 import React, { lazy } from 'react';
-import { Redirect, Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { ROUTE_PATH } from './helpers';
 import PrivateRoute from './PrivateRoutes';
 import './styled.css';
 import TranslationRoute from './TranslationRoute';
 
-const RegisterForm = lazy(() => import('screens/authen/register/form'));
-const LoginForm = lazy(() => import('screens/authen/login/form'));
 const ForgotPassword = lazy(() => import('screens/authen/forgotPassword'));
 const Wellcome = lazy(() => import('screens/authen/wellcome'));
 const VerifyEmail = lazy(() => import('screens/authen/verifyEmail'));
@@ -23,10 +21,9 @@ const Settings = lazy(() => import('screens/settings'));
 const NavigationComponent = () => {
   return (
     <Switch>
-      <Redirect from={ROUTE_PATH.DASHBOARD} to="/" />
       <TranslationRoute exact={true} path="/" component={Dashboard} />
-      <TranslationRoute path={ROUTE_PATH.LOGIN} comp={LoginForm} />
-      <TranslationRoute path={ROUTE_PATH.REGISTER} comp={RegisterForm} />
+      <TranslationRoute path={ROUTE_PATH.LOGIN} comp={Dashboard} />
+      <TranslationRoute path={ROUTE_PATH.REGISTER_PARAM} comp={Dashboard} />
       <TranslationRoute path={ROUTE_PATH.FORGOT_PASSWORD} comp={ForgotPassword} />
       <TranslationRoute path={ROUTE_PATH.WELLCOME} comp={Wellcome} />
       <TranslationRoute path={ROUTE_PATH.VERIFY_EMAIL} comp={VerifyEmail} />

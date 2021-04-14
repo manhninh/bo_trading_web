@@ -8,3 +8,12 @@ export enum RESPONSE_STATUS {
   INTERVAL_SERVER = 500,
   FORBIDDEN = 403,
 }
+
+export const MaxAmountPlace = 9999;
+
+export enum PlaceType {
+  Add = 1,
+  Subtract = 2,
+  Multiply = 3,
+  Devide = 4,
+};

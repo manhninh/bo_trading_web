@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
 import './index.css';
@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals';
 
 toast.configure({
   position: 'top-right',
-  autoClose: 300000,
+  autoClose: 3000,
   hideProgressBar: true,
   newestOnTop: true,
   closeOnClick: true,

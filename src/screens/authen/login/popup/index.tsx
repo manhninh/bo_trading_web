@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {Transition, TransitionStatus} from 'react-transition-group';
+import React, { useEffect, useState } from 'react';
+import { Transition, TransitionStatus } from 'react-transition-group';
 import LogInComponent from '../component';
-import {Props, State} from './propState';
+import { Props, State } from './propState';
 import './styled.css';
 
 const duration = 200;
@@ -14,19 +14,19 @@ const LogInPopupComponent = (props: Props) => {
   });
 
   useEffect(() => {
-    setState((state) => ({...state, isOpen: props.isOpen}));
+    setState((state) => ({ ...state, isOpen: props.isOpen }));
   }, [props.isOpen]);
 
   const toogleForm = () => {
-    setState((state) => ({...state, isOpen: !state.isOpen}));
+    setState((state) => ({ ...state, isOpen: !state.isOpen }));
     props.callbackToogle();
   };
 
   const sidebarTransitionStyles = {
-    entering: {width: 0},
-    entered: {width: '400px'},
-    exiting: {width: '400px'},
-    exited: {width: 0},
+    entering: { width: 0 },
+    entered: { width: '400px' },
+    exiting: { width: '400px' },
+    exited: { width: 0 },
   };
 
   return (

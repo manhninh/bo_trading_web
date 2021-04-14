@@ -1,12 +1,9 @@
-import React, {useContext} from 'react';
-import {buildStyles, CircularProgressbarWithChildren} from 'react-circular-progressbar';
+import React from 'react';
+import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import SocketContext, {ContextType} from 'screens/trade/socketContext/context';
 import './styled.css';
 
-const CountDownTimer = () => {
-  const {timeTick, isTrade} = useContext<ContextType>(SocketContext);
-
+const CountDownTimer = ({ timeTick, isTrade }) => {
   return (
     <div className="timer-wrapper">
       <div className="timer-container">
@@ -24,7 +21,7 @@ const CountDownTimer = () => {
             pathTransition: timeTick === 0 ? 'none' : 'stroke-dashoffset 0.5s ease 0s',
           })}>
           <div className="timer">
-            <div className="value" style={{color: isTrade ? '#16ceb9' : '#F04B4B'}}>
+            <div className="value" style={{ color: isTrade ? '#16ceb9' : '#F04B4B' }}>
               {30 - timeTick}
             </div>
           </div>

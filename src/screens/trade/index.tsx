@@ -17,7 +17,7 @@ const TradingComponent = () => {
           <div className="col-lg-12 pr-0" style={{height}}>
             <CryptoChart height={height} />
           </div>
-          <div className="col-lg-12">
+          <div className="col-lg-12 px-0">
             <div className="card text-center" style={{height: '250px', marginBottom: 0, width: '100%'}}>
               <Tab.Container defaultActiveKey="indicator">
                 <div className="card-header">

@@ -1,14 +1,14 @@
-import {yupResolver} from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import {User} from 'models/users';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
+import { User } from 'models/users';
 import React from 'react';
-import {useForm} from 'react-hook-form';
-import {useHistory} from 'react-router';
-import {toast} from 'react-toastify';
-import {ROUTE_PATH} from 'routers/helpers';
+import { useForm } from 'react-hook-form';
+import { useHistory, useRouteMatch } from 'react-router';
+import { toast } from 'react-toastify';
+import { ROUTE_PATH } from 'routers/helpers';
 import * as yup from 'yup';
-import {fetchRegister} from './services';
+import { fetchRegister } from './services';
 
 interface IFormInputs {
   username: string;
@@ -33,13 +33,17 @@ const schema = yup.object().shape({
 
 const RegisterComponent = () => {
   const history = useHistory();
-  const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
+  const { showLoading, hideLoading } = useLoading();
+  const { addError } = useError();
+  const sponsor = history.location;
+  const match = useRouteMatch();
+  console.log(match);
+  console.log(history);
 
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<IFormInputs>({
     defaultValues: {
       username: '',
@@ -72,7 +76,7 @@ const RegisterComponent = () => {
     <>
       <form className="form-validate">
         <div className="form-group mb-2">
-          <label>Sponsor:</label> <label className="text-primary text-bold">None</label>
+          <label>Sponsor:</label> <label className="text-primary text-bold">{match.params?.["referralUser"] || "none"}</label>
         </div>
         <div className="form-group mb-2">
           <label>
