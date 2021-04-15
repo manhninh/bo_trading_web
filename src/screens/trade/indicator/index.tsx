@@ -5,11 +5,7 @@ import './styled.css';
 
 const IndicatorComponent = () => {
   const { indicator } = useContext<ContextType>(SocketContext);
-  const [signal, setSignal] = useState({
-    type: '',
-    color: '#8a8d93',
-    icon: '',
-  });
+  const [signal, setSignal] = useState({ type: '', color: '#8a8d93', icon: '', });
 
   useEffect(() => {
     if (indicator.indicator_type > 0 && indicator.indicator_type < 380)
@@ -20,6 +16,8 @@ const IndicatorComponent = () => {
       setSignal({ type: 'Sell', color: '#F04B4B', icon: 'fas fa-caret-down' });
     else setSignal({ type: '', color: '#8a8d93', icon: '' });
   }, [indicator.indicator_type]);
+
+  console.log("3");
 
   return (
     <div className="row">

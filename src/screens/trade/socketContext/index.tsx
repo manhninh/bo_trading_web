@@ -1,10 +1,12 @@
 import config from 'constants/config';
-import React, {useEffect, useRef, useState} from 'react';
-import socketIOClient, {Socket} from 'socket.io-client';
-import SocketContext, {Blocks} from './context';
-import {socketDisconnect, socketEvents} from './events';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import socketIOClient, { Socket } from 'socket.io-client';
+import SocketContext, { Blocks } from './context';
+import { socketDisconnect, socketEvents } from './events';
 
 const SocketProvider = (props: any) => {
+  const dispatch = useDispatch();
   const socketRef = useRef<Socket | null>(null);
   const [value, setValue] = useState({
     blocks: new Array<Blocks>(),
@@ -39,7 +41,7 @@ const SocketProvider = (props: any) => {
 
   useEffect(() => {
     if (!socketRef.current) socketRef.current = socketIOClient(config.WS_CANDLESTICK?.toString() || '');
-    socketEvents({setValue, socket: socketRef?.current});
+    socketEvents({ setValue, socket: socketRef?.current, dispatch });
     return () => {
       socketDisconnect(socketRef?.current);
     };

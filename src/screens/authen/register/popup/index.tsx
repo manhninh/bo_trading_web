@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Transition, TransitionStatus} from 'react-transition-group';
-import {ROUTE_PATH} from 'routers/helpers';
+import React, { useEffect, useState } from 'react';
+import { Transition, TransitionStatus } from 'react-transition-group';
+import { ROUTE_PATH } from 'routers/helpers';
 import RegisterComponent from '../conponent';
-import {Props, State} from './propState';
+import { Props, State } from './propState';
 import './styled.css';
 
 const duration = 200;
@@ -13,19 +13,19 @@ const RegisterPopup = (props: Props) => {
   });
 
   useEffect(() => {
-    setState((state) => ({...state, isOpen: props.isOpen}));
+    setState((state) => ({ ...state, isOpen: props.isOpen }));
   }, [props.isOpen]);
 
   const toogleForm = () => {
-    setState((state) => ({...state, isOpen: !state.isOpen}));
+    setState((state) => ({ ...state, isOpen: !state.isOpen }));
     props.callbackToogle();
   };
 
   const sidebarTransitionStyles = {
-    entering: {width: 0},
-    entered: {width: '400px'},
-    exiting: {width: '400px'},
-    exited: {width: 0},
+    entering: { width: 0 },
+    entered: { width: '400px' },
+    exiting: { width: '400px' },
+    exited: { width: 0 },
   };
 
   return (
@@ -46,7 +46,7 @@ const RegisterPopup = (props: Props) => {
               </div>
               <div className="text-center">
                 <h1 className="display-4 text-gray-light mb-3">Register</h1>
-                <p className="text-muted">Welcome to IOGO ETH</p>
+                <p className="text-muted">Welcome to Finimix</p>
               </div>
               <RegisterComponent />
               <p className="text-center">

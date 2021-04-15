@@ -1,18 +1,37 @@
 import DownImage from 'assets/images/down.png';
 import UpImage from 'assets/images/up.png';
-import { useAppSelector } from 'boot/configureStore';
+import { RootState, useAppSelector } from 'boot/configureStore';
+import { TypeUser } from 'constants/system';
 import { Order } from 'models/orders';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { toast } from 'react-toastify';
+import { createSelector } from 'reselect';
 import { fetchOrder } from './services';
 import './styled.css';
 
-const BuySellAction = ({ isTrade }) => {
-  const accountInfor = useAppSelector(state => state.authState.accountInfor);
+const BuySellAction = () => {
+  // user type
+  const makeSelectorTypeUser = () => createSelector(
+    (state: RootState) => state.authState.accountInfor.type_user,
+    (_: any, props: TypeUser) => props,
+    (typeUser, props) => typeUser !== props ? typeUser : props
+  );
+  const selectorTypeUser = useMemo(makeSelectorTypeUser, []);
+  const typeUser = useAppSelector(state => selectorTypeUser(state, TypeUser.REAL));
+
+  // check open trade
+  const makeSelectorTrade = () => createSelector(
+    (state: RootState) => state.tradeState.isTrade,
+    (_: any, props: boolean) => props,
+    (isTrade, props) => isTrade !== props ? true : false
+  );
+  const selectorTrade = useMemo(makeSelectorTrade, []);
+  const trade = useAppSelector(state => selectorTrade(state, false));
 
   const _btnBuy = () => {
+    console.log(typeUser, "typeUser");
     const order: Order = {
-      typeUser: accountInfor.type_user,
+      typeUser: typeUser,
       typeOrder: 0,
       amount: 10
     };
@@ -24,7 +43,7 @@ const BuySellAction = ({ isTrade }) => {
 
   const _btnSell = () => {
     const order: Order = {
-      typeUser: accountInfor.type_user,
+      typeUser: typeUser,
       typeOrder: 0,
       amount: 10
     };
@@ -34,9 +53,11 @@ const BuySellAction = ({ isTrade }) => {
     }).catch(() => toast.error("Orders fail!"));
   };
 
+  console.log(trade);
+
   return (
     <div className="buy-sel-action">
-      {isTrade ?
+      {trade ?
         <>
           <button className="btn btn-block btn-info btn-buy-sel-action" onClick={_btnBuy}>
             <img src={UpImage} className="btn-buy-sel-icon" />
