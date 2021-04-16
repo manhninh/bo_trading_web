@@ -90,7 +90,7 @@ const CandleStickChartWithMACDIndicator = React.forwardRef((props: IProps, ref) 
         panEvent={false}
         zoomEvent={false}
         clamp={false}>
-        <Chart height={50} yExtents={(d: any) => d.volume}>
+        <Chart height={35} yExtents={(d: any) => d.volume}>
           <OHLCTooltip
             displayTexts={{
               d: '',
@@ -104,10 +104,10 @@ const CandleStickChartWithMACDIndicator = React.forwardRef((props: IProps, ref) 
           </OHLCTooltip>
         </Chart>
         <Chart
-          height={height - 180}
+          height={height - 160}
           id={1}
           yExtents={[(d: any) => [d.high, d.low], tma10.accessor(), tma3.accessor()]}
-          origin={(w: any, h: any) => [0, 50]}>
+          origin={(w: any, h: any) => [0, 35]}>
           <YAxis
             axisAt="right"
             orient="right"

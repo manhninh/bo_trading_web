@@ -1,0 +1,11 @@
+.fontcustom {
+  font-size: 0.7rem !important;
+  text-align: left;
+  margin-top: 0.3rem;
+}
+
+.icon-indicator {
+  font-size: 80px;
+  margin-left: 1.5rem;
+  display: inline-block;
+}

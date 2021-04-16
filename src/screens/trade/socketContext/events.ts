@@ -1,8 +1,9 @@
 import { EVENTS, ROOM } from 'screens/trade/socketContext/socketConfig';
 import { Socket } from 'socket.io-client';
+import { setIndicator, setTimeTick } from '../redux/slice';
 import { ContextType } from './context';
 
-export const socketEvents = ({ setValue, socket }) => {
+export const socketEvents = ({ setValue, socket, dispatch }) => {
   if (!socket) return;
 
   socket.on('connect', () => {
@@ -21,11 +22,12 @@ export const socketEvents = ({ setValue, socket }) => {
     const real_data = result.candlestick;
     const timeTick = result.timeTick % 30;
     const isTrade = result.timeTick >= 30 ? false : true;
+    dispatch(setTimeTick({ timeTick, isTrade }));
     setValue((state: ContextType) => ({ ...state, real_data, timeTick, isTrade }));
   });
 
   socket.on(EVENTS.INDICATOR_ETHUSDT, function (result: any) {
-    setValue((state: ContextType) => ({ ...state, indicator: result }));
+    dispatch(setIndicator(result));
   });
 };
 

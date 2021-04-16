@@ -1,0 +1,17 @@
+.card-header-custom {
+  padding: 0.1rem 1.25rem 0.75rem;
+}
+
+.nav-link-custom {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.bottom-indicator {
+  height: 200px;
+  margin-bottom: 0px;
+  width: calc(100% - 400px);
+  position: fixed;
+  bottom: 0;
+  left: 100px;
+}

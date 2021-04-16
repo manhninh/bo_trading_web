@@ -37,7 +37,6 @@ const allCombineReducers = combineReducers({
 
 const rootReducer = (state: any, action: AnyAction) => {
   if (action.type === 'auth/signOut') {
-    console.log('signout');
     localStorage.removeItem(LOCAL_STORE.TOKEN);
     state = {};
   }
