@@ -1,5 +1,5 @@
-import { MaxAmountPlace, PlaceType } from 'constants/system';
-import React, { useState } from 'react';
+import {MaxAmountPlace, PlaceType} from 'constants/system';
+import React, {useState} from 'react';
 import NumberFormat from 'react-number-format';
 import ActionInfor from './actionInfor';
 import BuySellAction from './buySellAction';
@@ -10,7 +10,7 @@ const RightLayout = () => {
   const [place, setPlace] = useState(1);
 
   const onChangeAmount = (e: any) => {
-    const { value } = e.target;
+    const {value} = e.target;
     setPlace(value ? parseInt(value.toString().replace(/,/g, '')) : 0);
   };
 

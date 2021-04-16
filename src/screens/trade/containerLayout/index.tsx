@@ -1,13 +1,12 @@
-import { ReactComponent as BackgroundSvg } from 'assets/images/back_map_world.svg';
+import {ReactComponent as BackgroundSvg} from 'assets/images/back_map_world.svg';
 import HeaderLayout from 'containers/components/layout/Header';
 import SidebarLayout from 'containers/components/layout/Sidebar';
 import React from 'react';
 import RightLayout from '../rightLayout';
-import { Props } from './propState';
+import {Props} from './propState';
 import './styled.css';
 
 const ContainerLayout = (props: Props) => {
-  console.log("ContainerLayout");;
   return (
     <>
       <HeaderLayout />
