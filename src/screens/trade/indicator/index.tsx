@@ -1,12 +1,38 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { RootState, useAppSelector } from 'boot/configureStore';
+import _ from "lodash";
+import React, { useEffect, useMemo, useState } from 'react';
 import ReactSpeedometer, { CustomSegmentLabelPosition, Transition } from 'react-d3-speedometer';
-import SocketContext, { ContextType } from '../socketContext/context';
+import { createSelector } from 'reselect';
+import { Indicator } from '../redux/state';
 import './styled.css';
 
 const width = (window.innerWidth - 600) / 3;
 
 const IndicatorComponent = () => {
-  const { indicator } = useContext<ContextType>(SocketContext);
+  // user type
+  const makeSelectorIndicator = () => createSelector(
+    (state: RootState) => state.tradeState.indicator,
+    (_: any, props: Indicator) => props,
+    (indicator, props) => _.isEqual(indicator, props) ? indicator : props
+  );
+  const selectorIndicator = useMemo(makeSelectorIndicator, []);
+  const indicator = useAppSelector(state => selectorIndicator(state, {
+    oscillatorsBuy: 0,
+    oscillatorsNeutral: 0,
+    oscillatorsSell: 0,
+    maBuy: 0,
+    maNeutral: 0,
+    maSell: 0,
+    macdBuy: 0,
+    macdNeutral: 0,
+    macdSell: 0,
+    totalBuy: 0,
+    totalNeutral: 0,
+    totalSell: 0,
+    indicator_type: 0,
+    indicator: 0,
+  }));
+
   const [signal, setSignal] = useState({ type: '', color: '#8a8d93', icon: '', });
 
   useEffect(() => {
@@ -19,7 +45,7 @@ const IndicatorComponent = () => {
     else setSignal({ type: '', color: '#8a8d93', icon: '' });
   }, [indicator.indicator_type]);
 
-  console.log("3");
+  console.log("IndicatorComponent");
 
   return (
     <div className="row m-0">

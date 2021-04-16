@@ -38,6 +38,6 @@ const tradeSlice = createSlice({
   },
 });
 
-export const { setTimeTick } = tradeSlice.actions;
+export const { setTimeTick, setIndicator } = tradeSlice.actions;
 
 export default tradeSlice.reducer;

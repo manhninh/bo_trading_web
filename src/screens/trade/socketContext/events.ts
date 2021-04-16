@@ -1,6 +1,6 @@
 import { EVENTS, ROOM } from 'screens/trade/socketContext/socketConfig';
 import { Socket } from 'socket.io-client';
-import { setTimeTick } from '../redux/slice';
+import { setIndicator, setTimeTick } from '../redux/slice';
 import { ContextType } from './context';
 
 export const socketEvents = ({ setValue, socket, dispatch }) => {
@@ -27,7 +27,7 @@ export const socketEvents = ({ setValue, socket, dispatch }) => {
   });
 
   socket.on(EVENTS.INDICATOR_ETHUSDT, function (result: any) {
-    setValue((state: ContextType) => ({ ...state, indicator: result }));
+    dispatch(setIndicator(result));
   });
 };
 

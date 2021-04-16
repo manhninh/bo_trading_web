@@ -19,24 +19,7 @@ const SocketProvider = (props: any) => {
       volume: 0,
       is_open: false,
     },
-    timeTick: 0,
-    indicator: {
-      oscillatorsBuy: 0,
-      oscillatorsNeutral: 0,
-      oscillatorsSell: 0,
-      maBuy: 0,
-      maNeutral: 0,
-      maSell: 0,
-      macdBuy: 0,
-      macdNeutral: 0,
-      macdSell: 0,
-      totalBuy: 0,
-      totalNeutral: 0,
-      totalSell: 0,
-      indicator_type: 0,
-      indicator: 0,
-    },
-    isTrade: false,
+    timeTick: 0
   });
 
   useEffect(() => {
