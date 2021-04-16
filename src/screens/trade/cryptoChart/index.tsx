@@ -1,14 +1,14 @@
 import ETHUSDT from 'assets/images/eth.png';
 import SpinnerLoader from 'containers/components/loader';
-import React, {useContext, useEffect, useState} from 'react';
-import SocketContext, {ContextType} from '../socketContext/context';
-import {IProps} from './propsState';
+import React, { useContext, useEffect, useState } from 'react';
+import SocketContext, { ContextType } from '../socketContext/context';
+import { IProps } from './propsState';
 import StockChart from './StockChart';
 import './styled.css';
 
 const CryptoChartComponent = (props: IProps) => {
   const [dataChart, setDataChart] = useState([]);
-  const {real_data, timeTick, blocks} = useContext<ContextType>(SocketContext);
+  const { real_data, timeTick, blocks } = useContext<ContextType>(SocketContext);
 
   useEffect(() => {
     let initialData: any = blocks;

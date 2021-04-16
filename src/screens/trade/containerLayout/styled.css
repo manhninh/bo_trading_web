@@ -4,10 +4,10 @@ section {
 }
 
 .page-content-custom {
-  min-height: calc(100% - 72px);
+  min-height: calc(100% - 72px) !important;
   width: calc(100% - 300px);
   padding-bottom: 0;
-  margin-top: 72px;
+  margin-top: 72px !important;
 }
 
 .right-container {

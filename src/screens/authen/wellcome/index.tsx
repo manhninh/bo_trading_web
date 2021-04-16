@@ -12,7 +12,8 @@ const WellcomeComponent = () => {
               <div className="row">
                 <div className="col text-center">
                   <h1 className="mb-3 text-light" style={{ fontSize: "50px" }}>
-                    Wellcome to IOGO <span className="text-danger">ETH</span></h1>
+                    Wellcome to <span className="text-info">Finimix</span>
+                  </h1>
                 </div>
               </div>
               <div className="row">

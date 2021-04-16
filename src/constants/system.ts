@@ -17,3 +17,11 @@ export enum PlaceType {
   Multiply = 3,
   Devide = 4,
 };
+
+//0: Real - 1: Demo - 2: Expert - 3: User Copy
+export enum TypeUser {
+  REAL = 0,
+  DEMO = 1,
+  EXPERT = 2,
+  COPY_TRADE = 3
+}
