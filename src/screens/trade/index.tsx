@@ -1,5 +1,5 @@
 import React from 'react';
-import {Nav, Tab} from 'react-bootstrap';
+import { Nav, Tab } from 'react-bootstrap';
 import ContainerLayout from './containerLayout';
 import CryptoChart from './cryptoChart';
 import Indicator from './indicator';
@@ -7,30 +7,30 @@ import LastResult from './lastResult';
 import SocketProvider from './socketContext';
 import './styled.css';
 
-const height = window.innerHeight - 322;
+const height = window.innerHeight - 272;
 
 const TradingComponent = () => {
   return (
     <SocketProvider>
       <ContainerLayout>
         <div className="row">
-          <div className="col-lg-12 pr-0" style={{height}}>
+          <div className="col-lg-12 pr-0" style={{ height }}>
             <CryptoChart height={height} />
           </div>
           <div className="col-lg-12 px-0">
-            <div className="card text-center" style={{height: '250px', marginBottom: 0, width: '100%'}}>
+            <div className="card text-center bottom-indicator">
               <Tab.Container defaultActiveKey="indicator">
-                <div className="card-header">
+                <div className="card-header card-header-custom">
                   <Nav className="nav-tabs card-header-tabs">
                     <Nav.Item>
-                      <Nav.Link eventKey="indicator">Indicator</Nav.Link>
+                      <Nav.Link eventKey="indicator" className="nav-link-custom">Indicator</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="last_result">Last Result</Nav.Link>
+                      <Nav.Link eventKey="last_result" className="nav-link-custom">Last Result</Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </div>
-                <div className="card-body py-0">
+                <div className="card-body p-0">
                   <Tab.Content>
                     <Tab.Pane eventKey="indicator">
                       <Indicator />

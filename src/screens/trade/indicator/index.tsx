@@ -3,6 +3,8 @@ import ReactSpeedometer, { CustomSegmentLabelPosition, Transition } from 'react-
 import SocketContext, { ContextType } from '../socketContext/context';
 import './styled.css';
 
+const width = (window.innerWidth - 600) / 3;
+
 const IndicatorComponent = () => {
   const { indicator } = useContext<ContextType>(SocketContext);
   const [signal, setSignal] = useState({
@@ -22,86 +24,86 @@ const IndicatorComponent = () => {
   }, [indicator.indicator_type]);
 
   return (
-    <div className="row">
-      <div className="col-5 px-0">
-        <div className="public-user-block py-2" style={{ borderBottom: '1px solid #34373d' }}>
+    <div className="row m-0">
+      <div className="col-5 mt-3">
+        <div className="public-user-block" style={{ borderBottom: '1px solid #34373d' }}>
           <div className="row">
-            <div className="col-5 px-0">
-              <div className="order text-light">Indicator</div>
+            <div className="col-5 pr-0">
+              <div className="order text-light fontcustom">Indicator</div>
             </div>
-            <div className="col-7 px-0">
+            <div className="col-7 p-0">
               <div className="details d-flex">
                 <div className="item text-success">
                   <i className="fas fa-caret-up text-success" />
-                  <strong>Buy</strong>
+                  <strong className="fontcustom">Buy</strong>
                 </div>
                 <div className="item text-warning">
                   <i className="fab fa-gg text-warning" />
-                  <strong>Neutral</strong>
+                  <strong className="fontcustom">Neutral</strong>
                 </div>
                 <div className="item text-danger">
                   <i className="fas fa-caret-down text-danger" />
-                  <strong>Sell</strong>
+                  <strong className="fontcustom">Sell</strong>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="public-user-block py-2">
+        <div className="public-user-block">
           <div className="row">
-            <div className="col-5 px-0">
-              <div className="order text-info">Oscillators</div>
+            <div className="col-5 pr-0">
+              <div className="order text-info fontcustom">Oscillators</div>
             </div>
-            <div className="col-7 px-0">
+            <div className="col-7 p-0">
               <div className="details d-flex">
                 <div className="item">
-                  <strong>{indicator.oscillatorsBuy}</strong>
+                  <strong className="fontcustom">{indicator.oscillatorsBuy}</strong>
                 </div>
                 <div className="item">
-                  <strong>{indicator.oscillatorsNeutral}</strong>
+                  <strong className="fontcustom">{indicator.oscillatorsNeutral}</strong>
                 </div>
                 <div className="item">
-                  <strong>{indicator.oscillatorsSell}</strong>
+                  <strong className="fontcustom">{indicator.oscillatorsSell}</strong>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="public-user-block py-2">
+        <div className="public-user-block">
           <div className="row">
-            <div className="col-5 px-0">
-              <div className="order text-info">Moving Averages</div>
+            <div className="col-5 pr-0">
+              <div className="order text-info fontcustom">Moving Averages</div>
             </div>
-            <div className="col-7 px-0">
+            <div className="col-7 p-0">
               <div className="details d-flex">
                 <div className="item">
-                  <strong>{indicator.maBuy}</strong>
+                  <strong className="fontcustom">{indicator.maBuy}</strong>
                 </div>
                 <div className="item">
-                  <strong>{indicator.maNeutral}</strong>
+                  <strong className="fontcustom">{indicator.maNeutral}</strong>
                 </div>
                 <div className="item">
-                  <strong>{indicator.maSell}</strong>
+                  <strong className="fontcustom">{indicator.maSell}</strong>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="public-user-block py-2">
+        <div className="public-user-block">
           <div className="row">
-            <div className="col-5 px-0">
-              <div className="order text-info">MACD Histogram</div>
+            <div className="col-5 pr-0">
+              <div className="order text-info fontcustom">MACD Histogram</div>
             </div>
-            <div className="col-7 px-0">
+            <div className="col-7 p-0">
               <div className="details d-flex">
                 <div className="item">
-                  <strong>{indicator.macdBuy}</strong>
+                  <strong className="fontcustom">{indicator.macdBuy}</strong>
                 </div>
                 <div className="item">
-                  <strong>{indicator.macdNeutral}</strong>
+                  <strong className="fontcustom">{indicator.macdNeutral}</strong>
                 </div>
                 <div className="item">
-                  <strong>{indicator.macdSell}</strong>
+                  <strong className="fontcustom">{indicator.macdSell}</strong>
                 </div>
               </div>
             </div>
@@ -109,28 +111,28 @@ const IndicatorComponent = () => {
         </div>
         <div className="public-user-block" style={{ borderTop: '1px solid #34373d' }}>
           <div className="row">
-            <div className="col-7 offset-5 px-0">
+            <div className="col-7 offset-5 p-0">
               <div className="details d-flex">
                 <div className="item text-success">
-                  <strong>{indicator.totalBuy}</strong>
+                  <strong className="fontcustom">{indicator.totalBuy}</strong>
                 </div>
                 <div className="item text-warning">
-                  <strong>{indicator.totalNeutral}</strong>
+                  <strong className="fontcustom">{indicator.totalNeutral}</strong>
                 </div>
                 <div className="item text-danger">
-                  <strong>{indicator.totalSell}</strong>
+                  <strong className="fontcustom">{indicator.totalSell}</strong>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="col-4 px-0">
+      <div className="col-4 p-0">
         <ReactSpeedometer
-          height={189}
+          width={width}
           segments={3}
-          ringWidth={47}
-          needleHeightRatio={0.7}
+          ringWidth={40}
+          needleHeightRatio={0.5}
           segmentColors={['#28a745', '#ffc107', '#F04B4B']}
           currentValueText="Indicator"
           customSegmentLabels={[
@@ -158,23 +160,19 @@ const IndicatorComponent = () => {
           customSegmentStops={[0, 380, 620, 1000]}
         />
       </div>
-      <div className="col-3 px-0">
-        <div className="py-2 text-left" style={{ color: signal.color, marginTop: '3rem' }}>
-          <div className="title text-center" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-            <h2>Signal {signal.type}</h2>
-            <h2>{indicator.indicator} %</h2>
+      <div className="col-3 p-0 mt-3">
+        <div className="py-2 text-left" style={{ color: signal.color }}>
+          <div className="title text-center d-inline-block">
+            <h3>Signal {signal.type}</h3>
+            <h3>{indicator.indicator} %</h3>
           </div>
           {signal.icon && (
-            <i
-              className={signal.icon}
-              style={{
-                color: signal.color,
-                fontSize: 80,
-                marginLeft: '1.5rem',
-                display: 'inline-block',
-                verticalAlign: 'middle',
-              }}
-            />
+            <span className="icon-indicator">
+              <i
+                className={signal.icon}
+                style={{ color: signal.color }}
+              />
+            </span>
           )}
         </div>
       </div>
