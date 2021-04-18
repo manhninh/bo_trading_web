@@ -1,13 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {LOCAL_STORE} from 'constants/system';
 import {AccountInfor, AuthState} from './state';
-import {fetchLogin} from './thunks';
+import {fetchChangeTypeUser, fetchLogin} from './thunks';
 
 export const initialAuthState: AuthState = {
   isSignedOut: false,
   isSignedIn: false,
   userToken: null,
   accountInfor: {
+    _id: null,
     username: null,
     refresh_token: null,
     expires_in: 0,
@@ -30,6 +31,7 @@ const authSlice = createSlice({
       isSignedIn: false,
       userToken: null,
       accountInfor: {
+        _id: null,
         username: null,
         refresh_token: null,
         expires_in: 0,
@@ -52,14 +54,9 @@ const authSlice = createSlice({
       ...state,
       isSignedOut: true,
     }),
-    restoreToken: (state: AuthState, action: PayloadAction<AccountInfor>) => ({
+    restoreAccount: (state: AuthState, action: PayloadAction<AccountInfor>) => ({
       ...state,
       accountInfor: {...state.accountInfor, ...action.payload},
-    }),
-    /** other */
-    changeTypeUser: (state: AuthState, action: PayloadAction<number>) => ({
-      ...state,
-      accountInfor: {...state.accountInfor, type_user: action.payload},
     }),
   },
   extraReducers: (builder) => {
@@ -75,6 +72,7 @@ const authSlice = createSlice({
             `${action.payload.result.token_type} ${action.payload.result.access_token}`,
           );
           state.accountInfor = {
+            _id: null,
             username: action.payload.username,
             refresh_token: action.payload.result.refresh_token,
             expires_in: action.payload.result.expires_in,
@@ -88,12 +86,25 @@ const authSlice = createSlice({
           };
         } else throw Error('Login fail!');
       })
-      .addCase(fetchLogin.rejected, (state, action) => {
+      .addCase(fetchLogin.rejected, (_state, action) => {
+        throw action.payload;
+      })
+      .addCase(fetchChangeTypeUser.fulfilled, (state, action) => {
+        const payload = action.payload;
+        if (payload.result) {
+          state.accountInfor = {
+            ...state.accountInfor,
+            ...payload.result,
+            type_user: payload.type_user,
+          };
+        } else throw Error('Change type account fail!');
+      })
+      .addCase(fetchChangeTypeUser.rejected, (state, action) => {
         throw action.payload;
       });
   },
 });
 
-export const {toSignInPage, restoreToken, signIn, signOut, changeTypeUser} = authSlice.actions;
+export const {toSignInPage, restoreAccount, signIn, signOut} = authSlice.actions;
 
 export default authSlice.reducer;

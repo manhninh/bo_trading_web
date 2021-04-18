@@ -1,14 +1,18 @@
 import {useAppSelector} from 'boot/configureStore';
+import useError from 'containers/hooks/errorProvider/useError';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useEffect, useState} from 'react';
 import {Dropdown} from 'react-bootstrap';
 import {useDispatch} from 'react-redux';
-import {changeTypeUser} from 'routers/redux/slice';
+import {fetchChangeTypeUser} from 'routers/redux/thunks';
 import {formatter2} from 'utils/formatter';
 import {AccountType, State} from './propState';
 import './styled.css';
 
 const SwitchAccountComponent = () => {
   const dispatch = useDispatch();
+  const {addError} = useError();
+  const {showLoading, hideLoading} = useLoading();
   const [state, setState] = useState<State>({
     currentAccount: {type: 0, type_name: 'Live Account', amount: 0},
     listAccountOther: [],
@@ -16,7 +20,8 @@ const SwitchAccountComponent = () => {
   const accountInfor = useAppSelector((state) => state.authState.accountInfor);
 
   useEffect(() => {
-    let currentAccount = {type: 0, type_name: 'Live Account', amount: 0};
+    console.log('change type user');
+    let currentAccount = {type: 0, type_name: 'Live Account', amount: accountInfor.amount_trade};
     const listAccountOther: AccountType[] = new Array();
     switch (accountInfor.type_user) {
       case 1:
@@ -31,8 +36,31 @@ const SwitchAccountComponent = () => {
     setState({currentAccount, listAccountOther});
   }, [accountInfor.type_user]);
 
-  const _switchAccount = (type: number) => () => {
-    dispatch(changeTypeUser(type));
+  useEffect(() => {
+    let amount = 0;
+    switch (accountInfor.type_user) {
+      case 1:
+        amount = accountInfor.amount_demo;
+        break;
+      case 2:
+        amount = accountInfor.amount_expert;
+        break;
+      default:
+        amount = accountInfor.amount_trade;
+        break;
+    }
+    setState((state) => ({...state, currentAccount: {...state.currentAccount, amount}}));
+  }, [accountInfor.amount_trade, accountInfor.amount_demo, accountInfor.amount_expert]);
+
+  const _switchAccount = (type: number) => async () => {
+    showLoading();
+    try {
+      await dispatch(fetchChangeTypeUser(type));
+    } catch (error) {
+      addError(error, 'Account switching failed!');
+    } finally {
+      hideLoading();
+    }
   };
 
   return (

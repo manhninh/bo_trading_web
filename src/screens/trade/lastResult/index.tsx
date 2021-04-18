@@ -3,11 +3,8 @@ import './styled.css';
 
 const LastResultComponent = () => {
   return (
-    <div className="row">
-      <div className="col-10 px-0 pt-3">
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
+    <div className="row m-0">
+      <div className="col-10 pt-3">
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
@@ -17,9 +14,7 @@ const LastResultComponent = () => {
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
-        <div className="div-win" />
         <div className="div-loss" />
-        <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
@@ -68,24 +63,18 @@ const LastResultComponent = () => {
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
-        <div className="div-loss" />
         <div className="div-loss" />
-        <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
-        <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
-        <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
@@ -94,7 +83,6 @@ const LastResultComponent = () => {
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
-        <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
@@ -104,21 +92,17 @@ const LastResultComponent = () => {
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
-        <div className="div-win" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
-        <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
-        <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
-        <div className="div-loss" />
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
@@ -126,17 +110,12 @@ const LastResultComponent = () => {
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
-        <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
-        <div className="div-win" />
-        <div className="div-loss" />
         <div className="div-loss" />
-        <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
-        <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
@@ -147,44 +126,25 @@ const LastResultComponent = () => {
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-win" />
-        <div className="div-loss" />
         <div className="div-loss" />
-        <div className="div-win" />
         <div className="div-loss" />
-        <div className="div-win" />
         <div className="div-win" />
         <div className="div-loss" />
         <div className="div-win" />
-        <div className="div-loss" />
         <div className="div-win" />
-        <div className="div-loss" />
         <div className="div-loss" />
         <div className="div-win" />
         <div className="div-loss" />
       </div>
 
-      <div className="col-2 px-0">
-        <div className="row">
-          <div className="col-12 px-0 py-3">
-            <div>
-              <div className="progress-details">
-                <div className="title">
-                  <h4>SELL</h4>
-                  <h2 className="text-danger">375</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 px-0">
-            <div>
-              <div className="progress-details">
-                <div className="title">
-                  <h4>BUY</h4>
-                  <h2 className="number text-info">375</h2>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="col-2 px-0 mt-5">
+        <div className="d-flex justify-content-between">
+          <h3 className="d-inline-block">BUY</h3>
+          <h3 className="text-info d-inline-block mr-3">375</h3>
+        </div>
+        <div className="d-flex justify-content-between">
+          <h3 className="d-inline-block">SELL</h3>
+          <h3 className="text-danger d-inline-block mr-3">375</h3>
         </div>
       </div>
     </div>

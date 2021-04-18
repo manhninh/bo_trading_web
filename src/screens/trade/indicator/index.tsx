@@ -5,8 +5,6 @@ import ReactSpeedometer, {CustomSegmentLabelPosition, Transition} from 'react-d3
 import {createSelector} from 'reselect';
 import './styled.css';
 
-const width = (window.innerWidth - 600) / 3;
-
 const IndicatorComponent = () => {
   const makeSelectorIndicator = () =>
     createSelector(
@@ -43,7 +41,7 @@ const IndicatorComponent = () => {
             <div className="col-7 p-0">
               <div className="details d-flex">
                 <div className="item text-success">
-                  <i className="fas fa-caret-up text-success" />
+                  <i className="fas fa-caret-up text-success m-l-10" />
                   <strong className="fontcustom">Buy</strong>
                 </div>
                 <div className="item text-warning">
@@ -138,7 +136,7 @@ const IndicatorComponent = () => {
       </div>
       <div className="col-4 p-0">
         <ReactSpeedometer
-          width={width}
+          width={260}
           segments={3}
           ringWidth={40}
           needleHeightRatio={0.5}

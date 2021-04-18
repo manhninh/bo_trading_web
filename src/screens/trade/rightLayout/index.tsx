@@ -102,7 +102,7 @@ const RightLayout = () => {
         </div>
       </div>
       <div className="time-action">
-        <BuySellAction />
+        <BuySellAction place={place} />
         <CountDownTimer />
       </div>
       <ActionInfor />

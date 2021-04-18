@@ -1,14 +1,15 @@
-import { useAppSelector } from 'boot/configureStore';
-import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { ROUTE_PATH } from 'routers/helpers';
-import { restoreToken, signOut } from 'routers/redux/slice';
+import {RootState, useAppSelector} from 'boot/configureStore';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import React, {useEffect, useMemo, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router';
+import {createSelector} from 'reselect';
+import {ROUTE_PATH} from 'routers/helpers';
+import {restoreAccount, signOut} from 'routers/redux/slice';
 import LogInPopupComponent from 'screens/authen/login/popup';
 import RegisterPopupComponent from 'screens/authen/register/popup';
-import { IProps, Props, State } from './propState';
-import { fetchUserInfor } from './services';
+import {IProps, Props, State} from './propState';
+import {fetchUserInfor} from './services';
 import './styled.css';
 import SwitchAccountComponent from './switchAccount';
 
@@ -20,25 +21,35 @@ const HeaderLayout = (props: IProps = Props) => {
   });
   const history = useHistory();
   const dispatch = useDispatch();
-  const authState = useAppSelector((state) => state.authState);
-  const { showLoading, hideLoading } = useLoading();
+  const {showLoading, hideLoading} = useLoading();
+
+  const makeSelectorAuthState = () =>
+    createSelector(
+      (state: RootState) => state.authState.userToken,
+      (_: any, props: string | null | undefined) => props,
+      (authState, props) => (authState !== props ? authState : props),
+    );
+  const selectorAuthState = useMemo(makeSelectorAuthState, []);
+  const authState = useAppSelector((state) => selectorAuthState(state, null));
 
   useEffect(() => {
-    console;
-    if (authState.userToken) checkAuthenToken();
-    if (!authState.userToken && history.location.pathname === ROUTE_PATH.LOGIN)
-      setState((prevState) => ({ ...prevState, openSignIn: true }));
-    if (!authState.userToken && history.location.pathname.includes(ROUTE_PATH.REGISTER))
-      setState((prevState) => ({ ...prevState, openSignUp: true }));
-  }, [authState.userToken, history.location.pathname]);
+    if (authState && !state.isAuthen) checkAuthenToken();
+  }, [authState]);
+
+  useEffect(() => {
+    if (!authState && history.location.pathname === ROUTE_PATH.LOGIN)
+      setState((prevState) => ({...prevState, openSignIn: true}));
+    else if (!authState && history.location.pathname.includes(ROUTE_PATH.REGISTER))
+      setState((prevState) => ({...prevState, openSignUp: true}));
+  }, [history.location.pathname]);
 
   const checkAuthenToken = async () => {
     showLoading();
     try {
       const res = await fetchUserInfor();
       if (res.data && res.data.length > 0) {
-        await dispatch(restoreToken(res.data[0]));
-        setState((state) => ({ ...state, isAuthen: true, openSignin: false }));
+        await dispatch(restoreAccount(res.data[0]));
+        setState((state) => ({...state, isAuthen: true, openSignin: false}));
       } else {
         dispatch(signOut());
         history.push(ROUTE_PATH.LOGIN);
@@ -51,14 +62,14 @@ const HeaderLayout = (props: IProps = Props) => {
     }
   };
 
-  const toggleSignUp = () => setState((prevState) => ({ ...prevState, openSignUp: !prevState.openSignUp }));
+  const toggleSignUp = () => setState((prevState) => ({...prevState, openSignUp: !prevState.openSignUp}));
 
-  const toggleSignIn = () => setState((prevState) => ({ ...prevState, openSignIn: !prevState.openSignIn }));
+  const toggleSignIn = () => setState((prevState) => ({...prevState, openSignIn: !prevState.openSignIn}));
 
   const logOut = () => {
-    setState((state) => ({ ...state, isAuthen: false }));
+    setState((state) => ({...state, isAuthen: false}));
     dispatch(signOut());
-    history.push(ROUTE_PATH.DASHBOARD);
+    history.push(ROUTE_PATH.TRADE);
   };
 
   return (
@@ -67,9 +78,9 @@ const HeaderLayout = (props: IProps = Props) => {
         <nav className={`navbar navbar-expand-lg ${props.noBackground ? 'no-background' : ''}`}>
           <div className="container-fluid d-flex align-items-center justify-content-between">
             <div className="navbar-header">
-              <a href={ROUTE_PATH.DASHBOARD} className="navbar-brand">
+              <a href={ROUTE_PATH.TRADE} className="navbar-brand">
                 <div className="brand-big text-uppercase">
-                  <img src={process.env.PUBLIC_URL + '/logo512.png'} style={{ height: '40px', marginBottom: '10px' }} />
+                  <img src={process.env.PUBLIC_URL + '/logo512.png'} style={{height: '40px', marginBottom: '10px'}} />
                 </div>
               </a>
             </div>
@@ -121,12 +132,12 @@ const HeaderLayout = (props: IProps = Props) => {
           </div>
         </nav>
       </header>
-      {!state.isAuthen &&
+      {!state.isAuthen && (
         <>
           <LogInPopupComponent isOpen={state.openSignIn} callbackToogle={toggleSignIn} />
           <RegisterPopupComponent isOpen={state.openSignUp} callbackToogle={toggleSignUp} />
         </>
-      }
+      )}
     </>
   );
 };

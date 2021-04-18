@@ -9,3 +9,7 @@
   margin-left: 1.5rem;
   display: inline-block;
 }
+
+.m-l-10 {
+  margin-left: -10px;
+}

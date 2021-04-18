@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import {createContext} from 'react';
 
 export type Blocks = {
   event_time: Date;
@@ -19,7 +19,7 @@ export type ContextType = {
 const SocketContext = createContext<ContextType>({
   blocks: new Array<Blocks>(),
   real_data: null,
-  timeTick: 0
+  timeTick: 0,
 });
 
 export default SocketContext;
