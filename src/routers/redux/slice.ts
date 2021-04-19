@@ -1,7 +1,7 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {LOCAL_STORE} from 'constants/system';
-import {AccountInfor, AuthState} from './state';
-import {fetchLogin} from './thunks';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LOCAL_STORE } from 'constants/system';
+import { AccountInfor, AuthState } from './state';
+import { fetchLogin } from './thunks';
 
 export const initialAuthState: AuthState = {
   isSignedOut: false,
@@ -18,6 +18,7 @@ export const initialAuthState: AuthState = {
     amount_expert: 0,
     amount_copytrade: 0,
     type_user: 0,
+    isEnabledTFA: false
   },
 };
 
@@ -40,6 +41,7 @@ const authSlice = createSlice({
         amount_expert: 0,
         amount_copytrade: 0,
         type_user: 0,
+        isEnabledTFA: false
       },
     }),
     signIn: (state: AuthState, action: PayloadAction<string>) => ({
@@ -54,12 +56,16 @@ const authSlice = createSlice({
     }),
     restoreToken: (state: AuthState, action: PayloadAction<AccountInfor>) => ({
       ...state,
-      accountInfor: {...state.accountInfor, ...action.payload},
+      accountInfor: { ...state.accountInfor, ...action.payload },
     }),
     /** other */
     changeTypeUser: (state: AuthState, action: PayloadAction<number>) => ({
       ...state,
-      accountInfor: {...state.accountInfor, type_user: action.payload},
+      accountInfor: { ...state.accountInfor, type_user: action.payload },
+    }),
+    changeStatusTFA: (state: AuthState, action: PayloadAction<boolean>) => ({
+      ...state,
+      accountInfor: { ...state.accountInfor, isEnabledTFA: action.payload },
     }),
   },
   extraReducers: (builder) => {
@@ -85,6 +91,7 @@ const authSlice = createSlice({
             amount_expert: 0,
             amount_copytrade: 0,
             type_user: 0,
+            isEnabledTFA: false
           };
         } else throw Error('Login fail!');
       })
@@ -94,6 +101,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {toSignInPage, restoreToken, signIn, signOut, changeTypeUser} = authSlice.actions;
+export const { toSignInPage, restoreToken, signIn, signOut, changeTypeUser, changeStatusTFA } = authSlice.actions;
 
 export default authSlice.reducer;
