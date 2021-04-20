@@ -11,7 +11,7 @@ const TradeHistoryComponent = () => {
     <ContainerLayout headerTitle="Trade History">
       <div className="row">
         <div className="col-lg-12">
-          <div className="block">
+          <div className="block mb-0">
             <div className="title">
               <div style={{display: 'flex'}}>
                 <div className="input-group" style={{width: '250px'}}>
@@ -23,7 +23,6 @@ const TradeHistoryComponent = () => {
                     </span>
                   </div>
                 </div>
-
                 <div className="input-group" style={{width: '250px'}}>
                   <div style={{display: 'flex', lineHeight: 1.5, padding: '.4rem .75rem'}}>To</div>
                   <DatePicker selected={new Date()} className="form-control w-120" onChange={() => {}} />

@@ -1,27 +1,23 @@
 import UsdtPng from 'assets/images/usdt.png';
 import WithdrawWalletPng from 'assets/images/withdraw_wallet.png';
-import React, { useState } from 'react';
-import { Modal } from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Modal} from 'react-bootstrap';
 import './styled.css';
 
 const TransferComponent = () => {
   const [state, setState] = useState({
-    show: false
+    show: false,
   });
 
-  const handleClose = () => setState(state => ({ ...state, show: false }));
-  const handleShow = () => setState(state => ({ ...state, show: true }));
+  const handleClose = () => setState((state) => ({...state, show: false}));
+  const handleShow = () => setState((state) => ({...state, show: true}));
 
   return (
     <>
-      <button type="button" className="btn btn-warning mx-3" onClick={handleShow}>TRANSFER</button>
-      <Modal
-        show={state.show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        dialogClassName="modal-500w"
-      >
+      <button type="button" className="btn btn-sm btn-warning mx-2" onClick={handleShow}>
+        Transfer
+      </button>
+      <Modal show={state.show} onHide={handleClose} backdrop="static" keyboard={false} dialogClassName="modal-500w">
         <Modal.Header closeButton>
           <Modal.Title>
             <img src={UsdtPng} alt="..." className="img-fluid w-70" />
@@ -42,18 +38,24 @@ const TransferComponent = () => {
           </div>
           <form className="form-validate">
             <div className="form-group">
-              <label className="form-control-label">Amount <span className="text-danger">*</span></label>
+              <label className="form-control-label">
+                Amount <span className="text-danger">*</span>
+              </label>
               <input type="text" className="form-control is-invalid" autoFocus={true} />
               <div className="is-invalid invalid-feedback">Please enter amount</div>
             </div>
             <div className="form-group">
-              <label className="form-control-label">Receiver Username <span className="text-danger">*</span></label>
+              <label className="form-control-label">
+                Receiver Username <span className="text-danger">*</span>
+              </label>
               <input type="text" className="form-control" />
             </div>
             <div className="row">
               <div className="col-md-6 col-xs-12">
                 <div className="form-group">
-                  <label className="form-control-label">Password <span className="text-danger">*</span></label>
+                  <label className="form-control-label">
+                    Password <span className="text-danger">*</span>
+                  </label>
                   <input type="password" className="form-control" />
                 </div>
               </div>

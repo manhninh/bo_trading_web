@@ -19,7 +19,7 @@ export const initialAuthState: AuthState = {
     amount_expert: 0,
     amount_copytrade: 0,
     type_user: 0,
-    isEnabledTFA: false
+    isEnabledTFA: false,
   },
 };
 
@@ -43,7 +43,7 @@ const authSlice = createSlice({
         amount_expert: 0,
         amount_copytrade: 0,
         type_user: 0,
-        isEnabledTFA: false
+        isEnabledTFA: false,
       },
     }),
     signIn: (state: AuthState, action: PayloadAction<string>) => ({
@@ -58,11 +58,11 @@ const authSlice = createSlice({
     }),
     restoreAccount: (state: AuthState, action: PayloadAction<AccountInfor>) => ({
       ...state,
-      accountInfor: { ...state.accountInfor, ...action.payload },
+      accountInfor: {...state.accountInfor, ...action.payload},
     }),
     changeStatusTFA: (state: AuthState, action: PayloadAction<boolean>) => ({
       ...state,
-      accountInfor: { ...state.accountInfor, isEnabledTFA: action.payload },
+      accountInfor: {...state.accountInfor, isEnabledTFA: action.payload},
     }),
   },
   extraReducers: (builder) => {
@@ -89,7 +89,7 @@ const authSlice = createSlice({
             amount_expert: 0,
             amount_copytrade: 0,
             type_user: 0,
-            isEnabledTFA: false
+            isEnabledTFA: false,
           };
         } else throw Error('Login fail!');
       })
@@ -112,6 +112,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { toSignInPage, restoreToken, signIn, signOut, changeStatusTFA } = authSlice.actions;
+export const {toSignInPage, restoreAccount, signIn, signOut, changeStatusTFA} = authSlice.actions;
 
 export default authSlice.reducer;
