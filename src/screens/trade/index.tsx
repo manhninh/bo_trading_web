@@ -1,5 +1,8 @@
-import React from 'react';
-import { Nav, Tab } from 'react-bootstrap';
+import {RootState, useAppSelector} from 'boot/configureStore';
+import React, {useMemo} from 'react';
+import {Nav, Tab} from 'react-bootstrap';
+import {createSelector} from 'reselect';
+import Dashboard from 'screens/dashboard';
 import ContainerLayout from './containerLayout';
 import CryptoChart from './cryptoChart';
 import Indicator from './indicator';
@@ -10,10 +13,19 @@ import './styled.css';
 const height = window.innerHeight - 272;
 
 const TradingComponent = () => {
-  return (
+  const makeSelectorAuthState = () =>
+    createSelector(
+      (state: RootState) => state.authState.userToken,
+      (_: any, props: string | null | undefined) => props,
+      (authState, props) => (authState !== props ? authState : props),
+    );
+  const selectorAuthState = useMemo(makeSelectorAuthState, []);
+  const authState = useAppSelector((state) => selectorAuthState(state, null));
+
+  return authState ? (
     <ContainerLayout>
       <div className="row">
-        <div className="col-lg-12 pr-0" style={{ height }}>
+        <div className="col-lg-12 pr-0" style={{height}}>
           <SocketProvider>
             <CryptoChart height={height} />
           </SocketProvider>
@@ -24,10 +36,14 @@ const TradingComponent = () => {
               <div className="card-header card-header-custom">
                 <Nav className="nav-tabs card-header-tabs">
                   <Nav.Item>
-                    <Nav.Link eventKey="indicator" className="nav-link-custom">Indicator</Nav.Link>
+                    <Nav.Link eventKey="indicator" className="nav-link-custom">
+                      Indicator
+                    </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="last_result" className="nav-link-custom">Last Result</Nav.Link>
+                    <Nav.Link eventKey="last_result" className="nav-link-custom">
+                      Last Result
+                    </Nav.Link>
                   </Nav.Item>
                 </Nav>
               </div>
@@ -46,6 +62,8 @@ const TradingComponent = () => {
         </div>
       </div>
     </ContainerLayout>
+  ) : (
+    <Dashboard />
   );
 };
 
