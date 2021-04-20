@@ -14,7 +14,7 @@ const DepositComponent = () => {
 
   return (
     <>
-      <button type="button" className="btn btn-sm btn-primary" onClick={handleShow}>
+      <button type="button" className="btn btn-sm btn-info" onClick={handleShow}>
         Deposit
       </button>
       <Modal show={state.show} onHide={handleClose} backdrop="static" keyboard={false} dialogClassName="modal-500w">

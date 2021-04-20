@@ -66,14 +66,14 @@ const WalletComponent = () => {
         <table className="table table-sm table-hover">
           <thead>
             <tr>
-              <th>No.</th>
-              <th>Date</th>
-              {tabActive === 'TRANFER' && <th>From</th>}
-              {tabActive === 'TRANFER' && <th>To</th>}
-              <th>Amount</th>
-              {tabActive !== 'TRANFER' && <th>Symbol</th>}
-              {tabActive === 'WITHRAW' && <th>Address</th>}
-              {tabActive !== 'TRANFER' && <th>Status</th>}
+              <th className="text-light">No.</th>
+              <th className="text-light">Date</th>
+              {tabActive === 'TRANFER' && <th className="text-light">From</th>}
+              {tabActive === 'TRANFER' && <th className="text-light">To</th>}
+              <th className="text-light">Amount</th>
+              {tabActive !== 'TRANFER' && <th className="text-light">Symbol</th>}
+              {tabActive === 'WITHRAW' && <th className="text-light">Address</th>}
+              {tabActive !== 'TRANFER' && <th className="text-light">Status</th>}
             </tr>
           </thead>
           <tbody>{_renderRows()}</tbody>
