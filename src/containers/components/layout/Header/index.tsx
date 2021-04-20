@@ -1,10 +1,11 @@
-import {useAppSelector} from 'boot/configureStore';
+import {RootState, useAppSelector} from 'boot/configureStore';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
+import {createSelector} from 'reselect';
 import {ROUTE_PATH} from 'routers/helpers';
-import {restoreToken, signOut} from 'routers/redux/slice';
+import {restoreAccount, signOut} from 'routers/redux/slice';
 import LogInPopupComponent from 'screens/authen/login/popup';
 import RegisterPopupComponent from 'screens/authen/register/popup';
 import {IProps, Props, State} from './propState';
@@ -20,24 +21,34 @@ const HeaderLayout = (props: IProps = Props) => {
   });
   const history = useHistory();
   const dispatch = useDispatch();
-  const authState = useAppSelector((state) => state.authState);
   const {showLoading, hideLoading} = useLoading();
 
+  const makeSelectorAuthState = () =>
+    createSelector(
+      (state: RootState) => state.authState.userToken,
+      (_: any, props: string | null | undefined) => props,
+      (authState, props) => (authState !== props ? authState : props),
+    );
+  const selectorAuthState = useMemo(makeSelectorAuthState, []);
+  const authState = useAppSelector((state) => selectorAuthState(state, null));
+
   useEffect(() => {
-    console;
-    if (authState.userToken) checkAuthenToken();
-    if (!authState.userToken && history.location.pathname === ROUTE_PATH.LOGIN)
+    if (authState && !state.isAuthen) checkAuthenToken();
+  }, [authState]);
+
+  useEffect(() => {
+    if (!authState && history.location.pathname === ROUTE_PATH.LOGIN)
       setState((prevState) => ({...prevState, openSignIn: true}));
-    if (!authState.userToken && history.location.pathname.includes(ROUTE_PATH.REGISTER))
+    else if (!authState && history.location.pathname.includes(ROUTE_PATH.REGISTER))
       setState((prevState) => ({...prevState, openSignUp: true}));
-  }, [authState.userToken, history.location.pathname]);
+  }, [history.location.pathname]);
 
   const checkAuthenToken = async () => {
     showLoading();
     try {
       const res = await fetchUserInfor();
       if (res.data && res.data.length > 0) {
-        await dispatch(restoreToken(res.data[0]));
+        await dispatch(restoreAccount(res.data[0]));
         setState((state) => ({...state, isAuthen: true, openSignin: false}));
       } else {
         dispatch(signOut());
@@ -58,7 +69,7 @@ const HeaderLayout = (props: IProps = Props) => {
   const logOut = () => {
     setState((state) => ({...state, isAuthen: false}));
     dispatch(signOut());
-    history.push(ROUTE_PATH.DASHBOARD);
+    history.push(ROUTE_PATH.TRADE);
   };
 
   return (
@@ -67,7 +78,7 @@ const HeaderLayout = (props: IProps = Props) => {
         <nav className={`navbar navbar-expand-lg ${props.noBackground ? 'no-background' : ''}`}>
           <div className="container-fluid d-flex align-items-center justify-content-between">
             <div className="navbar-header">
-              <a href={ROUTE_PATH.DASHBOARD} className="navbar-brand">
+              <a href={ROUTE_PATH.TRADE} className="navbar-brand">
                 <div className="brand-big text-uppercase">
                   <img src={process.env.PUBLIC_URL + '/logo512.png'} style={{height: '40px', marginBottom: '10px'}} />
                 </div>

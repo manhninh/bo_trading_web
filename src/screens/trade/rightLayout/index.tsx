@@ -1,30 +1,34 @@
-import { MaxAmountPlace, PlaceType } from 'constants/system';
-import React, { useContext, useState } from 'react';
+import {MaxAmountPlace, PlaceType} from 'constants/system';
+import React, {useState} from 'react';
 import NumberFormat from 'react-number-format';
-import SocketContext, { ContextType } from '../socketContext/context';
+import ActionInfor from './actionInfor';
 import BuySellAction from './buySellAction';
 import CountDownTimer from './countDown';
 import './styled.css';
 
 const RightLayout = () => {
-  const { timeTick, isTrade } = useContext<ContextType>(SocketContext);
   const [place, setPlace] = useState(1);
 
   const onChangeAmount = (e: any) => {
-    const { value } = e.target;
+    const {value} = e.target;
     setPlace(value ? parseInt(value.toString().replace(/,/g, '')) : 0);
   };
 
   const handClickPlace = (type: PlaceType) => () => {
     let value: number;
-    if (type === PlaceType.Add) {
-      value = place + 1 >= MaxAmountPlace ? place : place + 1;
-    } else if (type === PlaceType.Subtract) {
-      value = place >= 1 ? place - 1 : 0;
-    } else if (type === PlaceType.Multiply) {
-      value = place * 2 >= MaxAmountPlace ? place : place * 2;
-    } else {
-      value = Math.round(place / 2);
+    switch (type) {
+      case PlaceType.Add:
+        value = place + 1 >= MaxAmountPlace ? place : place + 1;
+        break;
+      case PlaceType.Subtract:
+        value = place >= 1 ? place - 1 : 0;
+        break;
+      case PlaceType.Multiply:
+        value = place * 2 >= MaxAmountPlace ? place : place * 2;
+        break;
+      default:
+        value = Math.round(place / 2);
+        break;
     }
     setPlace(value);
   };
@@ -98,19 +102,10 @@ const RightLayout = () => {
         </div>
       </div>
       <div className="time-action">
-        <BuySellAction isTrade={isTrade} />
-        <CountDownTimer timeTick={timeTick} isTrade={isTrade} />
+        <BuySellAction place={place} />
+        <CountDownTimer />
       </div>
-      <div className="title display-flex" style={{ padding: "0 15px" }}>
-        <h3 className="text-info" style={{ display: 'inline-block', verticalAlign: 'middle', width: "4rem" }}>BUY</h3>
-        <h3 className="text-info" style={{ display: 'inline-block', verticalAlign: 'middle', width: "1.5rem" }}>-</h3>
-        <h2 className="text-info" style={{ display: 'inline-block', verticalAlign: 'middle' }}>0</h2>
-      </div>
-      <div className="title display-flex" style={{ padding: "0 15px" }}>
-        <h3 className="text-danger" style={{ display: 'inline-block', verticalAlign: 'middle', width: "4rem" }}>SELL</h3>
-        <h3 className="text-danger" style={{ display: 'inline-block', verticalAlign: 'middle', width: "1.5rem" }}>-</h3>
-        <h2 className="text-danger" style={{ display: 'inline-block', verticalAlign: 'middle' }}>0</h2>
-      </div>
+      <ActionInfor />
     </>
   );
 };

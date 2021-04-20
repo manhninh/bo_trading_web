@@ -37,8 +37,6 @@ const RegisterComponent = () => {
   const { addError } = useError();
   const sponsor = history.location;
   const match = useRouteMatch();
-  console.log(match);
-  console.log(history);
 
   const {
     register,

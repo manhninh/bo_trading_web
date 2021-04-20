@@ -1,5 +1,6 @@
 import ContainerLayout from 'containers/components/layout/Container';
 import Pagination from 'containers/components/pagination';
+import moment from 'moment';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,7 +12,7 @@ const TradeHistoryComponent = () => {
       <div className="row">
         <div className="col-lg-12">
           <div className="block">
-            <div className="block-body">
+            <div className="title">
               <div style={{display: 'flex'}}>
                 <div className="input-group" style={{width: '250px'}}>
                   <div style={{display: 'flex', lineHeight: 1.5, padding: '.4rem .75rem'}}>From</div>
@@ -39,40 +40,62 @@ const TradeHistoryComponent = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="block">
             <div className="table-responsive">
               <table className="table table-sm table-hover">
                 <thead>
                   <tr>
-                    <th>Time</th>
-                    <th>Action</th>
-                    <th>Open</th>
-                    <th>Close</th>
-                    <th>Result</th>
+                    <th className="text-light">Time</th>
+                    <th className="text-light">Type</th>
+                    <th className="text-light">Action</th>
+                    <th className="text-light">Open</th>
+                    <th className="text-light">Close</th>
+                    <th className="text-light">Result</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <td>{moment().format('MM/DD/YYYY HH:mm')}</td>
+                    <td>ETH/USDT</td>
+                    <td>
+                      <div className="d-inline-block mr-5 text-info text-bold">
+                        <div className="d-inline-block mr-3">Buy</div>
+                        <div className="d-inline-block">100</div>
+                      </div>
+                      <div className="d-inline-block text-danger text-bold">
+                        <div className="d-inline-block mr-3">Sell</div>
+                        <div className="d-inline-block">200</div>
+                      </div>
+                    </td>
+                    <td>2141.17</td>
+                    <td>2141.07</td>
+                    <td>
+                      <div className="d-inline-block text-info text-bold">
+                        <div className="d-inline-block mr-2">WIN</div>
+                        <div className="d-inline-block">+95</div>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>@mdo</td>
+                    <td>{moment().format('MM/DD/YYYY HH:mm')}</td>
+                    <td>ETH/USDT</td>
+                    <td>
+                      <div className="d-inline-block mr-5 text-info text-bold">
+                        <div className="d-inline-block mr-3">Buy</div>
+                        <div className="d-inline-block">100</div>
+                      </div>
+                      <div className="d-inline-block text-danger text-bold">
+                        <div className="d-inline-block mr-3">Sell</div>
+                        <div className="d-inline-block">200</div>
+                      </div>
+                    </td>
+                    <td>2140.17</td>
+                    <td>2141.07</td>
+                    <td>
+                      <div className="d-inline-block text-danger text-bold">
+                        <div className="d-inline-block mr-2">LOSS</div>
+                        <div className="d-inline-block">-95</div>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>

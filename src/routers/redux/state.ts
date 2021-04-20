@@ -1,4 +1,5 @@
 export type AccountInfor = {
+  _id: string | null;
   username: string | null;
   refresh_token: string | null;
   expires_in: number;

@@ -1,9 +1,12 @@
+import { useAppSelector } from 'boot/configureStore';
 import React from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './styled.css';
 
-const CountDownTimer = ({ timeTick, isTrade }) => {
+const CountDownTimer = () => {
+  const { timeTick, isTrade } = useAppSelector(state => state.tradeState);
+
   return (
     <div className="timer-wrapper">
       <div className="timer-container">
