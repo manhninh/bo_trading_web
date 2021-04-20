@@ -1,4 +1,5 @@
 import {signOut} from 'routers/redux/slice';
+import {setWinLoss} from 'screens/trade/redux/slice';
 import {EVENTS, ROOM} from 'screens/trade/socketContext/socketConfig';
 import {Socket} from 'socket.io-client';
 
@@ -17,7 +18,7 @@ export const calculatorEvents = ({setValue, user_id, socketCalculator, dispatch}
 
   /** thay đổi số tiền */
   socketCalculator.on(EVENTS.RESULT_BUY_SELL, function (result: any) {
-    console.log(result, 'amount');
+    dispatch(setWinLoss(result));
   });
 };
 

@@ -22,6 +22,11 @@ const initialTradeState: TradeState = {
   },
   totalBuy: 0,
   totalSell: 0,
+  resultWinLoss: {
+    amount_demo: null,
+    amount_expert: null,
+    amount_trade: null,
+  },
 };
 
 const tradeSlice = createSlice({
@@ -45,9 +50,16 @@ const tradeSlice = createSlice({
       ...state,
       totalSell: action.payload,
     }),
+    setWinLoss: (
+      state: TradeState,
+      action: PayloadAction<{amount_demo: number | null; amount_expert: number | null; amount_trade: number | null}>,
+    ) => ({
+      ...state,
+      resultWinLoss: action.payload,
+    }),
   },
 });
 
-export const {setTimeTick, setIndicator, setTotalBuy, setTotalSell} = tradeSlice.actions;
+export const {setTimeTick, setIndicator, setTotalBuy, setTotalSell, setWinLoss} = tradeSlice.actions;
 
 export default tradeSlice.reducer;

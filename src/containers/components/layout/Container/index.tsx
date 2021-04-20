@@ -19,7 +19,7 @@ const ContainerLayout = (props: Props) => {
         {props.headerTitle && (
           <div className="page-header">
             <div className="container-fluid">
-              <h2 className="h5 no-margin-bottom">{props.headerTitle}</h2>
+              <h2 className="no-margin-bottom text-info">{props.headerTitle}</h2>
             </div>
           </div>
         )}

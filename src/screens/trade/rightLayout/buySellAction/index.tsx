@@ -3,7 +3,7 @@ import UpImage from 'assets/images/up.png';
 import {RootState, useAppSelector} from 'boot/configureStore';
 import {TypeUser, TYPE_ORDER} from 'constants/system';
 import {Order} from 'models/orders';
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {toast} from 'react-toastify';
 import {createSelector} from 'reselect';
@@ -12,20 +12,17 @@ import {setTotalBuy, setTotalSell} from 'screens/trade/redux/slice';
 import {IProps, Props} from './propState';
 import {fetchOrder} from './services';
 import './styled.css';
+import WinLossComponent from './winloss';
 
 const BuySellAction = (props: IProps = Props) => {
   const dispatch = useDispatch();
   const buyRef = React.useRef(0);
   const sellRef = React.useRef(0);
-  // user type
-  const makeSelectorTypeUser = () =>
-    createSelector(
-      (state: RootState) => state.authState.accountInfor.type_user,
-      (_: any, props: TypeUser) => props,
-      (typeUser, props) => (typeUser !== props ? typeUser : props),
-    );
-  const selectorTypeUser = useMemo(makeSelectorTypeUser, []);
-  const typeUser = useAppSelector((state) => selectorTypeUser(state, TypeUser.REAL));
+  const [result, setResult] = useState<number | null>(null);
+  const typeUser = useAppSelector((state) => state.authState.accountInfor.type_user);
+  const amount_demo = useAppSelector((state) => state.tradeState.resultWinLoss.amount_demo);
+  const amount_expert = useAppSelector((state) => state.tradeState.resultWinLoss.amount_expert);
+  const amount_trade = useAppSelector((state) => state.tradeState.resultWinLoss.amount_trade);
 
   // user amount
   const makeSelectorAmountUser = () =>
@@ -34,12 +31,10 @@ const BuySellAction = (props: IProps = Props) => {
       (_: any, props: TypeUser) => props,
       (typeUser, _props) => {
         switch (typeUser.type_user) {
-          case 1:
+          case TypeUser.DEMO:
             return typeUser.amount_demo;
-          case 2:
+          case TypeUser.EXPERT:
             return typeUser.amount_expert;
-          case 3:
-            return typeUser.amount_copytrade;
           default:
             return typeUser.amount_trade;
         }
@@ -48,21 +43,37 @@ const BuySellAction = (props: IProps = Props) => {
   const selectorAmountUser = useMemo(makeSelectorAmountUser, []);
   const amountUser = useAppSelector((state) => selectorAmountUser(state, typeUser));
 
+  useEffect(() => {
+    let result: number | null = null;
+    if (amount_trade && typeUser === TypeUser.REAL) result = amount_trade;
+    else if (amount_expert && typeUser === TypeUser.EXPERT) result = amount_expert;
+    else if (amount_demo && typeUser === TypeUser.DEMO) result = amount_demo;
+    if (result && result > 0) {
+      // thay đổi số tiền trên header
+      let newAmount = amountUser + (result || 0);
+      newAmount = Math.round(newAmount * 100) / 100;
+      _changeAmountHeader(newAmount);
+    }
+    setResult(result);
+  }, [amount_demo, amount_expert, amount_trade]);
+
   // check open trade
-  const makeSelectorTrade = () =>
-    createSelector(
-      (state: RootState) => state.tradeState.isTrade,
-      (_: any, props: boolean) => props,
-      (isTrade, props) => {
-        if (isTrade !== props) return true;
-        else {
-          buyRef.current = 0;
-          sellRef.current = 0;
-          return false;
-        }
-      },
-    );
-  const selectorTrade = useMemo(makeSelectorTrade, []);
+  const selectorTrade = useMemo(
+    () =>
+      createSelector(
+        (state: RootState) => state.tradeState.isTrade,
+        (_: any, props: boolean) => props,
+        (isTrade, props) => {
+          if (isTrade !== props) return true;
+          else {
+            buyRef.current = 0;
+            sellRef.current = 0;
+            return false;
+          }
+        },
+      ),
+    [],
+  );
   const trade = useAppSelector((state) => selectorTrade(state, false));
 
   const _btnBuy = () => {
@@ -129,32 +140,36 @@ const BuySellAction = (props: IProps = Props) => {
     dispatch(restoreAccount(accountInfor));
   };
 
+  console.log('BuySellAction');
   return (
-    <div className="buy-sel-action">
-      {trade ? (
-        <>
-          <button className="btn btn-block btn-info btn-buy-sel-action" onClick={_btnBuy}>
-            <img src={UpImage} className="btn-buy-sel-icon" />
-            <span className="btn-buy-sel-text">BUY</span>
-          </button>
-          <button className="btn btn-block btn-danger btn-buy-sel-action mt-3" onClick={_btnSell}>
-            <img src={DownImage} className="btn-buy-sel-icon" />
-            <span className="btn-buy-sel-text">SELL</span>
-          </button>
-        </>
-      ) : (
-        <>
-          <button className="btn btn-block btn-disabled btn-secondary btn-buy-sel-action" aria-readonly={true}>
-            <img src={UpImage} className="btn-buy-sel-icon" />
-            <span className="btn-buy-sel-text">BUY</span>
-          </button>
-          <button className="btn btn-block btn-disabled btn-secondary btn-buy-sel-action mt-3" aria-readonly={true}>
-            <img src={DownImage} className="btn-buy-sel-icon" />
-            <span className="btn-buy-sel-text">SELL</span>
-          </button>
-        </>
-      )}
-    </div>
+    <>
+      <div className="buy-sel-action">
+        {trade ? (
+          <>
+            <button className="btn btn-block btn-info btn-buy-sel-action" onClick={_btnBuy}>
+              <img src={UpImage} className="btn-buy-sel-icon" />
+              <span className="btn-buy-sel-text">BUY</span>
+            </button>
+            <button className="btn btn-block btn-danger btn-buy-sel-action mt-3" onClick={_btnSell}>
+              <img src={DownImage} className="btn-buy-sel-icon" />
+              <span className="btn-buy-sel-text">SELL</span>
+            </button>
+          </>
+        ) : (
+          <>
+            <button className="btn btn-block btn-disabled btn-secondary btn-buy-sel-action" aria-readonly={true}>
+              <img src={UpImage} className="btn-buy-sel-icon" />
+              <span className="btn-buy-sel-text">BUY</span>
+            </button>
+            <button className="btn btn-block btn-disabled btn-secondary btn-buy-sel-action mt-3" aria-readonly={true}>
+              <img src={DownImage} className="btn-buy-sel-icon" />
+              <span className="btn-buy-sel-text">SELL</span>
+            </button>
+          </>
+        )}
+      </div>
+      <WinLossComponent result={result} openModal={true} />
+    </>
   );
 };
 

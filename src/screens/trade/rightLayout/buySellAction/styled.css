@@ -18,3 +18,21 @@
   vertical-align: middle;
   font-weight: bold;
 }
+
+.modal-w-90-per {
+  max-width: 90% !important;
+}
+
+.modal-content-custom {
+  background: transparent !important;
+  border: 0;
+}
+
+.modal-body-custom {
+  padding: 0;
+  text-align: center;
+}
+
+.text-result {
+  font-size: 10em;
+}

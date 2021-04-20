@@ -1,4 +1,5 @@
 import {useAppSelector} from 'boot/configureStore';
+import {TypeUser} from 'constants/system';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useEffect, useState} from 'react';
@@ -39,10 +40,10 @@ const SwitchAccountComponent = () => {
   useEffect(() => {
     let amount = 0;
     switch (accountInfor.type_user) {
-      case 1:
+      case TypeUser.DEMO:
         amount = accountInfor.amount_demo;
         break;
-      case 2:
+      case TypeUser.EXPERT:
         amount = accountInfor.amount_expert;
         break;
       default:

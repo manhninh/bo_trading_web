@@ -21,4 +21,9 @@ export type TradeState = {
   indicator: Indicator;
   totalBuy: number;
   totalSell: number;
+  resultWinLoss: {
+    amount_demo: number | null;
+    amount_expert: number | null;
+    amount_trade: number | null;
+  };
 };
