@@ -10,6 +10,7 @@ export type AccountInfor = {
   amount_expert: number;
   amount_copytrade: number;
   type_user: number;
+  isEnabledTFA: boolean;
 };
 
 export type AuthState = {
