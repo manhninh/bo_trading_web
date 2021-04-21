@@ -1,22 +1,26 @@
 import {yupResolver} from '@hookform/resolvers/yup';
+import {useAppSelector} from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useCallback, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
 import * as yup from 'yup';
+import {fetchUpdateUser} from './services';
 import './styled.css';
 interface IFormProfile {
-  username: string;
-  fullname: string;
-  email: string;
-  phone: string;
-  address: string;
+  username: string | null;
+  full_name: string | null;
+  email: string | null;
+  phone: string | null;
+  // address: string;
   avatar: any;
 }
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const schema = yup.object().shape({
   email: yup.string().email('Please enter a valid email!'),
+  phone: yup.string().matches(phoneRegExp, {excludeEmptyString: false, message: 'Phone number is not valid'}),
 });
 
 const ImageforwardRef = ({onChangeAvatar, onSelectFile}, ref: React.LegacyRef<HTMLInputElement>) => {
@@ -48,6 +52,7 @@ const ProflieSettingComponent = () => {
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
   const inputFile = useRef<HTMLInputElement>(null);
+  const authState = useAppSelector((state) => state.authState);
 
   const {
     register,
@@ -57,20 +62,24 @@ const ProflieSettingComponent = () => {
     setValue,
   } = useForm<IFormProfile>({
     defaultValues: {
-      username: '',
-      fullname: '',
-      email: '',
-      phone: '',
+      username: authState.accountInfor.username,
+      full_name: authState.accountInfor.full_name,
+      email: authState.accountInfor.email,
+      phone: authState.accountInfor.phone,
       avatar: null,
     },
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data: IFormProfile) => {
-    showLoading();
-    console.log(data);
-
     try {
+      showLoading();
+      console.log(data);
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        data[key] && formData.append(key, data[key]);
+      });
+      const res = await fetchUpdateUser(formData);
     } catch (error) {
       addError(error, 'Account registration failed! Please check your information.');
     } finally {
@@ -87,7 +96,7 @@ const ProflieSettingComponent = () => {
   const onChangeAvatar = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.files?.item(0));
     const avatar = URL.createObjectURL(event.target.files?.item(0));
-    setValue('avatar', avatar, {shouldDirty: true});
+    setValue('avatar', event.target.files?.item(0), {shouldDirty: true});
   }, []);
 
   return (
@@ -118,7 +127,7 @@ const ProflieSettingComponent = () => {
               <div className="col-sm-6 col-md-6">
                 <div className="form-group">
                   <label className="form-label">Full Name</label>
-                  <input type="text" className="form-control" {...register('fullname')} />
+                  <input type="text" className="form-control" {...register('full_name')} />
                 </div>
               </div>
               <div className="col-sm-6 col-md-6">
@@ -138,12 +147,12 @@ const ProflieSettingComponent = () => {
                   <input type="number" className="form-control" {...register('phone')} />
                 </div>
               </div>
-              <div className="col-md-12">
+              {/* <div className="col-md-12">
                 <div className="form-group">
                   <label className="form-label">Address</label>
                   <input type="text" className="form-control" {...register('address')} />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="card-footer text-right">
