@@ -1,5 +1,6 @@
 export enum EVENTS {
   BLOCKS_ETHUSDT = 'blocks_ethusdt',
+  RESULT_ETHUSDT = 'result_ethusdt',
   ETHUSDT_REALTIME = 'ethusdt_realtime',
   INDICATOR_ETHUSDT = 'indicator_ethusdt',
   USER_AMOUNT_CHANGE = 'user_amount',

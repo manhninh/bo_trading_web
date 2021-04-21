@@ -61,7 +61,6 @@ const TwoAuthenComponent = () => {
   const onSubmit = async (data: IFormConfirmMFA) => {
     showLoading();
     try {
-      console.log(data);
       const result = await verifyOTPToken(data);
       if (result) {
         dispatch(changeStatusTFA(true));

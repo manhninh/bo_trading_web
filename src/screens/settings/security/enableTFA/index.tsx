@@ -26,9 +26,8 @@ const EnableTFAComponent = () => {
                   <b>Two-Factor authentication is enabled.</b>
                   <p>
                     If you want to switch to a new device, disable two-factor authentication, then enable it again using
-                    the new device. <a href="#">Learn more</a>
+                    the new device.
                   </p>
-
                   <div className="mb-2 row justify-content-center">
                     <div className="btn-group mr-4" role="group" aria-label="First group">
                       <button type="button" className="btn btn-secondary btn-disable-twa">

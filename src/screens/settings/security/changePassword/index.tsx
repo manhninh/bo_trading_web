@@ -63,8 +63,6 @@ const ChangePasswordComponent = () => {
 
   const onSubmit = async (data: IFormChangePW) => {
     showLoading();
-    console.log(data);
-
     try {
     } catch (error) {
       addError(error, 'Account registration failed! Please check your information.');

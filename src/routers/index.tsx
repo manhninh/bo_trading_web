@@ -14,7 +14,6 @@ const AffiliateLink = lazy(() => import('screens/affiliateLink'));
 const Commissions = lazy(() => import('screens/commissions'));
 const CopyTrade = lazy(() => import('screens/copyTrade'));
 const Wallet = lazy(() => import('screens/wallet'));
-const Dashboard = lazy(() => import('screens/dashboard'));
 const NotFound = lazy(() => import('containers/components/exceptions/404'));
 const Settings = lazy(() => import('screens/settings'));
 

@@ -8,7 +8,7 @@ import './styled.css';
 
 const TradeHistoryComponent = () => {
   return (
-    <ContainerLayout headerTitle="Trade History">
+    <ContainerLayout>
       <div className="row">
         <div className="col-lg-12">
           <div className="block mb-0">
