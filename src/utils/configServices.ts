@@ -9,7 +9,7 @@ const _responseConfig = async (response: Response) => {
 const postService = async (url: string, body: object, isAuthorization = true, isFormData = false) => {
   try {
     const headers: any = isFormData
-      ? { 'Content-Type': 'multipart/form-data' }
+      ? {}
       : { Accept: 'application/json', 'Content-Type': 'application/json' };
     if (isAuthorization) headers.Authorization = localStorage.getItem(LOCAL_STORE.TOKEN);
     const requestInit: any = { method: 'POST', headers };

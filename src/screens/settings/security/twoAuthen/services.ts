@@ -1,4 +1,5 @@
 import configServices from 'utils/configServices';
+import { IFormConfirmMFA } from '.';
 
 export const fetchMfaQRCode = async () => {
   try {
@@ -9,9 +10,18 @@ export const fetchMfaQRCode = async () => {
   }
 };
 
-export const verifyOTPToken = async ({ code, password, secret }) => {
+export const verifyOTPToken = async (data: IFormConfirmMFA) => {
   try {
-    const result = await configServices.postService('users/verify_otp', { code, password, secret });
+    const result = await configServices.postService('users/verify_otp', data);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const disableMfa = async () => {
+  try {
+    const result = await configServices.postService('users/disable_mfa', {});
     return result;
   } catch (error) {
     throw error;
