@@ -1,20 +1,16 @@
 import {useAppSelector} from 'boot/configureStore';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import ChangePasswordComponent from './changePassword';
 import EnableTFAComponent from './enableTFA';
 import './styled.css';
 import TwoAuthenComponent from './twoAuthen';
 
 const SecurityComponent = () => {
-  const [enabledTFA, setEnabledTFA] = useState<boolean>(false);
-  const authState = useAppSelector((state) => state.authState);
-  useEffect(() => {
-    setEnabledTFA(authState.accountInfor.isEnabledTFA);
-  }, [authState.accountInfor.isEnabledTFA]);
+  const enabledTFA = useAppSelector((state) => state.authState.accountInfor.isEnabledTFA);
 
   console.log('SecurityComponent');
   return (
-    <div className="row mt-3">
+    <div className="row">
       <div className="col-lg-3 col-sm-12">
         <ChangePasswordComponent />
       </div>

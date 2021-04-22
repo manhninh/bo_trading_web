@@ -147,6 +147,13 @@ const ProflieSettingComponent = () => {
                   <input type="number" className="form-control" {...register('phone')} />
                 </div>
               </div>
+              <div className="col-sm-12 col-md-12">
+                <div className="form-group text-right">
+                  <button type="submit" className="btn btn-sm btn-danger" onClick={handleSubmit(onSubmit)}>
+                    Update Profile
+                  </button>
+                </div>
+              </div>
               {/* <div className="col-md-12">
                 <div className="form-group">
                   <label className="form-label">Address</label>
@@ -154,11 +161,6 @@ const ProflieSettingComponent = () => {
                 </div>
               </div> */}
             </div>
-          </div>
-          <div className="card-footer text-right">
-            <button type="submit" className="btn btn-danger" onClick={handleSubmit(onSubmit)}>
-              Update Profile
-            </button>
           </div>
         </form>
       </div>

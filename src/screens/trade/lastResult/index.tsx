@@ -26,10 +26,8 @@ const LastResultComponent = () => {
 
   console.log('LastResultComponent');
   return (
-    <div
-      className=""
-      style={{margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '170px'}}>
-      <div style={{width: '720px', maxWidth: '720px', textAlign: 'left', display: 'inline-block'}}>
+    <div className="div-lastresult">
+      <div className="div-result">
         {blocks.length > 0 &&
           blocks.map((item, index: number) => {
             return (
@@ -41,12 +39,10 @@ const LastResultComponent = () => {
             );
           })}
       </div>
-      <div style={{display: 'inline-block', width: '140px', maxWidth: '140px', marginLeft: '20px'}}>
+      <div className="div-total-result">
         <div className="text-left">
           <h3 className="d-inline-block">BUY</h3>
-          <h3 className="text-info d-inline-block" style={{marginLeft: '3.4rem'}}>
-            {blockBuyRef.current}
-          </h3>
+          <h3 className="text-info d-inline-block m-l-rem">{blockBuyRef.current}</h3>
         </div>
         <div className="text-left">
           <h3 className="d-inline-block">SELL</h3>

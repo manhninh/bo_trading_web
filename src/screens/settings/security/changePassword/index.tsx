@@ -83,20 +83,22 @@ const ChangePasswordComponent = () => {
   };
 
   return (
-    <div className="row mt-3">
+    <div className="row">
       <div className="col-12">
         <form className="card mb-2">
-          <div className="card-header">
+          <div className="card-header px-0">
             <h3 className="card-title text-danger">Change password</h3>
           </div>
-          <div className="card-body">
+          <div className="card-body px-0">
             <div className="row">
               <div className="col-12">
                 <div className="form-group">
                   <label className="form-label">Current Password</label>
                   <input
                     type="password"
-                    className={formState.errors.currentPW?.message ? 'form-control is-invalid' : 'form-control'}
+                    className={`form-control form-control-sm ${
+                      formState.errors.currentPW?.message ? 'is-invalid' : ''
+                    }`}
                     {...register('currentPW')}
                   />
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
@@ -109,7 +111,7 @@ const ChangePasswordComponent = () => {
                   <label className="form-label">New Password</label>
                   <input
                     type="password"
-                    className={formState.errors.newPW?.message ? 'form-control is-invalid' : 'form-control'}
+                    className={`form-control form-control-sm ${formState.errors.newPW?.message ? 'is-invalid' : ''}`}
                     {...register('newPW')}
                   />
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
@@ -122,7 +124,9 @@ const ChangePasswordComponent = () => {
                   <label className="form-label">Confirm New Password</label>
                   <input
                     type="password"
-                    className={formState.errors.newPWConfirm?.message ? 'form-control is-invalid' : 'form-control'}
+                    className={`form-control form-control-sm ${
+                      formState.errors.newPWConfirm?.message ? 'is-invalid' : ''
+                    }`}
                     {...register('newPWConfirm')}
                   />
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
@@ -130,12 +134,14 @@ const ChangePasswordComponent = () => {
                   </div>
                 </div>
               </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <button type="submit" className="btn btn-sm btn-danger" onClick={handleSubmit(onSubmit)}>
+                    Change password
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="card-footer text-right">
-            <button type="submit" className="btn btn-danger" onClick={handleSubmit(onSubmit)}>
-              Change password
-            </button>
           </div>
         </form>
       </div>

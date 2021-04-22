@@ -70,56 +70,47 @@ const DisableTFAComponent = (props: IProps = Props) => {
   };
 
   return (
-    <Modal
-      onHide={props.onChangeOpenModal}
-      show={props.openModal}
-      centered={true}
-      dialogClassName="modal-w-90-per"
-      contentClassName="modal-content-custom">
+    <Modal onHide={props.onChangeOpenModal} show={props.openModal} centered={true}>
       <Modal.Header closeButton>
-        <Modal.Title>
-          <h4 className="mb-0 text-primary d-inline-block title-modal">Disable Two-factor authentication</h4>
+        <Modal.Title className="mb-0">
+          <h5 className="mb-0 text-primary d-inline-block title-modal">Disable Two-Factor Authentication</h5>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="modal-body-custom">
-        <form className="card mb-2">
-          <div className="card-body">
-            <div className="row">
-              <div className="col-sm-12 col-md-12">
-                <div className="form-group">
-                  <label className="form-label">Password</label>
-                  <input
-                    type="password"
-                    className={errors.password?.message ? 'form-control is-invalid' : 'form-control'}
-                    {...register('password')}
-                  />
-                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
-                    {errors.password?.message}
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-12 col-md-12">
-                <div className="form-group">
-                  <label className="form-label">2FA Code</label>
-                  <input
-                    type="text"
-                    className={errors.code?.message ? 'form-control is-invalid' : 'form-control'}
-                    {...register('code')}
-                  />
-                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
-                    {errors.code?.message}
-                  </div>
-                </div>
+      <Modal.Body>
+        <div className="row">
+          <div className="col-sm-12 col-md-12">
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <input
+                type="password"
+                className={`form-control form-control-sm ${errors.password?.message ? 'is-invalid' : ''}`}
+                {...register('password')}
+              />
+              <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                {errors.password?.message}
               </div>
             </div>
           </div>
-          <div className="card-footer text-right">
-            <button type="submit" className="btn btn-danger" onClick={handleSubmit(onSubmit)}>
-              Disable
-            </button>
+          <div className="col-sm-12 col-md-12">
+            <div className="form-group mb-0">
+              <label className="form-label">2FA Code</label>
+              <input
+                type="text"
+                className={`form-control form-control-sm ${errors.code?.message ? 'is-invalid' : ''}`}
+                {...register('code')}
+              />
+              <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                {errors.code?.message}
+              </div>
+            </div>
           </div>
-        </form>
+        </div>
       </Modal.Body>
+      <Modal.Footer>
+        <button type="submit" className="btn btn-sm btn-danger" onClick={handleSubmit(onSubmit)}>
+          Disable
+        </button>
+      </Modal.Footer>
     </Modal>
   );
 };

@@ -16,15 +16,15 @@ const EnableTFAComponent = () => {
     setOpenDisableTFA(!openDisableTFA);
   };
   return (
-    <div className="row mt-3">
+    <div className="row">
       <div className="col-12">
         <div className="card mb-2">
-          <div className="card-header">
+          <div className="card-header px-0">
             <h3 className="card-title text-danger title-tfa">
               <span>Two-Factor Authentication</span>
             </h3>
           </div>
-          <div className="card-body">
+          <div className="card-body px-0">
             <div className="row">
               <div className="col-lg-12">
                 <div className="user-block block text-center">

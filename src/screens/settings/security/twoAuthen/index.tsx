@@ -1,14 +1,14 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useAppSelector } from 'boot/configureStore';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {useAppSelector} from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
-import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import QRCode from 'qrcode.react';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { changeStatusTFA } from 'routers/redux/slice';
+import React, {useEffect, useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {useDispatch} from 'react-redux';
+import {changeStatusTFA} from 'routers/redux/slice';
 import * as yup from 'yup';
-import { fetchMfaQRCode, verifyOTPToken } from './services';
+import {fetchMfaQRCode, verifyOTPToken} from './services';
 import './styled.css';
 export interface IFormConfirmMFA {
   password: string;
@@ -72,13 +72,13 @@ const TwoAuthenComponent = () => {
     }
   };
   return (
-    <div className="row mt-3">
+    <div className="row">
       <div className="col-12">
         <form className="card mb-2">
-          <div className="card-header">
+          <div className="card-header px-0">
             <h3 className="card-title text-danger">Setup 2FA</h3>
           </div>
-          <div className="card-body">
+          <div className="card-body px-0">
             <div className="row">
               <div className="col-lg-4 col-sm-12">
                 <h4 className="text-warning">Step 1</h4>
@@ -111,7 +111,7 @@ const TwoAuthenComponent = () => {
                     <label className="form-control-label">Enter login password</label>
                     <input
                       type="password"
-                      className={errors.password?.message ? 'form-control is-invalid' : 'form-control'}
+                      className={`form-control form-control-sm ${errors.password?.message ? 'is-invalid' : ''}`}
                       {...register('password')}
                     />
                     <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
@@ -122,21 +122,21 @@ const TwoAuthenComponent = () => {
                     <label className="form-control-label">Enter 2FA code from the app</label>
                     <input
                       type="text"
-                      className={errors.code?.message ? 'form-control is-invalid' : 'form-control'}
+                      className={`form-control form-control-sm ${errors.code?.message ? 'is-invalid' : ''}`}
                       {...register('code')}
                     />
                     <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                       {errors.code?.message}
                     </div>
                   </div>
+                  <div className="form-group">
+                    <button type="submit" className="btn btn-sm btn-danger" onClick={handleSubmit(onSubmit)}>
+                      Complete Setup
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
-          </div>
-          <div className="card-footer text-right">
-            <button type="submit" className="btn btn-danger" onClick={handleSubmit(onSubmit)}>
-              Complete Setup
-            </button>
           </div>
         </form>
       </div>
