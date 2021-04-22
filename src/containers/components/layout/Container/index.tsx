@@ -6,7 +6,7 @@ import React from 'react';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {Props} from './propState';
 import './styled.css';
-const height = window.innerHeight - 125;
+const height = window.innerHeight - 90;
 
 const ContainerLayout = (props: Props) => {
   return (

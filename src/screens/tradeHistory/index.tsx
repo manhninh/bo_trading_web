@@ -31,7 +31,7 @@ const TradeHistoryComponent = () => {
   const [pageActive, setPageActive] = useState<number>(1);
   const [history, setHistory] = useState<PaginateResult<TradeHistory>>({
     docs: [],
-    limit: 3,
+    limit: 50,
   });
 
   useEffect(() => {
@@ -44,15 +44,12 @@ const TradeHistoryComponent = () => {
 
   const _pageChange = (page: number) => setPageActive(page);
   const _search = async (page: number) => {
-    if (page == pageActive) {
-      await _fetchTradeHistory(page);
-    }
-    setPageActive(page);
+    await _fetchTradeHistory(page);
   };
 
   const _fetchTradeHistory = async (page: number) => {
+    showLoading();
     try {
-      showLoading();
       const result = await getTradeHistory({...filterSearch, page, limit: history.limit});
       setHistory(result.data);
     } catch (err) {
@@ -63,9 +60,16 @@ const TradeHistoryComponent = () => {
   };
 
   const _renderHistory = () => {
-    if (history?.docs.length === 0) return <div>No data</div>;
-    return history.docs.map((d) => (
-      <tr>
+    if (history?.docs.length === 0)
+      return (
+        <tr>
+          <td colSpan={6} className="text-center">
+            No data
+          </td>
+        </tr>
+      );
+    return history.docs.map((d, index) => (
+      <tr key={`history_tr_${index}`}>
         <td>{d.order_uuid && moment(parseInt(d.order_uuid)).format('MM/DD/YYYY HH:mm')}</td>
         <td>ETH/USDT</td>
         <td>
