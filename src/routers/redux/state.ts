@@ -1,4 +1,5 @@
 export type AccountInfor = {
+  _id: string | null;
   username: string | null;
   refresh_token: string | null;
   expires_in: number;
@@ -11,7 +12,7 @@ export type AccountInfor = {
   amount_expert: number;
   amount_copytrade: number;
   type_user: number;
-
+  isEnabledTFA: boolean;
 };
 
 export type AuthState = {

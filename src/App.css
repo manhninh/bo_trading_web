@@ -2,7 +2,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #22252c;
+  background: #21252a;
 }
 
 .background-img {
@@ -37,8 +37,8 @@ a:active {
   left: 0;
   z-index: 2;
   height: 100%;
-  background-color: #2d3035;
-  border-right: 1px solid #34373d;
+  background-color: transparent;
+  border-right: 0;
 }
 
 .w-120 {
@@ -51,6 +51,7 @@ a:active {
 
 .block {
   margin-bottom: 15px;
+  background: transparent;
 }
 
 a:not([href]):not([tabindex]):focus,
@@ -73,4 +74,58 @@ a:not([href]):not([tabindex]):hover {
   font-size: 13px;
   font-weight: 500;
   font-family: 'Muli', sans-serif;
+}
+
+.card {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  color: #8a8d93 !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range,
+.react-datepicker__quarter-text--selected,
+.react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker__quarter-text--in-range,
+.react-datepicker__year-text--selected,
+.react-datepicker__year-text--in-selecting-range,
+.react-datepicker__year-text--in-range {
+  background-color: #16ceb9 !important;
+  color: #fff !important;
+}
+
+.react-datepicker {
+  background-color: #2d3035 !important;
+  border: 1px solid #393c43 !important;
+  color: #8a8d93 !important;
+}
+
+.react-datepicker__header {
+  background-color: #2d3035 !important;
+  border-bottom: 1px solid #393c43 !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  color: #8a8d93 !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  color: #fff !important;
+}
+
+.react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle,
+.react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle::before {
+  border-bottom-color: #393c43 !important;
 }

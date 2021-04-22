@@ -22,3 +22,12 @@ export const fetchLogin = createAsyncThunk('auth/login', async (auth: Auth, thun
     return thunkAPI.rejectWithValue(error);
   }
 });
+
+export const fetchChangeTypeUser = createAsyncThunk('auth/change_type_user', async (type_user: number, thunkAPI) => {
+  try {
+    const result = await configServices.getService('users');
+    return {result: result.data[0], type_user};
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});

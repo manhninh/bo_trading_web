@@ -1,0 +1,23 @@
+.w-60 {
+  width: 60px;
+}
+
+.title-tfa {
+  display: flex;
+}
+
+.badge-tfa {
+  border-radius: 15px;
+  font-size: 75%;
+  padding: 5px 15px;
+  font-weight: 100;
+  margin-left: 15px;
+}
+
+.btn-view-recovery {
+  padding: 5px 15px;
+}
+
+.btn-disable-twa {
+  padding: 5px 47px;
+}

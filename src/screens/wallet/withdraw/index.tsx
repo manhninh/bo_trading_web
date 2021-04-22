@@ -1,27 +1,23 @@
 import UsdtPng from 'assets/images/usdt.png';
 import WithdrawWalletPng from 'assets/images/withdraw_wallet.png';
-import React, { useState } from 'react';
-import { Modal } from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Modal} from 'react-bootstrap';
 import './styled.css';
 
 const WithdrawComponent = () => {
   const [state, setState] = useState({
-    show: false
+    show: false,
   });
 
-  const handleClose = () => setState(state => ({ ...state, show: false }));
-  const handleShow = () => setState(state => ({ ...state, show: true }));
+  const handleClose = () => setState((state) => ({...state, show: false}));
+  const handleShow = () => setState((state) => ({...state, show: true}));
 
   return (
     <>
-      <button type="button" className="btn btn-success" onClick={handleShow}>WITHDRAW</button>
-      <Modal
-        show={state.show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        dialogClassName="modal-500w"
-      >
+      <button type="button" className="btn btn-sm btn-success" onClick={handleShow}>
+        Withdraw
+      </button>
+      <Modal show={state.show} onHide={handleClose} backdrop="static" keyboard={false} dialogClassName="modal-500w">
         <Modal.Header closeButton>
           <Modal.Title>
             <img src={UsdtPng} alt="..." className="img-fluid w-70" />
@@ -44,7 +40,9 @@ const WithdrawComponent = () => {
             <div className="row">
               <div className="col-12">
                 <div className="form-group">
-                  <label className="form-control-label">Amount <span className="text-danger">*</span></label>
+                  <label className="form-control-label">
+                    Amount <span className="text-danger">*</span>
+                  </label>
                   <input type="text" className="form-control is-invalid" autoFocus={true} />
                   <div className="is-invalid invalid-feedback">Please enter amount</div>
                 </div>
@@ -56,7 +54,7 @@ const WithdrawComponent = () => {
                   Withdraw fees:
                   <br />
                   Net Amount:
-                  </p>
+                </p>
               </div>
               <div className="col-12 col-md-6 text-md-right">
                 <p className="mb-2 text-gray-light">
@@ -69,7 +67,9 @@ const WithdrawComponent = () => {
             <div className="row">
               <div className="col-12 col-md-12">
                 <div className="form-group">
-                  <label className="form-control-label">Address USDT - ERC20 <span className="text-danger">*</span></label>
+                  <label className="form-control-label">
+                    Address USDT - ERC20 <span className="text-danger">*</span>
+                  </label>
                   <input type="text" className="form-control" />
                 </div>
               </div>
@@ -77,7 +77,9 @@ const WithdrawComponent = () => {
             <div className="row">
               <div className="col-md-6 col-xs-12">
                 <div className="form-group">
-                  <label className="form-control-label">Password <span className="text-danger">*</span></label>
+                  <label className="form-control-label">
+                    Password <span className="text-danger">*</span>
+                  </label>
                   <input type="password" className="form-control" />
                 </div>
               </div>

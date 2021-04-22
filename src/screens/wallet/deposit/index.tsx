@@ -1,27 +1,23 @@
 import UsdtPng from 'assets/images/usdt.png';
-import QRCode from "qrcode.react";
-import React, { useState } from 'react';
-import { Modal } from 'react-bootstrap';
+import QRCode from 'qrcode.react';
+import React, {useState} from 'react';
+import {Modal} from 'react-bootstrap';
 import './styled.css';
 
 const DepositComponent = () => {
   const [state, setState] = useState({
-    show: false
+    show: false,
   });
 
-  const handleClose = () => setState(state => ({ ...state, show: false }));
-  const handleShow = () => setState(state => ({ ...state, show: true }));
+  const handleClose = () => setState((state) => ({...state, show: false}));
+  const handleShow = () => setState((state) => ({...state, show: true}));
 
   return (
     <>
-      <button type="button" className="btn btn-primary" onClick={handleShow}>DEPOSIT</button>
-      <Modal
-        show={state.show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        dialogClassName="modal-500w"
-      >
+      <button type="button" className="btn btn-sm btn-info" onClick={handleShow}>
+        Deposit
+      </button>
+      <Modal show={state.show} onHide={handleClose} backdrop="static" keyboard={false} dialogClassName="modal-500w">
         <Modal.Header closeButton>
           <Modal.Title>
             <img src={UsdtPng} alt="..." className="img-fluid w-70" />
@@ -36,7 +32,9 @@ const DepositComponent = () => {
               <div className="input-group">
                 <input type="text" className="form-control" disabled={true} readOnly={true} />
                 <div className="input-group-append">
-                  <button type="button" className="btn btn-primary">Copy</button>
+                  <button type="button" className="btn btn-primary">
+                    Copy
+                  </button>
                 </div>
               </div>
             </div>
@@ -46,7 +44,10 @@ const DepositComponent = () => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <h6 className="text-center text-danger">Note: The minimum deposit amount is 30 USDT, less than this amount will not be credited to your balance wallet</h6>
+          <h6 className="text-center text-danger">
+            Note: The minimum deposit amount is 30 USDT, less than this amount will not be credited to your balance
+            wallet
+          </h6>
         </Modal.Footer>
       </Modal>
     </>
