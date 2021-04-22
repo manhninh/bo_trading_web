@@ -13,7 +13,7 @@ const TradeHistoryComponent = () => {
         <div className="col-lg-12">
           <div className="block mb-0">
             <div className="title">
-              <div style={{display: 'flex'}}>
+              <div className="d-flex">
                 <div className="input-group" style={{width: '250px'}}>
                   <div style={{display: 'flex', lineHeight: 1.5, padding: '.4rem .75rem'}}>From</div>
                   <DatePicker selected={new Date()} className="form-control w-120" onChange={() => {}} />
@@ -40,7 +40,7 @@ const TradeHistoryComponent = () => {
               </div>
             </div>
             <div className="table-responsive">
-              <table className="table table-sm table-hover">
+              <table className="table table-hover">
                 <thead>
                   <tr>
                     <th className="text-light">Time</th>

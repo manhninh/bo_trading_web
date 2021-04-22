@@ -1,135 +1,72 @@
 import ContainerLayout from 'containers/components/layout/Container';
-import Pagination from 'containers/components/pagination';
-import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import moment from 'moment';
-import React, {useEffect, useState} from 'react';
-import {Tab, Tabs} from 'react-bootstrap';
+import SpinnerLoader from 'containers/components/loader';
+import _ from 'lodash';
+import React, {lazy, Suspense} from 'react';
+import {Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
+import Switch from 'react-bootstrap/esm/Switch';
+import {NavLink, Redirect, Route, useLocation} from 'react-router-dom';
 import DepositComponent from './deposit';
-import {fetchTransactionHistory, TYPE_HISTORY} from './services';
 import './styled.css';
 import TranferComponent from './transfer';
 import WithdrawComponent from './withdraw';
-interface PaginateResult<T> {
-  docs: Array<T>;
-  total: number;
-  limit: number;
-  page?: number;
-  pages?: number;
-  offset?: number;
-}
+
+const components = {
+  deposit: lazy(() => import('./deposit/history')),
+  transfer: lazy(() => import('./transfer/history')),
+  withdraw: lazy(() => import('./withdraw/history')),
+};
 
 const WalletComponent = () => {
-  const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
+  const {pathname} = useLocation();
 
-  const [pageActive, setPageActive] = useState<number>(1);
-  const [history, setHistory] = useState<PaginateResult<any>>({
-    docs: [],
-    total: -1,
-    limit: 50,
-  });
-  const [tabActive, setTabActive] = useState(TYPE_HISTORY[TYPE_HISTORY.DEPOSIT]);
-
-  useEffect(() => {
-    _getTransactionHistory(TYPE_HISTORY[tabActive], pageActive);
-  }, [tabActive, pageActive]);
-
-  const _getTransactionHistory = async (type: TYPE_HISTORY, page: number, limit?: number) => {
-    try {
-      showLoading();
-      const res = await fetchTransactionHistory(type, page, limit);
-      setHistory(res.data);
-    } catch (err) {
-      addError(err, 'Load transaction history fail!');
-    } finally {
-      hideLoading();
-    }
-  };
-
-  const _pageChange = (page: number) => {
-    setPageActive(page);
-  };
-
-  const _onSelectTab = (active: string | null) => {
-    active && setTabActive(active);
-    setPageActive(1);
-  };
-
-  const _renderTab = () => {
-    return (
-      <div className="table-responsive">
-        <table className="table table-sm table-hover">
-          <thead>
-            <tr>
-              <th className="text-light">No.</th>
-              <th className="text-light">Date</th>
-              {tabActive === 'TRANFER' && <th className="text-light">From</th>}
-              {tabActive === 'TRANFER' && <th className="text-light">To</th>}
-              <th className="text-light">Amount</th>
-              {tabActive !== 'TRANFER' && <th className="text-light">Symbol</th>}
-              {tabActive === 'WITHRAW' && <th className="text-light">Address</th>}
-              {tabActive !== 'TRANFER' && <th className="text-light">Status</th>}
-            </tr>
-          </thead>
-          <tbody>{_renderRows()}</tbody>
-        </table>
-      </div>
-    );
-  };
-
-  const _renderRows = () => {
-    if (history?.docs.length === 0) return <div>No data</div>;
-    return history?.docs.map((d, i) => (
-      <tr>
-        <th scope="row">{i}</th>
-        <td>{moment(d.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>
-        {tabActive === 'TRANFER' && <td>From</td>}
-        {tabActive === 'TRANFER' && <td>To</td>}
-        <td>{d.amount}</td>
-        {tabActive !== 'TRANFER' && <td>{d.symbol}</td>}
-        {tabActive === 'WITHRAW' && <td>{d.address ?? ''}</td>}
-        {tabActive !== 'TRANFER' && <td>{d.status}</td>}
-      </tr>
+  const renderNavItems = () =>
+    Object.keys(components).map((route) => (
+      <NavItem key={`${route}-nav-item`}>
+        <Nav.Link as={NavLink} to={`/wallet/${route}`} active={pathname === `/wallet/${route}`}>
+          {_.startCase(route)}
+        </Nav.Link>
+      </NavItem>
     ));
-  };
+
+  const renderRoutes = () =>
+    Object.entries(components).map(([route, Component]) => (
+      <Route key={`${route}-route`} path={`/wallet/${route}`}>
+        <Tab.Pane active={pathname === `/wallet/${route}`}>
+          <Component />
+        </Tab.Pane>
+      </Route>
+    ));
 
   return (
     <ContainerLayout>
-      <>
-        <div className="row">
-          <div className="text-center action-img">
-            <div className="action-bottom">
-              <DepositComponent />
-              <TranferComponent />
-              <WithdrawComponent />
-            </div>
+      <div className="row">
+        <div className="text-center action-img">
+          <div className="action-bottom">
+            <DepositComponent />
+            <TranferComponent />
+            <WithdrawComponent />
           </div>
-          <div className="block right-body py-0">
-            <div className="row">
-              <div className="col-lg-12">
-                <Tabs defaultActiveKey={tabActive} onSelect={_onSelectTab}>
-                  <Tab eventKey={TYPE_HISTORY[TYPE_HISTORY.DEPOSIT]} title="Deposit History">
-                    {_renderTab()}
-                  </Tab>
-                  <Tab eventKey={TYPE_HISTORY[TYPE_HISTORY.TRANFER]} title="Tranfer History">
-                    {_renderTab()}
-                  </Tab>
-                  <Tab eventKey={TYPE_HISTORY[TYPE_HISTORY.WITHRAW]} title="Withdraw History">
-                    {_renderTab()}
-                  </Tab>
-                </Tabs>
-                <Pagination
-                  page={pageActive}
-                  perPage={history.limit}
-                  count={100}
-                  pageChange={(page: number) => _pageChange(page)}
-                />
-              </div>
+        </div>
+        <div className="block right-body py-0">
+          <div className="row">
+            <div className="col-lg-12">
+              <Tab.Container>
+                <Nav fill={true} justify={true} variant="tabs">
+                  {renderNavItems()}
+                </Nav>
+                <TabContent>
+                  <Suspense fallback={<SpinnerLoader />}>
+                    <Switch>
+                      <Redirect from="/" to="/wallet/deposit" />
+                      {renderRoutes()}
+                    </Switch>
+                  </Suspense>
+                </TabContent>
+              </Tab.Container>
             </div>
           </div>
         </div>
-      </>
+      </div>
     </ContainerLayout>
   );
 };

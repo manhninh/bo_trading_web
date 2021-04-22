@@ -129,3 +129,7 @@ a:not([href]):not([tabindex]):hover {
 .react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle::before {
   border-bottom-color: #393c43 !important;
 }
+
+.custom-control {
+  padding-left: 0;
+}

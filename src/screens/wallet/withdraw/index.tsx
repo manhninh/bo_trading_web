@@ -1,7 +1,7 @@
 import UsdtPng from 'assets/images/usdt.png';
 import WithdrawWalletPng from 'assets/images/withdraw_wallet.png';
 import React, {useState} from 'react';
-import {Modal} from 'react-bootstrap';
+import {Button, Modal} from 'react-bootstrap';
 import './styled.css';
 
 const WithdrawComponent = () => {
@@ -25,6 +25,10 @@ const WithdrawComponent = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <div className="form-group text-center">
+            <Button className="btn-info btn-lg mr-3">ERC20</Button>
+            <Button className="btn-outline-secondary btn-lg">TRC20</Button>
+          </div>
           <div className="statistic-block p-0 pb-2">
             <div className="progress-details d-flex align-items-end justify-content-between">
               <div className="title">
@@ -49,14 +53,14 @@ const WithdrawComponent = () => {
               </div>
             </div>
             <div className="row">
-              <div className="col-12 col-md-6">
+              <div className="col-6">
                 <p className="mb-2 text-gray-light">
                   Withdraw fees:
                   <br />
                   Net Amount:
                 </p>
               </div>
-              <div className="col-12 col-md-6 text-md-right">
+              <div className="col-6 text-right">
                 <p className="mb-2 text-gray-light">
                   <strong>$ 20 USDT</strong>
                   <br />
@@ -65,7 +69,7 @@ const WithdrawComponent = () => {
               </div>
             </div>
             <div className="row">
-              <div className="col-12 col-md-12">
+              <div className="col-12">
                 <div className="form-group">
                   <label className="form-control-label">
                     Address USDT - ERC20 <span className="text-danger">*</span>
