@@ -4,7 +4,11 @@ import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router';
+import {ROUTE_PATH} from 'routers/helpers';
+import {signOut} from 'routers/redux/slice';
 import * as yup from 'yup';
+import {changePassword} from './services';
 import './styled.css';
 interface IFormChangePW {
   currentPW: string;
@@ -51,6 +55,7 @@ const ChangePasswordComponent = () => {
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
+  const history = useHistory();
 
   const {register, handleSubmit, formState} = useForm<IFormChangePW>({
     defaultValues: {
@@ -64,12 +69,16 @@ const ChangePasswordComponent = () => {
   const onSubmit = async (data: IFormChangePW) => {
     showLoading();
     try {
+      showLoading();
+      const res = await changePassword({current_password: data.currentPW, new_password: data.newPW});
+      if (res) {
+        dispatch(signOut());
+        history.push(ROUTE_PATH.LOGIN);
+      }
     } catch (error) {
       addError(error, 'Account registration failed! Please check your information.');
     } finally {
-      setTimeout(() => {
-        hideLoading();
-      }, 3000);
+      hideLoading();
     }
   };
 
