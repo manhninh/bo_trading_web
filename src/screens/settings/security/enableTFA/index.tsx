@@ -1,15 +1,20 @@
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
+import DisableTFAComponent from 'screens/settings/security/disableTFA';
 import './styled.css';
-
 const EnableTFAComponent = () => {
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
+  const [openDisableTFA, setOpenDisableTFA] = useState<boolean>(false);
 
   useEffect(() => {}, []);
+
+  const _showHideDisableTFA = () => {
+    setOpenDisableTFA(!openDisableTFA);
+  };
   return (
     <div className="row mt-3">
       <div className="col-12">
@@ -30,7 +35,7 @@ const EnableTFAComponent = () => {
                   </p>
                   <div className="mb-2 row justify-content-center">
                     <div className="btn-group mr-4" role="group" aria-label="First group">
-                      <button type="button" className="btn btn-secondary btn-disable-twa">
+                      <button type="button" className="btn btn-secondary btn-disable-twa" onClick={_showHideDisableTFA}>
                         Disable 2FA
                       </button>
                     </div>
@@ -41,6 +46,7 @@ const EnableTFAComponent = () => {
           </div>
         </div>
       </div>
+      <DisableTFAComponent openModal={openDisableTFA} onChangeOpenModal={_showHideDisableTFA} />
     </div>
   );
 };
