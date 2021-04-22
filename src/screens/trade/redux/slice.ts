@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Indicator, TradeState} from './state';
+import {fetchCurrentOrder} from './thunks';
 
 const initialTradeState: TradeState = {
   timeTick: 0,
@@ -27,6 +28,7 @@ const initialTradeState: TradeState = {
     amount_expert: null,
     amount_trade: null,
   },
+  blocks: [],
 };
 
 const tradeSlice = createSlice({
@@ -57,9 +59,51 @@ const tradeSlice = createSlice({
       ...state,
       resultWinLoss: action.payload,
     }),
+    setResultBlocks: (state: TradeState, action: PayloadAction<{result: boolean}[]>) => ({
+      ...state,
+      blocks: action.payload,
+    }),
+    addResultToBlocks: (state: TradeState, action: PayloadAction<{result: boolean}>) => {
+      const newBlocks = [...state.blocks, action.payload];
+      newBlocks.shift();
+      return {
+        ...state,
+        blocks: newBlocks,
+      };
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCurrentOrder.fulfilled, (state, action) => {
+        const payload = action.payload;
+        if (payload.length > 0) {
+          let totalBuy = 0;
+          let totalSell = 0;
+          payload.map((item: any) => {
+            if (item.status_order && item.status_order) {
+              totalSell = item.amount_order;
+              state.totalSell = totalSell;
+            } else {
+              totalBuy = item.amount_order;
+              state.totalBuy = totalBuy;
+            }
+          });
+        }
+      })
+      .addCase(fetchCurrentOrder.rejected, (_state, action) => {
+        throw action.payload;
+      });
   },
 });
 
-export const {setTimeTick, setIndicator, setTotalBuy, setTotalSell, setWinLoss} = tradeSlice.actions;
+export const {
+  setTimeTick,
+  setIndicator,
+  setTotalBuy,
+  setTotalSell,
+  setWinLoss,
+  setResultBlocks,
+  addResultToBlocks,
+} = tradeSlice.actions;
 
 export default tradeSlice.reducer;

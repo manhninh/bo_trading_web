@@ -32,8 +32,6 @@ const WalletComponent = () => {
   const [tabActive, setTabActive] = useState(TYPE_HISTORY[TYPE_HISTORY.DEPOSIT]);
 
   useEffect(() => {
-    console.log('active_tab', tabActive);
-    console.log('page_number', pageActive);
     _getTransactionHistory(TYPE_HISTORY[tabActive], pageActive);
   }, [tabActive, pageActive]);
 
@@ -41,11 +39,9 @@ const WalletComponent = () => {
     try {
       showLoading();
       const res = await fetchTransactionHistory(type, page, limit);
-      console.log(res);
       setHistory(res.data);
     } catch (err) {
-      console.log(err);
-      // addError(err);
+      addError(err, 'Load transaction history fail!');
     } finally {
       hideLoading();
     }
@@ -99,7 +95,7 @@ const WalletComponent = () => {
   };
 
   return (
-    <ContainerLayout headerTitle="Wallet">
+    <ContainerLayout>
       <>
         <div className="row">
           <div className="text-center action-img">
@@ -109,7 +105,7 @@ const WalletComponent = () => {
               <WithdrawComponent />
             </div>
           </div>
-          <div className="block right-body">
+          <div className="block right-body py-0">
             <div className="row">
               <div className="col-lg-12">
                 <Tabs defaultActiveKey={tabActive} onSelect={_onSelectTab}>

@@ -67,6 +67,7 @@ const ChangePasswordComponent = () => {
   });
 
   const onSubmit = async (data: IFormChangePW) => {
+    showLoading();
     try {
       showLoading();
       const res = await changePassword({current_password: data.currentPW, new_password: data.newPW});

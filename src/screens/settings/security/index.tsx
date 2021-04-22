@@ -12,6 +12,7 @@ const SecurityComponent = () => {
     setEnabledTFA(authState.accountInfor.isEnabledTFA);
   }, [authState.accountInfor.isEnabledTFA]);
 
+  console.log('SecurityComponent');
   return (
     <div className="row mt-3">
       <div className="col-lg-3 col-sm-12">

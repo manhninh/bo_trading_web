@@ -140,7 +140,6 @@ const BuySellAction = (props: IProps = Props) => {
     dispatch(restoreAccount(accountInfor));
   };
 
-  console.log('BuySellAction');
   return (
     <>
       <div className="buy-sel-action">

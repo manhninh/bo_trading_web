@@ -1,19 +1,19 @@
-import {yupResolver} from '@hookform/resolvers/yup';
-import {useAppSelector} from 'boot/configureStore';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useAppSelector } from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
 import QRCode from 'qrcode.react';
-import React, {useEffect, useState} from 'react';
-import {useForm} from 'react-hook-form';
-import {useDispatch} from 'react-redux';
-import {changeStatusTFA} from 'routers/redux/slice';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { changeStatusTFA } from 'routers/redux/slice';
 import * as yup from 'yup';
-import {fetchMfaQRCode, verifyOTPToken} from './services';
+import { fetchMfaQRCode, verifyOTPToken } from './services';
 import './styled.css';
-interface IFormConfirmMFA {
+export interface IFormConfirmMFA {
   password: string;
   code: string;
-  secret: string;
+  secret?: string;
 }
 
 const schema = yup.object().shape({
@@ -61,7 +61,6 @@ const TwoAuthenComponent = () => {
   const onSubmit = async (data: IFormConfirmMFA) => {
     showLoading();
     try {
-      console.log(data);
       const result = await verifyOTPToken(data);
       if (result) {
         dispatch(changeStatusTFA(true));

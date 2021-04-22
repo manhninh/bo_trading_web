@@ -21,7 +21,6 @@ const SwitchAccountComponent = () => {
   const accountInfor = useAppSelector((state) => state.authState.accountInfor);
 
   useEffect(() => {
-    console.log('change type user');
     let currentAccount = {type: 0, type_name: 'Live Account', amount: accountInfor.amount_trade};
     const listAccountOther: AccountType[] = new Array();
     switch (accountInfor.type_user) {
@@ -69,7 +68,7 @@ const SwitchAccountComponent = () => {
       <Dropdown.Toggle variant="success" className="nav-link language dropdown-toggle border-new div-main">
         <div className="div-group">
           <span className="type-account text-bold">{state.currentAccount.type_name}</span>
-          <span className="amount-account text-bold">$ {state.currentAccount.amount}</span>
+          <span className="amount-account text-bold">$ {formatter2.format(state.currentAccount.amount)}</span>
         </div>
       </Dropdown.Toggle>
 

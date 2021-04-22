@@ -86,3 +86,11 @@ section {
 .Toastify__toast--info {
   background-color: #16ceb9;
 }
+
+.nav-tabs {
+  border-bottom: 1px solid #34373d;
+}
+
+.card-header-tabs {
+  border-bottom: 0;
+}

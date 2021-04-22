@@ -1,6 +1,6 @@
 import {EVENTS, ROOM} from 'screens/trade/socketContext/socketConfig';
 import {Socket} from 'socket.io-client';
-import {setIndicator, setTimeTick} from '../redux/slice';
+import {addResultToBlocks, setIndicator, setResultBlocks, setTimeTick} from '../redux/slice';
 import {ContextType} from './context';
 
 export const candlestickEvents = ({setValue, user_id, socketCandlestick, dispatch}) => {
@@ -21,11 +21,22 @@ export const candlestickEvents = ({setValue, user_id, socketCandlestick, dispatc
     setValue((state: ContextType) => ({...state, blocks}));
   });
 
+  /** lấy dữ liệu kết quả nến để tổng hợp sau khi join room ethusdt */
+  socketCandlestick.on(EVENTS.RESULT_ETHUSDT, (result: any) => {
+    dispatch(setResultBlocks(result));
+  });
+
   /** dữ liệu nến trả về từng giây */
   socketCandlestick.on(EVENTS.ETHUSDT_REALTIME, (result: any) => {
     const real_data = result.candlestick;
     const timeTick = result.timeTick % 30;
     const isTrade = result.timeTick >= 30 ? false : true;
+    if (result.timeTick === 0) {
+      let newResult: boolean | null = null;
+      if (real_data.open < real_data.close) newResult = false;
+      else if (real_data.open > real_data.close) newResult = true;
+      if (newResult) dispatch(addResultToBlocks({result: newResult}));
+    }
     dispatch(setTimeTick({timeTick, isTrade}));
     setValue((state: ContextType) => ({...state, real_data, timeTick, isTrade}));
   });
