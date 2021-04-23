@@ -1,190 +1,52 @@
-import React from 'react';
+import {RootState, useAppSelector} from 'boot/configureStore';
+import React, {useMemo, useRef} from 'react';
+import {createSelector} from 'reselect';
 import './styled.css';
 
 const LastResultComponent = () => {
-  return (
-    <div className="row">
-      <div className="col-10 px-0 pt-3">
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-        <div className="div-loss" />
-        <div className="div-win" />
-        <div className="div-loss" />
-      </div>
+  const blockBuyRef = useRef(0);
+  const blockSellRef = useRef(0);
 
-      <div className="col-2 px-0">
-        <div className="row">
-          <div className="col-12 px-0 py-3">
-            <div>
-              <div className="progress-details">
-                <div className="title">
-                  <h4>SELL</h4>
-                  <h2 className="text-danger">375</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 px-0">
-            <div>
-              <div className="progress-details">
-                <div className="title">
-                  <h4>BUY</h4>
-                  <h2 className="number text-info">375</h2>
-                </div>
-              </div>
-            </div>
-          </div>
+  const selectorBlocks = useMemo(
+    () =>
+      createSelector(
+        (state: RootState) => state.tradeState.blocks,
+        (_: any, _props: []) => _props,
+        (blocks, _props) => {
+          if (blocks.length > 0) {
+            blockBuyRef.current = blocks.filter((item) => !item.result).length;
+            blockSellRef.current = blocks.filter((item) => item.result).length;
+          }
+          return blocks;
+        },
+      ),
+    [],
+  );
+  const blocks = useAppSelector((state) => selectorBlocks(state, []));
+
+  console.log('LastResultComponent');
+  return (
+    <div className="div-lastresult">
+      <div className="div-result">
+        {blocks.length > 0 &&
+          blocks.map((item, index: number) => {
+            return (
+              <div
+                key={`win_loss_${index}`}
+                className="div-win-loss"
+                style={{backgroundColor: item.result ? '#f04b4b' : '#16ceb9'}}
+              />
+            );
+          })}
+      </div>
+      <div className="div-total-result">
+        <div className="text-left">
+          <h3 className="d-inline-block">BUY</h3>
+          <h3 className="text-info d-inline-block m-l-rem">{blockBuyRef.current}</h3>
+        </div>
+        <div className="text-left">
+          <h3 className="d-inline-block">SELL</h3>
+          <h3 className="text-danger d-inline-block ml-5">{blockSellRef.current}</h3>
         </div>
       </div>
     </div>

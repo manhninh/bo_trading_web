@@ -1,5 +1,5 @@
 import config from 'constants/config';
-import { LOCAL_STORE, RESPONSE_STATUS } from 'constants/system';
+import {LOCAL_STORE, RESPONSE_STATUS} from 'constants/system';
 
 const _responseConfig = async (response: Response) => {
   if (response.status === RESPONSE_STATUS.SUCESS) return await response.json();
@@ -8,11 +8,9 @@ const _responseConfig = async (response: Response) => {
 
 const postService = async (url: string, body: object, isAuthorization = true, isFormData = false) => {
   try {
-    const headers: any = isFormData
-      ? { 'Content-Type': 'multipart/form-data' }
-      : { Accept: 'application/json', 'Content-Type': 'application/json' };
+    const headers: any = isFormData ? {} : {Accept: 'application/json', 'Content-Type': 'application/json'};
     if (isAuthorization) headers.Authorization = localStorage.getItem(LOCAL_STORE.TOKEN);
-    const requestInit: any = { method: 'POST', headers };
+    const requestInit: any = {method: 'POST', headers};
     if (body)
       if (isFormData) requestInit.body = body;
       else requestInit.body = JSON.stringify(body);
@@ -23,11 +21,11 @@ const postService = async (url: string, body: object, isAuthorization = true, is
   }
 };
 
-const getService = async (url: string, params?: { [key: string]: any; }, isAuthorization = true) => {
+const getService = async (url: string, params?: {[key: string]: any}, isAuthorization = true) => {
   try {
-    const headers: any = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    const headers: any = {Accept: 'application/json', 'Content-Type': 'application/json'};
     if (isAuthorization) headers.Authorization = localStorage.getItem(LOCAL_STORE.TOKEN);
-    const requestInit = { method: 'GET', headers };
+    const requestInit = {method: 'GET', headers};
     let queryString = '';
     if (params)
       queryString = `?${Object.keys(params)
@@ -40,4 +38,4 @@ const getService = async (url: string, params?: { [key: string]: any; }, isAutho
   }
 };
 
-export default { postService, getService };
+export default {postService, getService};

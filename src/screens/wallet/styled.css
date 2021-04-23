@@ -2,15 +2,18 @@
   background-image: url('assets/images/wallet_card.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 500px;
-  height: 500px;
-  width: 500px;
+  background-size: 300px;
+  height: 300px;
+  width: 300px;
 }
 
 .action-bottom {
   position: absolute;
   margin: 0 auto;
-  width: 100%;
-  bottom: 75px;
-  left: 0;
+  top: 14em;
+  left: 2em;
+}
+
+.right-body {
+  width: calc(100% - 300px);
 }

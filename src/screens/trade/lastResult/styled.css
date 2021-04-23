@@ -1,15 +1,30 @@
-.div-win {
-  background-color: #16ceb9;
-  border-radius: 5px;
-  height: 1.3rem;
-  width: 1.3rem;
-  display: inline-block;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+.div-lastresult {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 170px;
 }
 
-.div-loss {
-  background-color: #f04b4b;
+.div-result {
+  width: 720px;
+  max-width: 720px;
+  text-align: left;
+  display: inline-block;
+}
+
+.div-total-result {
+  width: 140px;
+  max-width: 140px;
+  margin-left: 20px;
+  display: inline-block;
+}
+
+.m-l-rem {
+  margin-left: 3.4rem;
+}
+
+.div-win-loss {
   border-radius: 5px;
   height: 1.3rem;
   width: 1.3rem;

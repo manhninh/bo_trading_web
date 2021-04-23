@@ -1,7 +1,7 @@
 import SpinnerLoader from 'containers/components/loader';
-import React, { useState } from 'react';
-import { Props } from "./propState";
-import { LoadingContext } from './userLoading';
+import React, {useState} from 'react';
+import {Props} from './propState';
+import {LoadingContext} from './userLoading';
 
 export function LoadingProvider(props: Props) {
   const [loading, setLoading] = useState(false);
@@ -9,7 +9,7 @@ export function LoadingProvider(props: Props) {
   const contextValue = {
     loading: loading,
     showLoading: () => setLoading(true),
-    hideLoading: () => setLoading(false)
+    hideLoading: () => setLoading(false),
   };
 
   return (

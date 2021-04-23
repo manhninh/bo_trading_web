@@ -2,19 +2,19 @@
   padding: 0 15px;
 }
 
-.action-infor h3:nth-child(1) {
+.action-infor h5:nth-child(1) {
   display: inline-block;
   vertical-align: middle;
   width: 4rem;
 }
 
-.action-infor h3:nth-child(2) {
+.action-infor h5:nth-child(2) {
   display: inline-block;
   vertical-align: middle;
   width: 1.5rem;
 }
 
-.action-infor h2 {
+.action-infor h5:nth-child(3) {
   display: inline-block;
   vertical-align: middle;
 }
