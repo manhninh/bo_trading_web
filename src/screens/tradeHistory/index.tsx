@@ -21,6 +21,7 @@ export interface PaginateResult<T> {
   pages?: number;
   offset?: number;
 }
+
 const TradeHistoryComponent = () => {
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
@@ -38,12 +39,13 @@ const TradeHistoryComponent = () => {
     _fetchTradeHistory(pageActive);
   }, [pageActive]);
 
-  const _onChangeDate = (type: 'from' | 'to', value) => {
+  const _onChangeDate = (type: 'from' | 'to') => (value: Date) => {
     setFilterSearch({...filterSearch, [type]: value});
   };
 
   const _pageChange = (page: number) => setPageActive(page);
-  const _search = async (page: number) => {
+
+  const _search = (page: number) => async () => {
     await _fetchTradeHistory(page);
   };
 
@@ -60,56 +62,62 @@ const TradeHistoryComponent = () => {
   };
 
   const _renderHistory = () => {
+    const html: JSX.Element[] = new Array();
     if (history?.docs.length === 0)
-      return (
+      html.push(
         <tr>
           <td colSpan={6} className="text-center">
             No data
           </td>
-        </tr>
+        </tr>,
       );
-    return history.docs.map((d, index) => (
-      <tr key={`history_tr_${index}`}>
-        <td>{d.order_uuid && moment(parseInt(d.order_uuid)).format('MM/DD/YYYY HH:mm')}</td>
-        <td>ETH/USDT</td>
-        <td>
-          <div className="d-inline-block mr-5 text-info text-bold">
-            <div className="d-inline-block mr-3">Buy</div>
-            <div className="d-inline-block">{d.buy_amount_order}</div>
-          </div>
-          <div className="d-inline-block text-danger text-bold">
-            <div className="d-inline-block mr-3">Sell</div>
-            <div className="d-inline-block">{d.sell_amount_order}</div>
-          </div>
-        </td>
-        <td>{d.open_result}</td>
-        <td>{d.close_result}</td>
-        <td>
-          <div
-            className={
-              d.amount_result > 0 ? 'text-info d-inline-block text-bold' : 'text-danger d-inline-block text-bold'
-            }>
-            <div className="d-inline-block mr-2">{d.amount_result > 0 ? 'WIN' : 'LOSS'}</div>
-            <div className="d-inline-block">{d.amount_result > 0 ? `+${d.amount_result}` : `${d.amount_result}`}</div>
-          </div>
-        </td>
-      </tr>
-    ));
+    else {
+      history.docs.map((d, index) =>
+        html.push(
+          <tr key={`history_tr_${index}`}>
+            <td>{d.order_uuid && moment(parseInt(d.order_uuid)).format('MM/DD/YYYY HH:mm')}</td>
+            <td>ETH/USDT</td>
+            <td>
+              <div className="d-inline-block text-info text-bold">
+                <div className="d-inline-block w-40">Buy</div>
+                <div className="d-inline-block w-80">{d.buy_amount_order}</div>
+              </div>
+              <div className="d-inline-block text-danger text-bold">
+                <div className="d-inline-block w-40">Sell</div>
+                <div className="d-inline-block w-80">{d.sell_amount_order}</div>
+              </div>
+            </td>
+            <td>{d.open_result}</td>
+            <td>{d.close_result}</td>
+            <td>
+              <div className={`${d.amount_result > 0 ? 'text-info' : 'text-danger'} d-inline-block text-bold`}>
+                <div className="d-inline-block w-70">{d.amount_result > 0 ? 'WIN' : 'LOSS'}</div>
+                <div className="d-inline-block">
+                  {d.amount_result > 0 ? `+${d.amount_result}` : `${d.amount_result}`}
+                </div>
+              </div>
+            </td>
+          </tr>,
+        ),
+      );
+    }
+    return html;
   };
+
   return (
     <ContainerLayout>
       <div className="row">
         <div className="col-lg-12">
-          <div className="block mb-0">
-            <div className="title">
+          <div className="block px-0 mb-0">
+            <div className="title mb-1">
               <div className="d-flex">
-                <div className="input-group" style={{width: '250px'}}>
-                  <div style={{display: 'flex', lineHeight: 1.5, padding: '.4rem .75rem'}}>From</div>
+                <div className="input-group input-group-sm datePicker-group">
+                  <div className="datePicker-text">From</div>
                   <DatePicker
                     maxDate={filterSearch.to}
                     selected={filterSearch.from}
-                    className="form-control w-120"
-                    onChange={(date) => _onChangeDate('from', date)}
+                    className="form-control datePicker-input"
+                    onChange={_onChangeDate('from')}
                   />
                   <div className="input-group-append">
                     <span className="input-group-text">
@@ -117,13 +125,13 @@ const TradeHistoryComponent = () => {
                     </span>
                   </div>
                 </div>
-                <div className="input-group" style={{width: '250px'}}>
-                  <div style={{display: 'flex', lineHeight: 1.5, padding: '.4rem .75rem'}}>To</div>
+                <div className="input-group input-group-sm datePicker-group">
+                  <div className="datePicker-text">To</div>
                   <DatePicker
                     minDate={filterSearch.from}
                     selected={filterSearch.to}
-                    className="form-control w-120"
-                    onChange={(date) => _onChangeDate('to', date)}
+                    className="form-control datePicker-input"
+                    onChange={_onChangeDate('to')}
                   />
                   <div className="input-group-append">
                     <span className="input-group-text">
@@ -131,11 +139,9 @@ const TradeHistoryComponent = () => {
                     </span>
                   </div>
                 </div>
-                <div className="col-xs-12 col-md-3">
-                  <button className="btn btn-danger" onClick={() => _search(1)}>
-                    Search
-                  </button>
-                </div>
+                <button className="btn btn-sm btn-danger" onClick={_search(1)}>
+                  Search
+                </button>
               </div>
             </div>
             <div className="table-responsive">

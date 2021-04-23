@@ -1,5 +1,6 @@
 export enum LOCAL_STORE {
   TOKEN = '@@TOKEN',
+  REFRESH_TOKEN = '@@REFRESH_TOKEN',
 }
 
 export enum RESPONSE_STATUS {

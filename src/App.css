@@ -49,6 +49,14 @@ a:active {
   width: 70px;
 }
 
+.w-80 {
+  width: 80px;
+}
+
+.w-40 {
+  width: 40px;
+}
+
 .block {
   margin-bottom: 15px;
   background: transparent;
@@ -85,7 +93,7 @@ a:not([href]):not([tabindex]):hover {
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__time-name {
-  color: #8a8d93 !important;
+  color: #ffffff !important;
 }
 
 .react-datepicker__day--selected,
@@ -118,7 +126,7 @@ a:not([href]):not([tabindex]):hover {
 .react-datepicker__current-month,
 .react-datepicker-time__header,
 .react-datepicker-year-header {
-  color: #8a8d93 !important;
+  color: #ffffff !important;
 }
 
 .react-datepicker__day--keyboard-selected {
@@ -132,4 +140,33 @@ a:not([href]):not([tabindex]):hover {
 
 .custom-control {
   padding-left: 0;
+}
+
+.react-datepicker__day--disabled {
+  color: #8a8d93 !important;
+}
+
+.react-datepicker__day:hover,
+.react-datepicker__month-text:hover,
+.react-datepicker__quarter-text:hover,
+.react-datepicker__year-text:hover {
+  background-color: #f04b4b !important;
+}
+
+/** Date Picker*/
+.datePicker-group {
+  width: 250px;
+  height: 31px;
+}
+
+.datePicker-text {
+  display: flex;
+  line-height: 1;
+  height: 31px;
+  padding: 0.4rem 0.75rem;
+}
+
+.datePicker-input {
+  width: 120px;
+  height: 31px;
 }

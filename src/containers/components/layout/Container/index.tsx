@@ -1,7 +1,6 @@
 import {ReactComponent as BackgroundSvg} from 'assets/images/back_map_world.svg';
 import HeaderLayout from 'containers/components/layout/Header';
 import SidebarLayout from 'containers/components/layout/Sidebar';
-import {LoadingProvider} from 'containers/hooks/loadingProvider';
 import React from 'react';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {Props} from './propState';
@@ -10,7 +9,7 @@ const height = window.innerHeight - 90;
 
 const ContainerLayout = (props: Props) => {
   return (
-    <LoadingProvider>
+    <>
       <HeaderLayout />
       <div className="sidebar-container">
         <SidebarLayout />
@@ -32,7 +31,7 @@ const ContainerLayout = (props: Props) => {
           </Scrollbars>
         </section>
       </div>
-    </LoadingProvider>
+    </>
   );
 };
 

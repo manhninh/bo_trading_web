@@ -1,12 +1,6 @@
 import React, {useContext} from 'react';
 
-type ContextType = {
-  loading: boolean;
-  showLoading: () => void;
-  hideLoading: () => void;
-};
-
-export const LoadingContext = React.createContext<ContextType>({
+export const LoadingContext = React.createContext({
   loading: false,
   showLoading: () => {},
   hideLoading: () => {},

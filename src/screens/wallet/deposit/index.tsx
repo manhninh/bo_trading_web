@@ -25,9 +25,9 @@ const DepositComponent = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="form-group text-center">
-            <Button className="btn-info btn-lg mr-3">ERC20</Button>
-            <Button className="btn-outline-secondary btn-lg">TRC20</Button>
+          <div className="form-group">
+            <Button className="btn-info btn-sm mr-3">ERC20</Button>
+            <Button className="btn-outline-secondary btn-sm">TRC20</Button>
           </div>
           <p className="text-center mb-0">This is wallet's deposit address, which accepts only USDT.ERC20.</p>
           <p className="text-center">Please do not deposit other cryptocurrency</p>

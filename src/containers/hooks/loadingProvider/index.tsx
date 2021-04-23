@@ -8,13 +8,10 @@ export function LoadingProvider(props: Props) {
 
   const contextValue = {
     loading: loading,
-    showLoading: () => {
-      console.log('show');
-      setLoading(true);
-    },
+    showLoading: () => setLoading(true),
     hideLoading: () => setLoading(false),
   };
-  console.log(loading, 'loading');
+
   return (
     <LoadingContext.Provider value={contextValue}>
       {loading && <SpinnerLoader />}

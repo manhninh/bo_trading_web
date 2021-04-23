@@ -10,8 +10,6 @@ export const initialAuthState: AuthState = {
   accountInfor: {
     _id: null,
     username: null,
-    refresh_token: null,
-    expires_in: 0,
     email: null,
     full_name: null,
     phone: null,
@@ -38,8 +36,6 @@ const authSlice = createSlice({
         username: null,
         full_name: null,
         phone: null,
-        refresh_token: null,
-        expires_in: 0,
         email: null,
         ref_code: null,
         amount_trade: 0,
@@ -62,7 +58,7 @@ const authSlice = createSlice({
     }),
     restoreAccount: (state: AuthState, action: PayloadAction<AccountInfor>) => ({
       ...state,
-      accountInfor: { ...state.accountInfor, ...action.payload },
+      accountInfor: {...state.accountInfor, ...action.payload},
     }),
     changeStatusTFA: (state: AuthState, action: PayloadAction<boolean>) => ({
       ...state,
@@ -84,8 +80,6 @@ const authSlice = createSlice({
           state.accountInfor = {
             _id: null,
             username: action.payload.username,
-            refresh_token: action.payload.result.refresh_token,
-            expires_in: action.payload.result.expires_in,
             email: null,
             full_name: null,
             phone: null,

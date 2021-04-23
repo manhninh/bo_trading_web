@@ -20,6 +20,7 @@
     "@types/react-transition-group": "^4.4.1",
     "@types/redux-logger": "^3.0.8",
     "@types/styled-components": "^5.1.9",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "connected-react-router": "^6.9.1",
     "d3-dsv": "^2.0.0",

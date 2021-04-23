@@ -1,7 +1,7 @@
 import UsdtPng from 'assets/images/usdt.png';
 import WithdrawWalletPng from 'assets/images/withdraw_wallet.png';
 import React, {useState} from 'react';
-import {Modal} from 'react-bootstrap';
+import {Form, Modal} from 'react-bootstrap';
 import './styled.css';
 
 const TransferComponent = () => {
@@ -25,30 +25,57 @@ const TransferComponent = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="statistic-block p-0 pb-2">
-            <div className="progress-details d-flex align-items-end justify-content-between">
-              <div className="title">
-                <div className="icon text-center mb-2">
-                  <i className="icon-user-1 text-primary" />
-                </div>
-                <strong className="text-primary">Available Balance</strong>
-              </div>
-              <div className="number dashtext-1 text-primary text-bold">$ 27.000.000</div>
+          <div className="i-checks">
+            <input type="radio" value="option2" className="radio-template" />
+            <label>To Username</label>
+          </div>
+          <div className="row">
+            <div className="col-md-6 col-xs-12">
+              <Form.Group>
+                <Form.Label>From</Form.Label>
+                <Form.Control as="select" size="sm">
+                  <option>Wallet Spot</option>
+                  <option>Wallet Trade</option>
+                  <option>Wallet Expert</option>
+                  <option>Wallet Copy Trade</option>
+                </Form.Control>
+              </Form.Group>
+            </div>
+            <div className="col-md-6 col-xs-12">
+              <Form.Group>
+                <Form.Label>To</Form.Label>
+                <Form.Control as="select" size="sm">
+                  <option>Wallet Spot</option>
+                  <option>Wallet Trade</option>
+                  <option>Wallet Expert</option>
+                  <option>Wallet Copy Trade</option>
+                </Form.Control>
+              </Form.Group>
             </div>
           </div>
-          <form className="form-validate">
-            <div className="form-group">
-              <label className="form-control-label">
-                Amount <span className="text-danger">*</span>
-              </label>
-              <input type="text" className="form-control is-invalid" autoFocus={true} />
-              <div className="is-invalid invalid-feedback">Please enter amount</div>
+          <div className="i-checks">
+            <input type="radio" value="option2" className="radio-template" />
+            <label>In Account</label>
+          </div>
+          <div className="form">
+            <div className="row">
+              <div className="col-md-6 col-xs-12">
+                <div className="form-group">
+                  <label className="form-control-label">Receiver Username</label> <span className="text-danger">*</span>
+                  <input type="text" className="form-control form-control-sm" />
+                </div>
+              </div>
             </div>
-            <div className="form-group">
-              <label className="form-control-label">
-                Receiver Username <span className="text-danger">*</span>
-              </label>
-              <input type="text" className="form-control" />
+            <div className="mb-2" style={{border: '1px solid #3d4148'}} />
+            <div className="row">
+              <div className="col-md-6 col-xs-12">
+                <div className="form-group">
+                  <label className="form-control-label">
+                    Amount <span className="text-danger">*</span>
+                  </label>
+                  <input type="password" className="form-control form-control-sm" />
+                </div>
+              </div>
             </div>
             <div className="row">
               <div className="col-md-6 col-xs-12">
@@ -56,18 +83,18 @@ const TransferComponent = () => {
                   <label className="form-control-label">
                     Password <span className="text-danger">*</span>
                   </label>
-                  <input type="password" className="form-control" />
+                  <input type="password" className="form-control form-control-sm" />
                 </div>
               </div>
               <div className="col-md-6 col-xs-12">
                 <div className="form-group">
                   <label className="form-control-label">Two-factor authentication</label>
-                  <input type="text" className="form-control" maxLength={6} />
+                  <input type="text" className="form-control form-control-sm" maxLength={6} />
                 </div>
               </div>
             </div>
             <input type="button" value="TRANSFER" className="btn btn-block btn-warning" />
-          </form>
+          </div>
           <div className="text-center mt-4">
             <img src={WithdrawWalletPng} alt="..." className="img-fluid w-150" />
           </div>

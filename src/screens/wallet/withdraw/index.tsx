@@ -25,47 +25,29 @@ const WithdrawComponent = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="form-group text-center">
-            <Button className="btn-info btn-lg mr-3">ERC20</Button>
-            <Button className="btn-outline-secondary btn-lg">TRC20</Button>
-          </div>
-          <div className="statistic-block p-0 pb-2">
-            <div className="progress-details d-flex align-items-end justify-content-between">
-              <div className="title">
-                <div className="icon text-center mb-2">
-                  <i className="icon-user-1 text-primary" />
-                </div>
-                <strong className="text-primary">Available Balance</strong>
-              </div>
-              <div className="number dashtext-1 text-primary text-bold">$ 27.000.000</div>
+          <div className="row mb-2">
+            <div className="col-6">
+              <Button className="btn-info mr-3 btn-sm">ERC20</Button>
+              <Button className="btn-outline-secondary btn-sm">TRC20</Button>
+            </div>
+            <div className="col-6 d-flex justify-content-end mt-1">
+              <span className="text-primary text-bold mb-0">Balance: {20} USDT</span>
             </div>
           </div>
           <form className="form-validate">
             <div className="row">
-              <div className="col-12">
+              <div className="col-6">
                 <div className="form-group">
                   <label className="form-control-label">
                     Amount <span className="text-danger">*</span>
                   </label>
-                  <input type="text" className="form-control is-invalid" autoFocus={true} />
+                  <input type="text" className="form-control form-control-sm" autoFocus={true} />
                   <div className="is-invalid invalid-feedback">Please enter amount</div>
                 </div>
               </div>
-            </div>
-            <div className="row">
               <div className="col-6">
-                <p className="mb-2 text-gray-light">
-                  Withdraw fees:
-                  <br />
-                  Net Amount:
-                </p>
-              </div>
-              <div className="col-6 text-right">
-                <p className="mb-2 text-gray-light">
-                  <strong>$ 20 USDT</strong>
-                  <br />
-                  <strong>$ 0 USDT</strong>
-                </p>
+                <p className="mb-2 text-right">Withdraw fees: 20 USDT</p>
+                <p className="mb-2 text-right">Net Amount: 0 USDT</p>
               </div>
             </div>
             <div className="row">
@@ -74,7 +56,7 @@ const WithdrawComponent = () => {
                   <label className="form-control-label">
                     Address USDT - ERC20 <span className="text-danger">*</span>
                   </label>
-                  <input type="text" className="form-control" />
+                  <input type="text" className="form-control form-control-sm" />
                 </div>
               </div>
             </div>
@@ -84,13 +66,13 @@ const WithdrawComponent = () => {
                   <label className="form-control-label">
                     Password <span className="text-danger">*</span>
                   </label>
-                  <input type="password" className="form-control" />
+                  <input type="password" className="form-control form-control-sm" />
                 </div>
               </div>
               <div className="col-md-6 col-xs-12">
                 <div className="form-group">
                   <label className="form-control-label">Two-factor authentication</label>
-                  <input type="text" className="form-control" maxLength={6} />
+                  <input type="text" className="form-control form-control-sm" maxLength={6} />
                 </div>
               </div>
             </div>
