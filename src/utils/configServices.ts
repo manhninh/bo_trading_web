@@ -6,7 +6,7 @@ const _responseConfig = async (response: Response) => {
   throw response;
 };
 
-const postService = async (url: string, body: object, isAuthorization = true, isFormData = false) => {
+const postService = async (url: string, body: object | null, isAuthorization = true, isFormData = false) => {
   try {
     const headers: any = isFormData ? {} : {Accept: 'application/json', 'Content-Type': 'application/json'};
     if (isAuthorization) headers.Authorization = localStorage.getItem(LOCAL_STORE.TOKEN);

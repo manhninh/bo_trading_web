@@ -4,11 +4,44 @@ import MemberF1Img from 'assets/images/image_member_f1.png';
 import {useAppSelector} from 'boot/configureStore';
 import config from 'constants/config';
 import ContainerLayout from 'containers/components/layout/Container';
-import React from 'react';
+import useError from 'containers/hooks/errorProvider/useError';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import React, {useState} from 'react';
+import {Modal} from 'react-bootstrap';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {useDispatch} from 'react-redux';
+import {restoreAccount} from 'routers/redux/slice';
+import {fetchBuySponsor} from './services';
 import './styled.css';
 
 const AffiliateLinkComponent = () => {
+  const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+  const {showLoading, hideLoading} = useLoading();
+  const {addError} = useError();
   const affiliateLink = useAppSelector((state) => state.authState.accountInfor.ref_code);
+  const is_sponsor = useAppSelector((state) => state.authState.accountInfor.is_sponsor);
+
+  const toogleModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const buySponsor = async () => {
+    showLoading();
+    try {
+      const result = await fetchBuySponsor();
+      console.log(result, 'resly');
+      if (result) {
+        const accountInfor: any = {is_sponsor: true};
+        dispatch(restoreAccount(accountInfor));
+        setShowModal(false);
+      }
+    } catch (error) {
+      addError(error, 'Buy Sponsor Fail!');
+    } finally {
+      hideLoading();
+    }
+  };
 
   return (
     <ContainerLayout>
@@ -20,9 +53,11 @@ const AffiliateLinkComponent = () => {
                 You need to buy Agency license to receive Agency Commissions and Trading Commissions
               </h1>
             </div>
-            <button type="button" className="btn btn-lg btn-danger mb-5">
-              Buy Now
-            </button>
+            {!is_sponsor ? (
+              <button type="button" className="btn btn-lg btn-danger mb-5" onClick={toogleModal}>
+                Buy Now
+              </button>
+            ) : null}
           </div>
           <div className="col-lg-6">
             <div className="block">
@@ -41,9 +76,11 @@ const AffiliateLinkComponent = () => {
                         value={`${config.WEB}/register?sponsor=${affiliateLink}`}
                       />
                       <div className="input-group-append">
-                        <button type="button" className="btn btn-sm btn-danger">
-                          Copy
-                        </button>
+                        <CopyToClipboard text={`${config.WEB}/register?sponsor=${affiliateLink}`}>
+                          <button type="button" className="btn btn-sm btn-danger">
+                            Copy
+                          </button>
+                        </CopyToClipboard>
                       </div>
                     </div>
                   </div>
@@ -81,6 +118,22 @@ const AffiliateLinkComponent = () => {
             </div>
           </div>
         </div>
+        <Modal show={showModal} centered={true} onHide={toogleModal}>
+          <Modal.Body>
+            <p className="text-light">
+              Do you agree to pay <span className="text-danger text-bold">30 USDT</span> to purchase Affiliate License
+              to receive Agent Commissions and Trading Commissions?
+            </p>
+            <div className="text-right">
+              <button type="submit" className="btn btn-sm btn-info mr-2" onClick={buySponsor}>
+                Yes, I'm buy
+              </button>
+              <button type="submit" className="btn btn-sm btn-danger" onClick={toogleModal}>
+                No, I'm not buy
+              </button>
+            </div>
+          </Modal.Body>
+        </Modal>
       </>
     </ContainerLayout>
   );

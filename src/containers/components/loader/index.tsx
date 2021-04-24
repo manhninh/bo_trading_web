@@ -23,7 +23,7 @@ const FallbackContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 99999;
 `;
 
 const FallbackContent = styled.div`

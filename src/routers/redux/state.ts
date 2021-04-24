@@ -11,6 +11,7 @@ export type AccountInfor = {
   amount_copytrade: number;
   type_user: number;
   isEnabledTFA: boolean;
+  is_sponsor: boolean;
 };
 
 export type AuthState = {

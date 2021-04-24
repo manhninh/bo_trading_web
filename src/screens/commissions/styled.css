@@ -1,0 +1,11 @@
+.block-bg {
+  background-color: #2d3035;
+  border-radius: 10px;
+}
+
+.avatar-custom {
+  width: 90px !important;
+  height: 90px !important;
+  background: transparent !important;
+  margin: 0 auto !important;
+}
