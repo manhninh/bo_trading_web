@@ -7,7 +7,7 @@ import Switch from 'react-bootstrap/esm/Switch';
 import {NavLink, Redirect, Route, useLocation} from 'react-router-dom';
 import DepositComponent from './deposit';
 import './styled.css';
-import TranferComponent from './transfer';
+import TransferComponent from './transfer';
 import WithdrawComponent from './withdraw';
 
 const components = {
@@ -43,7 +43,7 @@ const WalletComponent = () => {
         <div className="text-center action-img">
           <div className="action-bottom">
             <DepositComponent />
-            <TranferComponent />
+            <TransferComponent />
             <WithdrawComponent />
           </div>
         </div>
