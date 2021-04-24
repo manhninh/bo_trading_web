@@ -84,7 +84,7 @@ const RegisterComponent = () => {
           </label>
           <input
             type="text"
-            className={errors.username?.message ? 'form-control is-invalid' : 'form-control'}
+            className={`form-control form-control-sm ${errors.username?.message ? 'is-invalid' : ''}`}
             {...register('username')}
           />
           <div className="is-invalid invalid-feedback">{errors.username?.message}</div>
@@ -95,7 +95,7 @@ const RegisterComponent = () => {
           </label>
           <input
             type="text"
-            className={errors.email?.message ? 'form-control is-invalid' : 'form-control'}
+            className={`form-control form-control-sm ${errors.email?.message ? 'is-invalid' : ''}`}
             {...register('email')}
           />
           <div className="is-invalid invalid-feedback">{errors.email?.message}</div>
@@ -106,7 +106,7 @@ const RegisterComponent = () => {
           </label>
           <input
             type="password"
-            className={errors.password?.message ? 'form-control is-invalid' : 'form-control'}
+            className={`form-control form-control-sm ${errors.password?.message ? 'is-invalid' : ''}`}
             {...register('password')}
           />
           <div className="is-invalid invalid-feedback">{errors.password?.message}</div>
@@ -117,7 +117,7 @@ const RegisterComponent = () => {
           </label>
           <input
             type="password"
-            className={errors.confirmPassword?.message ? 'form-control is-invalid' : 'form-control'}
+            className={`form-control form-control-sm ${errors.confirmPassword?.message ? 'is-invalid' : ''}`}
             {...register('confirmPassword')}
           />
           <div className="is-invalid invalid-feedback">{errors.confirmPassword?.message}</div>
@@ -132,7 +132,7 @@ const RegisterComponent = () => {
           />
           <label htmlFor="register-agree">I agree with the terms and policy</label>
         </div>
-        <button className="btn btn-lg btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
+        <button className="btn btn-lg btn-block btn-sm btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
           Create Account
         </button>
       </form>
