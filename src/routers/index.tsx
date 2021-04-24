@@ -22,7 +22,7 @@ const NavigationComponent = () => {
     <Switch>
       <TranslationRoute exact={true} path="/" component={Trading} />
       <TranslationRoute path={ROUTE_PATH.LOGIN} comp={Trading} />
-      <TranslationRoute path={ROUTE_PATH.REGISTER_PARAM} comp={Trading} />
+      <TranslationRoute path={ROUTE_PATH.REGISTER} comp={Trading} />
       <TranslationRoute path={ROUTE_PATH.FORGOT_PASSWORD} comp={ForgotPassword} />
       <TranslationRoute path={ROUTE_PATH.WELLCOME} comp={Wellcome} />
       <TranslationRoute path={ROUTE_PATH.VERIFY_EMAIL} comp={VerifyEmail} />

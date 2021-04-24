@@ -7,6 +7,7 @@ export const fetchRegister = async (user: User) => {
       email: user.email,
       username: user.username,
       password: user.password,
+      referralUser: user.referralUser || null,
     });
     return result;
   } catch (error) {
