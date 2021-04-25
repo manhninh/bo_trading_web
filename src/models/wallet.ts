@@ -9,6 +9,8 @@ export interface TransationHistory {
   status: number;
   type: number;
   noted: string;
+  from_username: string;
+  to_username: string;
   createdAt: string;
   updatedAt: string;
 }

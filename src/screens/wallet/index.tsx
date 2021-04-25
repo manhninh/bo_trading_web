@@ -1,10 +1,10 @@
 import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import _ from 'lodash';
-import React, {lazy, Suspense} from 'react';
-import {Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
+import { Nav, NavItem, Tab, TabContent } from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
-import {NavLink, Redirect, Route, useLocation} from 'react-router-dom';
+import { NavLink, Redirect, Route, useLocation } from 'react-router-dom';
 import DepositComponent from './deposit';
 import './styled.css';
 import TransferComponent from './transfer';
@@ -17,7 +17,22 @@ const components = {
 };
 
 const WalletComponent = () => {
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
+  const [state, setState] = useState({
+    requestRefesh: null
+  });
+
+  useEffect(() => {
+    if (state.requestRefesh) {
+      setTimeout(() => {
+        setState({ ...state, requestRefesh: null });
+      }, 1000);
+    }
+  }, [state.requestRefesh]);
+
+  const onRequestRefesh = (tabActive) => {
+    setState({ ...state, requestRefesh: tabActive });
+  };
 
   const renderNavItems = () =>
     Object.keys(components).map((route) => (
@@ -32,7 +47,7 @@ const WalletComponent = () => {
     Object.entries(components).map(([route, Component]) => (
       <Route key={`${route}-route`} path={`/wallet/${route}`}>
         <Tab.Pane active={pathname === `/wallet/${route}`}>
-          <Component />
+          <Component requestRefesh={state.requestRefesh} />
         </Tab.Pane>
       </Route>
     ));
@@ -43,8 +58,8 @@ const WalletComponent = () => {
         <div className="text-center action-img">
           <div className="action-bottom">
             <DepositComponent />
-            <TransferComponent />
-            <WithdrawComponent />
+            <TransferComponent onRequestRefesh={onRequestRefesh} />
+            <WithdrawComponent onRequestRefesh={onRequestRefesh} />
           </div>
         </div>
         <div className="block right-body py-0">

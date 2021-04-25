@@ -1,9 +1,11 @@
 export type IProps = {
   tabActive: string;
+  requestRefesh?: string | null;
 };
 
 export const Props: IProps = {
-  tabActive: 'DEPOSIT'
+  tabActive: 'DEPOSIT',
+  requestRefesh: null
 };
 
 export type State = {
