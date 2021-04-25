@@ -15,10 +15,12 @@ type ParamsQuery = {
 };
 
 /**
- * Lich su transaction 
+ * Lich su transaction wallet
  * @param type type: 0 Deposit, 1: Transfer, 2: Withdraw
  * @param page number
- * @param limit 
+ * @param limit number
+ * @param from Date
+ * @param to Date
  * @returns 
  */
 export const fetchTransactionHistory = async (params: ParamsQuery) => {

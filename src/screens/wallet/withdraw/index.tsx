@@ -1,13 +1,88 @@
+import {yupResolver} from '@hookform/resolvers/yup';
 import UsdtPng from 'assets/images/usdt.png';
 import WithdrawWalletPng from 'assets/images/withdraw_wallet.png';
-import React, {useState} from 'react';
+import {useAppSelector} from 'boot/configureStore';
+import useError from 'containers/hooks/errorProvider/useError';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import React, {useMemo, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
+import {useForm} from 'react-hook-form';
+import {useDispatch} from 'react-redux';
+import * as yup from 'yup';
+import {createWithraw} from './services';
 import './styled.css';
 
+interface IFormWithraw {
+  symbol: 'trc20' | 'erc20';
+  amount: number;
+  password: string;
+  address: string;
+  tfa: string | undefined;
+}
+
 const WithdrawComponent = () => {
+  const formDefault: Readonly<IFormWithraw> = {
+    symbol: 'trc20',
+    address: '',
+    amount: 0,
+    password: '',
+    tfa: '',
+  };
+  const dispatch = useDispatch();
+  const {showLoading, hideLoading} = useLoading();
+  const {addError} = useError();
   const [state, setState] = useState({
     show: false,
+    symbol: 'trc20',
   });
+  const authState = useAppSelector((state) => state.authState);
+  const isEnabledTFA = authState.accountInfor.isEnabledTFA;
+
+  const schema = yup.object().shape({
+    symbol: yup.string().required('Symbol is required'),
+    amount: yup
+      .number()
+      .typeError('Must be a number')
+      .min(20, 'Amount must not be less than 20')
+      .required('Amount cannot be empty'),
+    address: yup.string().required('Address cannot be empty'),
+    password: yup.string().required('Password cannot be empty'),
+    tfa: yup.string().when('password', {
+      is: (_) => !!isEnabledTFA,
+      then: yup.string().required('Two-Factor Authentication cannot be empty!'),
+      otherwise: yup.string(),
+    }),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+    reset,
+    setValue,
+  } = useForm<IFormWithraw>({
+    defaultValues: useMemo(() => formDefault, []),
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data: IFormWithraw) => {
+    try {
+      showLoading();
+      const res = await createWithraw(data);
+      if (res.data) {
+        reset(formDefault);
+      }
+    } catch (error) {
+      addError(error, 'Account registration failed! Please check your information.');
+    } finally {
+      hideLoading();
+    }
+  };
+
+  const _selectCurrency = (currency: 'trc20' | 'erc20') => () => {
+    setState({...state, symbol: currency});
+    setValue('symbol', currency);
+  };
 
   const handleClose = () => setState((state) => ({...state, show: false}));
   const handleShow = () => setState((state) => ({...state, show: true}));
@@ -27,8 +102,16 @@ const WithdrawComponent = () => {
         <Modal.Body>
           <div className="row mb-2">
             <div className="col-6">
-              <Button className="btn-info mr-3 btn-sm">ERC20</Button>
-              <Button className="btn-outline-secondary btn-sm">TRC20</Button>
+              <Button
+                className={`${state.symbol === 'erc20' ? 'btn-info' : 'btn-outline-secondary'} btn-sm mr-3`}
+                onClick={_selectCurrency('erc20')}>
+                ERC20
+              </Button>
+              <Button
+                className={`${state.symbol === 'trc20' ? 'btn-info' : 'btn-outline-secondary'} btn-sm`}
+                onClick={_selectCurrency('trc20')}>
+                TRC20
+              </Button>
             </div>
             <div className="col-6 d-flex justify-content-end mt-1">
               <span className="text-primary text-bold mb-0">Balance: {20} USDT</span>
@@ -41,8 +124,15 @@ const WithdrawComponent = () => {
                   <label className="form-control-label">
                     Amount <span className="text-danger">*</span>
                   </label>
-                  <input type="text" className="form-control form-control-sm" autoFocus={true} />
-                  <div className="is-invalid invalid-feedback">Please enter amount</div>
+                  <input
+                    type="text"
+                    className="form-control form-control-sm"
+                    autoFocus={true}
+                    {...register('amount')}
+                  />
+                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                    {errors.amount?.message}
+                  </div>
                 </div>
               </div>
               <div className="col-6">
@@ -56,7 +146,10 @@ const WithdrawComponent = () => {
                   <label className="form-control-label">
                     Address USDT - ERC20 <span className="text-danger">*</span>
                   </label>
-                  <input type="text" className="form-control form-control-sm" />
+                  <input type="text" className="form-control form-control-sm" {...register('address')} />
+                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                    {errors.address?.message}
+                  </div>
                 </div>
               </div>
             </div>
@@ -66,17 +159,28 @@ const WithdrawComponent = () => {
                   <label className="form-control-label">
                     Password <span className="text-danger">*</span>
                   </label>
-                  <input type="password" className="form-control form-control-sm" />
+                  <input type="password" className="form-control form-control-sm" {...register('password')} />
+                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                    {errors.password?.message}
+                  </div>
                 </div>
               </div>
               <div className="col-md-6 col-xs-12">
                 <div className="form-group">
                   <label className="form-control-label">Two-factor authentication</label>
-                  <input type="text" className="form-control form-control-sm" maxLength={6} />
+                  <input type="text" className="form-control form-control-sm" maxLength={6} {...register('tfa')} />
+                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                    {errors.tfa?.message}
+                  </div>
                 </div>
               </div>
             </div>
-            <input type="button" value="WITHDRAW" className="btn btn-block btn-success" />
+            <input
+              type="button"
+              value="WITHDRAW"
+              className="btn btn-block btn-success"
+              onClick={handleSubmit(onSubmit)}
+            />
           </form>
           <div className="text-center mt-4">
             <img src={WithdrawWalletPng} alt="..." className="img-fluid w-150" />
