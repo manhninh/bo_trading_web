@@ -15,7 +15,7 @@ export enum ROUTE_PATH {
   TRADE = '/trade',
   LOGIN = '/login',
   REGISTER = '/register',
-  REGISTER_PARAM = '/register/:referralUser?',
+  REGISTER_PARAM = '/register(?sponsor=:referralUser)',
   FORGOT_PASSWORD = '/forgot-password',
   VERIFY_EMAIL = '/verification/email/:uuid',
   TRADE_HISTORY = '/trade-hitory',

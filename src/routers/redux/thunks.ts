@@ -5,6 +5,7 @@ import configServices from 'utils/configServices';
 type Auth = {
   username: string;
   password: string;
+  tfa: string | null;
 };
 
 export const fetchLogin = createAsyncThunk('auth/login', async (auth: Auth, thunkAPI) => {
@@ -16,6 +17,7 @@ export const fetchLogin = createAsyncThunk('auth/login', async (auth: Auth, thun
       client_id: config.CLIENT_ID,
       client_secret: config.CLIENT_SECRET,
       scope: config.SCOPE,
+      tfa: auth.tfa,
     });
     return {result, username: auth.username};
   } catch (error) {

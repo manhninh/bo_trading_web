@@ -11,9 +11,9 @@ import TransferComponent from './transfer';
 import WithdrawComponent from './withdraw';
 
 const components = {
-  deposit: lazy(() => import('./deposit/history')),
-  transfer: lazy(() => import('./transfer/history')),
-  withdraw: lazy(() => import('./withdraw/history')),
+  deposit_history: lazy(() => import('./deposit/history')),
+  transfer_history: lazy(() => import('./transfer/history')),
+  withdraw_history: lazy(() => import('./withdraw/history')),
 };
 
 const WalletComponent = () => {
@@ -38,7 +38,7 @@ const WalletComponent = () => {
     Object.keys(components).map((route) => (
       <NavItem key={`${route}-nav-item`}>
         <Nav.Link as={NavLink} to={`/wallet/${route}`} active={pathname === `/wallet/${route}`}>
-          {_.startCase(route)}
+          {_.startCase(route.split('_').join(' '))}
         </Nav.Link>
       </NavItem>
     ));

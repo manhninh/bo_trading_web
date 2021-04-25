@@ -1,14 +1,14 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import useError from 'containers/hooks/errorProvider/useError';
-import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
-import { User } from 'models/users';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import {User} from 'models/users';
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useHistory, useRouteMatch } from 'react-router';
-import { toast } from 'react-toastify';
-import { ROUTE_PATH } from 'routers/helpers';
+import {useForm} from 'react-hook-form';
+import {useHistory, useLocation} from 'react-router';
+import {toast} from 'react-toastify';
+import {ROUTE_PATH} from 'routers/helpers';
 import * as yup from 'yup';
-import { fetchRegister } from './services';
+import {fetchRegister} from './services';
 
 interface IFormInputs {
   username: string;
@@ -33,15 +33,16 @@ const schema = yup.object().shape({
 
 const RegisterComponent = () => {
   const history = useHistory();
-  const { showLoading, hideLoading } = useLoading();
-  const { addError } = useError();
-  const sponsor = history.location;
-  const match = useRouteMatch();
+  const location = useLocation();
+  const {showLoading, hideLoading} = useLoading();
+  const {addError} = useError();
+  const params = new URLSearchParams(location.search);
+  const sponsor = params.get('sponsor');
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm<IFormInputs>({
     defaultValues: {
       username: '',
@@ -59,6 +60,7 @@ const RegisterComponent = () => {
         email: data.email,
         username: data.username,
         password: data.password,
+        referralUser: sponsor,
       };
       const res = await fetchRegister(user);
       if (res.data) history.push(ROUTE_PATH.WELLCOME);
@@ -74,7 +76,7 @@ const RegisterComponent = () => {
     <>
       <form className="form-validate">
         <div className="form-group mb-2">
-          <label>Sponsor:</label> <label className="text-primary text-bold">{match.params?.["referralUser"] || "none"}</label>
+          <label>Sponsor:</label> <label className="text-primary text-bold">{sponsor || 'none'}</label>
         </div>
         <div className="form-group mb-2">
           <label>
@@ -82,7 +84,7 @@ const RegisterComponent = () => {
           </label>
           <input
             type="text"
-            className={errors.username?.message ? 'form-control is-invalid' : 'form-control'}
+            className={`form-control form-control-sm ${errors.username?.message ? 'is-invalid' : ''}`}
             {...register('username')}
           />
           <div className="is-invalid invalid-feedback">{errors.username?.message}</div>
@@ -93,7 +95,7 @@ const RegisterComponent = () => {
           </label>
           <input
             type="text"
-            className={errors.email?.message ? 'form-control is-invalid' : 'form-control'}
+            className={`form-control form-control-sm ${errors.email?.message ? 'is-invalid' : ''}`}
             {...register('email')}
           />
           <div className="is-invalid invalid-feedback">{errors.email?.message}</div>
@@ -104,7 +106,7 @@ const RegisterComponent = () => {
           </label>
           <input
             type="password"
-            className={errors.password?.message ? 'form-control is-invalid' : 'form-control'}
+            className={`form-control form-control-sm ${errors.password?.message ? 'is-invalid' : ''}`}
             {...register('password')}
           />
           <div className="is-invalid invalid-feedback">{errors.password?.message}</div>
@@ -115,7 +117,7 @@ const RegisterComponent = () => {
           </label>
           <input
             type="password"
-            className={errors.confirmPassword?.message ? 'form-control is-invalid' : 'form-control'}
+            className={`form-control form-control-sm ${errors.confirmPassword?.message ? 'is-invalid' : ''}`}
             {...register('confirmPassword')}
           />
           <div className="is-invalid invalid-feedback">{errors.confirmPassword?.message}</div>
@@ -130,7 +132,7 @@ const RegisterComponent = () => {
           />
           <label htmlFor="register-agree">I agree with the terms and policy</label>
         </div>
-        <button className="btn btn-lg btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
+        <button className="btn btn-lg btn-block btn-sm btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
           Create Account
         </button>
       </form>

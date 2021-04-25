@@ -28,13 +28,13 @@ const SidebarLayout = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to={ROUTE_PATH.COMISSIONS}>
-            <i className="icomoon-icon-commission"></i>Commissions
+          <NavLink to={ROUTE_PATH.AFFILIATE_LINK}>
+            <i className="icomoon-icon-affiliate_link"></i>Affiliate link
           </NavLink>
         </li>
         <li>
-          <NavLink to={ROUTE_PATH.AFFILIATE_LINK}>
-            <i className="icomoon-icon-affiliate_link"></i>Affiliate link
+          <NavLink to={ROUTE_PATH.COMISSIONS}>
+            <i className="icomoon-icon-commission"></i>Commissions
           </NavLink>
         </li>
         <li>

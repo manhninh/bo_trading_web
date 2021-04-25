@@ -22,15 +22,8 @@ const HeaderLayout = (props: IProps = Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
-
-  const makeSelectorAuthState = () =>
-    createSelector(
-      (state: RootState) => state.authState.userToken,
-      (_: any, props: string | null | undefined) => props,
-      (authState, props) => (authState !== props ? authState : props),
-    );
-  const selectorAuthState = useMemo(makeSelectorAuthState, []);
-  const authState = useAppSelector((state) => selectorAuthState(state, null));
+  const authState = useAppSelector((state) => state.authState.userToken);
+  const username = useAppSelector((state) => state.authState.accountInfor.username);
 
   useEffect(() => {
     if (authState && !state.isAuthen) checkAuthenToken();
@@ -72,6 +65,8 @@ const HeaderLayout = (props: IProps = Props) => {
     history.push(ROUTE_PATH.TRADE);
   };
 
+  console.log("header");
+
   return (
     <>
       <header className="header">
@@ -95,13 +90,13 @@ const HeaderLayout = (props: IProps = Props) => {
                       <i className="fas fa-align-justify"></i>
                     </button>
                   </div>
-                  <div className="list-inline-item visible">
+                  {/* <div className="list-inline-item visible">
                     <input type="button" value="DEPOSIT" className="btn btn-info header-deposit" />
-                  </div>
+                  </div> */}
                   <div className="list-inline-item visible">
                     <a className="nav-link">
-                      <i className="icomoon-icon-user"></i>
-                      <span className="d-none d-sm-inline">phammanhninh</span>
+                      <i className="icomoon-icon-user text-danger"></i>
+                      <span className="d-none d-sm-inline text-danger">{username}</span>
                     </a>
                   </div>
                   <div className="list-inline-item visible">

@@ -1,7 +1,7 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React from 'react';
+import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
@@ -12,27 +12,38 @@ import * as yup from 'yup';
 interface IFormInputs {
   username: string;
   password: string;
+  isTfa: boolean;
+  tfa: string;
 }
-
-const schema = yup.object().shape({
-  username: yup.string().required('Username or Email cannot be empty!'),
-  password: yup.string().required('Password cannot be empty!'),
-});
 
 const LogInComponent = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
+  const [showTFA, setShowTFA] = useState(false);
+
+  const schema = yup.object().shape({
+    username: yup.string().required('Username or Email cannot be empty!'),
+    password: yup.string().required('Password cannot be empty!'),
+    tfa: yup.string().when('isEmail', {
+      is: true,
+      then: yup.string().required('Two-Factor Authentication cannot be empty!'),
+      otherwise: yup.string(),
+    }),
+  });
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: {errors},
   } = useForm<IFormInputs>({
     defaultValues: {
       username: '',
       password: '',
+      isTfa: false,
+      tfa: '',
     },
     resolver: yupResolver(schema),
   });
@@ -40,10 +51,14 @@ const LogInComponent = () => {
   const onSubmit = async (data: IFormInputs) => {
     showLoading();
     try {
-      await dispatch(fetchLogin({username: data.username, password: data.password}));
+      await dispatch(fetchLogin({username: data.username, password: data.password, tfa: data.tfa}));
       history.push(ROUTE_PATH.TRADE);
-    } catch (error) {
-      addError(error, 'Account registration failed! Please check your information.');
+    } catch (err) {
+      const error = await err.json();
+      if (error.error_description === 'NOT_FOUND_TFA') {
+        setValue('isTfa', true);
+        setShowTFA(true);
+      } else addError(null, error.error_description || 'Login fail');
     } finally {
       hideLoading();
     }
@@ -55,24 +70,38 @@ const LogInComponent = () => {
         <label>Username or Email</label>
         <input
           type="text"
-          className={errors.username?.message ? 'form-control is-invalid' : 'form-control'}
+          className={`form-control form-control-sm ${errors.username?.message ? 'is-invalid' : ''}`}
           {...register('username')}
         />
         <div className="is-invalid invalid-feedback">{errors.username?.message}</div>
       </div>
-      <div className="form-group mb-4">
-        <label>Password</label>
+      <div className="form-group">
+        <div className="d-flex" style={{justifyContent: 'space-between'}}>
+          <label className="d-inline-block">Password</label>
+          <a href={ROUTE_PATH.FORGOT_PASSWORD} className="small text-danger d-inline-block">
+            Forgot password?
+          </a>
+        </div>
         <input
           type="password"
-          className={errors.password?.message ? 'form-control is-invalid' : 'form-control'}
+          className={`form-control form-control-sm ${errors.password?.message ? 'is-invalid' : ''}`}
           {...register('password')}
         />
         <div className="is-invalid invalid-feedback">{errors.password?.message}</div>
       </div>
-      <a href={ROUTE_PATH.FORGOT_PASSWORD} className="form-text small text-danger mb-4">
-        Forgot password?
-      </a>
-      <button className="btn btn-lg btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
+      {showTFA ? (
+        <div className="form-group">
+          <label>Two-Factor Authentication</label>
+          <input
+            type="text"
+            className={`form-control form-control-sm ${errors.tfa?.message ? 'is-invalid' : ''}`}
+            maxLength={6}
+            {...register('tfa')}
+          />
+          <div className="is-invalid invalid-feedback">{errors.tfa?.message}</div>
+        </div>
+      ) : null}
+      <button className="btn btn-sm btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
         Login
       </button>
       <p className="text-center">

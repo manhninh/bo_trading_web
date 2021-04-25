@@ -20,6 +20,7 @@ export const initialAuthState: AuthState = {
     amount_copytrade: 0,
     type_user: 0,
     isEnabledTFA: false,
+    is_sponsor: false,
   },
 };
 
@@ -44,6 +45,7 @@ const authSlice = createSlice({
         amount_copytrade: 0,
         type_user: 0,
         isEnabledTFA: false,
+        is_sponsor: false,
       },
     }),
     signIn: (state: AuthState, action: PayloadAction<string>) => ({
@@ -90,6 +92,7 @@ const authSlice = createSlice({
             amount_copytrade: 0,
             type_user: 0,
             isEnabledTFA: false,
+            is_sponsor: false,
           };
         } else throw Error('Login fail!');
       })
