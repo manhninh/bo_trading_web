@@ -25,13 +25,24 @@ const TransferComponent = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <div className="row">
+            <div className="col-md-6 col-xs-12">
+              <div className="form-group">
+                <label className="form-control-label">
+                  Amount <span className="text-danger">*</span>
+                </label>
+                <input type="password" className="form-control form-control-sm" />
+              </div>
+            </div>
+          </div>
+          <div className="mb-2" style={{border: '1px solid #3d4148'}} />
           <div className="i-checks">
             <input type="radio" value="option2" className="radio-template" />
             <label>To Username</label>
           </div>
           <div className="row">
             <div className="col-md-6 col-xs-12">
-              <Form.Group>
+              <Form.Group className="mb-1">
                 <Form.Label>From</Form.Label>
                 <Form.Control as="select" size="sm">
                   <option>Wallet Spot</option>
@@ -42,7 +53,7 @@ const TransferComponent = () => {
               </Form.Group>
             </div>
             <div className="col-md-6 col-xs-12">
-              <Form.Group>
+              <Form.Group className="mb-1">
                 <Form.Label>To</Form.Label>
                 <Form.Control as="select" size="sm">
                   <option>Wallet Spot</option>
@@ -52,7 +63,14 @@ const TransferComponent = () => {
                 </Form.Control>
               </Form.Group>
             </div>
+            <div className="col-md-6 col-xs-12">
+              <p className="text-right">Balance: 20 USDT</p>
+            </div>
+            <div className="col-md-6 col-xs-12">
+              <p className="text-right">Balance: 20 USDT</p>
+            </div>
           </div>
+          <div className="mb-2" style={{border: '1px solid #3d4148'}} />
           <div className="i-checks">
             <input type="radio" value="option2" className="radio-template" />
             <label>In Account</label>
@@ -63,17 +81,6 @@ const TransferComponent = () => {
                 <div className="form-group">
                   <label className="form-control-label">Receiver Username</label> <span className="text-danger">*</span>
                   <input type="text" className="form-control form-control-sm" />
-                </div>
-              </div>
-            </div>
-            <div className="mb-2" style={{border: '1px solid #3d4148'}} />
-            <div className="row">
-              <div className="col-md-6 col-xs-12">
-                <div className="form-group">
-                  <label className="form-control-label">
-                    Amount <span className="text-danger">*</span>
-                  </label>
-                  <input type="password" className="form-control form-control-sm" />
                 </div>
               </div>
             </div>
