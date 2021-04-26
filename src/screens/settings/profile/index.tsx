@@ -2,19 +2,20 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {useAppSelector} from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
+import {updateAvatar} from 'routers/redux/slice';
 import * as yup from 'yup';
 import {fetchUpdateUser} from './services';
 import './styled.css';
 interface IFormProfile {
-  username: string | null;
-  full_name: string | null;
-  email: string | null;
-  phone: string | null;
+  username?: string | null;
+  full_name?: string | null;
+  email?: string | null;
+  phone?: string | null;
   // address: string;
-  avatar: any;
+  avatar?: any;
 }
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -23,9 +24,15 @@ const schema = yup.object().shape({
   phone: yup.string().matches(phoneRegExp, {excludeEmptyString: false, message: 'Phone number is not valid'}),
 });
 
-const ImageforwardRef = ({onChangeAvatar, onSelectFile}, ref: React.LegacyRef<HTMLInputElement>) => {
+const ImageforwardRef = ({myAvatar, onChangeAvatar, onSelectFile}, ref: React.LegacyRef<HTMLInputElement>) => {
   const avatarDefault = `${process.env.PUBLIC_URL}/img/user.png`;
   const [avatar, setAvatar] = useState<string>(avatarDefault);
+
+  useEffect(() => {
+    if (myAvatar) {
+      setAvatar(myAvatar);
+    }
+  }, [myAvatar]);
 
   const _onChangeAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
     const avatar = URL.createObjectURL(event.target.files?.item(0));
@@ -35,7 +42,7 @@ const ImageforwardRef = ({onChangeAvatar, onSelectFile}, ref: React.LegacyRef<HT
 
   return (
     <>
-      <input type="file" id="file" ref={ref} onChange={_onChangeAvatar} style={{display: 'none'}} />
+      <input type="file" id="file" ref={ref} onChange={_onChangeAvatar} style={{display: 'none'}} accept="image/*" />
       <img src={avatar} className="card-profile-img avatar-profile" />
       <h4 className="mb-3 text-gray-light">Nathan Andrews</h4>
       <button className="btn btn-outline-secondary" onClick={onSelectFile}>
@@ -62,9 +69,7 @@ const ProflieSettingComponent = () => {
     setValue,
   } = useForm<IFormProfile>({
     defaultValues: {
-      username: authState.accountInfor.username,
       full_name: authState.accountInfor.full_name,
-      email: authState.accountInfor.email,
       phone: authState.accountInfor.phone,
       avatar: null,
     },
@@ -80,12 +85,13 @@ const ProflieSettingComponent = () => {
         data[key] && formData.append(key, data[key]);
       });
       const res = await fetchUpdateUser(formData);
+      if (typeof res === 'object') {
+        dispatch(updateAvatar(res.data));
+      }
     } catch (error) {
       addError(error, 'Account registration failed! Please check your information.');
     } finally {
-      setTimeout(() => {
-        hideLoading();
-      }, 3000);
+      hideLoading();
     }
   };
 
@@ -96,7 +102,8 @@ const ProflieSettingComponent = () => {
   const onChangeAvatar = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.files?.item(0));
     const avatar = URL.createObjectURL(event.target.files?.item(0));
-    setValue('avatar', event.target.files?.item(0), {shouldDirty: true});
+    // setValue('avatar', event.target.files?.item(0), {shouldDirty: true});
+    onSubmit({avatar: event.target.files?.item(0)});
   }, []);
 
   return (
@@ -107,7 +114,12 @@ const ProflieSettingComponent = () => {
             style={{backgroundImage: `url(${process.env.PUBLIC_URL}/img/paul-morris-116514-unsplash.jpg)`}}
             className="card-header"></div>
           <div className="card-body text-center">
-            <Avatar onChangeAvatar={onChangeAvatar} onSelectFile={onSelectFile} ref={inputFile} />
+            <Avatar
+              onChangeAvatar={onChangeAvatar}
+              onSelectFile={onSelectFile}
+              ref={inputFile}
+              myAvatar={authState.accountInfor.avatar}
+            />
           </div>
         </div>
       </div>
@@ -121,7 +133,7 @@ const ProflieSettingComponent = () => {
               <div className="col-sm-6 col-md-6">
                 <div className="form-group">
                   <label className="form-label">Username</label>
-                  <input type="text" className="form-control" {...register('username')} />
+                  <input type="text" disabled className="form-control" value={authState.accountInfor.username || ''} />
                 </div>
               </div>
               <div className="col-sm-6 col-md-6">
@@ -133,12 +145,7 @@ const ProflieSettingComponent = () => {
               <div className="col-sm-6 col-md-6">
                 <div className="form-group">
                   <label className="form-label">Email</label>
-                  <input
-                    type="text"
-                    {...register('email')}
-                    className={errors.email?.message ? 'form-control is-invalid' : 'form-control'}
-                  />
-                  <div className="is-invalid invalid-feedback">{errors.email?.message}</div>
+                  <input disabled type="text" className="form-control" value={authState.accountInfor.email || ''} />
                 </div>
               </div>
               <div className="col-sm-6 col-md-6">

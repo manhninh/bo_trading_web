@@ -4,6 +4,7 @@ export type AccountInfor = {
   email: string | null;
   full_name: string | null;
   phone: string | null;
+  avatar: string | null;
   ref_code: string | null;
   amount_trade: number;
   amount_demo: number;
