@@ -40,22 +40,10 @@ nav.navbar a.nav-link .badge {
   right: 8px;
 }
 
-.dropdown-toggle::after {
-  vertical-align: top;
-  margin-left: 1.7rem;
-  font-size: 25px;
-  margin-top: 10px;
-  margin-right: 1rem;
-}
-
 .header-deposit {
   position: relative;
   bottom: 15px;
   margin-right: 0.6rem;
-}
-
-nav.navbar .dropdown .dropdown-menu {
-  transform: translate(0px, 72px) !important;
 }
 
 nav.navbar .dropdown-menu {
@@ -63,7 +51,7 @@ nav.navbar .dropdown-menu {
 }
 
 nav.navbar .dropdown-item {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem !important;
 }
 
 nav.navbar .sidebar-toggle {

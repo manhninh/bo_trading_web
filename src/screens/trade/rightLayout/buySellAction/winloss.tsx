@@ -36,7 +36,7 @@ const WinLossComponent = (props: IProps = Props) => {
       contentClassName="modal-content-custom">
       <Modal.Body className="modal-body-custom">
         <h1 className="text-result" style={{color: props.result && props.result >= 0 ? '#28a745' : '#F04B4B'}}>
-          {props.result} USDT
+          {props.result} USDF
         </h1>
       </Modal.Body>
     </Modal>

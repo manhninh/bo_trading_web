@@ -72,7 +72,7 @@ const WalletComponent = () => {
                 <TabContent>
                   <Suspense fallback={<SpinnerLoader />}>
                     <Switch>
-                      <Redirect from="/" to="/wallet/deposit" />
+                      <Redirect from="/" to="/wallet/deposit_history" />
                       {renderRoutes()}
                     </Switch>
                   </Suspense>

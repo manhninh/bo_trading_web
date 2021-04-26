@@ -121,7 +121,7 @@ const AffiliateLinkComponent = () => {
         <Modal show={showModal} centered={true} onHide={toogleModal}>
           <Modal.Body>
             <p className="text-light">
-              Do you agree to pay <span className="text-danger text-bold">30 USDT</span> to purchase Affiliate License
+              Do you agree to pay <span className="text-danger text-bold">30 USDF</span> to purchase Affiliate License
               to receive Agent Commissions and Trading Commissions?
             </p>
             <div className="text-right">

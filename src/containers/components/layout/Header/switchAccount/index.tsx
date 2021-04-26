@@ -65,14 +65,14 @@ const SwitchAccountComponent = () => {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle variant="success" className="nav-link language dropdown-toggle border-new div-main">
+      <Dropdown.Toggle variant="success" className="nav-link language dropdown-toggle dropdown-toggle-account border-new div-main">
         <div className="div-group">
           <span className="type-account text-bold">{state.currentAccount.type_name}</span>
-          <span className="amount-account text-bold">$ {formatter2.format(state.currentAccount.amount)}</span>
+          <span className="amount-account text-bold">{formatter2.format(state.currentAccount.amount)} USDF</span>
         </div>
       </Dropdown.Toggle>
 
-      <Dropdown.Menu className="border-new">
+      <Dropdown.Menu className="border-new div-transform">
         {state.listAccountOther.length > 0 &&
           state.listAccountOther.map((item: AccountType, index: number) => (
             <Dropdown.Item
@@ -81,7 +81,7 @@ const SwitchAccountComponent = () => {
               onClick={_switchAccount(item.type)}>
               <div className="div-group m-1-3rem">
                 <span className="type-account text-bold text-danger">{item.type_name}</span>
-                <span className="amount-account text-bold text-danger">$ {formatter2.format(item.amount)}</span>
+                <span className="amount-account text-bold text-danger">{formatter2.format(item.amount)} USDF</span>
               </div>
             </Dropdown.Item>
           ))}

@@ -12,6 +12,7 @@ import {IProps, Props, State} from './propState';
 import {fetchUserInfor} from './services';
 import './styled.css';
 import SwitchAccountComponent from './switchAccount';
+import SwitchLanguageComponent from './switchLanguage';
 
 const HeaderLayout = (props: IProps = Props) => {
   const [state, setState] = useState<State>({
@@ -65,7 +66,7 @@ const HeaderLayout = (props: IProps = Props) => {
     history.push(ROUTE_PATH.TRADE);
   };
 
-  console.log("header");
+  console.log('header');
 
   return (
     <>
@@ -99,12 +100,8 @@ const HeaderLayout = (props: IProps = Props) => {
                       <span className="d-none d-sm-inline text-danger">{username}</span>
                     </a>
                   </div>
-                  <div className="list-inline-item visible">
-                    <a className="nav-link">
-                      {/* <span className="badge dashbg-3">1</span> */}
-                      <i className="icomoon-icon-notification"></i>
-                      <span className="d-none d-sm-inline">Notification</span>
-                    </a>
+                  <div className="list-inline-item dropdown visible">
+                    <SwitchLanguageComponent />
                   </div>
                   <div className="list-inline-item visible">
                     <a className="nav-link" onClick={logOut}>

@@ -76,7 +76,6 @@ const TradeHistoryComponent = () => {
         html.push(
           <tr key={`history_tr_${index}`}>
             <td>{d.order_uuid && moment(parseInt(d.order_uuid)).format('MM/DD/YYYY HH:mm')}</td>
-            <td>ETH/USDT</td>
             <td>
               <div className="d-inline-block text-info text-bold">
                 <div className="d-inline-block w-40">Buy</div>
@@ -151,7 +150,6 @@ const TradeHistoryComponent = () => {
                 <thead>
                   <tr>
                     <th className="text-light">Time</th>
-                    <th className="text-light">Type</th>
                     <th className="text-light">Action</th>
                     <th className="text-light">Open</th>
                     <th className="text-light">Close</th>
