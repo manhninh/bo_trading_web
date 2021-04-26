@@ -1,7 +1,7 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {LOCAL_STORE} from 'constants/system';
-import {AccountInfor, AuthState} from './state';
-import {fetchChangeTypeUser, fetchLogin} from './thunks';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LOCAL_STORE } from 'constants/system';
+import { AccountInfor, AuthState } from './state';
+import { fetchChangeTypeUser, fetchLogin } from './thunks';
 
 export const initialAuthState: AuthState = {
   isSignedOut: false,
@@ -13,6 +13,7 @@ export const initialAuthState: AuthState = {
     email: null,
     full_name: null,
     phone: null,
+    avatar: null,
     ref_code: null,
     amount_trade: 0,
     amount_demo: 0,
@@ -38,6 +39,7 @@ const authSlice = createSlice({
         full_name: null,
         phone: null,
         email: null,
+        avatar: null,
         ref_code: null,
         amount_trade: 0,
         amount_demo: 0,
@@ -60,12 +62,16 @@ const authSlice = createSlice({
     }),
     restoreAccount: (state: AuthState, action: PayloadAction<AccountInfor>) => ({
       ...state,
-      accountInfor: {...state.accountInfor, ...action.payload},
+      accountInfor: { ...state.accountInfor, ...action.payload },
     }),
     changeStatusTFA: (state: AuthState, action: PayloadAction<boolean>) => ({
       ...state,
-      accountInfor: {...state.accountInfor, isEnabledTFA: action.payload},
+      accountInfor: { ...state.accountInfor, isEnabledTFA: action.payload },
     }),
+    updateAvatar: (state: AuthState, action: PayloadAction<string>) => ({
+      ...state,
+      accountInfor: { ...state.accountInfor, avatar: action.payload }
+    })
   },
   extraReducers: (builder) => {
     builder
@@ -85,6 +91,7 @@ const authSlice = createSlice({
             email: null,
             full_name: null,
             phone: null,
+            avatar: null,
             ref_code: null,
             amount_trade: 0,
             amount_demo: 0,
@@ -115,6 +122,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {toSignInPage, restoreAccount, signIn, signOut, changeStatusTFA} = authSlice.actions;
+export const { toSignInPage, restoreAccount, signIn, signOut, changeStatusTFA, updateAvatar } = authSlice.actions;
 
 export default authSlice.reducer;

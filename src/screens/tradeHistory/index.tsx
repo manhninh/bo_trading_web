@@ -115,6 +115,7 @@ const TradeHistoryComponent = () => {
                   <div className="datePicker-text">From</div>
                   <DatePicker
                     maxDate={filterSearch.to}
+                    minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
                     selected={filterSearch.from}
                     className="form-control datePicker-input"
                     onChange={_onChangeDate('from')}
@@ -129,6 +130,7 @@ const TradeHistoryComponent = () => {
                   <div className="datePicker-text">To</div>
                   <DatePicker
                     minDate={filterSearch.from}
+                    maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
                     selected={filterSearch.to}
                     className="form-control datePicker-input"
                     onChange={_onChangeDate('to')}

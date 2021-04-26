@@ -1,4 +1,5 @@
 import {yupResolver} from '@hookform/resolvers/yup';
+import {useAppSelector} from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React from 'react';
@@ -14,54 +15,62 @@ interface IFormChangePW {
   currentPW: string;
   newPW: string;
   newPWConfirm: string;
+  tfa?: string;
 }
-
-const schema = yup.object().shape(
-  {
-    currentPW: yup
-      .string()
-      .when(['newPW', 'newPWConfirm'], {
-        is: (newPW: string, newPWConfirm: string) => !!newPW || !!newPWConfirm,
-        then: yup.string().required('Current password cannot be empty!'),
-        otherwise: yup.string(),
-      })
-      .required('Current Password cannot be empty!'),
-    newPW: yup.string().when(['currentPW', 'newPWConfirm'], {
-      is: (currentPW: string, newPWConfirm: string) => !!newPWConfirm || !!currentPW,
-      then: yup
-        .string()
-        .required('New Password cannot be empty!')
-        .min(6, 'New Password must be at least 6 characters!')
-        .max(20, 'New Password must be at most 20 characters!'),
-      otherwise: yup.string(),
-    }),
-    newPWConfirm: yup.string().when(['newPW', 'currentPW'], {
-      is: (newPW: string, currentPW: string) => !!newPW,
-      then: yup
-        .string()
-        .oneOf([yup.ref('newPW')], 'Password is not match')
-        .required('Confirm password cannot be empty!'),
-      otherwise: yup.string(),
-    }),
-  },
-  [
-    ['newPW', 'newPWConfirm'],
-    ['currentPW', 'newPWConfirm'],
-    ['newPW', 'currentPW'],
-  ],
-);
 
 const ChangePasswordComponent = () => {
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
   const history = useHistory();
+  const enabledTFA = useAppSelector((state) => state.authState.accountInfor.isEnabledTFA);
+
+  const schema = yup.object().shape(
+    {
+      currentPW: yup
+        .string()
+        .when(['newPW', 'newPWConfirm'], {
+          is: (newPW: string, newPWConfirm: string) => !!newPW || !!newPWConfirm,
+          then: yup.string().required('Current password cannot be empty!'),
+          otherwise: yup.string(),
+        })
+        .required('Current Password cannot be empty!'),
+      newPW: yup.string().when(['currentPW', 'newPWConfirm'], {
+        is: (currentPW: string, newPWConfirm: string) => !!newPWConfirm || !!currentPW,
+        then: yup
+          .string()
+          .required('New Password cannot be empty!')
+          .min(6, 'New Password must be at least 6 characters!')
+          .max(20, 'New Password must be at most 20 characters!'),
+        otherwise: yup.string(),
+      }),
+      newPWConfirm: yup.string().when(['newPW', 'currentPW'], {
+        is: (newPW: string, currentPW: string) => !!newPW,
+        then: yup
+          .string()
+          .oneOf([yup.ref('newPW')], 'Password is not match')
+          .required('Confirm password cannot be empty!'),
+        otherwise: yup.string(),
+      }),
+      tfa: yup.string().when('currentPW', {
+        is: (_) => !!enabledTFA,
+        then: yup.string().required('Two-Factor Authentication cannot be empty!'),
+        otherwise: yup.string(),
+      }),
+    },
+    [
+      ['newPW', 'newPWConfirm'],
+      ['currentPW', 'newPWConfirm'],
+      ['newPW', 'currentPW'],
+    ],
+  );
 
   const {register, handleSubmit, formState} = useForm<IFormChangePW>({
     defaultValues: {
       currentPW: '',
       newPW: '',
       newPWConfirm: '',
+      tfa: '',
     },
     resolver: yupResolver(schema),
   });
@@ -70,7 +79,7 @@ const ChangePasswordComponent = () => {
     showLoading();
     try {
       showLoading();
-      const res = await changePassword({current_password: data.currentPW, new_password: data.newPW});
+      const res = await changePassword({current_password: data.currentPW, new_password: data.newPW, tfa: data.tfa});
       if (res) {
         dispatch(signOut());
         history.push(ROUTE_PATH.LOGIN);
@@ -134,6 +143,22 @@ const ChangePasswordComponent = () => {
                   </div>
                 </div>
               </div>
+              {enabledTFA && (
+                <div className="col-12">
+                  <div className="form-group">
+                    <label className="form-label">Two-factor authentication</label>
+                    <input
+                      maxLength={6}
+                      type="text"
+                      className={`form-control form-control-sm ${formState.errors.tfa?.message ? 'is-invalid' : ''}`}
+                      {...register('tfa')}
+                    />
+                    <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                      {formState.errors.tfa?.message}
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="col-12">
                 <div className="form-group">
                   <button type="submit" className="btn btn-sm btn-danger" onClick={handleSubmit(onSubmit)}>
