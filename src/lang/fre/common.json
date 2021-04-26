@@ -1,0 +1,11 @@
+{
+  "sidebar": {
+    "trading":"Trading",
+    "copy_trade":"Copy Trade",
+    "wallet":"Wallet",
+    "history":"History",
+    "affiliate_link":"Affiliate Link",
+    "commissions":"Commissions",
+    "settings":"Settings"
+  }
+}

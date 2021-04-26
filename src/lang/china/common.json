@@ -1,0 +1,11 @@
+{
+  "sidebar": {
+    "trading":"交易",
+    "copy_trade":"复制交易",
+    "wallet":"钱包",
+    "history":"历史",
+    "affiliate_link":"会员链接",
+    "commissions":"佣金",
+    "settings":"设置"
+  }
+}
