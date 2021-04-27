@@ -39,10 +39,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
 
   useEffect(() => {
     if (props.requestRefesh === props.tabActive) {
-      const today = new Date();
-      const _filterSearch = {from: today, to: today};
-      setFilterSearch(_filterSearch);
-      getHistory(1, 50, _filterSearch);
+      getHistory(1);
     }
   }, [props.requestRefesh]);
 
@@ -59,32 +56,32 @@ const HistoryTableComponent = (props: IProps = Props) => {
       switch (props.tabActive) {
         case NameRoutes.TRADING:
           result = await getCommissionsTradeDetail({
-            fromDate: _filterSearch.from,
-            toDate: _filterSearch.to,
+            fromDate: new Date(_filterSearch.from).toISOString(),
+            toDate: new Date(_filterSearch.to).toISOString(),
             page,
             limit,
           });
           break;
         case NameRoutes.COPY_TRADE:
           result = await getCommissionsCopyTrade({
-            fromDate: _filterSearch.from,
-            toDate: _filterSearch.to,
+            fromDate: new Date(_filterSearch.from).toISOString(),
+            toDate: new Date(_filterSearch.to).toISOString(),
             page,
             limit,
           });
           break;
         case NameRoutes.HISTORY_WITHDRAW:
           result = await getCommissionsWithdrawHistories({
-            fromDate: _filterSearch.from,
-            toDate: _filterSearch.to,
+            fromDate: new Date(_filterSearch.from).toISOString(),
+            toDate: new Date(_filterSearch.to).toISOString(),
             page,
             limit,
           });
           break;
         case NameRoutes.MEMBER_LIST:
           result = await getCommissionsMemberList({
-            fromDate: _filterSearch.from,
-            toDate: _filterSearch.to,
+            fromDate: new Date(_filterSearch.from).toISOString(),
+            toDate: new Date(_filterSearch.to).toISOString(),
             page,
             limit,
           });

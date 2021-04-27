@@ -47,7 +47,7 @@ export const getCommissionsWithdrawHistories = async ({ fromDate, toDate, page, 
 
 export const commissionWithdraw = async (type) => {
   try {
-    const result = await configServices.postService('commissions/withdraw', { type, date: new Date().toISOString() });
+    const result = await configServices.postService('commissions/withdraw', { typeCommission: type, date: new Date().toISOString() });
     return result;
   } catch (error) {
     throw error;
