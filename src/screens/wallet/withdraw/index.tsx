@@ -1,19 +1,19 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import UsdtPng from 'assets/images/usdt.png';
 import WithdrawWalletPng from 'assets/images/withdraw_wallet.png';
-import { useAppSelector } from 'boot/configureStore';
+import {useAppSelector} from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
-import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
-import React, { useMemo, useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import React, {useMemo, useState} from 'react';
+import {Button, Modal} from 'react-bootstrap';
+import {useForm} from 'react-hook-form';
+import {useDispatch} from 'react-redux';
 import * as yup from 'yup';
-import { IProps, Props } from './propState';
-import { createWithraw } from './services';
+import {IProps, Props} from './propState';
+import {createWithdraw} from './services';
 import './styled.css';
 
-interface IFormWithraw {
+interface IFormWithdraw {
   symbol: 'trc20' | 'erc20';
   amount: number;
   password: string;
@@ -22,7 +22,7 @@ interface IFormWithraw {
 }
 
 const WithdrawComponent = (props: IProps = Props) => {
-  const formDefault: Readonly<IFormWithraw> = {
+  const formDefault: Readonly<IFormWithdraw> = {
     symbol: 'trc20',
     address: '',
     amount: 0,
@@ -30,8 +30,8 @@ const WithdrawComponent = (props: IProps = Props) => {
     tfa: '',
   };
   const dispatch = useDispatch();
-  const { showLoading, hideLoading } = useLoading();
-  const { addError } = useError();
+  const {showLoading, hideLoading} = useLoading();
+  const {addError} = useError();
   const [state, setState] = useState({
     show: false,
     symbol: 'trc20',
@@ -58,22 +58,22 @@ const WithdrawComponent = (props: IProps = Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
     reset,
     setValue,
-  } = useForm<IFormWithraw>({
+  } = useForm<IFormWithdraw>({
     defaultValues: useMemo(() => formDefault, []),
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: IFormWithraw) => {
+  const onSubmit = async (data: IFormWithdraw) => {
     try {
       showLoading();
-      const res = await createWithraw(data);
+      const res = await createWithdraw(data);
       if (res.data) {
         reset(formDefault);
-        setState({ ...state, show: false });
-        props.onRequestRefesh('WITHRAW');
+        setState({...state, show: false});
+        props.onRequestRefesh('WITHDRAW');
       }
     } catch (error) {
       addError(error, 'Account registration failed! Please check your information.');
@@ -83,12 +83,12 @@ const WithdrawComponent = (props: IProps = Props) => {
   };
 
   const _selectCurrency = (currency: 'trc20' | 'erc20') => () => {
-    setState({ ...state, symbol: currency });
+    setState({...state, symbol: currency});
     setValue('symbol', currency);
   };
 
-  const handleClose = () => setState((state) => ({ ...state, show: false }));
-  const handleShow = () => setState((state) => ({ ...state, show: true }));
+  const handleClose = () => setState((state) => ({...state, show: false}));
+  const handleShow = () => setState((state) => ({...state, show: true}));
 
   return (
     <>
@@ -133,7 +133,7 @@ const WithdrawComponent = (props: IProps = Props) => {
                     autoFocus={true}
                     {...register('amount')}
                   />
-                  <div className="is-invalid invalid-feedback" style={{ display: 'block' }}>
+                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                     {errors.amount?.message}
                   </div>
                 </div>
@@ -150,7 +150,7 @@ const WithdrawComponent = (props: IProps = Props) => {
                     Address USDT - ERC20 <span className="text-danger">*</span>
                   </label>
                   <input type="text" className="form-control form-control-sm" {...register('address')} />
-                  <div className="is-invalid invalid-feedback" style={{ display: 'block' }}>
+                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                     {errors.address?.message}
                   </div>
                 </div>
@@ -163,7 +163,7 @@ const WithdrawComponent = (props: IProps = Props) => {
                     Password <span className="text-danger">*</span>
                   </label>
                   <input type="password" className="form-control form-control-sm" {...register('password')} />
-                  <div className="is-invalid invalid-feedback" style={{ display: 'block' }}>
+                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                     {errors.password?.message}
                   </div>
                 </div>
@@ -172,7 +172,7 @@ const WithdrawComponent = (props: IProps = Props) => {
                 <div className="form-group">
                   <label className="form-control-label">Two-factor authentication</label>
                   <input type="text" className="form-control form-control-sm" maxLength={6} {...register('tfa')} />
-                  <div className="is-invalid invalid-feedback" style={{ display: 'block' }}>
+                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                     {errors.tfa?.message}
                   </div>
                 </div>

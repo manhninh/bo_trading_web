@@ -3,7 +3,7 @@ import configServices from 'utils/configServices';
 export enum TYPE_HISTORY {
   DEPOSIT,
   TRANSFER,
-  WITHRAW
+  WITHDRAW
 }
 
 type ParamsQuery = {

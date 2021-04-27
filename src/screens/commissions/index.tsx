@@ -1,15 +1,18 @@
-import WinnerImg from 'assets/images/winner.png';
 import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
+import useError from 'containers/hooks/errorProvider/useError';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import _ from 'lodash';
-import React, {lazy, Suspense} from 'react';
-import {Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
+import React, {lazy, Suspense, useEffect, useState} from 'react';
+import {Modal, Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
 import {Redirect, Route, useLocation} from 'react-router';
 import {NavLink} from 'react-router-dom';
+import CommissionCopyTrade from './commissionCopyTrade';
 import CommissionTrade from './commissionTrade';
+import {Commission} from './propState';
+import {commissionWithdraw, getCommissions} from './services';
 import './styled.css';
-
 const components = {
   trading: lazy(() => import('./trading')),
   copy_trade: lazy(() => import('./copytrade')),
@@ -19,6 +22,31 @@ const components = {
 
 const CommissionComponent = () => {
   const {pathname} = useLocation();
+  const {showLoading, hideLoading} = useLoading();
+  const {addError} = useError();
+  const [commissions, setCommissions] = useState<Commission[]>([]);
+  const [state, setState] = useState({
+    show: false,
+    typeCommissionWidthPopup: null,
+    withdraw: 0,
+    requestRefesh: null,
+  });
+  useEffect(() => {
+    (async () => {
+      const result = await getCommissions();
+      if (result?.data) {
+        setCommissions(result.data);
+      }
+    })();
+  }, []);
+
+  const getCommissionByType = (type) => {
+    return commissions.find((c) => c.type_commission === type);
+  };
+
+  const onRequestRefesh = (tabActive) => {
+    setState({...state, requestRefesh: tabActive});
+  };
 
   const renderNavItems = () =>
     Object.keys(components).map((route) => (
@@ -33,33 +61,40 @@ const CommissionComponent = () => {
     Object.entries(components).map(([route, Component]) => (
       <Route key={`${route}-route`} path={`/commissions/${route}`}>
         <Tab.Pane active={pathname === `/commissions/${route}`}>
-          <Component />
+          <Component requestRefesh={state.requestRefesh} />
         </Tab.Pane>
       </Route>
     ));
+
+  const handleShow = (type, withdraw) =>
+    setState((state) => ({...state, show: true, typeCommissionWidthPopup: type, withdraw}));
+  const handleClose = () => setState((state) => ({...state, show: false, typeCommissionWidthPopup: null, withdraw: 0}));
+
+  const confirmWithdraw = async () => {
+    try {
+      showLoading();
+      const result = await commissionWithdraw(state.typeCommissionWidthPopup);
+      if (result) {
+        const path = pathname.substring(pathname.lastIndexOf('/') + 1);
+        onRequestRefesh(path);
+        handleClose();
+      }
+    } catch (err) {
+      addError(err, 'Update commmission withdraw fail!');
+    } finally {
+      hideLoading();
+    }
+  };
 
   return (
     <ContainerLayout>
       <>
         <div className="row">
           <div className="offset-lg-3 col-lg-3">
-            <CommissionTrade />
+            <CommissionTrade commission={getCommissionByType(0)} openPopup={handleShow} />
           </div>
           <div className="col-lg-3">
-            <div className="user-block block block-bg text-center p-0 pb-3">
-              <div className="avatar avatar-custom">
-                <img src={WinnerImg} alt="..." className="img-fluid" />
-              </div>
-              <a href="#" className="user-title mt-0">
-                <h1 className="h1 mt-0 text-warning">120$</h1>
-                <span className="text-light">Commission Copy Trade</span>
-              </a>
-              <div className="contributions">
-                <button type="button" className="btn btn-link text-info">
-                  Withdraw
-                </button>
-              </div>
-            </div>
+            <CommissionCopyTrade commission={getCommissionByType(1)} openPopup={handleShow} />
           </div>
         </div>
         <div className="row">
@@ -79,6 +114,22 @@ const CommissionComponent = () => {
             </Tab.Container>
           </div>
         </div>
+        <Modal centered={true} show={state.show} onHide={handleClose} backdrop="static" keyboard={false}>
+          <Modal.Body>
+            <p className="text-light">
+              Would you like to withdraw <span className="text-danger text-bold">{state.withdraw} USDT</span> to your
+              spot wallet?
+            </p>
+            <div className="text-right">
+              <button type="submit" className="btn btn-sm btn-info mr-2" onClick={confirmWithdraw}>
+                Yes
+              </button>
+              <button type="submit" className="btn btn-sm btn-danger" onClick={handleClose}>
+                No
+              </button>
+            </div>
+          </Modal.Body>
+        </Modal>
       </>
     </ContainerLayout>
   );

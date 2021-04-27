@@ -1,12 +1,18 @@
 import Pagination from 'containers/components/pagination';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import {TransationHistory} from 'models/wallet';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
-import {fetchTransactionHistory, TYPE_HISTORY} from 'screens/wallet/services';
-import {FilterSearch, IProps, Props} from './propState';
+import 'react-datepicker/dist/react-datepicker.css';
+import {
+  getCommissionsCopyTrade,
+  getCommissionsMemberList,
+  getCommissionsTradeDetail,
+  getCommissionsWithdrawHistories,
+} from 'screens/commissions/services';
+import {number2DecimalPlaces} from 'utils/formatter';
+import {FilterSearch, IProps, NameRoutes, Props} from './propState';
 
 interface PaginateResult<T> {
   docs: Array<T>;
@@ -25,7 +31,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
     to: new Date(),
   });
   const [pageActive, setPageActive] = useState<number>(1);
-  const [history, setHistory] = useState<PaginateResult<TransationHistory>>({
+  const [history, setHistory] = useState<PaginateResult<any>>({
     docs: [],
     total: -1,
     limit: 50,
@@ -36,26 +42,56 @@ const HistoryTableComponent = (props: IProps = Props) => {
       const today = new Date();
       const _filterSearch = {from: today, to: today};
       setFilterSearch(_filterSearch);
-      _getTransactionHistory(TYPE_HISTORY[props.tabActive], 1, undefined, _filterSearch);
+      getHistory(1, 50, _filterSearch);
     }
   }, [props.requestRefesh]);
 
   useEffect(() => {
-    _getTransactionHistory(TYPE_HISTORY[props.tabActive], pageActive);
+    getHistory(pageActive);
   }, [pageActive]);
 
-  const _getTransactionHistory = async (
-    type: TYPE_HISTORY,
-    page: number,
-    limit?: number,
-    _filterSearch?: FilterSearch,
-  ) => {
+  const getHistory = async (page: number, limit?: number, _filterSearch?: FilterSearch) => {
     try {
       showLoading();
       limit = limit || history.limit;
       _filterSearch = _filterSearch || filterSearch;
-      const res = await fetchTransactionHistory({..._filterSearch, page, limit, type});
-      setHistory(res.data);
+      let result;
+      switch (props.tabActive) {
+        case NameRoutes.TRADING:
+          result = await getCommissionsTradeDetail({
+            fromDate: _filterSearch.from,
+            toDate: _filterSearch.to,
+            page,
+            limit,
+          });
+          break;
+        case NameRoutes.COPY_TRADE:
+          result = await getCommissionsCopyTrade({
+            fromDate: _filterSearch.from,
+            toDate: _filterSearch.to,
+            page,
+            limit,
+          });
+          break;
+        case NameRoutes.HISTORY_WITHDRAW:
+          result = await getCommissionsWithdrawHistories({
+            fromDate: _filterSearch.from,
+            toDate: _filterSearch.to,
+            page,
+            limit,
+          });
+          break;
+        case NameRoutes.MEMBER_LIST:
+          result = await getCommissionsMemberList({
+            fromDate: _filterSearch.from,
+            toDate: _filterSearch.to,
+            page,
+            limit,
+          });
+          break;
+      }
+
+      setHistory(result.data);
     } catch (err) {
       addError(err, 'Load transaction history fail!');
     } finally {
@@ -72,7 +108,34 @@ const HistoryTableComponent = (props: IProps = Props) => {
   };
 
   const _search = async () => {
-    await _getTransactionHistory(TYPE_HISTORY[props.tabActive], 1);
+    await getHistory(1);
+  };
+
+  const _renderHeaders = () => {
+    return props.renderTable.headers.map((h) => <th className="text-light">{h}</th>);
+  };
+
+  const _renderValues = (data) => {
+    const list_td: any = [];
+    props.renderTable.props.map((p, index) => {
+      if (p === 'investment_amount' || p === 'commission' || p === 'amount') {
+        list_td.push(
+          <td key={index}>
+            <div className="d-inline-block">
+              <div className="d-inline-block w-40">{number2DecimalPlaces(data[p])}</div>
+              <div className="d-inline-block w-80">USDF</div>
+            </div>
+          </td>,
+        );
+      } else if (p === 'type_commission') {
+        list_td.push(<td>{data[p] ? 'Commission Trade' : 'Commission Copy Trade'}</td>);
+      } else if (p === 'agency') {
+        list_td.push(<td>{data[p] ? 'Active' : 'Deactived'}</td>);
+      } else {
+        list_td.push(<td>{data[p]}</td>);
+      }
+    });
+    return list_td;
   };
 
   const _renderRows = () => {
@@ -86,14 +149,9 @@ const HistoryTableComponent = (props: IProps = Props) => {
       );
     return history?.docs.map((d, i) => (
       <tr key={`${props.tabActive}-history-${i}`}>
-        <th scope="row">{i}</th>
-        <td>{moment(d.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>
-        {props.tabActive === 'TRANSFER' && <td>{d.from_username}</td>}
-        {props.tabActive === 'TRANSFER' && <td>{d.to_username}</td>}
-        <td>{d.amount}</td>
-        {props.tabActive !== 'TRANSFER' && <td>{d.symbol}</td>}
-        {props.tabActive === 'WITHDRAW' && <td>{d.address ?? ''}</td>}
-        {props.tabActive !== 'TRANSFER' && <td>{d.status}</td>}
+        <td scope="row">{i}</td>
+        <td>{d.createdAt && moment(d.createdAt).format('MM/DD/YYYY HH:mm')}</td>
+        {_renderValues(d)}
       </tr>
     ));
   };
@@ -142,13 +200,8 @@ const HistoryTableComponent = (props: IProps = Props) => {
           <thead>
             <tr>
               <th className="text-light">No.</th>
-              <th className="text-light">Date</th>
-              {props.tabActive === 'TRANSFER' && <th className="text-light">From</th>}
-              {props.tabActive === 'TRANSFER' && <th className="text-light">To</th>}
-              <th className="text-light">Amount</th>
-              {props.tabActive !== 'TRANSFER' && <th className="text-light">Symbol</th>}
-              {props.tabActive === 'WITHDRAW' && <th className="text-light">Address</th>}
-              {props.tabActive !== 'TRANSFER' && <th className="text-light">Status</th>}
+              <th className="text-light">Time</th>
+              {_renderHeaders()}
             </tr>
           </thead>
           <tbody>{_renderRows()}</tbody>

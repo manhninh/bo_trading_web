@@ -5,7 +5,7 @@ const SYMBOL = {
   trc20: 'USDT-TRC20',
 };
 
-export const createWithraw = async ({ symbol, amount, password, address, tfa }) => {
+export const createWithdraw = async ({ symbol, amount, password, address, tfa }) => {
   try {
     symbol = SYMBOL[symbol];
     const result = await configServices.postService('wallet/withdraw/create', { symbol, amount, password, address, tfa });
