@@ -2,7 +2,7 @@ import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import {cloneDeep} from 'lodash';
+import {cloneDeep, startCase} from 'lodash';
 import React, {lazy, Suspense, useEffect, useState} from 'react';
 import {Modal, Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
@@ -13,6 +13,7 @@ import CommissionTrade from './commissionTrade';
 import {Commission} from './propState';
 import {commissionWithdraw, getCommissions} from './services';
 import './styled.css';
+
 const components = {
   trading: lazy(() => import('./trading')),
   copy_trade: lazy(() => import('./copytrade')),
@@ -52,7 +53,7 @@ const CommissionComponent = () => {
     Object.keys(components).map((route) => (
       <NavItem key={`${route}-nav-item`}>
         <Nav.Link as={NavLink} to={`/commissions/${route}`} active={pathname === `/commissions/${route}`}>
-          {_.startCase(route.split('_').join(' '))}
+          {startCase(route.split('_').join(' '))}
         </Nav.Link>
       </NavItem>
     ));
