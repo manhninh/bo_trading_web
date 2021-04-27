@@ -33,10 +33,10 @@ const HistoryTableComponent = (props: IProps = Props) => {
 
   useEffect(() => {
     if (props.requestRefesh === props.tabActive) {
-      const today = new Date();
-      const _filterSearch = {from: today, to: today};
-      setFilterSearch(_filterSearch);
-      _getTransactionHistory(TYPE_HISTORY[props.tabActive], 1, undefined, _filterSearch);
+      // const today = new Date();
+      // const _filterSearch = {from: today, to: today};
+      // setFilterSearch(_filterSearch);
+      _getTransactionHistory(TYPE_HISTORY[props.tabActive], 1);
     }
   }, [props.requestRefesh]);
 

@@ -2,7 +2,7 @@ import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import _ from 'lodash';
+import {cloneDeep} from 'lodash';
 import React, {lazy, Suspense, useEffect, useState} from 'react';
 import {Modal, Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
@@ -75,9 +75,12 @@ const CommissionComponent = () => {
       showLoading();
       const result = await commissionWithdraw(state.typeCommissionWidthPopup);
       if (result) {
-        const path = pathname.substring(pathname.lastIndexOf('/') + 1);
-        onRequestRefesh(path);
-        handleClose();
+        const path: any = pathname.substring(pathname.lastIndexOf('/') + 1);
+        const index = commissions.findIndex((c) => c.type_commission === state.typeCommissionWidthPopup);
+        const newCommissions = cloneDeep(commissions);
+        newCommissions[index].commission = 0;
+        setCommissions(newCommissions);
+        setState({...state, show: false, typeCommissionWidthPopup: null, withdraw: 0, requestRefesh: path});
       }
     } catch (err) {
       addError(err, 'Update commmission withdraw fail!');
@@ -117,7 +120,7 @@ const CommissionComponent = () => {
         <Modal centered={true} show={state.show} onHide={handleClose} backdrop="static" keyboard={false}>
           <Modal.Body>
             <p className="text-light">
-              Would you like to withdraw <span className="text-danger text-bold">{state.withdraw} USDT</span> to your
+              Would you like to withdraw <span className="text-danger text-bold">{state.withdraw} USDF</span> to your
               spot wallet?
             </p>
             <div className="text-right">
