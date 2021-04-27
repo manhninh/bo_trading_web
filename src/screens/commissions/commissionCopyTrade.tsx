@@ -16,7 +16,7 @@ const CommissionCopyTradeComponent = (props: Iprops) => {
         <img src={WinnerImg} alt="..." className="img-fluid" />
       </div>
       <a href="#" className="user-title mt-0">
-        <h1 className="h1 mt-0 text-warning">{`${number2DecimalPlaces(props.commission?.commission || 0)}$`}</h1>
+        <h1 className="h1 mt-0 text-warning">{`${number2DecimalPlaces(props.commission?.commission || 0)} USDF`}</h1>
         <span className="text-light">Commission Copy Trade</span>
       </a>
       <div className="contributions">

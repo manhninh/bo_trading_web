@@ -122,15 +122,16 @@ const HistoryTableComponent = (props: IProps = Props) => {
         list_td.push(
           <td key={index}>
             <div className="d-inline-block">
-              <div className="d-inline-block w-40">{number2DecimalPlaces(data[p])}</div>
-              <div className="d-inline-block w-80">USDF</div>
+              <div className="d-inline-block">{number2DecimalPlaces(data[p])}</div>
             </div>
           </td>,
         );
       } else if (p === 'type_commission') {
-        list_td.push(<td>{data[p] ? 'Commission Trade' : 'Commission Copy Trade'}</td>);
+        list_td.push(<td>{!data[p] ? 'Commission Trade' : 'Commission Copy Trade'}</td>);
       } else if (p === 'agency') {
         list_td.push(<td>{data[p] ? 'Active' : 'Deactived'}</td>);
+      } else if (p === 'is_withdraw') {
+        list_td.push(<td>{data[p] ? 'Yes' : 'No'}</td>);
       } else {
         list_td.push(<td>{data[p]}</td>);
       }
@@ -149,7 +150,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
       );
     return history?.docs.map((d, i) => (
       <tr key={`${props.tabActive}-history-${i}`}>
-        <td scope="row">{i}</td>
+        <td scope="row">{i + 1}</td>
         <td>{d.createdAt && moment(d.createdAt).format('MM/DD/YYYY HH:mm')}</td>
         {_renderValues(d)}
       </tr>

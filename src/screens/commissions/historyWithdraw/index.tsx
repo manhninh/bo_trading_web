@@ -4,7 +4,7 @@ import {NameRoutes} from '../components/history/propState';
 
 const CommissionHistoryWithdraw = (props) => {
   const renderTable = {
-    headers: ['Withdrawal', 'From'],
+    headers: ['Withdrawal (USDF)', 'From'],
     props: ['amount', 'type_commission'],
   };
   return (

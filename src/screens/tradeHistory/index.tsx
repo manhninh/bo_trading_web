@@ -77,11 +77,11 @@ const TradeHistoryComponent = () => {
           <tr key={`history_tr_${index}`}>
             <td>{d.order_uuid && moment(parseInt(d.order_uuid)).format('MM/DD/YYYY HH:mm')}</td>
             <td>
-              <div className="d-inline-block text-info text-bold">
+              <div className="d-inline-block text-info">
                 <div className="d-inline-block w-40">Buy</div>
                 <div className="d-inline-block w-80">{d.buy_amount_order}</div>
               </div>
-              <div className="d-inline-block text-danger text-bold">
+              <div className="d-inline-block text-danger">
                 <div className="d-inline-block w-40">Sell</div>
                 <div className="d-inline-block w-80">{d.sell_amount_order}</div>
               </div>
@@ -89,10 +89,10 @@ const TradeHistoryComponent = () => {
             <td>{d.open_result}</td>
             <td>{d.close_result}</td>
             <td>
-              <div className={`${d.amount_result > 0 ? 'text-info' : 'text-danger'} d-inline-block text-bold`}>
+              <div className={`${d.amount_result > 0 ? 'text-info' : 'text-danger'}`}>
                 <div className="d-inline-block w-70">{d.amount_result > 0 ? 'WIN' : 'LOSS'}</div>
-                <div className="d-inline-block">
-                  {d.amount_result > 0 ? `+${d.amount_result}` : `${d.amount_result}`}
+                <div className="d-inline-block w-120 text-right">
+                  {d.amount_result > 0 ? `+${d.amount_result}` : `${d.amount_result}`} USDF
                 </div>
               </div>
             </td>

@@ -4,8 +4,8 @@ import {NameRoutes} from '../components/history/propState';
 
 const CommissionTrading = (props) => {
   const renderTable = {
-    headers: ['User name', 'F1 - F8', 'Volume', 'Commission'],
-    props: ['username', 'level', 'investment_amount', 'commission'],
+    headers: ['User name', 'F1 - F8', 'Volume (USDF)', 'Commission (USDF)', 'Withdraw'],
+    props: ['username', 'level', 'investment_amount', 'commission', 'is_withdraw'],
   };
   return (
     <HistoryTableComponent
