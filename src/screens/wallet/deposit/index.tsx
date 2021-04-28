@@ -42,7 +42,7 @@ const DepositComponent = () => {
 
   return (
     <>
-      <button type="button" className="btn btn-sm btn-info" onClick={handleShow}>
+      <button type="button" className="btn btn-sm btn-info mr-2" onClick={handleShow}>
         Deposit
       </button>
       <Modal show={state.show} onHide={handleClose} backdrop="static" keyboard={false} dialogClassName="modal-deposit">
@@ -65,7 +65,9 @@ const DepositComponent = () => {
               TRC20
             </Button>
           </div>
-          <p className="text-center mb-0">This is wallet's deposit address, which accepts only USDT.{state.type === 'trc20' ? 'TRC20' : 'ERC20'}.</p>
+          <p className="text-center mb-0">
+            This is wallet's deposit address, which accepts only USDT.{state.type === 'trc20' ? 'TRC20' : 'ERC20'}.
+          </p>
           <p className="text-center">Please do not deposit other cryptocurrency</p>
           <div className="text-center mb-3">
             <QRCode value={state[state.type] || ''} renderAs="svg" includeMargin={true} level="H" size={200} />

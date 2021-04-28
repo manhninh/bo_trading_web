@@ -137,7 +137,7 @@ const TransferComponent = (props: IProps = Props) => {
 
   return (
     <>
-      <button type="button" className="btn btn-sm btn-warning mx-2" onClick={handleShow}>
+      <button type="button" className="btn btn-sm btn-warning" onClick={handleShow}>
         Transfer
       </button>
       <Modal show={state.show} onHide={handleClose} backdrop="static" keyboard={false} dialogClassName="modal-500w">
