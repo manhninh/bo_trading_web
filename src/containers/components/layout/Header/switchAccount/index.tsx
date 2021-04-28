@@ -15,21 +15,21 @@ const SwitchAccountComponent = () => {
   const {addError} = useError();
   const {showLoading, hideLoading} = useLoading();
   const [state, setState] = useState<State>({
-    currentAccount: {type: 0, type_name: 'Live Account', amount: 0},
+    currentAccount: {type: 0, type_name: 'Trade Account', amount: 0},
     listAccountOther: [],
   });
   const accountInfor = useAppSelector((state) => state.authState.accountInfor);
 
   useEffect(() => {
-    let currentAccount = {type: 0, type_name: 'Live Account', amount: accountInfor.amount_trade};
+    let currentAccount = {type: 0, type_name: 'Trade Account', amount: accountInfor.amount_trade};
     const listAccountOther: AccountType[] = new Array();
     switch (accountInfor.type_user) {
       case 1:
         currentAccount = {type: 1, type_name: 'Demo Account', amount: accountInfor.amount_demo};
-        listAccountOther.push({type: 0, type_name: 'Live Account', amount: accountInfor.amount_trade});
+        listAccountOther.push({type: 0, type_name: 'Trade Account', amount: accountInfor.amount_trade});
         break;
       default:
-        currentAccount = {type: 0, type_name: 'Live Account', amount: accountInfor.amount_trade};
+        currentAccount = {type: 0, type_name: 'Trade Account', amount: accountInfor.amount_trade};
         listAccountOther.push({type: 1, type_name: 'Demo Account', amount: accountInfor.amount_demo});
         break;
     }
@@ -65,7 +65,9 @@ const SwitchAccountComponent = () => {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle variant="success" className="nav-link language dropdown-toggle dropdown-toggle-account border-new div-main">
+      <Dropdown.Toggle
+        variant="success"
+        className="nav-link language dropdown-toggle dropdown-toggle-account border-new div-main">
         <div className="div-group">
           <span className="type-account text-bold">{state.currentAccount.type_name}</span>
           <span className="amount-account text-bold">{formatter2.format(state.currentAccount.amount)} USDF</span>

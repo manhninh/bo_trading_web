@@ -1,6 +1,5 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import UsdtPng from 'assets/images/usdt.png';
-import WithdrawWalletPng from 'assets/images/withdraw_wallet.png';
 import {useAppSelector} from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
@@ -45,7 +44,7 @@ const TransferComponent = (props: IProps = Props) => {
   };
   const [state, setState] = useState<IState>({
     show: false,
-    type_transfer: null,
+    type_transfer: 'IN_ACCOUNT',
   });
 
   const dispatch = useDispatch();
@@ -59,33 +58,29 @@ const TransferComponent = (props: IProps = Props) => {
   }, [state.type_transfer]);
 
   const schema = yup.object().shape({
-    amount: yup
-      .number()
-      .typeError('Must be a number')
-      // .min(20, 'Amount must not be less than 20')
-      .required('Amount cannot be empty'),
+    amount: yup.number().typeError('Must be a number').required('Amount cannot be empty'),
     from: yup.string().when('amount', {
-      is: (_) => state.type_transfer === 'IN_ACCOUNT',
+      is: () => state.type_transfer === 'IN_ACCOUNT',
       then: yup.string().required('From cannot be empty!'),
       otherwise: yup.string(),
     }),
     to: yup.string().when('amount', {
-      is: (_) => state.type_transfer === 'IN_ACCOUNT',
+      is: () => state.type_transfer === 'IN_ACCOUNT',
       then: yup.string().required('To cannot be empty!'),
       otherwise: yup.string(),
     }),
     receiver_username: yup.string().when('amount', {
-      is: (_) => state.type_transfer === 'TO_USERNAME',
+      is: () => state.type_transfer === 'TO_USERNAME',
       then: yup.string().required('Receiver username cannot be empty!'),
       otherwise: yup.string(),
     }),
     password: yup.string().when('receiver_username', {
-      is: (_) => state.type_transfer === 'TO_USERNAME',
+      is: () => state.type_transfer === 'TO_USERNAME',
       then: yup.string().required('Password cannot be empty'),
       otherwise: yup.string(),
     }),
     tfa: yup.string().when('password', {
-      is: (_) => state.type_transfer === 'TO_USERNAME' && !!isEnabledTFA,
+      is: () => state.type_transfer === 'TO_USERNAME' && !!isEnabledTFA,
       then: yup.string().required('Two-Factor Authentication cannot be empty!'),
       otherwise: yup.string(),
     }),
@@ -130,7 +125,7 @@ const TransferComponent = (props: IProps = Props) => {
     }
   };
 
-  const handleClose = () => setState((state) => ({...state, show: false, type_transfer: null}));
+  const handleClose = () => setState((state) => ({...state, show: false, type_transfer: 'IN_ACCOUNT'}));
   const handleShow = () => setState((state) => ({...state, show: true}));
 
   const selectTransfer = (type) => {
@@ -154,115 +149,85 @@ const TransferComponent = (props: IProps = Props) => {
         </Modal.Header>
         <Modal.Body>
           <form>
+            {!props.onlyInAccount ? (
+              <div className="row">
+                <div className="col-md-6 col-xs-12">
+                  <div className="i-checks">
+                    <input
+                      type="radio"
+                      checked={state.type_transfer === 'IN_ACCOUNT'}
+                      value="IN_ACCOUNT"
+                      className="radio-template"
+                      onChange={(event) => selectTransfer(event.target.value)}
+                    />
+                    <label>In Account</label>
+                  </div>
+                </div>
+                <div className="col-md-6 col-xs-12">
+                  <div className="i-checks">
+                    <input
+                      type="radio"
+                      checked={state.type_transfer === 'TO_USERNAME'}
+                      value="TO_USERNAME"
+                      className="radio-template"
+                      onChange={(event) => selectTransfer(event.target.value)}
+                    />
+                    <label>To Username</label>
+                  </div>
+                </div>
+              </div>
+            ) : null}
             <div className="row">
               <div className="col-md-6 col-xs-12">
                 <div className="form-group">
                   <label className="form-control-label">
                     Amount <span className="text-danger">*</span>
                   </label>
-                  <input type="number" className="form-control form-control-sm" {...register('amount')} />
+                  <input type="number" className="form-control mb-1 form-control-sm" {...register('amount')} />
+                  <p className="text-right">Balance: 20 USDF</p>
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                     {errors.amount?.message}
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mb-2" style={{border: '1px solid #3d4148'}} />
-            <div className="i-checks">
-              <input
-                type="radio"
-                checked={state.type_transfer === 'IN_ACCOUNT'}
-                value="IN_ACCOUNT"
-                className="radio-template"
-                onChange={(event) => selectTransfer(event.target.value)}
-              />
-              <label>In Account</label>
-            </div>
-            <div className="row">
-              <div className="col-md-6 col-xs-12">
-                <Form.Group className="mb-1">
-                  <Form.Label>From</Form.Label>
-                  <Form.Control
-                    as="select"
-                    size="sm"
-                    {...register('from')}
-                    disabled={state.type_transfer === 'TO_USERNAME'}>
-                    <option value={'spot'}>Wallet Spot</option>
-                    <option value={'trade'}>Wallet Trade</option>
-                    <option value={'expert'}>Wallet Expert</option>
-                    <option value={'copy_trade'}>Wallet Copy Trade</option>
-                  </Form.Control>
-                </Form.Group>
-                <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
-                  {errors['from']?.message}
+              {state.type_transfer === 'IN_ACCOUNT' ? (
+                <div className="col-md-6 col-xs-12">
+                  <Form.Group className="mb-1">
+                    <Form.Label>To</Form.Label>
+                    <Form.Control as="select" size="sm" {...register('to')}>
+                      <option value={'spot'}>Wallet Spot</option>
+                      <option value={'trade'}>Wallet Trade</option>
+                      <option value={'expert'}>Wallet Expert</option>
+                      <option value={'copy_trade'}>Wallet Copy Trade</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <p className="text-right">Balance: 20 USDF</p>
+                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                    {errors['to']?.message}
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-6 col-xs-12">
-                <Form.Group className="mb-1">
-                  <Form.Label>To</Form.Label>
-                  <Form.Control
-                    as="select"
-                    size="sm"
-                    {...register('to')}
-                    disabled={state.type_transfer === 'TO_USERNAME'}>
-                    <option value={'spot'}>Wallet Spot</option>
-                    <option value={'trade'}>Wallet Trade</option>
-                    <option value={'expert'}>Wallet Expert</option>
-                    <option value={'copy_trade'}>Wallet Copy Trade</option>
-                  </Form.Control>
-                </Form.Group>
-                <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
-                  {errors['to']?.message}
-                </div>
-              </div>
-              <div className="col-md-6 col-xs-12">
-                <p className="text-right">Balance: 20 USDT</p>
-              </div>
-              <div className="col-md-6 col-xs-12">
-                <p className="text-right">Balance: 20 USDT</p>
-              </div>
-            </div>
-            <div className="mb-2" style={{border: '1px solid #3d4148'}} />
-            <div className="i-checks">
-              <input
-                type="radio"
-                checked={state.type_transfer === 'TO_USERNAME'}
-                value="TO_USERNAME"
-                className="radio-template"
-                onChange={(event) => selectTransfer(event.target.value)}
-              />
-              <label>To Username</label>
-            </div>
-            <div className="form">
-              <div className="row">
+              ) : null}
+              {state.type_transfer === 'TO_USERNAME' ? (
                 <div className="col-md-6 col-xs-12">
                   <div className="form-group">
                     <label className="form-control-label">Receiver Username</label>{' '}
                     <span className="text-danger">*</span>
-                    <input
-                      disabled={state.type_transfer === 'IN_ACCOUNT'}
-                      type="text"
-                      className="form-control form-control-sm"
-                      {...register('receiver_username')}
-                    />
+                    <input type="text" className="form-control form-control-sm" {...register('receiver_username')} />
                     <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                       {errors['receiver_username']?.message}
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : null}
+            </div>
+            {state.type_transfer === 'TO_USERNAME' ? (
               <div className="row">
                 <div className="col-md-6 col-xs-12">
                   <div className="form-group">
                     <label className="form-control-label">
                       Password <span className="text-danger">*</span>
                     </label>
-                    <input
-                      disabled={state.type_transfer === 'IN_ACCOUNT'}
-                      type="password"
-                      className="form-control form-control-sm"
-                      {...register('password')}
-                    />
+                    <input type="password" className="form-control form-control-sm" {...register('password')} />
                     <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                       {errors['password']?.message}
                     </div>
@@ -272,13 +237,7 @@ const TransferComponent = (props: IProps = Props) => {
                   <div className="col-md-6 col-xs-12">
                     <div className="form-group">
                       <label className="form-control-label">Two-factor authentication</label>
-                      <input
-                        disabled={state.type_transfer === 'IN_ACCOUNT'}
-                        type="text"
-                        className="form-control form-control-sm"
-                        maxLength={6}
-                        {...register('tfa')}
-                      />
+                      <input type="text" className="form-control form-control-sm" maxLength={6} {...register('tfa')} />
                       <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                         {errors['tfa']?.message}
                       </div>
@@ -286,17 +245,14 @@ const TransferComponent = (props: IProps = Props) => {
                   </div>
                 )}
               </div>
-              <input
-                type="button"
-                value="TRANSFER"
-                className="btn btn-block btn-warning"
-                onClick={handleSubmit(onSubmit)}
-              />
-            </div>
+            ) : null}
+            <input
+              type="button"
+              value="TRANSFER"
+              className="btn btn-block btn-warning"
+              onClick={handleSubmit(onSubmit)}
+            />
           </form>
-          <div className="text-center mt-4">
-            <img src={WithdrawWalletPng} alt="..." className="img-fluid w-150" />
-          </div>
         </Modal.Body>
       </Modal>
     </>

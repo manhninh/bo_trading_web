@@ -14,6 +14,7 @@
   left: 2em;
 }
 
-.right-body {
-  width: calc(100% - 300px);
+.block-custom {
+  background: #2d3035;
+  border-radius: 10px;
 }

@@ -5,6 +5,11 @@ body {
   background: #21252a;
 }
 
+section {
+  padding: 0;
+  margin-left: 100px;
+}
+
 .background-img {
   position: fixed;
   top: 0;
@@ -173,4 +178,20 @@ a:not([href]):not([tabindex]):hover {
 .datePicker-input {
   width: 120px;
   height: 31px;
+}
+
+@media (max-width: 575px) {
+  section {
+    margin-left: 0 !important;
+  }
+
+  .sidebar-container {
+    background-color: #21252a;
+    border-right: 1px solid #34373d;
+  }
+
+  nav.navbar {
+    background-color: #21252a !important;
+    border-bottom: 1px solid #34373d !important;
+  }
 }

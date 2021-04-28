@@ -1,9 +1,8 @@
-import {RootState, useAppSelector} from 'boot/configureStore';
+import {useAppSelector} from 'boot/configureStore';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
-import {createSelector} from 'reselect';
 import {ROUTE_PATH} from 'routers/helpers';
 import {restoreAccount, signOut} from 'routers/redux/slice';
 import LogInPopupComponent from 'screens/authen/login/popup';
@@ -66,8 +65,6 @@ const HeaderLayout = (props: IProps = Props) => {
     history.push(ROUTE_PATH.TRADE);
   };
 
-  console.log('header');
-
   return (
     <>
       <header className="header">
@@ -91,9 +88,6 @@ const HeaderLayout = (props: IProps = Props) => {
                       <i className="fas fa-align-justify"></i>
                     </button>
                   </div>
-                  {/* <div className="list-inline-item visible">
-                    <input type="button" value="DEPOSIT" className="btn btn-info header-deposit" />
-                  </div> */}
                   <div className="list-inline-item visible">
                     <a className="nav-link">
                       <i className="icomoon-icon-user text-danger"></i>

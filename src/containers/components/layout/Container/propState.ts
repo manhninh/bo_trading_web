@@ -1,5 +1,5 @@
 export type Props = {
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
   headerTitle?: string;
   backgroundSvg?: JSX.Element;
 };
