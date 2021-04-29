@@ -2,6 +2,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import UsdtPng from 'assets/images/usdt.png';
 import WithdrawWalletPng from 'assets/images/withdraw_wallet.png';
 import {useAppSelector} from 'boot/configureStore';
+import config from 'constants/config';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useMemo, useState} from 'react';
@@ -44,7 +45,7 @@ const WithdrawComponent = (props: IProps = Props) => {
     amount: yup
       .number()
       .typeError('Must be a number')
-      .min(20, 'Amount must not be less than 20')
+      .min(Number(config.MIN_WITHDRAW), `Amount must not be less than ${config.MIN_WITHDRAW}`)
       .required('Amount cannot be empty'),
     address: yup.string().required('Address cannot be empty'),
     password: yup.string().required('Password cannot be empty'),
@@ -168,15 +169,17 @@ const WithdrawComponent = (props: IProps = Props) => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-6 col-xs-12">
-                <div className="form-group">
-                  <label className="form-control-label">Two-factor authentication</label>
-                  <input type="text" className="form-control form-control-sm" maxLength={6} {...register('tfa')} />
-                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
-                    {errors.tfa?.message}
+              {isEnabledTFA ? (
+                <div className="col-md-6 col-xs-12">
+                  <div className="form-group">
+                    <label className="form-control-label">Two-factor authentication</label>
+                    <input type="text" className="form-control form-control-sm" maxLength={6} {...register('tfa')} />
+                    <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                      {errors.tfa?.message}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : null}
             </div>
             <input
               type="button"
@@ -185,9 +188,6 @@ const WithdrawComponent = (props: IProps = Props) => {
               onClick={handleSubmit(onSubmit)}
             />
           </form>
-          <div className="text-center mt-4">
-            <img src={WithdrawWalletPng} alt="..." className="img-fluid w-150" />
-          </div>
         </Modal.Body>
       </Modal>
     </>
