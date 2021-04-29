@@ -92,7 +92,7 @@ const WithdrawComponent = (props: IProps = Props) => {
 
   return (
     <>
-      <button type="button" className="btn btn-sm btn-success" onClick={handleShow}>
+      <button type="button" className="btn btn-sm btn-success ml-2" onClick={handleShow}>
         Withdraw
       </button>
       <Modal show={state.show} onHide={handleClose} backdrop="static" keyboard={false} dialogClassName="modal-500w">
