@@ -1,3 +1,4 @@
+import { useAppSelector } from 'boot/configureStore';
 import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import _ from 'lodash';
@@ -19,6 +20,10 @@ const components = {
 
 const WalletComponent = () => {
   const {pathname} = useLocation();
+  const amount = useAppSelector(state=>state.authState.accountInfor.amount);
+  const amount_trade = useAppSelector(state=>state.authState.accountInfor.amount_trade);
+  const amount_expert = useAppSelector(state=>state.authState.accountInfor.amount_expert);
+  const amount_copytrade = useAppSelector(state=>state.authState.accountInfor.amount_copytrade);
   const [state, setState] = useState({
     requestRefesh: null,
   });
@@ -65,7 +70,7 @@ const WalletComponent = () => {
                 </div>
                 <h2 className="text-warning text-bold d-inline-block mb-0">Wallet Spot</h2>
               </div>
-              <div className="number text-warning text-bold">{formatter2.format(1000)} USDF</div>
+              <div className="number text-warning text-bold">{formatter2.format(amount)} USDF</div>
             </div>
             <DepositComponent />
             <TransferComponent onRequestRefesh={onRequestRefesh} onlyInAccount={false} />
@@ -81,7 +86,7 @@ const WalletComponent = () => {
                 </div>
                 <h2 className="text-success text-bold d-inline-block mb-0">Wallet Trade</h2>
               </div>
-              <div className="number text-success text-bold">{formatter2.format(1000)} USDF</div>
+              <div className="number text-success text-bold">{formatter2.format(amount_trade)} USDF</div>
             </div>
             <TransferComponent onRequestRefesh={onRequestRefesh} onlyInAccount={true} />
           </div>
@@ -95,7 +100,7 @@ const WalletComponent = () => {
                 </div>
                 <h2 className="text-light text-bold d-inline-block mb-0">Wallet Copy</h2>
               </div>
-              <div className="number text-light text-bold">0 USDF</div>
+              <div className="number text-light text-bold">{formatter2.format(amount_copytrade)} USDF</div>
             </div>
             <TransferComponent onRequestRefesh={onRequestRefesh} onlyInAccount={true} />
           </div>
@@ -109,7 +114,7 @@ const WalletComponent = () => {
                 </div>
                 <h2 className="text-light text-bold d-inline-block mb-0">Wallet Expert</h2>
               </div>
-              <div className="number text-light text-bold">0 USDF</div>
+              <div className="number text-light text-bold">{formatter2.format(amount_expert)} USDF</div>
             </div>
             <button type="button" className="btn btn-sm btn-danger">
               Active

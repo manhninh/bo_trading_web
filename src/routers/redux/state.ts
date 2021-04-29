@@ -6,6 +6,7 @@ export type AccountInfor = {
   phone: string | null;
   avatar: string | null;
   ref_code: string | null;
+  amount: number;
   amount_trade: number;
   amount_demo: number;
   amount_expert: number;
