@@ -109,7 +109,7 @@ const TradeHistoryComponent = () => {
         <div className="col-lg-12">
           <div className="block px-0 mb-0">
             <div className="title mb-1">
-              <div className="d-flex">
+              <div className="d-flex justify-content-end">
                 <div className="input-group input-group-sm datePicker-group">
                   <div className="datePicker-text">From</div>
                   <DatePicker

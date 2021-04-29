@@ -180,6 +180,10 @@ a:not([href]):not([tabindex]):hover {
   height: 31px;
 }
 
+.shadow-none:focus{
+  box-shadow: none;
+}
+
 @media (max-width: 575px) {
   section {
     margin-left: 0 !important;

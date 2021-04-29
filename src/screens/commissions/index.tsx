@@ -67,8 +67,10 @@ const CommissionComponent = () => {
       </Route>
     ));
 
-  const handleShow = (type, withdraw) =>
-    setState((state) => ({...state, show: true, typeCommissionWidthPopup: type, withdraw}));
+  const handleShow = (type, withdraw) => {
+    if (withdraw > 0) setState((state) => ({...state, show: true, typeCommissionWidthPopup: type, withdraw}));
+  };
+
   const handleClose = () => setState((state) => ({...state, show: false, typeCommissionWidthPopup: null, withdraw: 0}));
 
   const confirmWithdraw = async () => {

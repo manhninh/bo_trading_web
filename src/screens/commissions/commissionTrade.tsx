@@ -13,14 +13,14 @@ const CommissionTradeComponent = (props: Iprops) => {
       <div className="avatar avatar-custom">
         <img src={WinnerImg} alt="..." className="img-fluid" />
       </div>
-      <a href="#" className="user-title mt-0">
+      <a className="user-title mt-0">
         <h1 className="h1 mt-0 text-warning">{`${number2DecimalPlaces(props.commission?.commission || 0)} USDF`}</h1>
         <span className="text-light">Commission Trade</span>
       </a>
       <div className="contributions">
         <button
           type="button"
-          className="btn btn-link text-info"
+          className="btn btn-link text-info shadow-none"
           onClick={() => props.openPopup(0, number2DecimalPlaces(props.commission?.commission || 0))}>
           Withdraw
         </button>

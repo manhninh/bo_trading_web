@@ -140,7 +140,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
     if (history?.docs.length === 0)
       return (
         <tr>
-          <td colSpan={6} className="text-center">
+          <td colSpan={props.renderTable.headers.length + 2} className="text-center">
             No data
           </td>
         </tr>
@@ -156,14 +156,14 @@ const HistoryTableComponent = (props: IProps = Props) => {
 
   return (
     <>
-      <div className="d-flex justify-content-center mt-3">
-        <div className="input-group" style={{width: '250px'}}>
-          <div style={{display: 'flex', lineHeight: 1.5, padding: '.4rem .75rem'}}>From</div>
+      <div className="d-flex justify-content-end mt-3">
+        <div className="input-group input-group-sm datePicker-group">
+          <div className="datePicker-text">From</div>
           <DatePicker
             maxDate={filterSearch.to}
             minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
             selected={filterSearch.from}
-            className="form-control w-120"
+            className="form-control datePicker-input"
             onChange={_onChangeDate('from')}
           />
           <div className="input-group-append">
@@ -172,13 +172,13 @@ const HistoryTableComponent = (props: IProps = Props) => {
             </span>
           </div>
         </div>
-        <div className="input-group" style={{width: '250px'}}>
-          <div style={{display: 'flex', lineHeight: 1.5, padding: '.4rem .75rem'}}>To</div>
+        <div className="input-group input-group-sm datePicker-group">
+          <div className="datePicker-text">To</div>
           <DatePicker
             minDate={filterSearch.from}
             maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
             selected={filterSearch.to}
-            className="form-control w-120"
+            className="form-control datePicker-input"
             onChange={_onChangeDate('to')}
           />
           <div className="input-group-append">
@@ -187,11 +187,9 @@ const HistoryTableComponent = (props: IProps = Props) => {
             </span>
           </div>
         </div>
-        <div className="col-xs-12 col-md-3">
-          <button type="submit" className="btn btn-danger" onClick={_search}>
-            Search
-          </button>
-        </div>
+        <button type="submit" className="btn btn-sm btn-danger" onClick={_search}>
+          Search
+        </button>
       </div>
       <div className="table-responsive">
         <table className="table table-hover">

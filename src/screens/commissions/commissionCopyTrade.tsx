@@ -22,7 +22,7 @@ const CommissionCopyTradeComponent = (props: Iprops) => {
       <div className="contributions">
         <button
           type="button"
-          className="btn btn-link text-info"
+          className="btn btn-link text-info shadow-none"
           onClick={() => props.openPopup(1, number2DecimalPlaces(props.commission?.commission || 0))}>
           Withdraw
         </button>
