@@ -3,8 +3,9 @@ import UsdtPng from 'assets/images/usdt.png';
 import {useAppSelector} from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Form, Modal} from 'react-bootstrap';
+import {useGoogleReCaptcha} from 'react-google-recaptcha-v3';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
 import * as yup from 'yup';
@@ -19,7 +20,6 @@ interface IState {
 
 interface IFormInAccount {
   amount: number;
-  from: string;
   to: string;
 }
 
@@ -33,7 +33,6 @@ interface IFormToUserName {
 const TransferComponent = (props: IProps = Props) => {
   const formDefaultInAccount: Readonly<IFormInAccount> = {
     amount: 0,
-    from: '',
     to: '',
   };
   const formDefaultToUsername: Readonly<IFormToUserName> = {
@@ -47,6 +46,7 @@ const TransferComponent = (props: IProps = Props) => {
     type_transfer: 'IN_ACCOUNT',
   });
 
+  const {executeRecaptcha} = useGoogleReCaptcha();
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
@@ -59,11 +59,6 @@ const TransferComponent = (props: IProps = Props) => {
 
   const schema = yup.object().shape({
     amount: yup.number().typeError('Must be a number').required('Amount cannot be empty'),
-    from: yup.string().when('amount', {
-      is: () => state.type_transfer === 'IN_ACCOUNT',
-      then: yup.string().required('From cannot be empty!'),
-      otherwise: yup.string(),
-    }),
     to: yup.string().when('amount', {
       is: () => state.type_transfer === 'IN_ACCOUNT',
       then: yup.string().required('To cannot be empty!'),
@@ -96,14 +91,14 @@ const TransferComponent = (props: IProps = Props) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: IFormInAccount | IFormToUserName) => {
+  const onTransferSubmit = async (data: IFormInAccount | IFormToUserName) => {
     try {
+      if (!executeRecaptcha) return;
       showLoading();
       const params = {};
       switch (state.type_transfer) {
         case 'IN_ACCOUNT':
           params['amount'] = data.amount;
-          params['from'] = data['from'];
           params['to'] = data['to'];
           break;
         case 'TO_USERNAME':
@@ -113,6 +108,9 @@ const TransferComponent = (props: IProps = Props) => {
           if (isEnabledTFA) params['tfa'] = data['tfa'];
           break;
       }
+
+      const token = await executeRecaptcha('transfer');
+      params['response'] = token;
       const res = await transferMoney(params);
       if (res?.data) {
         setState({...state, show: false, type_transfer: null});
@@ -124,6 +122,8 @@ const TransferComponent = (props: IProps = Props) => {
       hideLoading();
     }
   };
+
+  const onSubmit = useCallback(onTransferSubmit, [executeRecaptcha, state]);
 
   const handleClose = () => setState((state) => ({...state, show: false, type_transfer: 'IN_ACCOUNT'}));
   const handleShow = () => setState((state) => ({...state, show: true}));
