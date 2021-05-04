@@ -31,7 +31,11 @@ const SocketProvider = (props: any) => {
   // scoket nến
   useEffect(() => {
     if (!socketCandlestickRef.current)
-      socketCandlestickRef.current = socketIOClient(config.WS_CANDLESTICK?.toString() || '');
+      socketCandlestickRef.current = socketIOClient(config.WS_CANDLESTICK?.toString() || '', {
+        query: {
+          token: localStorage.getItem(LOCAL_STORE.TOKEN)?.toString().split(' ')[1] || '',
+        },
+      });
     candlestickEvents({
       setValue,
       user_id,
