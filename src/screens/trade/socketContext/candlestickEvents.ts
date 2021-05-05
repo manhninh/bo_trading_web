@@ -3,7 +3,7 @@ import {Socket} from 'socket.io-client';
 import {addResultToBlocks, setIndicator, setResultBlocks, setTimeTick} from '../redux/slice';
 import {ContextType} from './context';
 
-export const candlestickEvents = ({setValue, user_id, socketCandlestick, dispatch}) => {
+export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
   if (!socketCandlestick) return;
 
   socketCandlestick.on('connect', () => {
@@ -38,7 +38,7 @@ export const candlestickEvents = ({setValue, user_id, socketCandlestick, dispatc
       if (newResult) dispatch(addResultToBlocks({result: newResult}));
     }
     dispatch(setTimeTick({timeTick, isTrade}));
-    setValue((state: ContextType) => ({...state, real_data, timeTick, isTrade}));
+    setValue((state: ContextType) => ({...state, real_data, timeTick}));
   });
 
   /** dữ liệu indicator trả về 4s/lần */
