@@ -1,4 +1,3 @@
-import {useAppSelector} from 'boot/configureStore';
 import config from 'constants/config';
 import {LOCAL_STORE} from 'constants/system';
 import React, {useEffect, useRef, useState} from 'react';
@@ -12,7 +11,6 @@ const SocketProvider = (props: any) => {
   const dispatch = useDispatch();
   const socketCandlestickRef = useRef<Socket | null>(null);
   const socketCalculatorRef = useRef<Socket | null>(null);
-  const user_id = useAppSelector((state) => state.authState.accountInfor._id);
 
   const [value, setValue] = useState({
     blocks: new Array<Blocks>(),
@@ -30,14 +28,18 @@ const SocketProvider = (props: any) => {
 
   // scoket nến
   useEffect(() => {
-    if (!socketCandlestickRef.current)
-      socketCandlestickRef.current = socketIOClient(config.WS_CANDLESTICK?.toString() || '');
-    candlestickEvents({
-      setValue,
-      user_id,
-      socketCandlestick: socketCandlestickRef?.current,
-      dispatch,
-    });
+    if (!socketCandlestickRef.current) {
+      socketCandlestickRef.current = socketIOClient(config.WS_CANDLESTICK?.toString() || '', {
+        query: {
+          token: localStorage.getItem(LOCAL_STORE.TOKEN)?.toString().split(' ')[1] || '',
+        },
+      });
+      candlestickEvents({
+        setValue,
+        socketCandlestick: socketCandlestickRef?.current,
+        dispatch,
+      });
+    }
     return () => {
       candlestickDisconnect(socketCandlestickRef?.current);
     };
@@ -45,18 +47,17 @@ const SocketProvider = (props: any) => {
 
   //socket tính toán
   useEffect(() => {
-    if (!socketCalculatorRef.current)
+    if (!socketCalculatorRef.current) {
       socketCalculatorRef.current = socketIOClient(config.WS_CALCULATOR?.toString() || '', {
         query: {
           token: localStorage.getItem(LOCAL_STORE.TOKEN)?.toString().split(' ')[1] || '',
         },
       });
-    calculatorEvents({
-      setValue,
-      user_id,
-      socketCalculator: socketCalculatorRef?.current,
-      dispatch,
-    });
+      calculatorEvents({
+        socketCalculator: socketCalculatorRef.current,
+        dispatch,
+      });
+    }
     return () => {
       calculatorDisconnect(socketCandlestickRef?.current);
     };

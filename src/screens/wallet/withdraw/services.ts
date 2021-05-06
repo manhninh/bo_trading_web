@@ -5,10 +5,10 @@ const SYMBOL = {
   trc20: 'USDT-TRC20',
 };
 
-export const createWithdraw = async ({ symbol, amount, password, address, tfa }) => {
+export const createWithdraw = async ({ symbol, amount, password, address, tfa, response }) => {
   try {
     symbol = SYMBOL[symbol];
-    const result = await configServices.postService('wallet/withdraw/create', { symbol, amount, password, address, tfa });
+    const result = await configServices.postService('wallet/withdraw/create', { symbol, amount, password, address, tfa, response });
     return result;
   } catch (error) {
     throw error;

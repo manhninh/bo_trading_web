@@ -10,8 +10,8 @@ type ParamsQuery = {
   type: TYPE_HISTORY;
   page: number;
   limit: number | undefined;
-  from: Date;
-  to: Date;
+  from: string;
+  to: string;
 };
 
 /**
@@ -19,8 +19,8 @@ type ParamsQuery = {
  * @param type type: 0 Deposit, 1: Transfer, 2: Withdraw
  * @param page number
  * @param limit number
- * @param from Date
- * @param to Date
+ * @param from string
+ * @param to string
  * @returns 
  */
 export const fetchTransactionHistory = async (params: ParamsQuery) => {

@@ -12,6 +12,7 @@ import {formatter2} from 'utils/formatter';
 import DepositComponent from './deposit';
 import './styled.css';
 import TransferComponent from './transfer';
+import {TYPE_WALLET} from './transfer/propState';
 import WithdrawComponent from './withdraw';
 
 const components = {
@@ -81,7 +82,12 @@ const WalletComponent = () => {
                 <div className="number text-warning text-bold">{formatter2.format(amount)} USDF</div>
               </div>
               <DepositComponent />
-              <TransferComponent onRequestRefesh={onRequestRefesh} onlyInAccount={false} />
+              <TransferComponent
+                onRequestRefesh={onRequestRefesh}
+                onlyInAccount={false}
+                amount={amount}
+                type_wallet={TYPE_WALLET.SPOT}
+              />
               <WithdrawComponent onRequestRefesh={onRequestRefesh} />
             </div>
           </div>
@@ -96,7 +102,12 @@ const WalletComponent = () => {
                 </div>
                 <div className="number text-success text-bold">{formatter2.format(amount_trade)} USDF</div>
               </div>
-              <TransferComponent onRequestRefesh={onRequestRefesh} onlyInAccount={true} />
+              <TransferComponent
+                onRequestRefesh={onRequestRefesh}
+                onlyInAccount={true}
+                amount={amount_trade}
+                type_wallet={TYPE_WALLET.TRADE}
+              />
             </div>
           </div>
           <div className="col-md-6 col-xs-12">
@@ -110,7 +121,12 @@ const WalletComponent = () => {
                 </div>
                 <div className="number text-light text-bold">{formatter2.format(amount_copytrade)} USDF</div>
               </div>
-              <TransferComponent onRequestRefesh={onRequestRefesh} onlyInAccount={true} />
+              <TransferComponent
+                onRequestRefesh={onRequestRefesh}
+                onlyInAccount={true}
+                amount={amount_copytrade}
+                type_wallet={TYPE_WALLET.COPY_TRADE}
+              />
             </div>
           </div>
           <div className="col-md-6 col-xs-12">

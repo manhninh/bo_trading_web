@@ -54,7 +54,13 @@ const HistoryTableComponent = (props: IProps = Props) => {
       showLoading();
       limit = limit || history.limit;
       _filterSearch = _filterSearch || filterSearch;
-      const res = await fetchTransactionHistory({..._filterSearch, page, limit, type});
+      const res = await fetchTransactionHistory({
+        from: _filterSearch.from.toISOString(),
+        to: _filterSearch.to.toISOString(),
+        page,
+        limit,
+        type,
+      });
       setHistory(res.data);
     } catch (err) {
       addError(err, 'Load transaction history fail!');
