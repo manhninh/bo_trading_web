@@ -8,7 +8,6 @@ import TwoAuthenComponent from './twoAuthen';
 const SecurityComponent = () => {
   const enabledTFA = useAppSelector((state) => state.authState.accountInfor.isEnabledTFA);
 
-  console.log('SecurityComponent');
   return (
     <div className="row">
       <div className="col-lg-3 col-sm-12">

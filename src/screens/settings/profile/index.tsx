@@ -79,7 +79,6 @@ const ProflieSettingComponent = () => {
   const onSubmit = async (data: IFormProfile) => {
     try {
       showLoading();
-      console.log(data);
       const formData = new FormData();
       Object.keys(data).forEach((key) => {
         data[key] && formData.append(key, data[key]);
@@ -100,7 +99,6 @@ const ProflieSettingComponent = () => {
   }, []);
 
   const onChangeAvatar = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files?.item(0));
     const avatar = URL.createObjectURL(event.target.files?.item(0));
     // setValue('avatar', event.target.files?.item(0), {shouldDirty: true});
     onSubmit({avatar: event.target.files?.item(0)});

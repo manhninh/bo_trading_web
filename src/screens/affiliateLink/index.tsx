@@ -30,7 +30,6 @@ const AffiliateLinkComponent = () => {
     showLoading();
     try {
       const result = await fetchBuySponsor();
-      console.log(result, 'resly');
       if (result) {
         const accountInfor: any = {is_sponsor: true};
         dispatch(restoreAccount(accountInfor));

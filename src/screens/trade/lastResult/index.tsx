@@ -24,7 +24,6 @@ const LastResultComponent = () => {
   );
   const blocks = useAppSelector((state) => selectorBlocks(state, []));
 
-  console.log('LastResultComponent');
   return (
     <div className="div-lastresult">
       <div className="div-result">

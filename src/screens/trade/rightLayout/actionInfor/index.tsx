@@ -15,7 +15,6 @@ const ActionInfor = () => {
     dispatch(fetchCurrentOrder(type_user));
   }, []);
 
-  console.log('ActionInfor');
   return (
     <>
       <div className="title display-flex action-infor">

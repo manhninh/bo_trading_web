@@ -53,7 +53,6 @@ const DisableTFAComponent = (props: IProps = Props) => {
   const onSubmit = async (data: IFormConfirmMFA) => {
     showLoading();
     try {
-      console.log(data);
       const result = await verifyOTPToken(data);
       if (result) {
         const disabled = await disableMfa();
