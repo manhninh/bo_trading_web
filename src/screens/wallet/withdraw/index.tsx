@@ -1,14 +1,15 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import UsdtPng from 'assets/images/usdt.png';
-import WithdrawWalletPng from 'assets/images/withdraw_wallet.png';
 import {useAppSelector} from 'boot/configureStore';
 import config from 'constants/config';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useMemo, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
+import {useGoogleReCaptcha} from 'react-google-recaptcha-v3';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
+import {formatter2} from 'utils/formatter';
 import * as yup from 'yup';
 import {IProps, Props} from './propState';
 import {createWithdraw} from './services';
@@ -30,6 +31,7 @@ const WithdrawComponent = (props: IProps = Props) => {
     password: '',
     tfa: '',
   };
+  const {executeRecaptcha} = useGoogleReCaptcha();
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
@@ -39,6 +41,8 @@ const WithdrawComponent = (props: IProps = Props) => {
   });
   const authState = useAppSelector((state) => state.authState);
   const isEnabledTFA = authState.accountInfor.isEnabledTFA;
+  const amount = authState.accountInfor.amount;
+  const fees = state.symbol === 'trc20' ? 3 : 20;
 
   const schema = yup.object().shape({
     symbol: yup.string().required('Symbol is required'),
@@ -69,8 +73,10 @@ const WithdrawComponent = (props: IProps = Props) => {
 
   const onSubmit = async (data: IFormWithdraw) => {
     try {
+      if (!executeRecaptcha) return;
       showLoading();
-      const res = await createWithdraw(data);
+      const token = await executeRecaptcha('withdraw');
+      const res = await createWithdraw({...data, response: token});
       if (res.data) {
         reset(formDefault);
         setState({...state, show: false});
@@ -118,7 +124,7 @@ const WithdrawComponent = (props: IProps = Props) => {
               </Button>
             </div>
             <div className="col-6 d-flex justify-content-end mt-1">
-              <span className="text-primary text-bold mb-0">Balance: {20} USDT</span>
+              <span className="text-primary text-bold mb-0">Balance: {formatter2.format(amount)} USDT</span>
             </div>
           </div>
           <form className="form-validate">
@@ -140,7 +146,7 @@ const WithdrawComponent = (props: IProps = Props) => {
                 </div>
               </div>
               <div className="col-6">
-                <p className="mb-2 text-right">Withdraw fees: 20 USDT</p>
+                <p className="mb-2 text-right">Withdraw fees: {fees} USDT</p>
                 <p className="mb-2 text-right">Net Amount: 0 USDT</p>
               </div>
             </div>
