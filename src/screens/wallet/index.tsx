@@ -27,6 +27,7 @@ const WalletComponent = () => {
   const amount_trade = useAppSelector((state) => state.authState.accountInfor.amount_trade);
   const amount_expert = useAppSelector((state) => state.authState.accountInfor.amount_expert);
   const amount_copytrade = useAppSelector((state) => state.authState.accountInfor.amount_copytrade);
+  const is_expert = useAppSelector((state) => state.authState.accountInfor.is_expert);
 
   const [state, setState] = useState({
     requestRefesh: null,
@@ -140,9 +141,18 @@ const WalletComponent = () => {
                 </div>
                 <div className="number text-light text-bold">{formatter2.format(amount_expert)} USDF</div>
               </div>
-              <button type="button" className="btn btn-sm btn-danger">
-                Active
-              </button>
+              {!is_expert ? (
+                <TransferComponent
+                  onRequestRefesh={onRequestRefesh}
+                  onlyInAccount={true}
+                  amount={amount_expert}
+                  type_wallet={TYPE_WALLET.EXPERT}
+                />
+              ) : (
+                <button type="button" className="btn btn-sm btn-danger">
+                  Active
+                </button>
+              )}
             </div>
           </div>
         </div>

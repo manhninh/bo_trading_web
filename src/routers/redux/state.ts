@@ -14,6 +14,7 @@ export type AccountInfor = {
   type_user: number;
   isEnabledTFA: boolean;
   is_sponsor: boolean;
+  is_expert: boolean;
 };
 
 export type AuthState = {

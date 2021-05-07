@@ -8,6 +8,7 @@ import {Form, Modal} from 'react-bootstrap';
 import {useGoogleReCaptcha} from 'react-google-recaptcha-v3';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
+import {updateAmount} from 'routers/redux/slice';
 import {formatter2} from 'utils/formatter';
 import * as yup from 'yup';
 import {Props, TYPE_WALLET} from './propState';
@@ -53,7 +54,6 @@ const TransferComponent = (props = Props) => {
   const {addError} = useError();
   const authState = useAppSelector((state) => state.authState);
   const isEnabledTFA = authState.accountInfor.isEnabledTFA;
-
   useEffect(() => {
     reset({...formDefaultToUsername, ...formDefaultInAccount});
   }, [state.type_transfer]);
@@ -123,7 +123,13 @@ const TransferComponent = (props = Props) => {
       const functionAPI = state.type_transfer === 'TO_USERNAME' ? transferMoney : transferInternalMoney;
       const res = await functionAPI(params);
       if (res?.data) {
-        setState({...state, show: false, type_transfer: null});
+        setState({...state, show: false});
+        reset({...formDefaultToUsername, ...formDefaultInAccount});
+        if (state.type_transfer === 'IN_ACCOUNT') {
+          const amountFrom = selectTypeWallet(props.type_wallet, data.amount, 'from');
+          const amountTo = selectTypeWallet(data.to, data.amount, 'to');
+          dispatch(updateAmount({...amountFrom, ...amountTo}));
+        }
         props.onRequestRefesh && props.onRequestRefesh('TRANSFER');
       }
     } catch (error) {
@@ -160,6 +166,29 @@ const TransferComponent = (props = Props) => {
     const amount = amountByTypeWallet + Number(getValues().amount);
     return formatter2.format(amount);
   }, watch(['amount', 'to']));
+
+  const selectTypeWallet = (type_wallet, amount, fromTo: 'from' | 'to') => {
+    let amountWallet = {};
+    const amountFrom = props.amount - amount;
+    switch (type_wallet) {
+      case TYPE_WALLET.SPOT:
+        amountWallet['amount'] = fromTo === 'from' ? amountFrom : authState.accountInfor.amount + Number(amount);
+        break;
+      case TYPE_WALLET.TRADE:
+        amountWallet['amount_trade'] =
+          fromTo === 'from' ? amountFrom : authState.accountInfor.amount_trade + Number(amount);
+        break;
+      case TYPE_WALLET.EXPERT:
+        amountWallet['amount_expert'] =
+          fromTo === 'from' ? amountFrom : authState.accountInfor.amount_expert + Number(amount);
+        break;
+      case TYPE_WALLET.COPY_TRADE:
+        amountWallet['amount_copytrade'] =
+          fromTo === 'from' ? amountFrom : authState.accountInfor.amount_copytrade + Number(amount);
+        break;
+    }
+    return amountWallet;
+  };
 
   return (
     <>
@@ -229,7 +258,7 @@ const TransferComponent = (props = Props) => {
                     <Form.Control as="select" size="sm" {...register('to')}>
                       {props.type_wallet !== TYPE_WALLET.SPOT && <option value={'spot'}>Wallet Spot</option>}
                       {props.type_wallet !== TYPE_WALLET.TRADE && <option value={'trade'}>Wallet Trade</option>}
-                      <option value={'expert'}>Wallet Expert</option>
+                      {props.type_wallet !== TYPE_WALLET.EXPERT && <option value={'expert'}>Wallet Expert</option>}
                       {props.type_wallet !== TYPE_WALLET.COPY_TRADE && (
                         <option value={'copytrade'}>Wallet Copy Trade</option>
                       )}
