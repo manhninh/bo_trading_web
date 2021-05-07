@@ -8,3 +8,12 @@ export const transferMoney = async (data) => {
     throw error;
   }
 };
+
+export const transferInternalMoney = async (data) => {
+  try {
+    const result = await configServices.postService('wallet/transfer/internal/create', data);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};

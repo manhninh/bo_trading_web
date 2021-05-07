@@ -6,7 +6,8 @@ const config = {
   CLIENT_ID: process.env.REACT_APP_CLIENT_ID,
   CLIENT_SECRET: process.env.REACT_APP_CLIENT_SECRET,
   SCOPE: process.env.REACT_APP_SCOPE,
-  MIN_WITHDRAW: process.env.REACT_APP_MIN_WITHDRAW
+  MIN_WITHDRAW: process.env.REACT_APP_MIN_WITHDRAW,
+  GOOGLE_RECAPTCHA_SITE_KEY: process.env.REACT_APP_GOOGLE_RECAPTCHA_SITE_KEY,
 };
 
 export default config;

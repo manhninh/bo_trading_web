@@ -3,13 +3,16 @@ import UsdtPng from 'assets/images/usdt.png';
 import {useAppSelector} from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Form, Modal} from 'react-bootstrap';
+import {useGoogleReCaptcha} from 'react-google-recaptcha-v3';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
+import {updateAmount} from 'routers/redux/slice';
+import {formatter2} from 'utils/formatter';
 import * as yup from 'yup';
-import {IProps, Props} from './propState';
-import {transferMoney} from './services';
+import {Props, TYPE_WALLET} from './propState';
+import {transferInternalMoney, transferMoney} from './services';
 import './styled.css';
 
 interface IState {
@@ -19,7 +22,6 @@ interface IState {
 
 interface IFormInAccount {
   amount: number;
-  from: string;
   to: string;
 }
 
@@ -30,10 +32,9 @@ interface IFormToUserName {
   tfa?: string | undefined;
 }
 
-const TransferComponent = (props: IProps = Props) => {
+const TransferComponent = (props = Props) => {
   const formDefaultInAccount: Readonly<IFormInAccount> = {
     amount: 0,
-    from: '',
     to: '',
   };
   const formDefaultToUsername: Readonly<IFormToUserName> = {
@@ -47,23 +48,23 @@ const TransferComponent = (props: IProps = Props) => {
     type_transfer: 'IN_ACCOUNT',
   });
 
+  const {executeRecaptcha} = useGoogleReCaptcha();
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
   const authState = useAppSelector((state) => state.authState);
   const isEnabledTFA = authState.accountInfor.isEnabledTFA;
-
   useEffect(() => {
     reset({...formDefaultToUsername, ...formDefaultInAccount});
   }, [state.type_transfer]);
 
   const schema = yup.object().shape({
-    amount: yup.number().typeError('Must be a number').required('Amount cannot be empty'),
-    from: yup.string().when('amount', {
-      is: () => state.type_transfer === 'IN_ACCOUNT',
-      then: yup.string().required('From cannot be empty!'),
-      otherwise: yup.string(),
-    }),
+    amount: yup
+      .number()
+      .min(0, 'Amount must be greater than 0')
+      .max(props.amount, `Amount cannot greater than ${props.amount}`)
+      .typeError('Must be a number')
+      .required('Amount cannot be empty'),
     to: yup.string().when('amount', {
       is: () => state.type_transfer === 'IN_ACCOUNT',
       then: yup.string().required('To cannot be empty!'),
@@ -91,32 +92,45 @@ const TransferComponent = (props: IProps = Props) => {
     handleSubmit,
     formState: {errors},
     reset,
+    getValues,
+    watch,
   } = useForm<IFormInAccount | IFormToUserName>({
     defaultValues: useMemo(() => ({...formDefaultInAccount, ...formDefaultToUsername}), []),
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: IFormInAccount | IFormToUserName) => {
+  const onTransferSubmit = async (data: IFormInAccount & IFormToUserName) => {
     try {
+      if (!executeRecaptcha) return;
       showLoading();
-      const params = {};
+      const params: Partial<IFormInAccount & IFormToUserName> = {};
       switch (state.type_transfer) {
         case 'IN_ACCOUNT':
-          params['amount'] = data.amount;
-          params['from'] = data['from'];
-          params['to'] = data['to'];
+          params.amount = data.amount;
+          params['to_wallet'] = data.to;
+          params['from_wallet'] = props.type_wallet;
           break;
         case 'TO_USERNAME':
-          params['amount'] = data.amount;
-          params['username'] = data['receiver_username'];
-          params['password'] = data['password'];
-          if (isEnabledTFA) params['tfa'] = data['tfa'];
+          params.amount = data.amount;
+          params.password = data.password;
+          params['username'] = data.receiver_username;
+          if (isEnabledTFA) params.tfa = params.tfa;
           break;
       }
-      const res = await transferMoney(params);
+
+      const token = await executeRecaptcha('transfer');
+      params['response'] = token;
+      const functionAPI = state.type_transfer === 'TO_USERNAME' ? transferMoney : transferInternalMoney;
+      const res = await functionAPI(params);
       if (res?.data) {
-        setState({...state, show: false, type_transfer: null});
-        props.onRequestRefesh('TRANSFER');
+        setState({...state, show: false});
+        reset({...formDefaultToUsername, ...formDefaultInAccount});
+        if (state.type_transfer === 'IN_ACCOUNT') {
+          const amountFrom = selectTypeWallet(props.type_wallet, data.amount, 'from');
+          const amountTo = selectTypeWallet(data.to, data.amount, 'to');
+          dispatch(updateAmount({...amountFrom, ...amountTo}));
+        }
+        props.onRequestRefesh && props.onRequestRefesh('TRANSFER');
       }
     } catch (error) {
       addError(error, 'Account registration failed! Please check your information.');
@@ -124,6 +138,8 @@ const TransferComponent = (props: IProps = Props) => {
       hideLoading();
     }
   };
+
+  const onSubmit = useCallback(onTransferSubmit, [executeRecaptcha, state]);
 
   const handleClose = () => setState((state) => ({...state, show: false, type_transfer: 'IN_ACCOUNT'}));
   const handleShow = () => setState((state) => ({...state, show: true}));
@@ -133,6 +149,45 @@ const TransferComponent = (props: IProps = Props) => {
     if (!state.type_transfer || state.type_transfer !== type) {
       setState({...state, type_transfer: type});
     }
+  };
+
+  const subtractAmountFrom = useMemo(() => {
+    const amount = props.amount - getValues().amount;
+    return formatter2.format(amount);
+  }, watch(['amount']));
+
+  const addAmountTo = useMemo(() => {
+    let amountByTypeWallet: number = 0;
+    if (getValues()['to'] === 'spot') amountByTypeWallet = authState.accountInfor.amount;
+    if (getValues()['to'] === 'trade') amountByTypeWallet = authState.accountInfor.amount_trade;
+    if (getValues()['to'] === 'expert') amountByTypeWallet = authState.accountInfor.amount_expert;
+    if (getValues()['to'] === 'copytrade') amountByTypeWallet = authState.accountInfor.amount_copytrade;
+
+    const amount = amountByTypeWallet + Number(getValues().amount);
+    return formatter2.format(amount);
+  }, watch(['amount', 'to']));
+
+  const selectTypeWallet = (type_wallet, amount, fromTo: 'from' | 'to') => {
+    let amountWallet = {};
+    const amountFrom = props.amount - amount;
+    switch (type_wallet) {
+      case TYPE_WALLET.SPOT:
+        amountWallet['amount'] = fromTo === 'from' ? amountFrom : authState.accountInfor.amount + Number(amount);
+        break;
+      case TYPE_WALLET.TRADE:
+        amountWallet['amount_trade'] =
+          fromTo === 'from' ? amountFrom : authState.accountInfor.amount_trade + Number(amount);
+        break;
+      case TYPE_WALLET.EXPERT:
+        amountWallet['amount_expert'] =
+          fromTo === 'from' ? amountFrom : authState.accountInfor.amount_expert + Number(amount);
+        break;
+      case TYPE_WALLET.COPY_TRADE:
+        amountWallet['amount_copytrade'] =
+          fromTo === 'from' ? amountFrom : authState.accountInfor.amount_copytrade + Number(amount);
+        break;
+    }
+    return amountWallet;
   };
 
   return (
@@ -183,8 +238,14 @@ const TransferComponent = (props: IProps = Props) => {
                   <label className="form-control-label">
                     Amount <span className="text-danger">*</span>
                   </label>
-                  <input type="number" className="form-control mb-1 form-control-sm" {...register('amount')} />
-                  <p className="text-right">Balance: 20 USDF</p>
+                  <input
+                    type="number"
+                    className="form-control mb-1 form-control-sm"
+                    {...register('amount')}
+                    min={0}
+                    max={props.amount}
+                  />
+                  <p className="text-right">Balance: {subtractAmountFrom} USDF</p>
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                     {errors.amount?.message}
                   </div>
@@ -195,13 +256,15 @@ const TransferComponent = (props: IProps = Props) => {
                   <Form.Group className="mb-1">
                     <Form.Label>To</Form.Label>
                     <Form.Control as="select" size="sm" {...register('to')}>
-                      <option value={'spot'}>Wallet Spot</option>
-                      <option value={'trade'}>Wallet Trade</option>
-                      <option value={'expert'}>Wallet Expert</option>
-                      <option value={'copy_trade'}>Wallet Copy Trade</option>
+                      {props.type_wallet !== TYPE_WALLET.SPOT && <option value={'spot'}>Wallet Spot</option>}
+                      {props.type_wallet !== TYPE_WALLET.TRADE && <option value={'trade'}>Wallet Trade</option>}
+                      {props.type_wallet !== TYPE_WALLET.EXPERT && <option value={'expert'}>Wallet Expert</option>}
+                      {props.type_wallet !== TYPE_WALLET.COPY_TRADE && (
+                        <option value={'copytrade'}>Wallet Copy Trade</option>
+                      )}
                     </Form.Control>
                   </Form.Group>
-                  <p className="text-right">Balance: 20 USDF</p>
+                  <p className="text-right">Balance: {addAmountTo} USDF</p>
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                     {errors['to']?.message}
                   </div>
@@ -210,7 +273,7 @@ const TransferComponent = (props: IProps = Props) => {
               {state.type_transfer === 'TO_USERNAME' ? (
                 <div className="col-md-6 col-xs-12">
                   <div className="form-group">
-                    <label className="form-control-label">Receiver Username</label>{' '}
+                    <label className="form-control-label">Receiver Username</label>
                     <span className="text-danger">*</span>
                     <input type="text" className="form-control form-control-sm" {...register('receiver_username')} />
                     <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
