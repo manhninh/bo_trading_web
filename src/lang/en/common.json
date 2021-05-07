@@ -1,11 +1,28 @@
 {
   "sidebar": {
-    "trading":"Trading",
-    "copy_trade":"Copy Trade",
-    "wallet":"Wallet",
-    "history":"History",
-    "affiliate_link":"Affiliate Link",
-    "commissions":"Commissions",
-    "settings":"Settings"
+    "trading": "Trading",
+    "copy_trade": "Copy Trade",
+    "wallet": "Wallet",
+    "history": "History",
+    "affiliate_link": "Affiliate Link",
+    "commissions": "Commissions",
+    "settings": "Settings",
+    "logout": "Log out",
+    "profit": "Profit",
+    "invesment": "Invesment",
+    "buy": "BUY",
+    "sell": "SELL",
+    "indicator": "Indicator",
+    "neutral": "Neutral",
+    "signal": "Signal",
+    "open": "Open",
+    "hight": "Hight",
+    "low": "Low",
+    "close": "Close",
+    "vol": "Vol",
+    "walletSpot": "Wallet Spot",
+    "walletTrade": "Wallet Trade",
+    "walletCopy": "Wallet Copy",
+    "walletExpert": "Wallet Expert"
   }
 }

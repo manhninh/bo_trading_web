@@ -107,10 +107,10 @@ const HeaderLayout = (props: IProps = Props) => {
               ) : (
                 <>
                   <div className="list-inline-item visible">
-                    <input type="button" value="LogIn" className="btn btn-info" onClick={toggleSignIn} />
+                    <input type="button" value="LogIn" className="btn btn-info btn-lg" onClick={toggleSignIn} />
                   </div>
                   <div className="list-inline-item visible">
-                    <input type="button" value="Register" className="btn btn-danger" onClick={toggleSignUp} />
+                    <input type="button" value="Register" className="btn btn-danger btn-lg" onClick={toggleSignUp} />
                   </div>
                 </>
               )}
