@@ -10,6 +10,8 @@ const DashboardComponent = () => {
       <Scrollbars style={{height: '100vh'}}>
         <div className="background-home">
           <HeaderLayout noBackground={true} />
+          <div className="bg-step5" />
+          <div className="bg-step6" />
           <div className="bg-step1" />
           <div className="bg-step2" />
           <div className="bg-step3" />

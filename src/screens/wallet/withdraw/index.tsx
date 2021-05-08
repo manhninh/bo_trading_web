@@ -42,14 +42,19 @@ const WithdrawComponent = (props: IProps = Props) => {
   const authState = useAppSelector((state) => state.authState);
   const isEnabledTFA = authState.accountInfor.isEnabledTFA;
   const amount = authState.accountInfor.amount;
-  const fees = state.symbol === 'trc20' ? 3 : 20;
+  const fees = state.symbol === 'trc20' ? config.FEE_TRC20 : config.FEE_ERC20;
 
   const schema = yup.object().shape({
     symbol: yup.string().required('Symbol is required'),
     amount: yup
       .number()
       .typeError('Must be a number')
-      .min(Number(config.MIN_WITHDRAW), `Amount must not be less than ${config.MIN_WITHDRAW}`)
+      .min(
+        Number(state.symbol === 'trc20' ? config.MIN_WITHDRAW_TRC20 : config.MIN_WITHDRAW_ERC20),
+        `Amount must not be less than ${
+          state.symbol === 'trc20' ? config.MIN_WITHDRAW_TRC20 : config.MIN_WITHDRAW_ERC20
+        }`,
+      )
       .required('Amount cannot be empty'),
     address: yup.string().required('Address cannot be empty'),
     password: yup.string().required('Password cannot be empty'),

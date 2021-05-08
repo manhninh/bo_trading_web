@@ -31,7 +31,7 @@ const Pagination = (props: Props) => {
   const _pageChange = (page: number) => () => props.pageChange(page);
 
   return (
-    <Page className="d-flex justify-content-end">
+    <Page className="d-flex justify-content-center">
       <Page.Prev onClick={_pageChange(props.page - 1)} disabled={props.page === 1} />
       {allPageNumber <= 6 &&
         Array(allPageNumber)

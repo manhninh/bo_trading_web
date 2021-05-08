@@ -91,7 +91,7 @@ const DepositComponent = () => {
         </Modal.Body>
         <Modal.Footer>
           <h6 className="text-center text-danger">
-            Note: The minimum deposit amount is 30 USDT, less than this amount will not be credited to your balance
+            Note: The minimum deposit amount is {state.type === 'trc20' ? '20' : '50'} USDT, less than this amount will not be credited to your balance
             wallet
           </h6>
         </Modal.Footer>

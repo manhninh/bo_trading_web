@@ -1,18 +1,39 @@
+.bg-step5 {
+  background-image: url(../../assets/images/home5.svg);
+  width: 30vw;
+  height: 17vw;
+  position: absolute;
+  top: 10vw;
+  left: 35vw;
+}
+
+.bg-step6 {
+  background-image: url(../../assets/images/home6.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 62vw;
+  height: 40vw;
+  position: absolute;
+  top: 25vw;
+  left: 20vw;
+}
+
 .bg-step1 {
   background-image: url(../../assets/images/home1.svg);
   width: 58vw;
   height: 39.3vw;
   position: absolute;
-  top: 63vw;
+  top: 68vw;
   left: 20vw;
 }
 
 .bg-step2 {
   background-image: url(../../assets/images/home2.svg);
-  width: 58vw;
-  height: 29.8vw;
+  width: 57.86vw;
+  height: 29.7vw;
   position: absolute;
-  top: 108vw;
+  top: 113vw;
   left: 20vw;
 }
 
@@ -21,7 +42,7 @@
   width: 78vw;
   height: 65vw;
   position: absolute;
-  top: 145vw;
+  top: 150vw;
   left: 20vw;
 }
 
@@ -30,7 +51,7 @@
   width: 35vw;
   height: 10.6vw;
   position: absolute;
-  top: 215vw;
+  top: 220vw;
   left: 32vw;
 }
 

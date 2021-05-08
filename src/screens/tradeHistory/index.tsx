@@ -7,6 +7,7 @@ import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { formatter2 } from 'utils/formatter';
 import {getTradeHistory} from './services';
 import './styled.css';
 interface FilterSearch {
@@ -79,15 +80,15 @@ const TradeHistoryComponent = () => {
             <td>
               <div className="d-inline-block text-info">
                 <div className="d-inline-block w-40">Buy</div>
-                <div className="d-inline-block w-80">{d.buy_amount_order}</div>
+                <div className="d-inline-block w-80">{formatter2.format(d.buy_amount_order)}</div>
               </div>
               <div className="d-inline-block text-danger">
                 <div className="d-inline-block w-40">Sell</div>
-                <div className="d-inline-block w-80">{d.sell_amount_order}</div>
+                <div className="d-inline-block w-80">{formatter2.format(d.sell_amount_order)}</div>
               </div>
             </td>
-            <td>{d.open_result}</td>
-            <td>{d.close_result}</td>
+            <td>{formatter2.format(d.open_result)}</td>
+            <td>{formatter2.format(d.close_result)}</td>
             <td>
               <div className={`${d.amount_result > 0 ? 'text-info' : 'text-danger'}`}>
                 <div className="d-inline-block w-70">{d.amount_result > 0 ? 'WIN' : 'LOSS'}</div>
