@@ -10,19 +10,23 @@ const DashboardComponent = () => {
       <Scrollbars style={{height: '100vh'}}>
         <div className="background-home">
           <HeaderLayout noBackground={true} />
+          <div className="bg-step1" />
+          <div className="bg-step2" />
+          <div className="bg-step3" />
+          <div className="bg-step4" />
         </div>
-        <div className="d-flex" style={{backgroundColor: '#312A89', padding: '40px 0'}}>
-          <div className="d-inline-block" style={{width: '25%', marginLeft: '40px'}}>
+        <div className="d-flex footer-home">
+          <div className="d-inline-block footer-left">
             <div className="brand-big text-uppercase">
-              <img src={process.env.PUBLIC_URL + '/logo512.png'} style={{height: '40px', marginBottom: '30px'}} />
+              <img src={process.env.PUBLIC_URL + '/logo512.png'} className="footer-img" />
             </div>
-            <span className="text-light">
+            <span className="text-light footer-font">
               Finimix is developed by professionals with year of experience in the information technology, finace and
               crypto fields to create a smart, secure, relible and susrainable investment platform.
             </span>
           </div>
-          <div className="d-inline-block" style={{width: '70%'}}>
-            <div className="d-flex" style={{justifyContent:"space-evenly", marginTop:"10px"}}>
+          <div className="d-inline-block w-70-per">
+            <div className="d-flex footer-right">
               <a href="#">Term of use</a>
               <a href="#">Privacy</a>
               <a href="#">Contact with us</a>

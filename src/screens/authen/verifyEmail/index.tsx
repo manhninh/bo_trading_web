@@ -33,9 +33,9 @@ const VerifyEmailComponent = (props: RouteComponentProps) => {
               <div className="card p-5 card-custom">
                 <div className="row">
                   <div className="col text-center">
-                    <h1 className="mb-3 text-light fontsize50">
-                      IOGO <span className="text-danger">ETH</span>
-                    </h1>
+                    <div className="brand-big text-uppercase mb-3">
+                      <img src={process.env.PUBLIC_URL + '/logo512.png'} className="footer-img" />
+                    </div>
                   </div>
                 </div>
                 <div className="row">

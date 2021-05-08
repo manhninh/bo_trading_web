@@ -1,0 +1,63 @@
+.bg-step1 {
+  background-image: url(../../assets/images/home1.svg);
+  width: 58vw;
+  height: 39.3vw;
+  position: absolute;
+  top: 63vw;
+  left: 20vw;
+}
+
+.bg-step2 {
+  background-image: url(../../assets/images/home2.svg);
+  width: 58vw;
+  height: 29.8vw;
+  position: absolute;
+  top: 108vw;
+  left: 20vw;
+}
+
+.bg-step3 {
+  background-image: url(../../assets/images/home3.svg);
+  width: 78vw;
+  height: 65vw;
+  position: absolute;
+  top: 145vw;
+  left: 20vw;
+}
+
+.bg-step4 {
+  background-image: url(../../assets/images/home4.svg);
+  width: 35vw;
+  height: 10.6vw;
+  position: absolute;
+  top: 215vw;
+  left: 32vw;
+}
+
+.footer-home {
+  background-color: #312a89;
+  padding: 20px 0;
+}
+
+.footer-font {
+  font-size: 0.8rem;
+}
+
+.w-70-per {
+  width: 70%;
+}
+
+.footer-right {
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+.footer-left {
+  width: 25%;
+  margin-left: 40px;
+}
+
+.footer-img {
+  height: 40px;
+  margin-bottom: 30px;
+}
