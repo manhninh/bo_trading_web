@@ -6,6 +6,12 @@ export enum TYPE_WALLET {
   COPY_TRADE = 'copytrade'
 }
 
+export enum TRANSACTION_STATUS {
+  PENDING,
+  SUCCESS,
+  CANCELLED
+}
+
 export type IProps = {
   onRequestRefesh: (tabActive: string) => void;
   amount: Required<number>;

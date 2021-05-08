@@ -11,6 +11,8 @@ export interface TransationHistory {
   noted: string;
   from_username: string;
   to_username: string;
+  from_wallet: string;
+  to_wallet: string;
   createdAt: string;
   updatedAt: string;
 }
