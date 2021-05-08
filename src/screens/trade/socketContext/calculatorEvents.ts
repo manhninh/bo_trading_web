@@ -1,9 +1,9 @@
-import {signOut} from 'routers/redux/slice';
-import {setWinLoss} from 'screens/trade/redux/slice';
-import {EVENTS, ROOM} from 'screens/trade/socketContext/socketConfig';
-import {Socket} from 'socket.io-client';
+import { signOut } from 'routers/redux/slice';
+import { setWinLoss } from 'screens/trade/redux/slice';
+import { EVENTS, ROOM } from 'screens/trade/socketContext/socketConfig';
+import { Socket } from 'socket.io-client';
 
-export const calculatorEvents = ({socketCalculator, dispatch}) => {
+export const calculatorEvents = ({ setValue, user_id, socketCalculator, dispatch }) => {
   if (!socketCalculator) return;
 
   socketCalculator.on('connect', () => {

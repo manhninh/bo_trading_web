@@ -1,18 +1,19 @@
-import {useAppSelector} from 'boot/configureStore';
+import { useAppSelector } from 'boot/configureStore';
 import config from 'constants/config';
 import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import _ from 'lodash';
-import React, {lazy, Suspense, useEffect, useState} from 'react';
-import {Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
+import React, { lazy, Suspense, useCallback, useState } from 'react';
+import { Nav, NavItem, Tab, TabContent } from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
-import {GoogleReCaptchaProvider} from 'react-google-recaptcha-v3';
-import {NavLink, Redirect, Route, useLocation} from 'react-router-dom';
-import {formatter2} from 'utils/formatter';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { NavLink, Redirect, Route, useHistory, useLocation } from 'react-router-dom';
+import { ROUTE_PATH } from 'routers/helpers';
+import { formatter2 } from 'utils/formatter';
 import DepositComponent from './deposit';
 import './styled.css';
 import TransferComponent from './transfer';
-import {TYPE_WALLET} from './transfer/propState';
+import { TYPE_WALLET } from './transfer/propState';
 import WithdrawComponent from './withdraw';
 
 const components = {
@@ -22,7 +23,8 @@ const components = {
 };
 
 const WalletComponent = () => {
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
+  const history = useHistory();
   const amount = useAppSelector((state) => state.authState.accountInfor.amount);
   const amount_trade = useAppSelector((state) => state.authState.accountInfor.amount_trade);
   const amount_expert = useAppSelector((state) => state.authState.accountInfor.amount_expert);
@@ -33,21 +35,12 @@ const WalletComponent = () => {
     requestRefesh: null,
   });
 
-  useEffect(() => {
-    if (state.requestRefesh) {
-      setTimeout(() => {
-        setState({...state, requestRefesh: null});
-      }, 1000);
-    }
-  }, [state.requestRefesh]);
-
-  const onRequestRefesh = (tabActive) => {
-    setState({...state, requestRefesh: tabActive});
-  };
-
-  const onChangeReCaptcha = (token: string) => {
-    console.log(token);
-  };
+  const onRequestRefesh = useCallback(
+    (tabActive) => {
+      setState({ ...state, requestRefesh: tabActive });
+    },
+    [state.requestRefesh],
+  );
 
   const renderNavItems = () =>
     Object.keys(components).map((route) => (
@@ -68,7 +61,7 @@ const WalletComponent = () => {
     ));
 
   return (
-    <GoogleReCaptchaProvider reCaptchaKey={config.GOOGLE_RECAPTCHA_SITE_KEY} scriptProps={{async: true}}>
+    <GoogleReCaptchaProvider reCaptchaKey={config.GOOGLE_RECAPTCHA_SITE_KEY} scriptProps={{ async: true }}>
       <ContainerLayout>
         <div className="row">
           <div className="col-md-6 col-xs-12">
@@ -141,7 +134,7 @@ const WalletComponent = () => {
                 </div>
                 <div className="number text-light text-bold">{formatter2.format(amount_expert)} USDF</div>
               </div>
-              {!is_expert ? (
+              {is_expert ? (
                 <TransferComponent
                   onRequestRefesh={onRequestRefesh}
                   onlyInAccount={true}
@@ -149,7 +142,7 @@ const WalletComponent = () => {
                   type_wallet={TYPE_WALLET.EXPERT}
                 />
               ) : (
-                <button type="button" className="btn btn-sm btn-danger">
+                <button type="button" className="btn btn-sm btn-danger" onClick={() => history.push(ROUTE_PATH.COPY_TRADE)}>
                   Active
                 </button>
               )}

@@ -1,12 +1,14 @@
 import Pagination from 'containers/components/pagination';
 import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import {TransationHistory} from 'models/wallet';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
+import { capitalize } from "lodash";
+import { TransationHistory } from 'models/wallet';
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import {fetchTransactionHistory, TYPE_HISTORY} from 'screens/wallet/services';
-import {FilterSearch, IProps, Props} from './propState';
+import { fetchTransactionHistory, TYPE_HISTORY } from 'screens/wallet/services';
+import { TRANSACTION_STATUS } from 'screens/wallet/transfer/propState';
+import { FilterSearch, IProps, Props } from './propState';
 
 interface PaginateResult<T> {
   docs: Array<T>;
@@ -18,8 +20,8 @@ interface PaginateResult<T> {
 }
 
 const HistoryTableComponent = (props: IProps = Props) => {
-  const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
+  const { showLoading, hideLoading } = useLoading();
+  const { addError } = useError();
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
     from: new Date(),
     to: new Date(),
@@ -32,7 +34,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   });
 
   useEffect(() => {
-    if (props.requestRefesh === props.tabActive) {
+    if (props.requestRefesh?.toUpperCase() === props.tabActive) {
       // const today = new Date();
       // const _filterSearch = {from: today, to: today};
       // setFilterSearch(_filterSearch);
@@ -70,7 +72,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   };
 
   const _onChangeDate = (type: 'from' | 'to') => (value: Date) => {
-    setFilterSearch({...filterSearch, [type]: value});
+    setFilterSearch({ ...filterSearch, [type]: value });
   };
 
   const _pageChange = (page: number) => {
@@ -92,14 +94,14 @@ const HistoryTableComponent = (props: IProps = Props) => {
       );
     return history?.docs.map((d, i) => (
       <tr key={`${props.tabActive}-history-${i}`}>
-        <th scope="row">{i}</th>
+        <th scope="row">{i + 1}</th>
         <td>{moment(d.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>
-        {props.tabActive === 'TRANSFER' && <td>{d.from_username}</td>}
-        {props.tabActive === 'TRANSFER' && <td>{d.to_username}</td>}
+        {props.tabActive === 'TRANSFER' && <td>{d.from_wallet ? `Wallet ${d.from_wallet}` : d.from_username}</td>}
+        {props.tabActive === 'TRANSFER' && <td>{d.to_wallet ? `Wallet ${d.to_wallet}` : d.to_username}</td>}
         <td>{d.amount}</td>
         {props.tabActive !== 'TRANSFER' && <td>{d.symbol}</td>}
         {props.tabActive === 'WITHDRAW' && <td>{d.address ?? ''}</td>}
-        {props.tabActive !== 'TRANSFER' && <td>{d.status}</td>}
+        {props.tabActive !== 'TRANSFER' && <td>{capitalize(TRANSACTION_STATUS[d.status])}</td>}
       </tr>
     ));
   };

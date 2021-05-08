@@ -8,7 +8,6 @@ import {Form, Modal} from 'react-bootstrap';
 import {useGoogleReCaptcha} from 'react-google-recaptcha-v3';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
-import {updateAmount} from 'routers/redux/slice';
 import {formatter2} from 'utils/formatter';
 import * as yup from 'yup';
 import {Props, TYPE_WALLET} from './propState';
@@ -62,7 +61,12 @@ const TransferComponent = (props = Props) => {
     amount: yup
       .number()
       .min(0, 'Amount must be greater than 0')
-      .max(props.amount, `Amount cannot greater than ${props.amount}`)
+      .max(
+        props.amount,
+        props.amount
+          ? `Amount cannot greater than ${props.amount}`
+          : `The available balance is not sufficient to the transfer`,
+      )
       .typeError('Must be a number')
       .required('Amount cannot be empty'),
     to: yup.string().when('amount', {
@@ -94,6 +98,7 @@ const TransferComponent = (props = Props) => {
     reset,
     getValues,
     watch,
+    setValue,
   } = useForm<IFormInAccount | IFormToUserName>({
     defaultValues: useMemo(() => ({...formDefaultInAccount, ...formDefaultToUsername}), []),
     resolver: yupResolver(schema),
@@ -125,12 +130,19 @@ const TransferComponent = (props = Props) => {
       if (res?.data) {
         setState({...state, show: false});
         reset({...formDefaultToUsername, ...formDefaultInAccount});
-        if (state.type_transfer === 'IN_ACCOUNT') {
-          const amountFrom = selectTypeWallet(props.type_wallet, data.amount, 'from');
-          const amountTo = selectTypeWallet(data.to, data.amount, 'to');
-          dispatch(updateAmount({...amountFrom, ...amountTo}));
-        }
-        props.onRequestRefesh && props.onRequestRefesh('TRANSFER');
+
+        // update lại số tiền vừa transfer
+        // if (state.type_transfer === 'IN_ACCOUNT') {
+        //   const amountFrom = selectTypeWallet(props.type_wallet, data.amount, 'from');
+        //   const amountTo = selectTypeWallet(data.to, data.amount, 'to');
+        //   dispatch(updateAmount({...amountFrom, ...amountTo}));
+        // }
+        let tabActive = 'TRANSFER';
+        tabActive = tabActive
+          .split('')
+          .map((v) => (Math.round(Math.random()) ? v.toUpperCase() : v.toLowerCase()))
+          .join('');
+        props.onRequestRefesh && props.onRequestRefesh(tabActive);
       }
     } catch (error) {
       addError(error, 'Account registration failed! Please check your information.');
@@ -152,8 +164,12 @@ const TransferComponent = (props = Props) => {
   };
 
   const subtractAmountFrom = useMemo(() => {
-    const amount = props.amount - getValues().amount;
-    return formatter2.format(amount);
+    const amount = props.amount - Number(getValues().amount);
+    if (amount < 0 || amount > props.amount) {
+      const maxAmount = Math.max(Number(0), Math.min(Number(props.amount), Number(getValues().amount)));
+      setValue('amount', Math.floor(maxAmount * 100) / 100);
+      return formatter2.format(maxAmount);
+    } else return formatter2.format(amount);
   }, watch(['amount']));
 
   const addAmountTo = useMemo(() => {
@@ -163,9 +179,13 @@ const TransferComponent = (props = Props) => {
     if (getValues()['to'] === 'expert') amountByTypeWallet = authState.accountInfor.amount_expert;
     if (getValues()['to'] === 'copytrade') amountByTypeWallet = authState.accountInfor.amount_copytrade;
 
-    const amount = amountByTypeWallet + Number(getValues().amount);
-    return formatter2.format(amount);
-  }, watch(['amount', 'to']));
+    // Cộng trực tiếp số tiền cho To Wallet
+    // Add thêm watch 'amount'
+    // const amount = props.amount ? amountByTypeWallet + Number(getValues().amount) : amountByTypeWallet;
+    // return formatter2.format(amount);
+
+    return formatter2.format(amountByTypeWallet);
+  }, watch(['to']));
 
   const selectTypeWallet = (type_wallet, amount, fromTo: 'from' | 'to') => {
     let amountWallet = {};
