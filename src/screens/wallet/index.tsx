@@ -3,7 +3,7 @@ import config from 'constants/config';
 import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import _ from 'lodash';
-import React, {lazy, Suspense, useEffect, useState} from 'react';
+import React, {lazy, Suspense, useCallback, useState} from 'react';
 import {Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
 import {GoogleReCaptchaProvider} from 'react-google-recaptcha-v3';
@@ -33,21 +33,12 @@ const WalletComponent = () => {
     requestRefesh: null,
   });
 
-  useEffect(() => {
-    if (state.requestRefesh) {
-      setTimeout(() => {
-        setState({...state, requestRefesh: null});
-      }, 1000);
-    }
-  }, [state.requestRefesh]);
-
-  const onRequestRefesh = (tabActive) => {
-    setState({...state, requestRefesh: tabActive});
-  };
-
-  const onChangeReCaptcha = (token: string) => {
-    console.log(token);
-  };
+  const onRequestRefesh = useCallback(
+    (tabActive) => {
+      setState({...state, requestRefesh: tabActive});
+    },
+    [state.requestRefesh],
+  );
 
   const renderNavItems = () =>
     Object.keys(components).map((route) => (
@@ -141,7 +132,7 @@ const WalletComponent = () => {
                 </div>
                 <div className="number text-light text-bold">{formatter2.format(amount_expert)} USDF</div>
               </div>
-              {!is_expert ? (
+              {is_expert ? (
                 <TransferComponent
                   onRequestRefesh={onRequestRefesh}
                   onlyInAccount={true}

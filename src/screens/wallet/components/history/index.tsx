@@ -32,7 +32,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   });
 
   useEffect(() => {
-    if (props.requestRefesh === props.tabActive) {
+    if (props.requestRefesh?.toUpperCase() === props.tabActive) {
       // const today = new Date();
       // const _filterSearch = {from: today, to: today};
       // setFilterSearch(_filterSearch);
@@ -92,7 +92,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
       );
     return history?.docs.map((d, i) => (
       <tr key={`${props.tabActive}-history-${i}`}>
-        <th scope="row">{i}</th>
+        <th scope="row">{i + 1}</th>
         <td>{moment(d.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>
         {props.tabActive === 'TRANSFER' && <td>{d.from_username}</td>}
         {props.tabActive === 'TRANSFER' && <td>{d.to_username}</td>}
