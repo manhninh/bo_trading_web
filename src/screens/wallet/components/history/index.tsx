@@ -96,8 +96,8 @@ const HistoryTableComponent = (props: IProps = Props) => {
       <tr key={`${props.tabActive}-history-${i}`}>
         <th scope="row">{i + 1}</th>
         <td>{moment(d.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>
-        {props.tabActive === 'TRANSFER' && <td>{d.from_wallet ? `Wallet ${d.from_wallet}` : d.from_username}</td>}
-        {props.tabActive === 'TRANSFER' && <td>{d.to_wallet ? `Wallet ${d.to_wallet}` : d.to_username}</td>}
+        {props.tabActive === 'TRANSFER' && <td>{d.from_wallet ? `Wallet ${d.from_wallet}`.toUpperCase() : d.from_username}</td>}
+        {props.tabActive === 'TRANSFER' && <td>{d.to_wallet ? `Wallet ${d.to_wallet}`.toUpperCase() : d.to_username}</td>}
         <td>{d.amount}</td>
         {props.tabActive !== 'TRANSFER' && <td>{d.symbol}</td>}
         {props.tabActive === 'WITHDRAW' && <td>{d.address ?? ''}</td>}
