@@ -75,54 +75,54 @@ const RegisterComponent = () => {
   return (
     <>
       <form className="form-validate">
-        <div className="form-group mb-2">
+        <div className="form-group">
           <label>Sponsor:</label> <label className="text-primary text-bold">{sponsor || 'none'}</label>
         </div>
-        <div className="form-group mb-2">
+        <div className="form-group">
           <label>
             Username <span className="text-danger">*</span>
           </label>
           <input
             type="text"
-            className={`form-control form-control-sm ${errors.username?.message ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.username?.message ? 'is-invalid' : ''}`}
             {...register('username')}
           />
           <div className="is-invalid invalid-feedback">{errors.username?.message}</div>
         </div>
-        <div className="form-group mb-2">
+        <div className="form-group">
           <label>
             Email <span className="text-danger">*</span>
           </label>
           <input
             type="text"
-            className={`form-control form-control-sm ${errors.email?.message ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.email?.message ? 'is-invalid' : ''}`}
             {...register('email')}
           />
           <div className="is-invalid invalid-feedback">{errors.email?.message}</div>
         </div>
-        <div className="form-group mb-2">
+        <div className="form-group">
           <label>
             Password <span className="text-danger">*</span>
           </label>
           <input
             type="password"
-            className={`form-control form-control-sm ${errors.password?.message ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.password?.message ? 'is-invalid' : ''}`}
             {...register('password')}
           />
           <div className="is-invalid invalid-feedback">{errors.password?.message}</div>
         </div>
-        <div className="form-group mb-2">
+        <div className="form-group">
           <label>
             Confirm Password <span className="text-danger">*</span>
           </label>
           <input
             type="password"
-            className={`form-control form-control-sm ${errors.confirmPassword?.message ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.confirmPassword?.message ? 'is-invalid' : ''}`}
             {...register('confirmPassword')}
           />
           <div className="is-invalid invalid-feedback">{errors.confirmPassword?.message}</div>
         </div>
-        <div className="form-group mb-2 terms-conditions text-center">
+        <div className="form-group terms-conditions text-center">
           <input
             id="register-agree"
             name="registerAgree"
@@ -132,7 +132,7 @@ const RegisterComponent = () => {
           />
           <label htmlFor="register-agree">I agree with the terms and policy</label>
         </div>
-        <button className="btn btn-lg btn-block btn-sm btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
+        <button className="btn btn-lg btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
           Create Account
         </button>
       </form>

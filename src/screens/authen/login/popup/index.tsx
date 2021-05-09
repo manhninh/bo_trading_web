@@ -40,13 +40,16 @@ const LogInPopupComponent = (props: Props) => {
               ...sidebarTransitionStyles[state],
             }}>
             <div className="p-40">
-              <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+              <div className="d-flex justify-content-between">
+                <div className="brand-big">
+                  <img src={process.env.PUBLIC_URL + '/logo512.png'} />
+                </div>
                 <button type="button" className="btn btn-outline-secondary" onClick={toogleForm}>
                   <i className="fas fa-times" />
                 </button>
               </div>
-              <div className="text-center">
-                <h1 className="display-4 text-gray-light mb-5">Login</h1>
+              <div className="text-left my-5">
+                <h2 className="text-light">Log in to your account</h2>
               </div>
               <LogInComponent />
             </div>

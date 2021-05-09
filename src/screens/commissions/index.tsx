@@ -16,7 +16,7 @@ import './styled.css';
 
 const components = {
   trading: lazy(() => import('./trading')),
-  copy_trade: lazy(() => import('./copytrade')),
+  // copy_trade: lazy(() => import('./copytrade')),
   history_withdraw: lazy(() => import('./historyWithdraw')),
   member_list: lazy(() => import('./memberList')),
 };
@@ -96,12 +96,12 @@ const CommissionComponent = () => {
     <ContainerLayout>
       <>
         <div className="row">
-          <div className="offset-lg-3 col-lg-3">
+          <div className="offset-lg-4 col-lg-4">
             <CommissionTrade commission={getCommissionByType(0)} openPopup={handleShow} />
           </div>
-          <div className="col-lg-3">
+          {/* <div className="col-lg-3">
             <CommissionCopyTrade commission={getCommissionByType(1)} openPopup={handleShow} />
-          </div>
+          </div> */}
         </div>
         <div className="row">
           <div className="col-lg-12">

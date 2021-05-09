@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Transition, TransitionStatus } from 'react-transition-group';
-import { ROUTE_PATH } from 'routers/helpers';
+import React, {useEffect, useState} from 'react';
+import {Transition, TransitionStatus} from 'react-transition-group';
+import {ROUTE_PATH} from 'routers/helpers';
 import RegisterComponent from '../conponent';
-import { Props, State } from './propState';
+import {Props, State} from './propState';
 import './styled.css';
 
 const duration = 200;
@@ -13,19 +13,19 @@ const RegisterPopup = (props: Props) => {
   });
 
   useEffect(() => {
-    setState((state) => ({ ...state, isOpen: props.isOpen }));
+    setState((state) => ({...state, isOpen: props.isOpen}));
   }, [props.isOpen]);
 
   const toogleForm = () => {
-    setState((state) => ({ ...state, isOpen: !state.isOpen }));
+    setState((state) => ({...state, isOpen: !state.isOpen}));
     props.callbackToogle();
   };
 
   const sidebarTransitionStyles = {
-    entering: { width: 0 },
-    entered: { width: '400px' },
-    exiting: { width: '400px' },
-    exited: { width: 0 },
+    entering: {width: 0},
+    entered: {width: '400px'},
+    exiting: {width: '400px'},
+    exited: {width: 0},
   };
 
   return (
@@ -39,20 +39,22 @@ const RegisterPopup = (props: Props) => {
               ...sidebarTransitionStyles[state],
             }}>
             <div className="p-40">
-              <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+              <div className="d-flex justify-content-between">
+                <div className="brand-big">
+                  <img src={process.env.PUBLIC_URL + '/logo512.png'} />
+                </div>
                 <button type="button" className="btn btn-outline-secondary" onClick={toogleForm}>
                   <i className="fas fa-times" />
                 </button>
               </div>
-              <div className="text-center">
-                <h1 className="display-4 text-gray-light mb-3">Register</h1>
-                <p className="text-muted">Welcome to Finimix</p>
+              <div className="text-left my-5">
+                <h2 className="text-light">Create Finimix account</h2>
               </div>
               <RegisterComponent />
               <p className="text-center">
-                <small className="text-muted text-center">
+                <p className="text-muted text-center">
                   Already have an account? <a href={ROUTE_PATH.LOGIN}>Login</a>.
-                </small>
+                </p>
               </p>
             </div>
           </div>

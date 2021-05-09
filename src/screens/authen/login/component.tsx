@@ -70,7 +70,7 @@ const LogInComponent = () => {
         <label>Username or Email</label>
         <input
           type="text"
-          className={`form-control form-control-sm ${errors.username?.message ? 'is-invalid' : ''}`}
+          className={`form-control ${errors.username?.message ? 'is-invalid' : ''}`}
           {...register('username')}
         />
         <div className="is-invalid invalid-feedback">{errors.username?.message}</div>
@@ -84,7 +84,7 @@ const LogInComponent = () => {
         </div>
         <input
           type="password"
-          className={`form-control form-control-sm ${errors.password?.message ? 'is-invalid' : ''}`}
+          className={`form-control ${errors.password?.message ? 'is-invalid' : ''}`}
           {...register('password')}
         />
         <div className="is-invalid invalid-feedback">{errors.password?.message}</div>
@@ -94,20 +94,20 @@ const LogInComponent = () => {
           <label>Two-Factor Authentication</label>
           <input
             type="text"
-            className={`form-control form-control-sm ${errors.tfa?.message ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.tfa?.message ? 'is-invalid' : ''}`}
             maxLength={6}
             {...register('tfa')}
           />
           <div className="is-invalid invalid-feedback">{errors.tfa?.message}</div>
         </div>
       ) : null}
-      <button className="btn btn-sm btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
+      <button className="btn btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
         Login
       </button>
       <p className="text-center">
-        <small className="text-muted text-center">
+        <p className="text-muted text-center">
           Don't have an account yet? <a href={ROUTE_PATH.REGISTER}>Register</a>.
-        </small>
+        </p>
       </p>
     </form>
   );

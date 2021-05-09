@@ -69,7 +69,7 @@ const AffiliateLinkComponent = () => {
                     <div className="input-group">
                       <input
                         type="text"
-                        className="form-control form-control-sm"
+                        className="form-control"
                         disabled={true}
                         readOnly={true}
                         value={`${config.WEB}/register?sponsor=${affiliateLink}`}
