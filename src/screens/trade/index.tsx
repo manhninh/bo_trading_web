@@ -1,6 +1,7 @@
 import {RootState, useAppSelector} from 'boot/configureStore';
 import React, {useMemo} from 'react';
 import {Nav, Tab} from 'react-bootstrap';
+import {useTranslation} from 'react-i18next';
 import {createSelector} from 'reselect';
 import Dashboard from 'screens/dashboard';
 import ContainerLayout from './containerLayout';
@@ -13,6 +14,7 @@ import './styled.css';
 const height = window.innerHeight - 272;
 
 const TradingComponent = () => {
+  const {t} = useTranslation();
   const makeSelectorAuthState = () =>
     createSelector(
       (state: RootState) => state.authState.userToken,
@@ -37,12 +39,12 @@ const TradingComponent = () => {
                 <Nav className="nav-tabs card-header-tabs">
                   <Nav.Item>
                     <Nav.Link eventKey="indicator" className="nav-link-custom">
-                      Indicator
+                      {t('common:trade.indicator')}
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link eventKey="last_result" className="nav-link-custom">
-                      Last Result
+                      {t('common:trade.lastResult')}
                     </Nav.Link>
                   </Nav.Item>
                 </Nav>

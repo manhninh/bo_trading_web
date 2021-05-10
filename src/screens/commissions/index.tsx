@@ -6,6 +6,7 @@ import {cloneDeep, startCase} from 'lodash';
 import React, {lazy, Suspense, useEffect, useState} from 'react';
 import {Modal, Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
+import {useTranslation} from 'react-i18next';
 import {Redirect, Route, useLocation} from 'react-router';
 import {NavLink} from 'react-router-dom';
 import CommissionCopyTrade from './commissionCopyTrade';
@@ -14,14 +15,9 @@ import {Commission} from './propState';
 import {commissionWithdraw, getCommissions} from './services';
 import './styled.css';
 
-const components = {
-  trading: lazy(() => import('./trading')),
-  // copy_trade: lazy(() => import('./copytrade')),
-  history_withdraw: lazy(() => import('./historyWithdraw')),
-  member_list: lazy(() => import('./memberList')),
-};
-
 const CommissionComponent = () => {
+  const {t} = useTranslation();
+
   const {pathname} = useLocation();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
@@ -32,6 +28,14 @@ const CommissionComponent = () => {
     withdraw: 0,
     requestRefesh: null,
   });
+
+  const components = {
+    [t('common:commission.trading')]: lazy(() => import('./trading')),
+    // copy_trade: lazy(() => import('./copytrade')),
+    [t('common:commission.withdrawHistory')]: lazy(() => import('./historyWithdraw')),
+    [t('common:commission.memberList')]: lazy(() => import('./memberList')),
+  };
+
   useEffect(() => {
     (async () => {
       const result = await getCommissions();
@@ -123,15 +127,15 @@ const CommissionComponent = () => {
         <Modal centered={true} show={state.show} onHide={handleClose} backdrop="static" keyboard={false}>
           <Modal.Body>
             <p className="text-light">
-              Would you like to withdraw <span className="text-danger text-bold">{state.withdraw} USDF</span> to your
-              spot wallet?
+              {t('common:commission.title1')} <span className="text-danger text-bold">{state.withdraw} USDF</span>{' '}
+              {t('common:commission.title2')}
             </p>
             <div className="text-right">
               <button type="submit" className="btn btn-sm btn-info mr-2" onClick={confirmWithdraw}>
-                Yes
+                {t('common:commission.yes')}
               </button>
               <button type="submit" className="btn btn-sm btn-danger" onClick={handleClose}>
-                No
+                {t('common:commission.no')}
               </button>
             </div>
           </Modal.Body>

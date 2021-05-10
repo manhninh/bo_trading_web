@@ -6,6 +6,7 @@ import { TransationHistory } from 'models/wallet';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
+import { useTranslation } from 'react-i18next';
 import { fetchTransactionHistory, TYPE_HISTORY } from 'screens/wallet/services';
 import { TRANSACTION_STATUS } from 'screens/wallet/transfer/propState';
 import { FilterSearch, IProps, Props } from './propState';
@@ -20,6 +21,7 @@ interface PaginateResult<T> {
 }
 
 const HistoryTableComponent = (props: IProps = Props) => {
+  const {t} = useTranslation();
   const { showLoading, hideLoading } = useLoading();
   const { addError } = useError();
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
@@ -88,7 +90,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
       return (
         <tr>
           <td colSpan={6} className="text-center">
-            No data
+          {t('common:wallet.nodata')}
           </td>
         </tr>
       );
@@ -110,7 +112,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
     <>
       <div className="d-flex justify-content-end mt-3">
         <div className="input-group input-group-sm datePicker-group">
-          <div className="datePicker-text">From</div>
+          <div className="datePicker-text">{t('common:wallet.from')}</div>
           <DatePicker
             maxDate={filterSearch.to}
             minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
@@ -125,7 +127,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
           </div>
         </div>
         <div className="input-group input-group-sm datePicker-group">
-          <div className="datePicker-text">To</div>
+          <div className="datePicker-text">{t('common:wallet.to')}</div>
           <DatePicker
             minDate={filterSearch.from}
             maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
@@ -140,7 +142,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
           </div>
         </div>
         <button type="submit" className="btn btn-sm btn-danger" onClick={_search}>
-          Search
+        {t('common:wallet.search')}
         </button>
       </div>
       <div className="table-responsive">
@@ -148,13 +150,13 @@ const HistoryTableComponent = (props: IProps = Props) => {
           <thead>
             <tr>
               <th className="text-light">No.</th>
-              <th className="text-light">Date</th>
-              {props.tabActive === 'TRANSFER' && <th className="text-light">From</th>}
-              {props.tabActive === 'TRANSFER' && <th className="text-light">To</th>}
-              <th className="text-light">Amount</th>
-              {props.tabActive !== 'TRANSFER' && <th className="text-light">Symbol</th>}
-              {props.tabActive === 'WITHDRAW' && <th className="text-light">Address</th>}
-              {props.tabActive !== 'TRANSFER' && <th className="text-light">Status</th>}
+              <th className="text-light">{t('common:wallet.date')}</th>
+              {props.tabActive === 'TRANSFER' && <th className="text-light">{t('common:wallet.from')}</th>}
+              {props.tabActive === 'TRANSFER' && <th className="text-light">{t('common:wallet.to')}</th>}
+              <th className="text-light">{t('common:wallet.amount')}</th>
+              {props.tabActive !== 'TRANSFER' && <th className="text-light">{t('common:wallet.symbol')}</th>}
+              {props.tabActive === 'WITHDRAW' && <th className="text-light">{t('common:wallet.address')}</th>}
+              {props.tabActive !== 'TRANSFER' && <th className="text-light">{t('common:wallet.status')}</th>}
             </tr>
           </thead>
           <tbody>{_renderRows()}</tbody>

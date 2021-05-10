@@ -7,7 +7,8 @@ import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { formatter2 } from 'utils/formatter';
+import {useTranslation} from 'react-i18next';
+import {formatter2} from 'utils/formatter';
 import {getTradeHistory} from './services';
 import './styled.css';
 interface FilterSearch {
@@ -24,6 +25,7 @@ export interface PaginateResult<T> {
 }
 
 const TradeHistoryComponent = () => {
+  const {t} = useTranslation();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
@@ -68,7 +70,7 @@ const TradeHistoryComponent = () => {
       html.push(
         <tr>
           <td colSpan={6} className="text-center">
-            No data
+            {t('common:history.nodata')}
           </td>
         </tr>,
       );
@@ -79,11 +81,11 @@ const TradeHistoryComponent = () => {
             <td>{d.order_uuid && moment(parseInt(d.order_uuid)).format('MM/DD/YYYY HH:mm')}</td>
             <td>
               <div className="d-inline-block text-info">
-                <div className="d-inline-block w-40">Buy</div>
+                <div className="d-inline-block w-40">{t('common:history.buy')}</div>
                 <div className="d-inline-block w-80">{formatter2.format(d.buy_amount_order)}</div>
               </div>
               <div className="d-inline-block text-danger">
-                <div className="d-inline-block w-40">Sell</div>
+                <div className="d-inline-block w-40">{t('common:history.sell')}</div>
                 <div className="d-inline-block w-80">{formatter2.format(d.sell_amount_order)}</div>
               </div>
             </td>
@@ -112,7 +114,7 @@ const TradeHistoryComponent = () => {
             <div className="title mb-1">
               <div className="d-flex justify-content-end">
                 <div className="input-group input-group-sm datePicker-group">
-                  <div className="datePicker-text">From</div>
+                  <div className="datePicker-text">{t('common:history.from')}</div>
                   <DatePicker
                     maxDate={filterSearch.to}
                     minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
@@ -127,7 +129,7 @@ const TradeHistoryComponent = () => {
                   </div>
                 </div>
                 <div className="input-group input-group-sm datePicker-group">
-                  <div className="datePicker-text">To</div>
+                  <div className="datePicker-text">{t('common:history.to')}</div>
                   <DatePicker
                     minDate={filterSearch.from}
                     maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
@@ -142,7 +144,7 @@ const TradeHistoryComponent = () => {
                   </div>
                 </div>
                 <button className="btn btn-sm btn-danger" onClick={_search(1)}>
-                  Search
+                {t('common:history.search')}
                 </button>
               </div>
             </div>
@@ -150,11 +152,11 @@ const TradeHistoryComponent = () => {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th className="text-light">Time</th>
-                    <th className="text-light">Action</th>
-                    <th className="text-light">Open</th>
-                    <th className="text-light">Close</th>
-                    <th className="text-light">Result</th>
+                    <th className="text-light">{t('common:history.date')}</th>
+                    <th className="text-light">{t('common:history.action')}</th>
+                    <th className="text-light">{t('common:history.open')}</th>
+                    <th className="text-light">{t('common:history.close')}</th>
+                    <th className="text-light">{t('common:history.result')}</th>
                   </tr>
                 </thead>
                 <tbody>{_renderHistory()}</tbody>

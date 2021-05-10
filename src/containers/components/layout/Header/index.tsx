@@ -1,6 +1,7 @@
 import {useAppSelector} from 'boot/configureStore';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useEffect, useState} from 'react';
+import { useTranslation } from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
 import {ROUTE_PATH} from 'routers/helpers';
@@ -14,6 +15,7 @@ import SwitchAccountComponent from './switchAccount';
 import SwitchLanguageComponent from './switchLanguage';
 
 const HeaderLayout = (props: IProps = Props) => {
+  const { t } = useTranslation();
   const [state, setState] = useState<State>({
     openSignIn: false,
     openSignUp: false,
@@ -94,13 +96,17 @@ const HeaderLayout = (props: IProps = Props) => {
                       <span className="d-none d-sm-inline text-danger">{username}</span>
                     </a>
                   </div>
-                  <div className="list-inline-item dropdown visible">
-                    <SwitchLanguageComponent />
-                  </div>
+                </>
+              ) : null}
+              <div className={`list-inline-item dropdown visible ${!state.isAuthen ? 'lng-positision' : ''}`}>
+                <SwitchLanguageComponent />
+              </div>
+              {state.isAuthen ? (
+                <>
                   <div className="list-inline-item visible">
                     <a className="nav-link" onClick={logOut}>
                       <i className="icomoon-icon-logout"></i>
-                      <span className="d-none d-sm-inline">Log out</span>
+                      <span className="d-none d-sm-inline">{t('common:header.logout')}</span>
                     </a>
                   </div>
                 </>

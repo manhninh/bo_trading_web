@@ -1,29 +1,25 @@
-import { useAppSelector } from 'boot/configureStore';
+import {useAppSelector} from 'boot/configureStore';
 import config from 'constants/config';
 import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import _ from 'lodash';
-import React, { lazy, Suspense, useCallback, useState } from 'react';
-import { Nav, NavItem, Tab, TabContent } from 'react-bootstrap';
+import React, {lazy, Suspense, useCallback, useState} from 'react';
+import {Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import { NavLink, Redirect, Route, useHistory, useLocation } from 'react-router-dom';
-import { ROUTE_PATH } from 'routers/helpers';
-import { formatter2 } from 'utils/formatter';
+import {GoogleReCaptchaProvider} from 'react-google-recaptcha-v3';
+import {useTranslation} from 'react-i18next';
+import {NavLink, Redirect, Route, useHistory, useLocation} from 'react-router-dom';
+import {ROUTE_PATH} from 'routers/helpers';
+import {formatter2} from 'utils/formatter';
 import DepositComponent from './deposit';
 import './styled.css';
 import TransferComponent from './transfer';
-import { TYPE_WALLET } from './transfer/propState';
+import {TYPE_WALLET} from './transfer/propState';
 import WithdrawComponent from './withdraw';
 
-const components = {
-  deposit_history: lazy(() => import('./deposit/history')),
-  transfer_history: lazy(() => import('./transfer/history')),
-  withdraw_history: lazy(() => import('./withdraw/history')),
-};
-
 const WalletComponent = () => {
-  const { pathname } = useLocation();
+  const {t} = useTranslation();
+  const {pathname} = useLocation();
   const history = useHistory();
   const amount = useAppSelector((state) => state.authState.accountInfor.amount);
   const amount_trade = useAppSelector((state) => state.authState.accountInfor.amount_trade);
@@ -31,13 +27,19 @@ const WalletComponent = () => {
   const amount_copytrade = useAppSelector((state) => state.authState.accountInfor.amount_copytrade);
   const is_expert = useAppSelector((state) => state.authState.accountInfor.is_expert);
 
+  const components = {
+    [t('common:wallet.depositHistory')]: lazy(() => import('./deposit/history')),
+    [t('common:wallet.tranferHistory')]: lazy(() => import('./transfer/history')),
+    [t('common:wallet.withdrawHistory')]: lazy(() => import('./withdraw/history')),
+  };
+
   const [state, setState] = useState({
     requestRefesh: null,
   });
 
   const onRequestRefesh = useCallback(
     (tabActive) => {
-      setState({ ...state, requestRefesh: tabActive });
+      setState({...state, requestRefesh: tabActive});
     },
     [state.requestRefesh],
   );
@@ -61,7 +63,7 @@ const WalletComponent = () => {
     ));
 
   return (
-    <GoogleReCaptchaProvider reCaptchaKey={config.GOOGLE_RECAPTCHA_SITE_KEY} scriptProps={{ async: true }}>
+    <GoogleReCaptchaProvider reCaptchaKey={config.GOOGLE_RECAPTCHA_SITE_KEY} scriptProps={{async: true}}>
       <ContainerLayout>
         <div className="row">
           <div className="col-md-6 col-xs-12">
@@ -71,7 +73,7 @@ const WalletComponent = () => {
                   <div className="icon text-center d-inline-block mr-3">
                     <i className="fab fa-trade-federation text-warning fs-2rem" />
                   </div>
-                  <h2 className="text-warning text-bold d-inline-block mb-0">Wallet Spot</h2>
+                  <h2 className="text-warning text-bold d-inline-block mb-0">{t('common:wallet.walletSpot')}</h2>
                 </div>
                 <div className="number text-warning text-bold">{formatter2.format(amount)} USDF</div>
               </div>
@@ -92,7 +94,7 @@ const WalletComponent = () => {
                   <div className="icon text-center d-inline-block mr-3">
                     <i className="far fa-chart-bar text-success fs-2rem" />
                   </div>
-                  <h2 className="text-success text-bold d-inline-block mb-0">Wallet Trade</h2>
+                  <h2 className="text-success text-bold d-inline-block mb-0">{t('common:wallet.walletTrade')}</h2>
                 </div>
                 <div className="number text-success text-bold">{formatter2.format(amount_trade)} USDF</div>
               </div>
@@ -111,7 +113,7 @@ const WalletComponent = () => {
                   <div className="icon text-center d-inline-block mr-3">
                     <i className="icon-flow-branch text-light fs-2rem" />
                   </div>
-                  <h2 className="text-light text-bold d-inline-block mb-0">Wallet Copy</h2>
+                  <h2 className="text-light text-bold d-inline-block mb-0">{t('common:wallet.walletCopy')}</h2>
                 </div>
                 <div className="number text-light text-bold">{formatter2.format(amount_copytrade)} USDF</div>
               </div>
@@ -130,7 +132,7 @@ const WalletComponent = () => {
                   <div className="icon text-center d-inline-block mr-3">
                     <i className="icon-layers text-light fs-2rem" />
                   </div>
-                  <h2 className="text-light text-bold d-inline-block mb-0">Wallet Expert</h2>
+                  <h2 className="text-light text-bold d-inline-block mb-0">{t('common:wallet.walletExpert')}</h2>
                 </div>
                 <div className="number text-light text-bold">{formatter2.format(amount_expert)} USDF</div>
               </div>
@@ -142,8 +144,11 @@ const WalletComponent = () => {
                   type_wallet={TYPE_WALLET.EXPERT}
                 />
               ) : (
-                <button type="button" className="btn btn-sm btn-danger" onClick={() => history.push(ROUTE_PATH.COPY_TRADE)}>
-                  Active
+                <button
+                  type="button"
+                  className="btn btn-sm btn-danger"
+                  onClick={() => history.push(ROUTE_PATH.COPY_TRADE)}>
+                  {t('common:wallet.active')}
                 </button>
               )}
             </div>

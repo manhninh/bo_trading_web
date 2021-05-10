@@ -1,5 +1,6 @@
 import {useAppSelector} from 'boot/configureStore';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import ChangePasswordComponent from './changePassword';
 import EnableTFAComponent from './enableTFA';
 import './styled.css';

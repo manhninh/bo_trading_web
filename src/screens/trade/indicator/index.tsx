@@ -2,10 +2,12 @@ import {RootState, useAppSelector} from 'boot/configureStore';
 import _ from 'lodash';
 import React, {useMemo} from 'react';
 import ReactSpeedometer, {CustomSegmentLabelPosition, Transition} from 'react-d3-speedometer';
+import {useTranslation} from 'react-i18next';
 import {createSelector} from 'reselect';
 import './styled.css';
 
 const IndicatorComponent = () => {
+  const {t} = useTranslation();
   const makeSelectorIndicator = () =>
     createSelector(
       (state: RootState) => state.tradeState.indicator,
@@ -36,21 +38,21 @@ const IndicatorComponent = () => {
         <div className="public-user-block" style={{borderBottom: '1px solid #34373d'}}>
           <div className="row">
             <div className="col-5 pr-0">
-              <div className="order text-light fontcustom">Indicator</div>
+              <div className="order text-light fontcustom">{t('common:trade.indicator')}</div>
             </div>
             <div className="col-7 p-0">
               <div className="details d-flex">
                 <div className="item text-success">
                   <i className="fas fa-caret-up text-success m-l-10" />
-                  <strong className="fontcustom">Buy</strong>
+                  <strong className="fontcustom">{t('common:trade.buy')}</strong>
                 </div>
                 <div className="item text-warning">
                   <i className="fab fa-gg text-warning" />
-                  <strong className="fontcustom">Neutral</strong>
+                  <strong className="fontcustom">{t('common:trade.neutral')}</strong>
                 </div>
                 <div className="item text-danger">
                   <i className="fas fa-caret-down text-danger" />
-                  <strong className="fontcustom">Sell</strong>
+                  <strong className="fontcustom">{t('common:trade.sell')}</strong>
                 </div>
               </div>
             </div>
@@ -141,20 +143,20 @@ const IndicatorComponent = () => {
           ringWidth={40}
           needleHeightRatio={0.5}
           segmentColors={['#28a745', '#ffc107', '#F04B4B']}
-          currentValueText="Indicator"
+          currentValueText={t('common:trade.indicator')}
           customSegmentLabels={[
             {
-              text: 'BUY',
+              text: t('common:trade.buy'),
               position: CustomSegmentLabelPosition.Inside,
               color: '#FFFFFF',
             },
             {
-              text: 'Neutral',
+              text: t('common:trade.neutral'),
               position: CustomSegmentLabelPosition.Inside,
               color: '#FFFFFF',
             },
             {
-              text: 'SELL',
+              text: t('common:trade.sell'),
               position: CustomSegmentLabelPosition.Inside,
               color: '#FFFFFF',
             },
@@ -170,7 +172,9 @@ const IndicatorComponent = () => {
       <div className="col-3 p-0 mt-3">
         <div className="py-2 text-left" style={{color: indicator?.signal.color}}>
           <div className="title text-center d-inline-block">
-            <h3>Signal {indicator?.signal.type}</h3>
+            <h3>
+              {t('common:trade.signal')} {indicator?.signal.type}
+            </h3>
             <h3>{indicator?.indicator} %</h3>
           </div>
           {indicator?.signal.icon && (

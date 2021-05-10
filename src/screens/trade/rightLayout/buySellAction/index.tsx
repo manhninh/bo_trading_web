@@ -4,6 +4,7 @@ import {RootState, useAppSelector} from 'boot/configureStore';
 import {TypeUser, TYPE_ORDER} from 'constants/system';
 import {Order} from 'models/orders';
 import React, {useEffect, useMemo, useState} from 'react';
+import { useTranslation } from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {toast} from 'react-toastify';
 import {createSelector} from 'reselect';
@@ -15,6 +16,7 @@ import './styled.css';
 import WinLossComponent from './winloss';
 
 const BuySellAction = (props: IProps = Props) => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const buyRef = React.useRef(0);
   const sellRef = React.useRef(0);
@@ -147,22 +149,22 @@ const BuySellAction = (props: IProps = Props) => {
           <>
             <button className="btn btn-block btn-info btn-buy-sel-action" onClick={_btnBuy}>
               <img src={UpImage} className="btn-buy-sel-icon" />
-              <span className="btn-buy-sel-text">BUY</span>
+              <span className="btn-buy-sel-text">{t('common:rightbar.buy')}</span>
             </button>
             <button className="btn btn-block btn-danger btn-buy-sel-action mt-3" onClick={_btnSell}>
               <img src={DownImage} className="btn-buy-sel-icon" />
-              <span className="btn-buy-sel-text">SELL</span>
+              <span className="btn-buy-sel-text">{t('common:rightbar.sell')}</span>
             </button>
           </>
         ) : (
           <>
             <button className="btn btn-block btn-disabled btn-secondary btn-buy-sel-action" aria-readonly={true}>
               <img src={UpImage} className="btn-buy-sel-icon" />
-              <span className="btn-buy-sel-text">BUY</span>
+              <span className="btn-buy-sel-text">{t('common:rightbar.buy')}</span>
             </button>
             <button className="btn btn-block btn-disabled btn-secondary btn-buy-sel-action mt-3" aria-readonly={true}>
               <img src={DownImage} className="btn-buy-sel-icon" />
-              <span className="btn-buy-sel-text">SELL</span>
+              <span className="btn-buy-sel-text">{t('common:rightbar.sell')}</span>
             </button>
           </>
         )}
