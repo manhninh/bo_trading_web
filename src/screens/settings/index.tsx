@@ -1,25 +1,26 @@
 import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
-import _ from 'lodash';
 import React, {lazy, Suspense} from 'react';
 import {Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
+import {useTranslation} from 'react-i18next';
 import {NavLink, Redirect, Route, useLocation} from 'react-router-dom';
 import './styled.css';
 
-const components = {
-  profile: lazy(() => import('./profile')),
-  security: lazy(() => import('./security')),
-};
-
 const SettingComponent = () => {
+  const {t} = useTranslation();
   const {pathname} = useLocation();
+
+  const components = {
+    [t('common:setting.profile')]: lazy(() => import('./profile')),
+    [t('common:setting.security')]: lazy(() => import('./security')),
+  };
 
   const renderNavItems = () =>
     Object.keys(components).map((route) => (
       <NavItem key={`${route}-nav-item`}>
         <Nav.Link as={NavLink} to={`/settings/${route}`} active={pathname === `/settings/${route}`}>
-          {_.startCase(route)}
+          {t(`common:setting.${route}`)}
         </Nav.Link>
       </NavItem>
     ));
@@ -44,7 +45,7 @@ const SettingComponent = () => {
             <TabContent>
               <Suspense fallback={<SpinnerLoader />}>
                 <Switch>
-                  <Redirect from="/" to="/settings/profile" />
+                  <Redirect from="/" to="/settings/profile_account" />
                   {renderRoutes()}
                 </Switch>
               </Suspense>

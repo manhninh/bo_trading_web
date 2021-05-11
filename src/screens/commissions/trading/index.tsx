@@ -1,12 +1,22 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import HistoryTableComponent from 'screens/commissions/components/history';
 import {NameRoutes} from '../components/history/propState';
 
 const CommissionTrading = (props) => {
+  const {t} = useTranslation();
+
   const renderTable = {
-    headers: ['User name', 'F1 - F8', 'Volume (USDF)', 'Commission (USDF)', 'Withdraw'],
+    headers: [
+      t('common:commission.username'),
+      'F1 - F8',
+      t('common:commission.volume'),
+      t('common:commission.commission'),
+      t('common:commission.withdraw'),
+    ],
     props: ['username', 'level', 'investment_amount', 'commission', 'is_withdraw'],
   };
+
   return (
     <HistoryTableComponent
       tabActive={NameRoutes.TRADING}

@@ -1,7 +1,9 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {ROUTE_PATH} from 'routers/helpers';
 
 const WellcomeComponent = () => {
+  const {t} = useTranslation();
   return (
     <>
       <div className="background-img" />
@@ -12,17 +14,17 @@ const WellcomeComponent = () => {
               <div className="card p-5" style={{backgroundColor: 'transparent', border: 0, boxShadow: 'none'}}>
                 <div className="row">
                   <div className="col text-center">
-                    <h1 className="mb-3 text-light" style={{fontSize: '50px'}}>
-                      Wellcome to <span className="text-info">Finimix</span>
+                    <h1 className="mb-3 text-info" style={{fontSize: '50px'}}>
+                      {t('common:authen.wellcome')}
                     </h1>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-12 text-center">
-                    <p className="mb-1 text-light">Please check your email</p>
-                    <p className="mb-4 text-light">We have send registration confirmation email</p>
+                    <p className="mb-1 text-light">{t('common:authen.checkEmail')}</p>
+                    <p className="mb-4 text-light">{t('common:authen.wellcomeTitle')}</p>
                     <a href={ROUTE_PATH.TRADE} className="btn btn-danger">
-                      Go to Home
+                      {t('common:authen.gotoHome')}
                     </a>
                   </div>
                 </div>

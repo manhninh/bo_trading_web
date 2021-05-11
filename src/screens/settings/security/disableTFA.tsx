@@ -1,9 +1,10 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Modal} from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {changeStatusTFA} from 'routers/redux/slice';
 import * as yup from 'yup';
@@ -21,21 +22,20 @@ const Props: IProps = {
   onChangeOpenModal: () => {},
 };
 
-const schema = yup.object().shape({
-  password: yup.string().required('Password cannot be empty!'),
-  code: yup.string().when('password', {
-    is: (password) => !!password,
-    then: yup.string().required('2FA code cannot be empty!'),
-    otherwise: yup.string(),
-  }),
-});
-
 const DisableTFAComponent = (props: IProps = Props) => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
 
-  useEffect(() => {}, []);
+  const schema = yup.object().shape({
+    password: yup.string().required(t('common:setting.validPassword')),
+    code: yup.string().when('password', {
+      is: (password) => !!password,
+      then: yup.string().required(t('common:setting.valid2fa')),
+      otherwise: yup.string(),
+    }),
+  });
 
   const {
     register,
@@ -72,14 +72,14 @@ const DisableTFAComponent = (props: IProps = Props) => {
     <Modal onHide={props.onChangeOpenModal} show={props.openModal} centered={true}>
       <Modal.Header closeButton>
         <Modal.Title className="mb-0">
-          <h5 className="mb-0 text-primary d-inline-block title-modal">Disable Two-Factor Authentication</h5>
+          <h5 className="mb-0 text-primary d-inline-block title-modal">{t('common:setting.disabled2fa')}</h5>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="row">
           <div className="col-sm-12 col-md-12">
             <div className="form-group">
-              <label className="form-label">Password</label>
+              <label className="form-label">{t('common:setting.password')}</label>
               <input
                 type="password"
                 className={`form-control form-control-sm ${errors.password?.message ? 'is-invalid' : ''}`}
@@ -92,7 +92,7 @@ const DisableTFAComponent = (props: IProps = Props) => {
           </div>
           <div className="col-sm-12 col-md-12">
             <div className="form-group mb-0">
-              <label className="form-label">2FA Code</label>
+              <label className="form-label">{t('common:setting.2facode')}</label>
               <input
                 type="text"
                 className={`form-control form-control-sm ${errors.code?.message ? 'is-invalid' : ''}`}
@@ -107,7 +107,7 @@ const DisableTFAComponent = (props: IProps = Props) => {
       </Modal.Body>
       <Modal.Footer>
         <button type="submit" className="btn btn-sm btn-danger" onClick={handleSubmit(onSubmit)}>
-          Disable
+          {t('common:setting.disabled')}
         </button>
       </Modal.Footer>
     </Modal>

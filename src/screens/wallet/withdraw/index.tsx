@@ -8,6 +8,7 @@ import React, {useMemo, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {useGoogleReCaptcha} from 'react-google-recaptcha-v3';
 import {useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {formatter2} from 'utils/formatter';
 import * as yup from 'yup';
@@ -24,6 +25,7 @@ interface IFormWithdraw {
 }
 
 const WithdrawComponent = (props: IProps = Props) => {
+  const {t} = useTranslation();
   const formDefault: Readonly<IFormWithdraw> = {
     symbol: 'trc20',
     address: '',
@@ -32,7 +34,6 @@ const WithdrawComponent = (props: IProps = Props) => {
     tfa: '',
   };
   const {executeRecaptcha} = useGoogleReCaptcha();
-  const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
   const [state, setState] = useState({
@@ -45,22 +46,22 @@ const WithdrawComponent = (props: IProps = Props) => {
   const fees = state.symbol === 'trc20' ? config.FEE_TRC20 : config.FEE_ERC20;
 
   const schema = yup.object().shape({
-    symbol: yup.string().required('Symbol is required'),
+    symbol: yup.string().required(t('common:wallet.validSymbol')),
     amount: yup
       .number()
-      .typeError('Must be a number')
+      .typeError(t('common:wallet.validTypeError'))
       .min(
         Number(state.symbol === 'trc20' ? config.MIN_WITHDRAW_TRC20 : config.MIN_WITHDRAW_ERC20),
-        `Amount must not be less than ${
+        `${t('common:wallet.validAmountLess')} ${
           state.symbol === 'trc20' ? config.MIN_WITHDRAW_TRC20 : config.MIN_WITHDRAW_ERC20
         }`,
       )
-      .required('Amount cannot be empty'),
-    address: yup.string().required('Address cannot be empty'),
-    password: yup.string().required('Password cannot be empty'),
+      .required(t('common:wallet.validAmountEmpty')),
+    address: yup.string().required(t('common:wallet.validAddress')),
+    password: yup.string().required(t('common:wallet.validPassword')),
     tfa: yup.string().when('password', {
       is: (_) => !!isEnabledTFA,
-      then: yup.string().required('Two-Factor Authentication cannot be empty!'),
+      then: yup.string().required(t('common:wallet.valid2fa')),
       otherwise: yup.string(),
     }),
   });
@@ -105,13 +106,13 @@ const WithdrawComponent = (props: IProps = Props) => {
   return (
     <>
       <button type="button" className="btn btn-sm btn-success ml-2" onClick={handleShow}>
-        Withdraw
+        {t('common:wallet.withdraw')}
       </button>
       <Modal show={state.show} onHide={handleClose} backdrop="static" keyboard={false} dialogClassName="modal-500w">
         <Modal.Header closeButton>
           <Modal.Title>
             <img src={UsdtPng} alt="..." className="img-fluid w-70" />
-            <h2 className="mb-0 text-primary d-inline-block title-modal">Withdraw Money</h2>
+            <h2 className="mb-0 text-primary d-inline-block title-modal">{t('common:wallet.withdrawModal1')}</h2>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -129,7 +130,9 @@ const WithdrawComponent = (props: IProps = Props) => {
               </Button>
             </div>
             <div className="col-6 d-flex justify-content-end mt-1">
-              <span className="text-primary text-bold mb-0">Balance: {formatter2.format(amount)} USDT</span>
+              <span className="text-primary text-bold mb-0">
+                {t('common:wallet.balance')}: {formatter2.format(amount)} USDT
+              </span>
             </div>
           </div>
           <form className="form-validate">
@@ -137,7 +140,7 @@ const WithdrawComponent = (props: IProps = Props) => {
               <div className="col-6">
                 <div className="form-group">
                   <label className="form-control-label">
-                    Amount <span className="text-danger">*</span>
+                    {t('common:wallet.amount')} <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
@@ -151,15 +154,17 @@ const WithdrawComponent = (props: IProps = Props) => {
                 </div>
               </div>
               <div className="col-6">
-                <p className="mb-2 text-right">Withdraw fees: {fees} USDT</p>
-                <p className="mb-2 text-right">Net Amount: 0 USDT</p>
+                <p className="mb-2 text-right">
+                  {t('common:wallet.withdrawFees')} {fees} USDT
+                </p>
+                {/* <p className="mb-2 text-right">{t('common:wallet.netAmount')} 0 USDT</p> */}
               </div>
             </div>
             <div className="row">
               <div className="col-12">
                 <div className="form-group">
                   <label className="form-control-label">
-                    Address USDT - ERC20 <span className="text-danger">*</span>
+                    {t('common:wallet.address')} <span className="text-danger">*</span>
                   </label>
                   <input type="text" className="form-control form-control-sm" {...register('address')} />
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
@@ -172,7 +177,7 @@ const WithdrawComponent = (props: IProps = Props) => {
               <div className="col-md-6 col-xs-12">
                 <div className="form-group">
                   <label className="form-control-label">
-                    Password <span className="text-danger">*</span>
+                    {t('common:wallet.password')} <span className="text-danger">*</span>
                   </label>
                   <input type="password" className="form-control form-control-sm" {...register('password')} />
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
@@ -183,7 +188,7 @@ const WithdrawComponent = (props: IProps = Props) => {
               {isEnabledTFA ? (
                 <div className="col-md-6 col-xs-12">
                   <div className="form-group">
-                    <label className="form-control-label">Two-factor authentication</label>
+                    <label className="form-control-label">{t('common:wallet.2fa')}</label>
                     <input type="text" className="form-control form-control-sm" maxLength={6} {...register('tfa')} />
                     <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                       {errors.tfa?.message}
@@ -192,12 +197,9 @@ const WithdrawComponent = (props: IProps = Props) => {
                 </div>
               ) : null}
             </div>
-            <input
-              type="button"
-              value="WITHDRAW"
-              className="btn btn-block btn-success"
-              onClick={handleSubmit(onSubmit)}
-            />
+            <button type="button" className="btn btn-block btn-success" onClick={handleSubmit(onSubmit)}>
+              {t('common:wallet.withdraw')}
+            </button>
           </form>
         </Modal.Body>
       </Modal>

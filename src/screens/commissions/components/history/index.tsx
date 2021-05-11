@@ -5,6 +5,7 @@ import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {useTranslation} from 'react-i18next';
 import {
   getCommissionsCopyTrade,
   getCommissionsMemberList,
@@ -24,6 +25,7 @@ interface PaginateResult<T> {
 }
 
 const HistoryTableComponent = (props: IProps = Props) => {
+  const {t} = useTranslation();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
@@ -42,10 +44,6 @@ const HistoryTableComponent = (props: IProps = Props) => {
       getHistory(1);
     }
   }, [props.requestRefesh]);
-
-  useEffect(() => {
-    getHistory(pageActive);
-  }, [pageActive]);
 
   const getHistory = async (page: number, limit?: number, _filterSearch?: FilterSearch) => {
     try {
@@ -102,6 +100,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
 
   const _pageChange = (page: number) => {
     setPageActive(page);
+    getHistory(page);
   };
 
   const _search = async () => {
@@ -141,7 +140,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
       return (
         <tr>
           <td colSpan={props.renderTable.headers.length + 2} className="text-center">
-            No data
+            {t('common:commission.nodata')}
           </td>
         </tr>
       );
@@ -158,7 +157,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
     <>
       <div className="d-flex justify-content-end mt-3">
         <div className="input-group input-group-sm datePicker-group">
-          <div className="datePicker-text">From</div>
+          <div className="datePicker-text">{t('common:commission.from')}</div>
           <DatePicker
             maxDate={filterSearch.to}
             minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
@@ -173,7 +172,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
           </div>
         </div>
         <div className="input-group input-group-sm datePicker-group">
-          <div className="datePicker-text">To</div>
+          <div className="datePicker-text">{t('common:commission.to')}</div>
           <DatePicker
             minDate={filterSearch.from}
             maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
@@ -188,7 +187,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
           </div>
         </div>
         <button type="submit" className="btn btn-sm btn-danger" onClick={_search}>
-          Search
+          {t('common:commission.search')}
         </button>
       </div>
       <div className="table-responsive">
@@ -196,7 +195,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
           <thead>
             <tr>
               <th className="text-light">No.</th>
-              <th className="text-light">Time</th>
+              <th className="text-light">{t('common:commission.date')}</th>
               {_renderHeaders()}
             </tr>
           </thead>

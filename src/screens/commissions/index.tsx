@@ -2,26 +2,20 @@ import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import {cloneDeep, startCase} from 'lodash';
+import {cloneDeep} from 'lodash';
 import React, {lazy, Suspense, useEffect, useState} from 'react';
 import {Modal, Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
+import {useTranslation} from 'react-i18next';
 import {Redirect, Route, useLocation} from 'react-router';
 import {NavLink} from 'react-router-dom';
-import CommissionCopyTrade from './commissionCopyTrade';
 import CommissionTrade from './commissionTrade';
 import {Commission} from './propState';
 import {commissionWithdraw, getCommissions} from './services';
 import './styled.css';
 
-const components = {
-  trading: lazy(() => import('./trading')),
-  // copy_trade: lazy(() => import('./copytrade')),
-  history_withdraw: lazy(() => import('./historyWithdraw')),
-  member_list: lazy(() => import('./memberList')),
-};
-
 const CommissionComponent = () => {
+  const {t} = useTranslation();
   const {pathname} = useLocation();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
@@ -32,6 +26,14 @@ const CommissionComponent = () => {
     withdraw: 0,
     requestRefesh: null,
   });
+
+  const components = {
+    [t('common:commission.trading')]: lazy(() => import('./trading')),
+    // copy_trade: lazy(() => import('./copytrade')),
+    [t('common:commission.withdrawHistory')]: lazy(() => import('./historyWithdraw')),
+    [t('common:commission.memberList')]: lazy(() => import('./memberList')),
+  };
+
   useEffect(() => {
     (async () => {
       const result = await getCommissions();
@@ -45,15 +47,11 @@ const CommissionComponent = () => {
     return commissions.find((c) => c.type_commission === type);
   };
 
-  const onRequestRefesh = (tabActive) => {
-    setState({...state, requestRefesh: tabActive});
-  };
-
   const renderNavItems = () =>
     Object.keys(components).map((route) => (
       <NavItem key={`${route}-nav-item`}>
         <Nav.Link as={NavLink} to={`/commissions/${route}`} active={pathname === `/commissions/${route}`}>
-          {startCase(route.split('_').join(' '))}
+          {t(`common:commission.${route}`)}
         </Nav.Link>
       </NavItem>
     ));
@@ -112,7 +110,7 @@ const CommissionComponent = () => {
               <TabContent>
                 <Suspense fallback={<SpinnerLoader />}>
                   <Switch>
-                    <Redirect from="/" to="/commissions/trading" />
+                    <Redirect from="/" to="/commissions/trading_history" />
                     {renderRoutes()}
                   </Switch>
                 </Suspense>
@@ -123,15 +121,15 @@ const CommissionComponent = () => {
         <Modal centered={true} show={state.show} onHide={handleClose} backdrop="static" keyboard={false}>
           <Modal.Body>
             <p className="text-light">
-              Would you like to withdraw <span className="text-danger text-bold">{state.withdraw} USDF</span> to your
-              spot wallet?
+              {t('common:commission.title1')} <span className="text-danger text-bold">{state.withdraw} USDF</span>{' '}
+              {t('common:commission.title2')}
             </p>
             <div className="text-right">
               <button type="submit" className="btn btn-sm btn-info mr-2" onClick={confirmWithdraw}>
-                Yes
+                {t('common:commission.yes')}
               </button>
               <button type="submit" className="btn btn-sm btn-danger" onClick={handleClose}>
-                No
+                {t('common:commission.no')}
               </button>
             </div>
           </Modal.Body>

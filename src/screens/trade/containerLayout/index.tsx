@@ -9,7 +9,7 @@ import './styled.css';
 const ContainerLayout = (props: Props) => {
   return (
     <>
-      <HeaderLayout />
+      <HeaderLayout openLogin={false} openRegister={false} />
       <div className="sidebar-container">
         <SidebarLayout />
       </div>

@@ -1,42 +1,35 @@
-import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import DisableTFAComponent from 'screens/settings/security/disableTFA';
 import './styled.css';
-const EnableTFAComponent = () => {
-  const dispatch = useDispatch();
-  const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
-  const [openDisableTFA, setOpenDisableTFA] = useState<boolean>(false);
 
-  useEffect(() => {}, []);
+const EnableTFAComponent = () => {
+  const {t} = useTranslation();
+  const [openDisableTFA, setOpenDisableTFA] = useState<boolean>(false);
 
   const _showHideDisableTFA = () => {
     setOpenDisableTFA(!openDisableTFA);
   };
+
   return (
     <div className="row">
       <div className="col-12">
         <div className="card mb-2">
           <div className="card-header px-0">
             <h3 className="card-title text-danger title-tfa">
-              <span>Two-Factor Authentication</span>
+              <span>{t('common:setting.2fa')}</span>
             </h3>
           </div>
           <div className="card-body px-0">
             <div className="row">
               <div className="col-lg-12">
                 <div className="user-block block text-center">
-                  <b>Two-Factor authentication is enabled.</b>
-                  <p>
-                    If you want to switch to a new device, disable two-factor authentication, then enable it again using
-                    the new device.
-                  </p>
+                  <b>{t('common:setting.2faEnabled')}</b>
+                  <p>{t('common:setting.2faTitle')}</p>
                   <div className="mb-2 row justify-content-center">
                     <div className="btn-group mr-4" role="group" aria-label="First group">
                       <button type="button" className="btn btn-secondary btn-disable-twa" onClick={_showHideDisableTFA}>
-                        Disable 2FA
+                        {t('common:setting.2faDisabled')}
                       </button>
                     </div>
                   </div>

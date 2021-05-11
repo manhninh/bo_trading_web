@@ -4,6 +4,7 @@ import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React from 'react';
 import {useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
 import {ROUTE_PATH} from 'routers/helpers';
@@ -19,6 +20,7 @@ interface IFormChangePW {
 }
 
 const ChangePasswordComponent = () => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
@@ -31,7 +33,7 @@ const ChangePasswordComponent = () => {
         .string()
         .when(['newPW', 'newPWConfirm'], {
           is: (newPW: string, newPWConfirm: string) => !!newPW || !!newPWConfirm,
-          then: yup.string().required('Current password cannot be empty!'),
+          then: yup.string().required(t('common:setting.validNewPass')),
           otherwise: yup.string(),
         })
         .required('Current Password cannot be empty!'),
@@ -39,22 +41,22 @@ const ChangePasswordComponent = () => {
         is: (currentPW: string, newPWConfirm: string) => !!newPWConfirm || !!currentPW,
         then: yup
           .string()
-          .required('New Password cannot be empty!')
-          .min(6, 'New Password must be at least 6 characters!')
-          .max(20, 'New Password must be at most 20 characters!'),
+          .required(t('common:setting.validConfirmNewPass'))
+          .min(6, t('common:setting.validConfirmMin'))
+          .max(20, t('common:setting.validConfirmMax')),
         otherwise: yup.string(),
       }),
       newPWConfirm: yup.string().when(['newPW', 'currentPW'], {
         is: (newPW: string, currentPW: string) => !!newPW,
         then: yup
           .string()
-          .oneOf([yup.ref('newPW')], 'Password is not match')
-          .required('Confirm password cannot be empty!'),
+          .oneOf([yup.ref('newPW')], t('common:setting.validNewConfirm'))
+          .required(t('common:setting.validNewConfirmRequired')),
         otherwise: yup.string(),
       }),
       tfa: yup.string().when('currentPW', {
         is: (_) => !!enabledTFA,
-        then: yup.string().required('Two-Factor Authentication cannot be empty!'),
+        then: yup.string().required(t('common:setting.valid2faPass')),
         otherwise: yup.string(),
       }),
     },
@@ -96,13 +98,13 @@ const ChangePasswordComponent = () => {
       <div className="col-12">
         <form className="card mb-2">
           <div className="card-header px-0">
-            <h3 className="card-title text-danger">Change password</h3>
+            <h3 className="card-title text-danger">{t('common:setting.changePassword')}</h3>
           </div>
           <div className="card-body px-0">
             <div className="row">
               <div className="col-12">
                 <div className="form-group">
-                  <label className="form-label">Current Password</label>
+                  <label className="form-label">{t('common:setting.currentPassword')}</label>
                   <input
                     type="password"
                     className={`form-control form-control-sm ${
@@ -117,7 +119,7 @@ const ChangePasswordComponent = () => {
               </div>
               <div className="col-12">
                 <div className="form-group">
-                  <label className="form-label">New Password</label>
+                  <label className="form-label">{t('common:setting.newPassword')}</label>
                   <input
                     type="password"
                     className={`form-control form-control-sm ${formState.errors.newPW?.message ? 'is-invalid' : ''}`}
@@ -130,7 +132,7 @@ const ChangePasswordComponent = () => {
               </div>
               <div className="col-12">
                 <div className="form-group">
-                  <label className="form-label">Confirm New Password</label>
+                  <label className="form-label">{t('common:setting.confirmNewPassword')}</label>
                   <input
                     type="password"
                     className={`form-control form-control-sm ${
@@ -146,7 +148,7 @@ const ChangePasswordComponent = () => {
               {enabledTFA && (
                 <div className="col-12">
                   <div className="form-group">
-                    <label className="form-label">Two-factor authentication</label>
+                    <label className="form-label">{t('common:setting.2fa')}</label>
                     <input
                       maxLength={6}
                       type="text"
@@ -162,7 +164,7 @@ const ChangePasswordComponent = () => {
               <div className="col-12">
                 <div className="form-group">
                   <button type="submit" className="btn btn-sm btn-danger" onClick={handleSubmit(onSubmit)}>
-                    Change password
+                    {t('common:setting.changePassword')}
                   </button>
                 </div>
               </div>

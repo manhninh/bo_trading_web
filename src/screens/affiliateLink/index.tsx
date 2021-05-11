@@ -9,12 +9,14 @@ import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useState} from 'react';
 import {Modal} from 'react-bootstrap';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {restoreAccount} from 'routers/redux/slice';
 import {fetchBuySponsor} from './services';
 import './styled.css';
 
 const AffiliateLinkComponent = () => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const {showLoading, hideLoading} = useLoading();
@@ -49,19 +51,19 @@ const AffiliateLinkComponent = () => {
           <div className="col-lg-6">
             <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center mb-4">
               <h1 className="mb-2 mb-sm-0 text-light" color="text">
-                You need to buy Agency license to receive Agency Commissions and Trading Commissions
+                {t('common:affiliateLink.title1')}
               </h1>
             </div>
             {!is_sponsor ? (
               <button type="button" className="btn btn-lg btn-danger mb-5" onClick={toogleModal}>
-                Buy Now
+                {t('common:affiliateLink.buyNow')}
               </button>
             ) : null}
           </div>
           <div className="col-lg-6">
             <div className="block">
               <div className="title text-light">
-                <strong>Copy Affiliate Link & send to your friends</strong>
+                <strong>{t('common:affiliateLink.title2')}</strong>
               </div>
               <div className="block-body">
                 <form>
@@ -77,7 +79,7 @@ const AffiliateLinkComponent = () => {
                       <div className="input-group-append">
                         <CopyToClipboard text={`${config.WEB}/register?sponsor=${affiliateLink}`}>
                           <button type="button" className="btn btn-sm btn-danger">
-                            Copy
+                            {t('common:affiliateLink.copy')}
                           </button>
                         </CopyToClipboard>
                       </div>
@@ -93,42 +95,43 @@ const AffiliateLinkComponent = () => {
             <div className="user-block block text-center">
               <img src={InviteFriendImg} alt="..." className="img-fluid" />
               <a href="#" className="user-title">
-                <h3 className="h5 text-light">1. Invite Friends</h3>
+                <h3 className="h5 text-light">{t('common:affiliateLink.title3')}</h3>
               </a>
-              <div className="contributions text-light">Invite friends to register youweb through the link copy</div>
+              <div className="contributions text-light">{t('common:affiliateLink.subTitle3')}</div>
             </div>
           </div>
           <div className="col-lg-4">
             <div className="user-block block text-center">
               <img src={MemberF1Img} alt="..." className="img-fluid" />
               <a href="#" className="user-title">
-                <h3 className="h5 text-light">2. Member F1</h3>
+                <h3 className="h5 text-light">{t('common:affiliateLink.title4')}</h3>
               </a>
-              <div className="contributions text-light">Each subscriber from the link becomes F1 in your system</div>
+              <div className="contributions text-light">{t('common:affiliateLink.subTitle4')}</div>
             </div>
           </div>
           <div className="col-lg-4">
             <div className="user-block block text-center">
               <img src={ActivateImg} alt="..." className="img-fluid" />
               <a href="#" className="user-title">
-                <h3 className="h5 text-light">3. Activate & Receive IB Commissions</h3>
+                <h3 className="h5 text-light">{t('common:affiliateLink.title5')}</h3>
               </a>
-              <div className="contributions text-light">Each subscriber from the link becomes F1 in your system</div>
+              <div className="contributions text-light">{t('common:affiliateLink.subTitle5')}</div>
             </div>
           </div>
         </div>
         <Modal show={showModal} centered={true} onHide={toogleModal}>
           <Modal.Body>
             <p className="text-light">
-              Do you agree to pay <span className="text-danger text-bold">30 USDF</span> to purchase Affiliate License
-              to receive Agent Commissions and Trading Commissions?
+              {t('common:affiliateLink.title6')}{' '}
+              <span className="text-danger text-bold">{t('common:affiliateLink.title7')}</span>{' '}
+              {t('common:affiliateLink.title8')}
             </p>
             <div className="text-right">
               <button type="submit" className="btn btn-sm btn-info mr-2" onClick={buySponsor}>
-                Yes, I'm buy
+                {t('common:affiliateLink.title9')}
               </button>
               <button type="submit" className="btn btn-sm btn-danger" onClick={toogleModal}>
-                No, I'm not buy
+                {t('common:affiliateLink.title10')}
               </button>
             </div>
           </Modal.Body>

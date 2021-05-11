@@ -10,7 +10,7 @@ const height = window.innerHeight - 90;
 const ContainerLayout = (props: Props) => {
   return (
     <>
-      <HeaderLayout />
+      <HeaderLayout openLogin={false} openRegister={false} />
       <div className="sidebar-container">
         <SidebarLayout />
       </div>

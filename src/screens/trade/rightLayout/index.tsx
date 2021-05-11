@@ -1,5 +1,6 @@
 import {MaxAmountPlace, PlaceType} from 'constants/system';
 import React, {useState} from 'react';
+import { useTranslation } from 'react-i18next';
 import NumberFormat from 'react-number-format';
 import ActionInfor from './actionInfor';
 import BuySellAction from './buySellAction';
@@ -7,6 +8,7 @@ import CountDownTimer from './countDown';
 import './styled.css';
 
 const RightLayout = () => {
+  const {t} = useTranslation();
   const [place, setPlace] = useState(1);
 
   const onChangeAmount = (e: any) => {
@@ -37,7 +39,7 @@ const RightLayout = () => {
     <>
       <div className="block block-container">
         <div className="title">
-          <strong className="d-block">Profit</strong>
+          <strong className="d-block">{t('common:rightbar.profit')}</strong>
         </div>
         <div className="block-body">
           <div className="stats-2 d-flex">
@@ -52,7 +54,7 @@ const RightLayout = () => {
       </div>
       <div className="block block-container">
         <div className="title">
-          <strong className="d-block">Invesment</strong>
+          <strong className="d-block">{t('common:rightbar.invesment')}</strong>
         </div>
         <div className="block-body">
           <div className="form-group">
