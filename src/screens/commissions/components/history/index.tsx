@@ -5,7 +5,7 @@ import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import {
   getCommissionsCopyTrade,
   getCommissionsMemberList,
@@ -44,10 +44,6 @@ const HistoryTableComponent = (props: IProps = Props) => {
       getHistory(1);
     }
   }, [props.requestRefesh]);
-
-  useEffect(() => {
-    getHistory(pageActive);
-  }, [pageActive]);
 
   const getHistory = async (page: number, limit?: number, _filterSearch?: FilterSearch) => {
     try {
@@ -104,6 +100,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
 
   const _pageChange = (page: number) => {
     setPageActive(page);
+    getHistory(page);
   };
 
   const _search = async () => {
@@ -143,7 +140,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
       return (
         <tr>
           <td colSpan={props.renderTable.headers.length + 2} className="text-center">
-          {t('common:commission.nodata')}
+            {t('common:commission.nodata')}
           </td>
         </tr>
       );
@@ -190,7 +187,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
           </div>
         </div>
         <button type="submit" className="btn btn-sm btn-danger" onClick={_search}>
-        {t('common:commission.search')}
+          {t('common:commission.search')}
         </button>
       </div>
       <div className="table-responsive">

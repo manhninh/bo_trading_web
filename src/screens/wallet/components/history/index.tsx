@@ -1,15 +1,15 @@
 import Pagination from 'containers/components/pagination';
 import useError from 'containers/hooks/errorProvider/useError';
-import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
-import { capitalize } from "lodash";
-import { TransationHistory } from 'models/wallet';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import {capitalize} from 'lodash';
+import {TransationHistory} from 'models/wallet';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
-import { useTranslation } from 'react-i18next';
-import { fetchTransactionHistory, TYPE_HISTORY } from 'screens/wallet/services';
-import { TRANSACTION_STATUS } from 'screens/wallet/transfer/propState';
-import { FilterSearch, IProps, Props } from './propState';
+import {useTranslation} from 'react-i18next';
+import {fetchTransactionHistory, TYPE_HISTORY} from 'screens/wallet/services';
+import {TRANSACTION_STATUS} from 'screens/wallet/transfer/propState';
+import {FilterSearch, IProps, Props} from './propState';
 
 interface PaginateResult<T> {
   docs: Array<T>;
@@ -22,8 +22,8 @@ interface PaginateResult<T> {
 
 const HistoryTableComponent = (props: IProps = Props) => {
   const {t} = useTranslation();
-  const { showLoading, hideLoading } = useLoading();
-  const { addError } = useError();
+  const {showLoading, hideLoading} = useLoading();
+  const {addError} = useError();
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
     from: new Date(),
     to: new Date(),
@@ -74,7 +74,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   };
 
   const _onChangeDate = (type: 'from' | 'to') => (value: Date) => {
-    setFilterSearch({ ...filterSearch, [type]: value });
+    setFilterSearch({...filterSearch, [type]: value});
   };
 
   const _pageChange = (page: number) => {
@@ -90,7 +90,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
       return (
         <tr>
           <td colSpan={6} className="text-center">
-          {t('common:wallet.nodata')}
+            {t('common:wallet.nodata')}
           </td>
         </tr>
       );
@@ -98,8 +98,12 @@ const HistoryTableComponent = (props: IProps = Props) => {
       <tr key={`${props.tabActive}-history-${i}`}>
         <th scope="row">{i + 1}</th>
         <td>{moment(d.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>
-        {props.tabActive === 'TRANSFER' && <td>{d.from_wallet ? `Wallet ${d.from_wallet}`.toUpperCase() : d.from_username}</td>}
-        {props.tabActive === 'TRANSFER' && <td>{d.to_wallet ? `Wallet ${d.to_wallet}`.toUpperCase() : d.to_username}</td>}
+        {props.tabActive === 'TRANSFER' && (
+          <td>{d.from_wallet ? `Wallet ${d.from_wallet}`.toUpperCase() : d.from_username}</td>
+        )}
+        {props.tabActive === 'TRANSFER' && (
+          <td>{d.to_wallet ? `Wallet ${d.to_wallet}`.toUpperCase() : d.to_username}</td>
+        )}
         <td>{d.amount}</td>
         {props.tabActive !== 'TRANSFER' && <td>{d.symbol}</td>}
         {props.tabActive === 'WITHDRAW' && <td>{d.address ?? ''}</td>}
@@ -142,7 +146,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
           </div>
         </div>
         <button type="submit" className="btn btn-sm btn-danger" onClick={_search}>
-        {t('common:wallet.search')}
+          {t('common:wallet.search')}
         </button>
       </div>
       <div className="table-responsive">

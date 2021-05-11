@@ -2,14 +2,13 @@ import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import {cloneDeep, startCase} from 'lodash';
+import {cloneDeep} from 'lodash';
 import React, {lazy, Suspense, useEffect, useState} from 'react';
 import {Modal, Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
 import {useTranslation} from 'react-i18next';
 import {Redirect, Route, useLocation} from 'react-router';
 import {NavLink} from 'react-router-dom';
-import CommissionCopyTrade from './commissionCopyTrade';
 import CommissionTrade from './commissionTrade';
 import {Commission} from './propState';
 import {commissionWithdraw, getCommissions} from './services';
@@ -17,7 +16,6 @@ import './styled.css';
 
 const CommissionComponent = () => {
   const {t} = useTranslation();
-
   const {pathname} = useLocation();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
@@ -49,15 +47,11 @@ const CommissionComponent = () => {
     return commissions.find((c) => c.type_commission === type);
   };
 
-  const onRequestRefesh = (tabActive) => {
-    setState({...state, requestRefesh: tabActive});
-  };
-
   const renderNavItems = () =>
     Object.keys(components).map((route) => (
       <NavItem key={`${route}-nav-item`}>
         <Nav.Link as={NavLink} to={`/commissions/${route}`} active={pathname === `/commissions/${route}`}>
-          {startCase(route.split('_').join(' '))}
+          {t(`common:commission.${route}`)}
         </Nav.Link>
       </NavItem>
     ));
@@ -116,7 +110,7 @@ const CommissionComponent = () => {
               <TabContent>
                 <Suspense fallback={<SpinnerLoader />}>
                   <Switch>
-                    <Redirect from="/" to="/commissions/trading" />
+                    <Redirect from="/" to="/commissions/trading_history" />
                     {renderRoutes()}
                   </Switch>
                 </Suspense>

@@ -15,4 +15,5 @@
   position: fixed;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 11;
+  top: 0;
 }

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Transition, TransitionStatus } from 'react-transition-group';
+import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
+import {Transition, TransitionStatus} from 'react-transition-group';
 import LogInComponent from '../component';
-import { Props, State } from './propState';
+import {Props, State} from './propState';
 import './styled.css';
 
 const duration = 200;
 
 const LogInPopupComponent = (props: Props) => {
+  const {t} = useTranslation();
   const [state, setState] = useState<State>({
     username: '',
     password: '',
@@ -14,19 +16,19 @@ const LogInPopupComponent = (props: Props) => {
   });
 
   useEffect(() => {
-    setState((state) => ({ ...state, isOpen: props.isOpen }));
+    setState((state) => ({...state, isOpen: props.isOpen}));
   }, [props.isOpen]);
 
   const toogleForm = () => {
-    setState((state) => ({ ...state, isOpen: !state.isOpen }));
+    setState((state) => ({...state, isOpen: !state.isOpen}));
     props.callbackToogle();
   };
 
   const sidebarTransitionStyles = {
-    entering: { width: 0 },
-    entered: { width: '400px' },
-    exiting: { width: '400px' },
-    exited: { width: 0 },
+    entering: {width: 0},
+    entered: {width: '400px'},
+    exiting: {width: '400px'},
+    exited: {width: 0},
   };
 
   return (
@@ -49,7 +51,7 @@ const LogInPopupComponent = (props: Props) => {
                 </button>
               </div>
               <div className="text-left my-5">
-                <h2 className="text-light">Log in to your account</h2>
+                <h2 className="text-light">{t('common:authen.loginTitle')}</h2>
               </div>
               <LogInComponent />
             </div>

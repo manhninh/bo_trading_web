@@ -4,6 +4,7 @@ import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import {User} from 'models/users';
 import React from 'react';
 import {useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {useHistory, useLocation} from 'react-router';
 import {toast} from 'react-toastify';
 import {ROUTE_PATH} from 'routers/helpers';
@@ -17,27 +18,28 @@ interface IFormInputs {
   confirmPassword: string;
 }
 
-const schema = yup.object().shape({
-  username: yup.string().required('Username cannot be empty!'),
-  email: yup.string().email('Email is not in the correct format!').required('Email cannot be empty!'),
-  password: yup
-    .string()
-    .min(6, 'Password must be at least 6 characters!')
-    .max(20, 'Password must be at most 20 characters!')
-    .required('Password cannot be empty!'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], 'Password is not match')
-    .required('Confirm password cannot be empty!'),
-});
-
 const RegisterComponent = () => {
+  const {t} = useTranslation();
   const history = useHistory();
   const location = useLocation();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
   const params = new URLSearchParams(location.search);
   const sponsor = params.get('sponsor');
+
+  const schema = yup.object().shape({
+    username: yup.string().required(t('common:authen.requiredUsername')),
+    email: yup.string().email(t('common:authen.formatEmail')).required(t('common:authen.validEmail')),
+    password: yup
+      .string()
+      .min(6, t('common:authen.validPasswordMin'))
+      .max(20, t('common:authen.validPasswordMax'))
+      .required(t('common:authen.validPasswordRequired')),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password')], t('common:authen.validConfirmPassMatch'))
+      .required(t('common:authen.validConfirmPassRequired')),
+  });
 
   const {
     register,
@@ -76,11 +78,12 @@ const RegisterComponent = () => {
     <>
       <form className="form-validate">
         <div className="form-group">
-          <label>Sponsor:</label> <label className="text-primary text-bold">{sponsor || 'none'}</label>
+          <label>{t('common:authen.sponsor')}</label>{' '}
+          <label className="text-primary text-bold">{sponsor || 'none'}</label>
         </div>
         <div className="form-group">
           <label>
-            Username <span className="text-danger">*</span>
+            {t('common:authen.username')} <span className="text-danger">*</span>
           </label>
           <input
             type="text"
@@ -91,7 +94,7 @@ const RegisterComponent = () => {
         </div>
         <div className="form-group">
           <label>
-            Email <span className="text-danger">*</span>
+            {t('common:authen.email')} <span className="text-danger">*</span>
           </label>
           <input
             type="text"
@@ -102,7 +105,7 @@ const RegisterComponent = () => {
         </div>
         <div className="form-group">
           <label>
-            Password <span className="text-danger">*</span>
+            {t('common:authen.password')} <span className="text-danger">*</span>
           </label>
           <input
             type="password"
@@ -113,7 +116,7 @@ const RegisterComponent = () => {
         </div>
         <div className="form-group">
           <label>
-            Confirm Password <span className="text-danger">*</span>
+            {t('common:authen.confirmPassword')} <span className="text-danger">*</span>
           </label>
           <input
             type="password"
@@ -130,10 +133,10 @@ const RegisterComponent = () => {
             className="checkbox-template"
             defaultChecked={true}
           />
-          <label htmlFor="register-agree">I agree with the terms and policy</label>
+          <label htmlFor="register-agree">{t('common:authen.term')}</label>
         </div>
         <button className="btn btn-lg btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
-          Create Account
+          {t('common:authen.createAccount')}
         </button>
       </form>
     </>

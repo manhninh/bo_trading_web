@@ -1,23 +1,24 @@
-import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useState} from 'react';
-import './styled.css';
-import * as yup from 'yup';
-import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
+import useError from 'containers/hooks/errorProvider/useError';
+import React, {useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {ROUTE_PATH} from 'routers/helpers';
+import * as yup from 'yup';
 import {postForgotPassword} from './services';
+import './styled.css';
 
 interface IFormInputs {
   username: string;
 }
 
 const ForgotPasswordComponent = () => {
+  const {t} = useTranslation();
   const {addError} = useError();
   const [showMess, setShowMess] = useState(false);
 
   const schema = yup.object().shape({
-    username: yup.string().required('Username or Email cannot be empty!'),
+    username: yup.string().required(t('common:authen.validUsername')),
   });
 
   const {
@@ -61,7 +62,7 @@ const ForgotPasswordComponent = () => {
                       {!showMess ? (
                         <>
                           <div className="form-group">
-                            <label>Email</label>
+                            <label>{t('common:authen.email')}</label>
                             <input
                               autoFocus
                               type="text"
@@ -72,16 +73,14 @@ const ForgotPasswordComponent = () => {
                             <div className="is-invalid invalid-feedback">{errors.username?.message}</div>
                           </div>
                           <button className="btn btn-sm btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
-                            Send email
+                            {t('common:authen.senEmail')}
                           </button>
                         </>
                       ) : (
                         <>
-                          <p className="mb-4 text-warning">
-                            A new password has been sent to your email. Please check your email!
-                          </p>
+                          <p className="mb-4 text-warning">{t('common:authen.titleForgot')}</p>
                           <a href={ROUTE_PATH.TRADE} className="btn btn-sm btn-block btn-danger">
-                            Go to Home
+                            {t('common:authen.gotoHome')}
                           </a>
                         </>
                       )}

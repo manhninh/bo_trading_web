@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Transition, TransitionStatus} from 'react-transition-group';
 import {ROUTE_PATH} from 'routers/helpers';
 import RegisterComponent from '../conponent';
@@ -8,6 +9,7 @@ import './styled.css';
 const duration = 200;
 
 const RegisterPopup = (props: Props) => {
+  const {t} = useTranslation();
   const [state, setState] = useState<State>({
     isOpen: false,
   });
@@ -48,12 +50,12 @@ const RegisterPopup = (props: Props) => {
                 </button>
               </div>
               <div className="text-left my-5">
-                <h2 className="text-light">Create Finimix account</h2>
+                <h2 className="text-light">{t('common:authen.createTitle')}</h2>
               </div>
               <RegisterComponent />
               <p className="text-center">
                 <p className="text-muted text-center">
-                  Already have an account? <a href={ROUTE_PATH.LOGIN}>Login</a>.
+                  {t('common:authen.readyAccount')} <a href={ROUTE_PATH.LOGIN}>{t('common:authen.register')}</a>.
                 </p>
               </p>
             </div>

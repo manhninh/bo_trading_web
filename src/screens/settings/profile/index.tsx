@@ -21,6 +21,7 @@ interface IFormProfile {
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const ImageforwardRef = ({myAvatar, onChangeAvatar, onSelectFile}, ref: React.LegacyRef<HTMLInputElement>) => {
+  const {t} = useTranslation();
   const avatarDefault = `${process.env.PUBLIC_URL}/img/user.png`;
   const [avatar, setAvatar] = useState<string>(avatarDefault);
 
@@ -40,8 +41,8 @@ const ImageforwardRef = ({myAvatar, onChangeAvatar, onSelectFile}, ref: React.Le
     <>
       <input type="file" id="file" ref={ref} onChange={_onChangeAvatar} style={{display: 'none'}} accept="image/*" />
       <img src={avatar} className="card-profile-img avatar-profile" />
-      <button className="btn btn-outline-secondary mb-3" onClick={onSelectFile}>
-        <span className="fas fa-camera"></span> Change avatar
+      <button className="btn btn-outline-secondary d-block" style={{margin: '0 auto'}} onClick={onSelectFile}>
+        <span className="fas fa-camera"></span> {t('common:setting.changeAvatar')}
       </button>
     </>
   );

@@ -3,6 +3,7 @@ import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router';
 import {ROUTE_PATH} from 'routers/helpers';
@@ -17,6 +18,7 @@ interface IFormInputs {
 }
 
 const LogInComponent = () => {
+  const {t} = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
   const {showLoading, hideLoading} = useLoading();
@@ -24,11 +26,11 @@ const LogInComponent = () => {
   const [showTFA, setShowTFA] = useState(false);
 
   const schema = yup.object().shape({
-    username: yup.string().required('Username or Email cannot be empty!'),
-    password: yup.string().required('Password cannot be empty!'),
+    username: yup.string().required(t('common:authen.validUsername')),
+    password: yup.string().required(t('common:authen.validPassword')),
     tfa: yup.string().when('isEmail', {
       is: true,
-      then: yup.string().required('Two-Factor Authentication cannot be empty!'),
+      then: yup.string().required(t('common:authen.valid2fa')),
       otherwise: yup.string(),
     }),
   });
@@ -67,7 +69,7 @@ const LogInComponent = () => {
   return (
     <form className="form-validate">
       <div className="form-group">
-        <label>Username or Email</label>
+        <label>{t('common:authen.usernameOrEmail')}</label>
         <input
           type="text"
           className={`form-control ${errors.username?.message ? 'is-invalid' : ''}`}
@@ -77,9 +79,9 @@ const LogInComponent = () => {
       </div>
       <div className="form-group">
         <div className="d-flex" style={{justifyContent: 'space-between'}}>
-          <label className="d-inline-block">Password</label>
+          <label className="d-inline-block">{t('common:authen.password')}</label>
           <a href={ROUTE_PATH.FORGOT_PASSWORD} className="small text-danger d-inline-block">
-            Forgot password?
+            {t('common:authen.forgotPassword')}
           </a>
         </div>
         <input
@@ -91,7 +93,7 @@ const LogInComponent = () => {
       </div>
       {showTFA ? (
         <div className="form-group">
-          <label>Two-Factor Authentication</label>
+          <label>{t('common:authen.2fa')}</label>
           <input
             type="text"
             className={`form-control ${errors.tfa?.message ? 'is-invalid' : ''}`}
@@ -102,11 +104,11 @@ const LogInComponent = () => {
         </div>
       ) : null}
       <button className="btn btn-block btn-danger mb-3" onClick={handleSubmit(onSubmit)}>
-        Login
+        {t('common:authen.login')}
       </button>
       <p className="text-center">
         <p className="text-muted text-center">
-          Don't have an account yet? <a href={ROUTE_PATH.REGISTER}>Register</a>.
+          {t('common:authen.donotAccount')} <a href={ROUTE_PATH.REGISTER}>{t('common:authen.register')}</a>.
         </p>
       </p>
     </form>

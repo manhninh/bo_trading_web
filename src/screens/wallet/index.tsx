@@ -2,7 +2,6 @@ import {useAppSelector} from 'boot/configureStore';
 import config from 'constants/config';
 import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
-import _ from 'lodash';
 import React, {lazy, Suspense, useCallback, useState} from 'react';
 import {Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
@@ -18,7 +17,7 @@ import {TYPE_WALLET} from './transfer/propState';
 import WithdrawComponent from './withdraw';
 
 const WalletComponent = () => {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {pathname} = useLocation();
   const history = useHistory();
   const amount = useAppSelector((state) => state.authState.accountInfor.amount);
@@ -48,7 +47,7 @@ const WalletComponent = () => {
     Object.keys(components).map((route) => (
       <NavItem key={`${route}-nav-item`}>
         <Nav.Link as={NavLink} to={`/wallet/${route}`} active={pathname === `/wallet/${route}`}>
-          {_.startCase(route.split('_').join(' '))}
+          {t(`common:wallet.${route}`)}
         </Nav.Link>
       </NavItem>
     ));

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import {RouteComponentProps} from 'react-router';
@@ -7,6 +8,7 @@ import {fetchVerifyUserInfor} from './services';
 import './styled.css';
 
 const VerifyEmailComponent = (props: RouteComponentProps) => {
+  const {t} = useTranslation();
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -48,7 +50,7 @@ const VerifyEmailComponent = (props: RouteComponentProps) => {
                       </div>
                     )}
                     <a href={ROUTE_PATH.TRADE} className="btn btn-danger">
-                      Go to Home
+                      {t('common:authen.gotoHome')}Go to Home
                     </a>
                   </div>
                 </div>
