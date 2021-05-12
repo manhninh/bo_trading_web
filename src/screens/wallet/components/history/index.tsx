@@ -1,3 +1,4 @@
+import {useAppSelector} from 'boot/configureStore';
 import Pagination from 'containers/components/pagination';
 import useError from 'containers/hooks/errorProvider/useError';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
@@ -24,6 +25,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   const {t} = useTranslation();
   const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
+  const user_id = useAppSelector((state) => state.authState.accountInfor._id);
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
     from: new Date(),
     to: new Date(),
@@ -99,7 +101,13 @@ const HistoryTableComponent = (props: IProps = Props) => {
         <th scope="row">{i + 1}</th>
         <td>{moment(d.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>
         {props.tabActive === 'TRANSFER' && (
-          <td>{d.from_wallet ? `Wallet ${d.from_wallet}`.toUpperCase() : d.from_username}</td>
+          <td>
+            {d.user_id !== user_id
+              ? d.from_username
+              : d.from_wallet
+              ? `Wallet ${d.from_wallet}`.toUpperCase()
+              : d.from_username}
+          </td>
         )}
         {props.tabActive === 'TRANSFER' && (
           <td>{d.to_wallet ? `Wallet ${d.to_wallet}`.toUpperCase() : d.to_username}</td>
