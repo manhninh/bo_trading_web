@@ -95,6 +95,7 @@ section {
   border-bottom: 0;
 }
 
-.grecaptcha-badge{
+.grecaptcha-badge,
+.highcharts-credits {
   display: none !important;
 }
