@@ -3,6 +3,7 @@ import {EVENTS, ROOM} from 'screens/trade/socketContext/socketConfig';
 import {Socket} from 'socket.io-client';
 import {addResultToBlocks, setIndicator, setResultBlocks, setTimeTick} from '../redux/slice';
 import {OHLC, Volumes, ContextType} from './context';
+import {random} from 'utils/formatter';
 
 export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
   if (!socketCandlestick) return;
@@ -16,6 +17,8 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
 
   /** lấy dữ liệu nến sau khi join room ethusdt */
   socketCandlestick.on(EVENTS.BLOCKS_ETHUSDT, (result: any) => {
+    console.log(result, 'result');
+    // const blocks = result.slice(-66);
     // thêm object vào mảng block cuối cùng để front-end runtime data
     const ohlc: OHLC[] = [];
     const volumes: Volumes[] = [];
@@ -27,9 +30,15 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
         Number(item.low),
         Number(item.close),
       ]);
+      const newVolume =
+        Number(item.volume) <= 10
+          ? Number(item.volume) + 10
+          : Number(item.volume) >= 50
+          ? 50 - random(1, 10)
+          : Number(item.volume);
       volumes.push({
         x: new Date(item.event_time).valueOf(),
-        y: Number(item.volume) <= 10 ? Number(item.volume) + 10 : Number(item.volume),
+        y: newVolume,
         color: Number(item.open) > Number(item.close) ? '#F04B4B' : '#16CEB9',
       });
     });
@@ -50,7 +59,20 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
       y: volumes[volumes.length - 1][1],
       color: '#16CEB9',
     });
-    console.log(volumes, 'volumes');
+
+    // đường ema
+    // let period = 34;
+    // let values = result.map((item: any) => Number(item.close));
+    // let emaIndicator = EMA.calculate({period, values});
+    // const ema10 = result.slice(-67);
+    // const ema10Indicator = ema10.map((item: any, index: number) => {
+    //   return {
+    //     x: new Date(item.event_time).valueOf(),
+    //     y: emaIndicator[index],
+    //   };
+    // });
+    // console.log(ema10Indicator, 'ema10Indicator');
+    // end: đường ema
     setValue((state: ContextType) => ({...state, ohlc, volumes}));
   });
 
@@ -78,10 +100,17 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
       Number(real_data.high),
       Number(real_data.low),
       Number(real_data.close),
+      Number(real_data.volume) <= 10 ? Number(real_data.volume) + 10 : Number(real_data.volume),
     ];
+    const newVolume =
+      Number(real_data.volume) <= 10
+        ? Number(real_data.volume) + 10
+        : Number(real_data.volume) >= 50
+        ? 50 - random(1, 10)
+        : Number(real_data.volume);
     const volumes = {
       x: newDate,
-      y: Number(real_data.volume) <= 10 ? Number(real_data.volume) + 10 : Number(real_data.volume),
+      y: newVolume,
       color: Number(real_data.open) > Number(real_data.close) ? '#F04B4B' : '#16CEB9',
     };
     setValue((state: ContextType) => ({...state, real_data: realData, real_volume: volumes, timeTick}));

@@ -10,6 +10,7 @@ export type Volumes = {
 
 export type ContextType = {
   ohlc: OHLC[];
+  indicators: OHLC[];
   volumes: Volumes[];
   real_data: OHLC | null;
   real_volume: Volumes | null;
@@ -18,6 +19,7 @@ export type ContextType = {
 
 const SocketContext = createContext<ContextType>({
   ohlc: new Array<OHLC>(),
+  indicators: new Array<OHLC>(),
   volumes: new Array<Volumes>(),
   real_data: null,
   real_volume: null,

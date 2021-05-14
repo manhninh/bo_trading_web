@@ -62,10 +62,6 @@
   content: '\e90b';
 }
 
-@import-normalize;
-section {
-  padding: 0 1rem;
-}
 
 .dropdown-toggle::after {
   font-family: 'Font Awesome 5 Free';

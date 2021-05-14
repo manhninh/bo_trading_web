@@ -5,8 +5,7 @@ export type IProps = {
 };
 
 export type IState = {
-  isLoading: boolean;
   ohlc: OHLC[];
+  indicators: OHLC[];
   volumes: Volumes[];
-  options: any;
 };

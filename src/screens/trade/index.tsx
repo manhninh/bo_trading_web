@@ -27,7 +27,7 @@ const TradingComponent = () => {
   return authState ? (
     <ContainerLayout>
       <div className="row">
-        <div className="col-lg-12 pr-0" style={{height}}>
+        <div className="col-12 px-0" style={{height}}>
           <SocketProvider>
             <CryptoChart height={height} />
           </SocketProvider>

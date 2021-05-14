@@ -14,6 +14,7 @@ const SocketProvider = (props: any) => {
 
   const [value, setValue] = useState({
     ohlc: new Array<OHLC>(),
+    indicators: new Array<OHLC>(),
     volumes: new Array<Volumes>(),
     real_data: null,
     real_volume: null,
