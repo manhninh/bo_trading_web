@@ -5,10 +5,10 @@ import {useTranslation} from 'react-i18next';
 import {createSelector} from 'reselect';
 import Dashboard from 'screens/dashboard';
 import ContainerLayout from './containerLayout';
-import CryptoChart from './cryptoChart';
+import CryptoChart from './highCharts';
 import Indicator from './indicator';
 import LastResult from './lastResult';
-import SocketProvider from './socketContext';
+import SocketProvider from './highChartSocketContext';
 import './styled.css';
 
 const height = window.innerHeight - 272;
@@ -27,7 +27,7 @@ const TradingComponent = () => {
   return authState ? (
     <ContainerLayout>
       <div className="row">
-        <div className="col-lg-12 pr-0" style={{height}}>
+        <div className="col-12 px-0" style={{height}}>
           <SocketProvider>
             <CryptoChart height={height} />
           </SocketProvider>
