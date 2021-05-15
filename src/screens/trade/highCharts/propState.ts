@@ -6,6 +6,5 @@ export type IProps = {
 
 export type IState = {
   ohlc: OHLC[];
-  indicators: OHLC[];
   volumes: Volumes[];
 };

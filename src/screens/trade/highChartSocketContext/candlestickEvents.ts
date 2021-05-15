@@ -17,8 +17,6 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
 
   /** lấy dữ liệu nến sau khi join room ethusdt */
   socketCandlestick.on(EVENTS.BLOCKS_ETHUSDT, (result: any) => {
-    console.log(result, 'result');
-    // const blocks = result.slice(-66);
     // thêm object vào mảng block cuối cùng để front-end runtime data
     const ohlc: OHLC[] = [];
     const volumes: Volumes[] = [];
@@ -30,15 +28,9 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
         Number(item.low),
         Number(item.close),
       ]);
-      const newVolume =
-        Number(item.volume) <= 10
-          ? Number(item.volume) + 10
-          : Number(item.volume) >= 50
-          ? 50 - random(1, 10)
-          : Number(item.volume);
       volumes.push({
         x: new Date(item.event_time).valueOf(),
-        y: newVolume,
+        y: item.volume,
         color: Number(item.open) > Number(item.close) ? '#F04B4B' : '#16CEB9',
       });
     });
@@ -60,19 +52,6 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
       color: '#16CEB9',
     });
 
-    // đường ema
-    // let period = 34;
-    // let values = result.map((item: any) => Number(item.close));
-    // let emaIndicator = EMA.calculate({period, values});
-    // const ema10 = result.slice(-67);
-    // const ema10Indicator = ema10.map((item: any, index: number) => {
-    //   return {
-    //     x: new Date(item.event_time).valueOf(),
-    //     y: emaIndicator[index],
-    //   };
-    // });
-    // console.log(ema10Indicator, 'ema10Indicator');
-    // end: đường ema
     setValue((state: ContextType) => ({...state, ohlc, volumes}));
   });
 
@@ -100,17 +79,10 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
       Number(real_data.high),
       Number(real_data.low),
       Number(real_data.close),
-      Number(real_data.volume) <= 10 ? Number(real_data.volume) + 10 : Number(real_data.volume),
     ];
-    const newVolume =
-      Number(real_data.volume) <= 10
-        ? Number(real_data.volume) + 10
-        : Number(real_data.volume) >= 50
-        ? 50 - random(1, 10)
-        : Number(real_data.volume);
     const volumes = {
       x: newDate,
-      y: newVolume,
+      y: real_data.volume,
       color: Number(real_data.open) > Number(real_data.close) ? '#F04B4B' : '#16CEB9',
     };
     setValue((state: ContextType) => ({...state, real_data: realData, real_volume: volumes, timeTick}));

@@ -2,5 +2,19 @@
   width: 120px;
   height: 36px;
   position: absolute;
-  top: 1.5rem;
+  top: 0;
+  left: 0;
+}
+
+.plot-line {
+  color: #ffffff;
+  font-size: 12px;
+  font-family: Muli, sans-serif;
+  padding: 4px 2px;
+}
+
+.tootipChart {
+  padding: 10px;
+  color: #ffffff;
+  font-size: 13px;
 }
