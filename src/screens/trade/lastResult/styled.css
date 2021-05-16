@@ -2,22 +2,21 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   height: 170px;
 }
 
 .div-result {
-  width: 720px;
-  max-width: 720px;
-  text-align: left;
-  display: inline-block;
+  width: 800px;
+  display: flex;
+  justify-content: center;
 }
 
 .div-total-result {
   width: 140px;
   max-width: 140px;
   margin-left: 20px;
-  display: inline-block;
+  display: block;
 }
 
 .m-l-rem {
@@ -26,9 +25,10 @@
 
 .div-win-loss {
   border-radius: 5px;
-  height: 1.3rem;
-  width: 1.3rem;
+  height: 28px;
+  width: 28px;
   display: inline-block;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+  margin-left: 3.5px;
+  margin-right: 3.5px;
+  background-color: #34373d;
 }

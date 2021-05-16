@@ -38,18 +38,22 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
       const plotLine = yAxis.plotLinesAndBands[0];
       if (!plotLine) return;
       const plotElem = plotLine.svgElem;
-      const label = plotLine.label;
       const d = plotElem.d.split(' ');
       const newY = yAxis.toPixels(real_data[4]) - d[2];
-      plotElem.animate({translateY: newY}, 300);
-      plotElem.attr('stroke', open < real_data[4] ? '#16CEB9' : '#F04B4B');
-      label.animate({y: yAxis.toPixels(real_data[4])}, 300);
-      label.attr(
-        'text',
-        `<span class="plot-line" style="background-color: ${
-          open < real_data[4] ? '#16CEB9' : '#F04B4B'
-        }">${real_data[4].toFixed(2)}</span>`,
-      );
+      if (plotElem) {
+        plotElem.animate({translateY: newY}, 300);
+        plotElem.attr('stroke', open < real_data[4] ? '#16CEB9' : '#F04B4B');
+      }
+      const label = plotLine.label;
+      if (label) {
+        label.animate({y: yAxis.toPixels(real_data[4])}, 300);
+        label.attr(
+          'text',
+          `<span class="plot-line" style="background-color: ${
+            open < real_data[4] ? '#16CEB9' : '#F04B4B'
+          }">${real_data[4].toFixed(2)}</span>`,
+        );
+      }
     },
     addData(real_data: [number, number, number, number, number], real_volume: {x: number; y: number}) {
       const currentChart: any = chart.current;
@@ -68,13 +72,15 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
       const plotLine = yAxis.plotLinesAndBands[0];
       if (!plotLine) return;
       const label = plotLine.label;
-      label.animate({y: yAxis.toPixels(real_data[4])}, 300);
-      label.attr(
-        'text',
-        `<span class="plot-line" style="background-color: ${
-          real_data[1] < real_data[4] ? '#16CEB9' : '#F04B4B'
-        }">${real_data[4].toFixed(2)}</span>`,
-      );
+      if (label) {
+        label.animate({y: yAxis.toPixels(real_data[4])}, 300);
+        label.attr(
+          'text',
+          `<span class="plot-line" style="background-color: ${
+            real_data[1] < real_data[4] ? '#16CEB9' : '#F04B4B'
+          }">${real_data[4].toFixed(2)}</span>`,
+        );
+      }
     },
   }));
 
@@ -89,6 +95,7 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
       style: {
         fontFamily: 'Muli, sans-serif',
       },
+      spacing: [50, 10, 0, 0],
     },
     plotOptions: {
       candlestick: {
@@ -174,7 +181,7 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
       shadow: false,
       shared: true,
       split: false,
-      useHTML:true, 
+      useHTML: true,
       formatter: function () {
         const points = this['points'];
         if (points.length >= 2) {
@@ -222,7 +229,7 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
   return (
     <>
       <img src={ETHUSDT} className="icon-eth" />
-      <HighchartsReact ref={chart} highcharts={Highcharts} constructorType={'stockChart'} options={options} />;
+      <HighchartsReact ref={chart} highcharts={Highcharts} constructorType={'stockChart'} options={options} />
     </>
   );
 });

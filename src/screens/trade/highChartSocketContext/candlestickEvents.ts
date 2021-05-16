@@ -1,9 +1,8 @@
 import moment from 'moment';
-import {EVENTS, ROOM} from 'screens/trade/socketContext/socketConfig';
+import {EVENTS, ROOM} from './socketConfig';
 import {Socket} from 'socket.io-client';
 import {addResultToBlocks, setIndicator, setResultBlocks, setTimeTick} from '../redux/slice';
 import {OHLC, Volumes, ContextType} from './context';
-import {random} from 'utils/formatter';
 
 export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
   if (!socketCandlestick) return;
@@ -55,9 +54,33 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
     setValue((state: ContextType) => ({...state, ohlc, volumes}));
   });
 
-  /** lấy dữ liệu kết quả nến để tổng hợp sau khi join room ethusdt */
+  /** lấy dữ liệu 96 nến kết quả sau khi join room ethusdt */
   socketCandlestick.on(EVENTS.RESULT_ETHUSDT, (result: any) => {
-    dispatch(setResultBlocks(result));
+    const blocks: any[] = [];
+    let groupIndex = 1;
+    for (let index = 0; index <= 5; index++) {
+      const group = result[index];
+      if (group) {
+        if (index === 0) groupIndex = result[index]._id;
+        const data = new Array();
+        for (let i = 0; i <= 15; i++) {
+          const current = group.el_number[i];
+          data.push(current === null || current === undefined ? null : current);
+        }
+        blocks.push({groupIndex, data});
+      } else {
+        const data = new Array(16);
+        data.fill(null);
+        blocks.push({groupIndex, data});
+      }
+      groupIndex += 1;
+    }
+    dispatch(setResultBlocks(blocks));
+  });
+
+  /** kêt quả cuối cùng trả ra */
+  socketCandlestick.on(EVENTS.LAST_RESULT, (result: any) => {
+    dispatch(addResultToBlocks(result));
   });
 
   /** dữ liệu nến trả về từng giây */
@@ -65,12 +88,6 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
     const real_data = result.candlestick;
     const timeTick = result.timeTick % 30;
     const isTrade = result.timeTick >= 30 ? false : true;
-    if (result.timeTick === 0) {
-      let newResult: boolean | null = null;
-      if (real_data.open < real_data.close) newResult = false;
-      else if (real_data.open > real_data.close) newResult = true;
-      if (newResult) dispatch(addResultToBlocks({result: newResult}));
-    }
     dispatch(setTimeTick({timeTick, isTrade}));
     const newDate = new Date(real_data.event_time).valueOf();
     const realData = [

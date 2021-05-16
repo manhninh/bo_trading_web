@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, current, PayloadAction} from '@reduxjs/toolkit';
 import {Indicator, TradeState} from './state';
 import {fetchCurrentOrder} from './thunks';
 
@@ -59,16 +59,36 @@ const tradeSlice = createSlice({
       ...state,
       resultWinLoss: action.payload,
     }),
-    setResultBlocks: (state: TradeState, action: PayloadAction<{result: boolean}[]>) => ({
+    setResultBlocks: (state: TradeState, action: PayloadAction<any[]>) => ({
       ...state,
       blocks: action.payload,
     }),
-    addResultToBlocks: (state: TradeState, action: PayloadAction<{result: boolean}>) => {
-      const newBlocks = [...state.blocks, action.payload];
-      newBlocks.shift();
+    addResultToBlocks: (state: TradeState, action: PayloadAction<any>) => {
+      const newBlocks = current(state).blocks;
+      const blocks = newBlocks.map((item) => {
+        if (item.groupIndex == action.payload.group) {
+          const newData = [...item.data];
+          newData[action.payload.el_number - 1] = action.payload.result;
+          return {
+            groupIndex: item.groupIndex,
+            data: newData,
+          };
+        }
+        return item;
+      });
+      const elLastBlock = blocks[blocks.length - 1].data[15];
+      if (elLastBlock) {
+        blocks.shift();
+        const data = new Array(16);
+        data.fill(null);
+        blocks.push({
+          groupIndex: blocks[blocks.length - 1].groupIndex + 1,
+          data,
+        });
+      }
       return {
         ...state,
-        blocks: newBlocks,
+        blocks,
       };
     },
   },
@@ -96,14 +116,7 @@ const tradeSlice = createSlice({
   },
 });
 
-export const {
-  setTimeTick,
-  setIndicator,
-  setTotalBuy,
-  setTotalSell,
-  setWinLoss,
-  setResultBlocks,
-  addResultToBlocks,
-} = tradeSlice.actions;
+export const {setTimeTick, setIndicator, setTotalBuy, setTotalSell, setWinLoss, setResultBlocks, addResultToBlocks} =
+  tradeSlice.actions;
 
 export default tradeSlice.reducer;

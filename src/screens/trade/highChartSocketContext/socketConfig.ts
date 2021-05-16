@@ -6,6 +6,7 @@ export enum EVENTS {
   USER_AMOUNT_CHANGE = 'user_amount',
   AUTH_ERROR = 'auth_error',
   RESULT_BUY_SELL = 'result_buy_sell',
+  LAST_RESULT = 'last_result',
 }
 
 export enum ROOM {

@@ -26,5 +26,5 @@ export type TradeState = {
     amount_expert: number | null;
     amount_trade: number | null;
   };
-  blocks: {result: boolean}[];
+  blocks: any[];
 };
