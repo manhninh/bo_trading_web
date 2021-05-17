@@ -77,7 +77,7 @@ const tradeSlice = createSlice({
         return item;
       });
       const elLastBlock = blocks[blocks.length - 1].data[15];
-      if (elLastBlock) {
+      if (elLastBlock !== null) {
         blocks.shift();
         const data = new Array(16);
         data.fill(null);
