@@ -9,7 +9,8 @@ export enum TYPE_WALLET {
 export enum TRANSACTION_STATUS {
   PENDING,
   SUCCESS,
-  CANCELLED
+  CANCELLED,
+  PROCESSING
 }
 
 export type IProps = {

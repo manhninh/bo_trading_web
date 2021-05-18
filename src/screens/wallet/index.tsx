@@ -105,7 +105,7 @@ const WalletComponent = () => {
               />
             </div>
           </div>
-          <div className="col-md-6 col-xs-12">
+          {/* <div className="col-md-6 col-xs-12">
             <div className="statistic-block block block-custom">
               <div className="progress-details d-flex align-items-center justify-content-between">
                 <div className="title">
@@ -151,7 +151,7 @@ const WalletComponent = () => {
                 </button>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="row">
           <div className="col-12">

@@ -3,6 +3,9 @@ import {Modal} from 'react-bootstrap';
 import {useDispatch} from 'react-redux';
 import {setTotalBuy, setTotalSell, setWinLoss} from 'screens/trade/redux/slice';
 import './styled.css';
+import useSound from 'use-sound';
+import winSound from './win.mp3';
+import loseSound from './lose.mp3';
 
 type IProps = {
   result: number | null;
@@ -16,9 +19,13 @@ const Props: IProps = {
 
 const WinLossComponent = (props: IProps = Props) => {
   const dispatch = useDispatch();
+  const [playWin] = useSound(winSound);
+  const [playLose] = useSound(loseSound);
 
   useEffect(() => {
     if (props.result) {
+      console.log(winSound, 'winSound');
+      props.result >= 0 ? playWin() : playLose();
       // 2s sau tắt thông báo
       setTimeout(() => {
         dispatch(setTotalBuy(0));
