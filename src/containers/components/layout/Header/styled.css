@@ -8,7 +8,7 @@
 nav.navbar {
   padding-top: 0;
   padding-bottom: 0;
-  min-height: 72px;
+  min-height: 70px;
   background: transparent;
   border: 0;
 }
@@ -79,5 +79,17 @@ nav.navbar .sidebar-toggle {
 
   nav.navbar .sidebar-toggle {
     display: block !important;
+  }
+}
+
+@media (max-width: 575px) {
+  nav.navbar {
+    min-height: 60px;
+  }
+
+  nav.navbar .navbar-brand {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 8px;
   }
 }

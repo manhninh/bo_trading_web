@@ -18,3 +18,10 @@
   color: #ffffff;
   font-size: 13px;
 }
+
+@media (max-width: 575px) {
+  .icon-eth {
+    top: 6px;
+    left: 15px;
+  }
+}

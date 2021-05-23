@@ -15,6 +15,13 @@
 }
 
 .value {
-  font-size: 50px;
+  font-size: 25px;
   font-weight: bold;
+}
+
+@media (max-width: 575px) {
+  .timer-container {
+    width: 60px;
+    height: 60px;
+  }
 }

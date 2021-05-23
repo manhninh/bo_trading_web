@@ -1,13 +1,13 @@
 .page-content-custom {
-  min-height: calc(100% - 72px) !important;
+  min-height: calc(100% - 70px) !important;
   width: calc(100% - 300px);
   padding-bottom: 0;
-  margin-top: 72px !important;
+  margin-top: 70px !important;
 }
 
 .right-container {
   position: fixed;
-  top: 72px;
+  top: 70px;
   right: 0;
   z-index: 3;
   height: 100%;
@@ -21,4 +21,12 @@
   top: 0;
   left: 0;
   bottom: 0;
+}
+
+@media (max-width: 575px) {
+  .page-content-custom {
+    min-height: calc(100% - 60px) !important;
+    margin-top: 60px !important;
+    width: 100%;
+  }
 }

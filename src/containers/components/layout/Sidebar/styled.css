@@ -29,3 +29,29 @@ nav#sidebar li a:hover {
 nav#sidebar a {
   color: #ffffff;
 }
+
+@media (max-width: 575px) {
+  .sidebar-container {
+    background-color: #21252a;
+    border-right: 1px solid #34373d;
+    top: 60px;
+    z-index: 9999;
+  }
+
+  .sidebar-toggle {
+    width: 36px;
+    height: 36px;
+    line-height: 29px;
+    text-align: center;
+    border-radius: 50%;
+    background: #282b2f;
+    color: #8a8d93;
+    font-size: 1.1rem;
+    border: 2px solid #3d4148;
+    z-index: 9999;
+    position: fixed;
+    right: 15px;
+    top: 10px;
+    outline: 0 !important;
+  }
+}
