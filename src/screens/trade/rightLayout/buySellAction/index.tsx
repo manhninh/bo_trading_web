@@ -1,14 +1,15 @@
 import DownImage from 'assets/images/down.png';
 import UpImage from 'assets/images/up.png';
 import {RootState, useAppSelector} from 'boot/configureStore';
-import {TypeUser, TYPE_ORDER} from 'constants/system';
+import {RESPONSE_STATUS, TypeUser, TYPE_ORDER} from 'constants/system';
 import {Order} from 'models/orders';
 import React, {useEffect, useMemo, useState} from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router';
 import {toast} from 'react-toastify';
 import {createSelector} from 'reselect';
-import {restoreAccount} from 'routers/redux/slice';
+import {restoreAccount, signOut} from 'routers/redux/slice';
 import {setTotalBuy, setTotalSell} from 'screens/trade/redux/slice';
 import {IProps, Props} from './propState';
 import {fetchOrder} from './services';
@@ -16,6 +17,7 @@ import './styled.css';
 import WinLossComponent from './winloss';
 
 const BuySellAction = (props: IProps = Props) => {
+  const history = useHistory();
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const buyRef = React.useRef(0);
@@ -98,7 +100,12 @@ const BuySellAction = (props: IProps = Props) => {
         .then((result) => {
           if (!result) toast.error('Orders fail!');
         })
-        .catch(() => toast.error('Orders fail!'));
+        .catch((err) => {
+          if (err.status === RESPONSE_STATUS.FORBIDDEN) {
+            dispatch(signOut());
+            history.push('/');
+          } else toast.error('Orders fail!');
+        });
     } else toast.error('Your balance is not enough!');
   };
 
@@ -122,7 +129,12 @@ const BuySellAction = (props: IProps = Props) => {
         .then((result) => {
           if (!result) toast.error('Orders fail!');
         })
-        .catch(() => toast.error('Orders fail!'));
+        .catch((err) => {
+          if (err.status === RESPONSE_STATUS.FORBIDDEN) {
+            dispatch(signOut());
+            history.push('/');
+          } else toast.error('Orders fail!');
+        });
     } else toast.error('Your balance is not enough!');
   };
 
