@@ -1,6 +1,6 @@
+import SpinnerLoader from 'containers/components/loader';
 import Pagination from 'containers/components/pagination';
 import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
@@ -26,15 +26,16 @@ interface PaginateResult<T> {
 
 const HistoryTableComponent = (props: IProps = Props) => {
   const {t} = useTranslation();
-  const {showLoading, hideLoading} = useLoading();
+  // const {showLoading, hideLoading} = useLoading();
   const {addError} = useError();
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
     from: new Date(),
     to: new Date(),
   });
   const [pageActive, setPageActive] = useState<number>(1);
-  const [history, setHistory] = useState<PaginateResult<any>>({
-    docs: [],
+  const [loading, showLoading] = useState(false);
+  const [history, setHistory] = useState({
+    docs: new Array(),
     total: -1,
     limit: 50,
   });
@@ -46,8 +47,8 @@ const HistoryTableComponent = (props: IProps = Props) => {
   }, [props.requestRefesh]);
 
   const getHistory = async (page: number, limit?: number, _filterSearch?: FilterSearch) => {
+    showLoading(true);
     try {
-      showLoading();
       limit = limit || history.limit;
       _filterSearch = _filterSearch || filterSearch;
       let result;
@@ -85,12 +86,16 @@ const HistoryTableComponent = (props: IProps = Props) => {
           });
           break;
       }
-
-      setHistory(result.data);
+      console.log(result.data.docs, 'result.data');
+      setHistory({
+        docs: result.data.docs,
+        total: result.data.total,
+        limit: result.data.limit,
+      });
     } catch (err) {
       addError(err, 'Load transaction history fail!');
     } finally {
-      hideLoading();
+      showLoading(false);
     }
   };
 
@@ -99,6 +104,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   };
 
   const _pageChange = (page: number) => {
+    console.log('sss');
     setPageActive(page);
     getHistory(page);
   };
@@ -113,6 +119,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
 
   const _renderValues = (data) => {
     const list_td: any = [];
+    console.log(props, 'props');
     props.renderTable.props.map((p, index) => {
       if (p === 'investment_amount' || p === 'commission' || p === 'amount') {
         list_td.push(
@@ -136,6 +143,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   };
 
   const _renderRows = () => {
+    console.log(history, 'history');
     if (history?.docs.length === 0)
       return (
         <tr>
@@ -153,37 +161,41 @@ const HistoryTableComponent = (props: IProps = Props) => {
     ));
   };
 
-  return (
+  return loading ? (
+    <SpinnerLoader />
+  ) : (
     <>
-      <div className="d-flex justify-content-end mt-3">
-        <div className="input-group input-group-sm datePicker-group">
-          <div className="datePicker-text">{t('common:commission.from')}</div>
-          <DatePicker
-            maxDate={filterSearch.to}
-            minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
-            selected={filterSearch.from}
-            className="form-control datePicker-input"
-            onChange={_onChangeDate('from')}
-          />
-          <div className="input-group-append">
-            <span className="input-group-text">
-              <i className="fas fa-calendar-alt" />
-            </span>
+      <div className="d-flex justify-content-end mt-3 from-to">
+        <div className="date-group">
+          <div className="input-group input-group-sm datePicker-group">
+            <div className="datePicker-text">{t('common:commission.from')}</div>
+            <DatePicker
+              maxDate={filterSearch.to}
+              minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
+              selected={filterSearch.from}
+              className="form-control datePicker-input"
+              onChange={_onChangeDate('from')}
+            />
+            <div className="input-group-append">
+              <span className="input-group-text">
+                <i className="fas fa-calendar-alt" />
+              </span>
+            </div>
           </div>
-        </div>
-        <div className="input-group input-group-sm datePicker-group">
-          <div className="datePicker-text">{t('common:commission.to')}</div>
-          <DatePicker
-            minDate={filterSearch.from}
-            maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
-            selected={filterSearch.to}
-            className="form-control datePicker-input"
-            onChange={_onChangeDate('to')}
-          />
-          <div className="input-group-append">
-            <span className="input-group-text">
-              <i className="fas fa-calendar-alt" />
-            </span>
+          <div className="input-group input-group-sm datePicker-group">
+            <div className="datePicker-text">{t('common:commission.to')}</div>
+            <DatePicker
+              minDate={filterSearch.from}
+              maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
+              selected={filterSearch.to}
+              className="form-control datePicker-input"
+              onChange={_onChangeDate('to')}
+            />
+            <div className="input-group-append">
+              <span className="input-group-text">
+                <i className="fas fa-calendar-alt" />
+              </span>
+            </div>
           </div>
         </div>
         <button type="submit" className="btn btn-sm btn-danger" onClick={_search}>

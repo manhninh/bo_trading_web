@@ -122,35 +122,37 @@ const HistoryTableComponent = (props: IProps = Props) => {
 
   return (
     <>
-      <div className="d-flex justify-content-end mt-3">
-        <div className="input-group input-group-sm datePicker-group">
-          <div className="datePicker-text">{t('common:wallet.from')}</div>
-          <DatePicker
-            maxDate={filterSearch.to}
-            minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
-            selected={filterSearch.from}
-            className="form-control datePicker-input"
-            onChange={_onChangeDate('from')}
-          />
-          <div className="input-group-append">
-            <span className="input-group-text">
-              <i className="fas fa-calendar-alt" />
-            </span>
+      <div className="d-flex justify-content-end mt-3 from-to">
+        <div className="date-group">
+          <div className="input-group input-group-sm datePicker-group">
+            <div className="datePicker-text">{t('common:wallet.from')}</div>
+            <DatePicker
+              maxDate={filterSearch.to}
+              minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
+              selected={filterSearch.from}
+              className="form-control datePicker-input"
+              onChange={_onChangeDate('from')}
+            />
+            <div className="input-group-append">
+              <span className="input-group-text">
+                <i className="fas fa-calendar-alt" />
+              </span>
+            </div>
           </div>
-        </div>
-        <div className="input-group input-group-sm datePicker-group">
-          <div className="datePicker-text">{t('common:wallet.to')}</div>
-          <DatePicker
-            minDate={filterSearch.from}
-            maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
-            selected={filterSearch.to}
-            className="form-control datePicker-input"
-            onChange={_onChangeDate('to')}
-          />
-          <div className="input-group-append">
-            <span className="input-group-text">
-              <i className="fas fa-calendar-alt" />
-            </span>
+          <div className="input-group input-group-sm datePicker-group">
+            <div className="datePicker-text">{t('common:wallet.to')}</div>
+            <DatePicker
+              minDate={filterSearch.from}
+              maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
+              selected={filterSearch.to}
+              className="form-control datePicker-input"
+              onChange={_onChangeDate('to')}
+            />
+            <div className="input-group-append">
+              <span className="input-group-text">
+                <i className="fas fa-calendar-alt" />
+              </span>
+            </div>
           </div>
         </div>
         <button type="submit" className="btn btn-sm btn-danger" onClick={_search}>

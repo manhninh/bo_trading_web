@@ -80,11 +80,11 @@ const TradeHistoryComponent = () => {
           <tr key={`history_tr_${index}`}>
             <td>{d.order_uuid && moment(parseInt(d.order_uuid)).format('MM/DD/YYYY HH:mm')}</td>
             <td>
-              <div className="d-inline-block text-info">
+              <div className="d-flex text-info">
                 <div className="d-inline-block w-40">{t('common:history.buy')}</div>
                 <div className="d-inline-block w-80">{formatter2.format(d.buy_amount_order)}</div>
               </div>
-              <div className="d-inline-block text-danger">
+              <div className="d-flex text-danger">
                 <div className="d-inline-block w-40">{t('common:history.sell')}</div>
                 <div className="d-inline-block w-80">{formatter2.format(d.sell_amount_order)}</div>
               </div>
@@ -110,41 +110,43 @@ const TradeHistoryComponent = () => {
     <ContainerLayout>
       <div className="row">
         <div className="col-lg-12">
-          <div className="block px-0 mb-0">
+          <div className="block p-0 mb-0">
             <div className="title mb-1">
-              <div className="d-flex justify-content-end">
-                <div className="input-group input-group-sm datePicker-group">
-                  <div className="datePicker-text">{t('common:history.from')}</div>
-                  <DatePicker
-                    maxDate={filterSearch.to}
-                    minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
-                    selected={filterSearch.from}
-                    className="form-control datePicker-input"
-                    onChange={_onChangeDate('from')}
-                  />
-                  <div className="input-group-append">
-                    <span className="input-group-text">
-                      <i className="fas fa-calendar-alt" />
-                    </span>
+              <div className="d-flex justify-content-end from-to">
+                <div className="date-group">
+                  <div className="input-group input-group-sm datePicker-group">
+                    <div className="datePicker-text">{t('common:history.from')}</div>
+                    <DatePicker
+                      maxDate={filterSearch.to}
+                      minDate={moment(filterSearch.to).subtract('3', 'months').toDate()}
+                      selected={filterSearch.from}
+                      className="form-control datePicker-input"
+                      onChange={_onChangeDate('from')}
+                    />
+                    <div className="input-group-append">
+                      <span className="input-group-text">
+                        <i className="fas fa-calendar-alt" />
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="input-group input-group-sm datePicker-group">
-                  <div className="datePicker-text">{t('common:history.to')}</div>
-                  <DatePicker
-                    minDate={filterSearch.from}
-                    maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
-                    selected={filterSearch.to}
-                    className="form-control datePicker-input"
-                    onChange={_onChangeDate('to')}
-                  />
-                  <div className="input-group-append">
-                    <span className="input-group-text">
-                      <i className="fas fa-calendar-alt" />
-                    </span>
+                  <div className="input-group input-group-sm datePicker-group">
+                    <div className="datePicker-text">{t('common:history.to')}</div>
+                    <DatePicker
+                      minDate={filterSearch.from}
+                      maxDate={moment(filterSearch.from).add('3', 'months').toDate()}
+                      selected={filterSearch.to}
+                      className="form-control datePicker-input"
+                      onChange={_onChangeDate('to')}
+                    />
+                    <div className="input-group-append">
+                      <span className="input-group-text">
+                        <i className="fas fa-calendar-alt" />
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <button className="btn btn-sm btn-danger" onClick={_search(1)}>
-                {t('common:history.search')}
+                  {t('common:history.search')}
                 </button>
               </div>
             </div>

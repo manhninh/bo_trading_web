@@ -9,7 +9,7 @@ const CommissionTrading = (props) => {
   const renderTable = {
     headers: [
       t('common:commission.username'),
-      'F1 - F8',
+      'Level',
       t('common:commission.volume'),
       t('common:commission.commission'),
       t('common:commission.withdraw'),

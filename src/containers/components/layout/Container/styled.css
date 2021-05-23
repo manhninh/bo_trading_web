@@ -26,3 +26,11 @@ section {
   left: 0;
   bottom: 0;
 }
+
+@media (max-width: 575px) {
+  .page-content {
+    min-height: calc(100vh - 75px);
+    padding-bottom: 0;
+    margin-top: 75px;
+  }
+}

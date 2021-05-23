@@ -8,7 +8,6 @@ import Switch from 'react-bootstrap/esm/Switch';
 import {GoogleReCaptchaProvider} from 'react-google-recaptcha-v3';
 import {useTranslation} from 'react-i18next';
 import {NavLink, Redirect, Route, useHistory, useLocation} from 'react-router-dom';
-import {ROUTE_PATH} from 'routers/helpers';
 import {formatter2} from 'utils/formatter';
 import DepositComponent from './deposit';
 import './styled.css';
@@ -67,12 +66,14 @@ const WalletComponent = () => {
         <div className="row">
           <div className="col-md-6 col-xs-12">
             <div className="statistic-block block block-custom">
-              <div className="progress-details d-flex align-items-center justify-content-between">
+              <div className="progress-details d-flex align-items-center justify-content-between mb-2">
                 <div className="title">
                   <div className="icon text-center d-inline-block mr-3">
                     <i className="fab fa-trade-federation text-warning fs-2rem" />
                   </div>
-                  <h2 className="text-warning text-bold d-inline-block mb-0">{t('common:wallet.walletSpot')}</h2>
+                  <h2 className="fs-2rem text-warning text-bold d-inline-block mb-0">
+                    {t('common:wallet.walletSpot')}
+                  </h2>
                 </div>
                 <div className="number text-warning text-bold">{formatter2.format(amount)} USDF</div>
               </div>
@@ -88,12 +89,14 @@ const WalletComponent = () => {
           </div>
           <div className="col-md-6 col-xs-12">
             <div className="statistic-block block block-custom">
-              <div className="progress-details d-flex align-items-center justify-content-between">
+              <div className="progress-details d-flex align-items-center justify-content-between mb-2">
                 <div className="title">
                   <div className="icon text-center d-inline-block mr-3">
                     <i className="far fa-chart-bar text-success fs-2rem" />
                   </div>
-                  <h2 className="text-success text-bold d-inline-block mb-0">{t('common:wallet.walletTrade')}</h2>
+                  <h2 className="fs-2rem text-success text-bold d-inline-block mb-0">
+                    {t('common:wallet.walletTrade')}
+                  </h2>
                 </div>
                 <div className="number text-success text-bold">{formatter2.format(amount_trade)} USDF</div>
               </div>

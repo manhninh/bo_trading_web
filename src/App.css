@@ -204,4 +204,10 @@ a:not([href]):not([tabindex]):hover {
     background-color: #21252a !important;
     border-bottom: 1px solid #34373d !important;
   }
+
+  .table td,
+  .table th {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
 }

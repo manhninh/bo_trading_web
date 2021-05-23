@@ -1,0 +1,33 @@
+.date-group {
+  display: flex;
+}
+
+@media (max-width: 575px) {
+  .statistic-block {
+    padding: 15px;
+  }
+
+  .statistic-block .number {
+    font-size: 1.1rem;
+  }
+
+  .fs-2rem {
+    font-size: 1.1rem;
+  }
+
+  .date-group {
+    display: block;
+  }
+
+  .datePicker-group {
+    justify-content: flex-end;
+  }
+
+  .datePicker-group:first-child {
+    margin-bottom: 10px;
+  }
+
+  .from-to {
+    justify-content: space-between !important;
+  }
+}
