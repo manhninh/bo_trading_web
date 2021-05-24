@@ -24,7 +24,6 @@ const WinLossComponent = (props: IProps = Props) => {
 
   useEffect(() => {
     if (props.result) {
-      console.log(winSound, 'winSound');
       props.result >= 0 ? playWin() : playLose();
       // 2s sau tắt thông báo
       setTimeout(() => {

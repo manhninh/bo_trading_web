@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { NavLink, useHistory } from 'react-router-dom';
 import { ROUTE_PATH } from 'routers/helpers';
+import { signOut } from 'routers/redux/slice';
 import './styled.css';
 
 const SidebarLayout = () => {

@@ -1,21 +1,22 @@
-import { useAppSelector } from 'boot/configureStore';
-import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { ROUTE_PATH } from 'routers/helpers';
-import { restoreAccount, signOut } from 'routers/redux/slice';
+import {useAppSelector} from 'boot/configureStore';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import React, {useEffect, useState} from 'react';
+import {isMobile} from 'react-device-detect';
+import {useTranslation} from 'react-i18next';
+import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router';
+import {ROUTE_PATH} from 'routers/helpers';
+import {restoreAccount, signOut} from 'routers/redux/slice';
 import LogInPopupComponent from 'screens/authen/login/popup';
 import RegisterPopupComponent from 'screens/authen/register/popup';
-import { IProps, Props, State } from './propState';
-import { fetchUserInfor } from './services';
+import {IProps, Props, State} from './propState';
+import {fetchUserInfor} from './services';
 import './styled.css';
 import SwitchAccountComponent from './switchAccount';
 import SwitchLanguageComponent from './switchLanguage';
 
 const HeaderLayout = (props: IProps = Props) => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [state, setState] = useState<State>({
     openSignIn: false,
     openSignUp: false,
@@ -23,7 +24,7 @@ const HeaderLayout = (props: IProps = Props) => {
   });
   const history = useHistory();
   const dispatch = useDispatch();
-  const { showLoading, hideLoading } = useLoading();
+  const {showLoading, hideLoading} = useLoading();
   const authState = useAppSelector((state) => state.authState.userToken);
   const username = useAppSelector((state) => state.authState.accountInfor.username);
 
@@ -33,17 +34,17 @@ const HeaderLayout = (props: IProps = Props) => {
 
   useEffect(() => {
     if (!authState && history.location.pathname === ROUTE_PATH.LOGIN)
-      setState((prevState) => ({ ...prevState, openSignIn: true }));
+      setState((prevState) => ({...prevState, openSignIn: true}));
     else if (!authState && history.location.pathname.includes(ROUTE_PATH.REGISTER))
-      setState((prevState) => ({ ...prevState, openSignUp: true }));
+      setState((prevState) => ({...prevState, openSignUp: true}));
   }, [history.location.pathname]);
 
   useEffect(() => {
-    setState((prevState) => ({ ...prevState, openSignIn: props.openLogin }));
+    setState((prevState) => ({...prevState, openSignIn: props.openLogin}));
   }, [props.openLogin]);
 
   useEffect(() => {
-    setState((prevState) => ({ ...prevState, openSignUp: props.openRegister }));
+    setState((prevState) => ({...prevState, openSignUp: props.openRegister}));
   }, [props.openRegister]);
 
   const checkAuthenToken = async () => {
@@ -52,7 +53,7 @@ const HeaderLayout = (props: IProps = Props) => {
       const res = await fetchUserInfor();
       if (res.data && res.data.length > 0) {
         await dispatch(restoreAccount(res.data[0]));
-        setState((state) => ({ ...state, isAuthen: true, openSignin: false }));
+        setState((state) => ({...state, isAuthen: true, openSignin: false}));
       } else {
         dispatch(signOut());
         history.push(ROUTE_PATH.LOGIN);
@@ -66,17 +67,17 @@ const HeaderLayout = (props: IProps = Props) => {
   };
 
   const toggleSignUp = () => {
-    setState((prevState) => ({ ...prevState, openSignUp: !prevState.openSignUp }));
+    setState((prevState) => ({...prevState, openSignUp: !prevState.openSignUp}));
     if (props.cbOpenRegister) props.cbOpenRegister();
   };
 
   const toggleSignIn = () => {
-    setState((prevState) => ({ ...prevState, openSignIn: !prevState.openSignIn }));
+    setState((prevState) => ({...prevState, openSignIn: !prevState.openSignIn}));
     if (props.cbOpenLogin) props.cbOpenLogin();
   };
 
   const logOut = () => {
-    setState((state) => ({ ...state, isAuthen: false }));
+    setState((state) => ({...state, isAuthen: false}));
     dispatch(signOut());
     history.push(ROUTE_PATH.TRADE);
   };
@@ -88,7 +89,7 @@ const HeaderLayout = (props: IProps = Props) => {
           <div className="header-top">
             <div className="container d-flex align-items-center">
               <div className="logo">
-                <img src={process.env.PUBLIC_URL + '/logo512.png'} alt="" style={{ height: '30px' }} />
+                <img src={process.env.PUBLIC_URL + '/logo512.png'} alt="" style={{height: '30px'}} />
               </div>
               <div className="login_or_register d-flex align-items-center">
                 <a href="javascript:void(0)" onClick={toggleSignIn}>
@@ -111,7 +112,7 @@ const HeaderLayout = (props: IProps = Props) => {
                 <div className="navbar-header">
                   <a href={ROUTE_PATH.TRADE} className="navbar-brand">
                     <div className="brand-big text-uppercase">
-                      <img src={process.env.PUBLIC_URL + '/logo512.png'} alt="" style={{ height: '30px' }} />
+                      <img src={process.env.PUBLIC_URL + '/logo512.png'} alt="" style={{height: '30px'}} />
                     </div>
                   </a>
                 </div>
@@ -134,10 +135,10 @@ const HeaderLayout = (props: IProps = Props) => {
                   </div>
                   {state.isAuthen ? (
                     <>
-                      <div className="list-inline-item visible">
+                      <div className="list-inline-item">
                         <a className="nav-link" onClick={logOut}>
                           <i className="icomoon-icon-logout"></i>
-                          <span className="d-none d-sm-inline">{t('common:header.logout')}</span>
+                          {isMobile ? null : <span className="d-none d-sm-inline">{t('common:header.logout')}</span>}
                         </a>
                       </div>
                     </>

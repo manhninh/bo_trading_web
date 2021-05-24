@@ -3,6 +3,7 @@ import {EVENTS, ROOM} from './socketConfig';
 import {Socket} from 'socket.io-client';
 import {addResultToBlocks, setIndicator, setResultBlocks, setTimeTick} from '../redux/slice';
 import {OHLC, Volumes, ContextType} from './context';
+import {isMobile} from 'react-device-detect';
 
 export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
   if (!socketCandlestick) return;
@@ -58,7 +59,7 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
   socketCandlestick.on(EVENTS.RESULT_ETHUSDT, (result: any) => {
     const blocks: any[] = [];
     let groupIndex = 1;
-    for (let index = 0; index <= 5; index++) {
+    for (let index = isMobile ? 3 : 0; index <= 5; index++) {
       const group = result[index];
       if (group) {
         if (index === 0) groupIndex = result[index]._id;

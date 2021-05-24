@@ -59,7 +59,7 @@ const WalletComponent = () => {
         </Tab.Pane>
       </Route>
     ));
-
+    
   return (
     <GoogleReCaptchaProvider reCaptchaKey={config.GOOGLE_RECAPTCHA_SITE_KEY} scriptProps={{async: true}}>
       <ContainerLayout>

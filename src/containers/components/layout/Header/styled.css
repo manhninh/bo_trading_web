@@ -92,4 +92,11 @@ nav.navbar .sidebar-toggle {
     padding: 0;
     margin-bottom: 8px;
   }
+
+  .icomoon-icon-logout {
+    font-size: 2rem;
+    margin-top: -5px;
+    margin-right: -5px;
+    color: #8a8d93;
+  }
 }

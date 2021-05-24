@@ -86,7 +86,6 @@ const HistoryTableComponent = (props: IProps = Props) => {
           });
           break;
       }
-      console.log(result.data.docs, 'result.data');
       setHistory({
         docs: result.data.docs,
         total: result.data.total,
@@ -104,7 +103,6 @@ const HistoryTableComponent = (props: IProps = Props) => {
   };
 
   const _pageChange = (page: number) => {
-    console.log('sss');
     setPageActive(page);
     getHistory(page);
   };
@@ -119,7 +117,6 @@ const HistoryTableComponent = (props: IProps = Props) => {
 
   const _renderValues = (data) => {
     const list_td: any = [];
-    console.log(props, 'props');
     props.renderTable.props.map((p, index) => {
       if (p === 'investment_amount' || p === 'commission' || p === 'amount') {
         list_td.push(
@@ -143,7 +140,6 @@ const HistoryTableComponent = (props: IProps = Props) => {
   };
 
   const _renderRows = () => {
-    console.log(history, 'history');
     if (history?.docs.length === 0)
       return (
         <tr>

@@ -19,6 +19,8 @@ import './styled.css';
 interface IState {
   show: boolean;
   type_transfer: 'IN_ACCOUNT' | 'TO_USERNAME' | null;
+  amountFrom: number;
+  amountTo: number;
 }
 
 interface IFormInAccount {
@@ -37,7 +39,7 @@ const TransferComponent = (props = Props) => {
   const {t} = useTranslation();
   const formDefaultInAccount: Readonly<IFormInAccount> = {
     amount: 0,
-    to: '',
+    to: props.type_wallet === TYPE_WALLET.SPOT ? 'trade' : 'spot',
   };
   const formDefaultToUsername: Readonly<IFormToUserName> = {
     receiver_username: '',
@@ -48,6 +50,8 @@ const TransferComponent = (props = Props) => {
   const [state, setState] = useState<IState>({
     show: false,
     type_transfer: 'IN_ACCOUNT',
+    amountFrom: 0,
+    amountTo: 0,
   });
 
   const {executeRecaptcha} = useGoogleReCaptcha();
@@ -56,6 +60,7 @@ const TransferComponent = (props = Props) => {
   const {addError} = useError();
   const authState = useAppSelector((state) => state.authState);
   const isEnabledTFA = authState.accountInfor.isEnabledTFA;
+
   useEffect(() => {
     reset({...formDefaultToUsername, ...formDefaultInAccount});
   }, [state.type_transfer]);
@@ -155,7 +160,29 @@ const TransferComponent = (props = Props) => {
   const onSubmit = useCallback(onTransferSubmit, [executeRecaptcha, state]);
 
   const handleClose = () => setState((state) => ({...state, show: false, type_transfer: 'IN_ACCOUNT'}));
-  const handleShow = () => setState((state) => ({...state, show: true}));
+
+  const handleShow = () => {
+    let amountFrom: number = 0;
+    switch (props.type_wallet) {
+      case TYPE_WALLET.SPOT:
+        amountFrom = authState.accountInfor.amount;
+        break;
+      case TYPE_WALLET.TRADE:
+        amountFrom = authState.accountInfor.amount_trade;
+        break;
+      case TYPE_WALLET.EXPERT:
+        amountFrom = authState.accountInfor.amount_expert;
+        break;
+      case TYPE_WALLET.COPY_TRADE:
+        amountFrom = authState.accountInfor.amount_copytrade;
+        break;
+    }
+    const to = props.type_wallet === TYPE_WALLET.SPOT ? 'trade' : 'spot';
+    let amountTo: number = 0;
+    if (to === 'spot') amountTo = authState.accountInfor.amount;
+    else if (to === 'trade') amountTo = authState.accountInfor.amount_trade;
+    setState((state) => ({...state, show: true, amountFrom, amountTo}));
+  };
 
   const selectTransfer = (type) => {
     if (state.type_transfer === type) return;
@@ -164,34 +191,43 @@ const TransferComponent = (props = Props) => {
     }
   };
 
-  const subtractAmountFrom = useMemo(() => {
-    let number = getValues().amount;
-    if (`${getValues().amount}`.charAt(0) == '0') {
-      number = parseInt(`${getValues().amount}`, 10);
-      setValue('amount', number);
-    }
-    const amount = props.amount - Number(number);
-    if (amount < 0 || amount > props.amount) {
-      const maxAmount = Math.max(Number(0), Math.min(Number(props.amount), Number(number)));
-      setValue('amount', Math.floor(maxAmount * 100) / 100);
-      return formatter2.format(maxAmount);
-    } else return formatter2.format(amount);
-  }, watch(['amount']));
+  // const amountFrom = useMemo(() => {
+  //   let number = getValues().amount;
+  //   if (`${getValues().amount}`.charAt(0) == '0') {
+  //     number = parseInt(`${getValues().amount}`, 10);
+  //     setValue('amount', number);
+  //   }
+  //   const amount = props.amount - Number(number);
+  //   if (amount < 0 || amount > props.amount) {
+  //     const maxAmount = Math.max(Number(0), Math.min(Number(props.amount), Number(number)));
+  //     setValue('amount', Math.floor(maxAmount * 100) / 100);
+  //     return formatter2.format(maxAmount);
+  //   } else return formatter2.format(amount);
+  // }, watch(['amount']));
 
-  const addAmountTo = useMemo(() => {
-    let amountByTypeWallet: number = 0;
-    if (getValues()['to'] === 'spot') amountByTypeWallet = authState.accountInfor.amount;
-    if (getValues()['to'] === 'trade') amountByTypeWallet = authState.accountInfor.amount_trade;
-    if (getValues()['to'] === 'expert') amountByTypeWallet = authState.accountInfor.amount_expert;
-    if (getValues()['to'] === 'copytrade') amountByTypeWallet = authState.accountInfor.amount_copytrade;
+  // const addAmountTo = useMemo(() => {
+  //   let amountByTypeWallet: number = 0;
+  //   if (evt.target.value === 'spot') amountByTypeWallet = authState.accountInfor.amount;
+  //   if (evt.target.value === 'trade') amountByTypeWallet = authState.accountInfor.amount_trade;
+  //   if (evt.target.value === 'expert') amountByTypeWallet = authState.accountInfor.amount_expert;
+  //   if (evt.target.value === 'copytrade') amountByTypeWallet = authState.accountInfor.amount_copytrade;
 
-    // Cộng trực tiếp số tiền cho To Wallet
-    // Add thêm watch 'amount'
-    // const amount = props.amount ? amountByTypeWallet + Number(getValues().amount) : amountByTypeWallet;
-    // return formatter2.format(amount);
+  //   // Cộng trực tiếp số tiền cho To Wallet
+  //   // Add thêm watch 'amount'
+  //   // const amount = props.amount ? amountByTypeWallet + Number(getValues().amount) : amountByTypeWallet;
+  //   // return formatter2.format(amount);
 
-    return formatter2.format(amountByTypeWallet);
-  }, watch(['to']));
+  //   return formatter2.format(amountByTypeWallet);
+  // }, watch(['to']));
+
+  const _onChange = (evt: any) => {
+    let amountTo = 0;
+    if (evt.target.value === 'spot') amountTo = authState.accountInfor.amount;
+    else if (evt.target.value === 'trade') amountTo = authState.accountInfor.amount_trade;
+    else if (evt.target.value === 'expert') amountTo = authState.accountInfor.amount_expert;
+    else if (evt.target.value === 'copytrade') amountTo = authState.accountInfor.amount_copytrade;
+    setState((state) => ({...state, amountTo}));
+  };
 
   const selectTypeWallet = (type_wallet, amount, fromTo: 'from' | 'to') => {
     let amountWallet = {};
@@ -271,8 +307,8 @@ const TransferComponent = (props = Props) => {
                     min={0}
                     max={props.amount}
                   />
-                  <p className="text-right">
-                    {t('common:wallet.balance')}: {subtractAmountFrom} USDF
+                  <p className="text-right mb-0">
+                    {t('common:wallet.balance')}: {formatter2.format(state.amountFrom)} USDF
                   </p>
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                     {errors.amount?.message}
@@ -283,23 +319,23 @@ const TransferComponent = (props = Props) => {
                 <div className="col-md-6 col-xs-12">
                   <Form.Group className="mb-1">
                     <Form.Label>{t('common:wallet.to')}</Form.Label>
-                    <Form.Control as="select" size="sm" {...register('to')}>
+                    <Form.Control as="select" size="sm" {...register('to')} onChange={_onChange}>
                       {props.type_wallet !== TYPE_WALLET.SPOT && (
                         <option value={'spot'}>{t('common:wallet.walletSpot')}</option>
                       )}
                       {props.type_wallet !== TYPE_WALLET.TRADE && (
                         <option value={'trade'}>{t('common:wallet.walletTrade')}</option>
                       )}
-                      {props.type_wallet !== TYPE_WALLET.EXPERT && (
+                      {/* {props.type_wallet !== TYPE_WALLET.EXPERT && (
                         <option value={'expert'}>{t('common:wallet.walletExpert')}</option>
                       )}
                       {props.type_wallet !== TYPE_WALLET.COPY_TRADE && (
                         <option value={'copytrade'}>{t('common:wallet.walletCopy')}</option>
-                      )}
+                      )} */}
                     </Form.Control>
                   </Form.Group>
-                  <p className="text-right">
-                    {t('common:wallet.balance')}: {addAmountTo} USDF
+                  <p className="text-right mb-0">
+                    {t('common:wallet.balance')}: {formatter2.format(state.amountTo)} USDF
                   </p>
                   <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
                     {errors['to']?.message}

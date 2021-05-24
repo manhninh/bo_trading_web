@@ -12,7 +12,7 @@ import Indicator from './indicator';
 import LastResult from './lastResult';
 import './styled.css';
 
-const height = window.innerHeight - (isMobile ? 300 : 272);
+const height = window.innerHeight - (isMobile ? 370 : 272);
 
 const TradingComponent = () => {
   const { t } = useTranslation();
@@ -63,7 +63,7 @@ const TradingComponent = () => {
                 </div>
               </Tab.Container>
             </div>
-          </div> : null}
+          </div> : <LastResult />}
       </div>
     </ContainerLayout>
   ) : (

@@ -2,13 +2,13 @@ import ETHUSDT from 'assets/images/eth.png';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts/highstock';
 import indicatorsAll from 'highcharts/indicators/indicators-all';
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
-import { isMobile } from 'react-device-detect';
-import { OHLC, Volumes } from '../highChartSocketContext/context';
+import React, {forwardRef, useImperativeHandle, useRef} from 'react';
+import {isMobile} from 'react-device-detect';
+import {OHLC, Volumes} from '../highChartSocketContext/context';
 import './styled.css';
 indicatorsAll(Highcharts);
 
-const xAxisMin = isMobile ? 93 : 20;
+const xAxisMin = isMobile ? 80 : 20;
 
 type IProps = {
   ohlc: OHLC[];
@@ -20,7 +20,7 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
   const chart = useRef(null);
 
   useImperativeHandle(ref, () => ({
-    updateLastData(real_data: [number, number, number, number, number], real_volume: { x: number; y: number; }) {
+    updateLastData(real_data: [number, number, number, number, number], real_volume: {x: number; y: number}) {
       const currentChart: any = chart.current;
       const seriesOhlc = currentChart.chart.series[0];
       const seriesVolume = currentChart.chart.series[1];
@@ -44,20 +44,21 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
       const d = plotElem.d.split(' ');
       const newY = yAxis.toPixels(real_data[4]) - d[2];
       if (plotElem) {
-        plotElem.animate({ translateY: newY }, 300);
+        plotElem.animate({translateY: newY}, 300);
         plotElem.attr('stroke', open < real_data[4] ? '#16CEB9' : '#F04B4B');
       }
       const label = plotLine.label;
       if (label) {
-        label.animate({ y: yAxis.toPixels(real_data[4]) }, 300);
+        label.animate({y: yAxis.toPixels(real_data[4])}, 300);
         label.attr(
           'text',
-          `<span class="plot-line" style="background-color: ${open < real_data[4] ? '#16CEB9' : '#F04B4B'
+          `<span class="plot-line" style="background-color: ${
+            open < real_data[4] ? '#16CEB9' : '#F04B4B'
           }">${real_data[4].toFixed(2)}</span>`,
         );
       }
     },
-    addData(real_data: [number, number, number, number, number], real_volume: { x: number; y: number; }) {
+    addData(real_data: [number, number, number, number, number], real_volume: {x: number; y: number}) {
       const currentChart: any = chart.current;
       const seriesOhlc = currentChart.chart.series[0];
       const seriesVolume = currentChart.chart.series[1];
@@ -75,10 +76,11 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
       if (!plotLine) return;
       const label = plotLine.label;
       if (label) {
-        label.animate({ y: yAxis.toPixels(real_data[4]) }, 300);
+        label.animate({y: yAxis.toPixels(real_data[4])}, 300);
         label.attr(
           'text',
-          `<span class="plot-line" style="background-color: ${real_data[1] < real_data[4] ? '#16CEB9' : '#F04B4B'
+          `<span class="plot-line" style="background-color: ${
+            real_data[1] < real_data[4] ? '#16CEB9' : '#F04B4B'
           }">${real_data[4].toFixed(2)}</span>`,
         );
       }
@@ -86,10 +88,10 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
   }));
 
   const options = {
-    time: { useUTC: false },
-    navigator: { enabled: false },
-    rangeSelector: { enabled: false },
-    scrollbar: { enabled: false },
+    time: {useUTC: false},
+    navigator: {enabled: false},
+    rangeSelector: {enabled: false},
+    scrollbar: {enabled: false},
     chart: {
       height: props.height,
       backgroundColor: 'transparent',
@@ -106,7 +108,7 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
         upLineColor: '#16CEB9',
       },
       series: {
-        marker: { enabled: false },
+        marker: {enabled: false},
       },
     },
     yAxis: [
@@ -144,7 +146,7 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
         ],
       },
       {
-        labels: { enabled: false },
+        labels: {enabled: false},
         top: '90%',
         height: '10%',
         lineWidth: 0,
@@ -173,17 +175,19 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
       },
     ],
     tooltip: {
+      // enabled: isMobile ? false : true,
       backgroundColor: 'rgba(0, 0, 0, 0.3)',
       borderRadius: 10,
       borderWidth: 1,
       borderColor: 'rgba(0, 0, 0, 0.3)',
       padding: 0,
-      positioner: () => ({ x: isMobile ? 5 : 130, y: 0 }),
+      positioner: () => ({x: isMobile ? 145 : 130, y: isMobile ? 5 : 0}),
       shadow: false,
       shared: true,
       split: false,
       useHTML: true,
       formatter: function () {
+        if (isMobile) return '';
         const points = this['points'];
         if (points.length >= 2) {
           return `<span class="tootipChart">Open: ${points[0].point.open}</span>
@@ -213,14 +217,14 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
       {
         type: 'ema',
         linkedTo: 'stockChart',
-        params: { period: 10 },
+        params: {period: 10},
         enableMouseTracking: false,
         color: '#16CEB9',
       },
       {
         type: 'ema',
         linkedTo: 'stockChart',
-        params: { period: 20 },
+        params: {period: 20},
         enableMouseTracking: false,
         color: '#F04B4B',
       },

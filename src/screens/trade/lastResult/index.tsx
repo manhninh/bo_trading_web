@@ -1,5 +1,6 @@
 import {RootState, useAppSelector} from 'boot/configureStore';
 import React, {useMemo, useRef} from 'react';
+import {isMobile} from 'react-device-detect';
 import {createSelector} from 'reselect';
 import './styled.css';
 
@@ -47,7 +48,7 @@ const LastResultComponent = () => {
           );
         });
         html.push(
-          <div style={{width: '150px'}} key={`key_main${index}`}>
+          <div className="div-result-group" key={`key_main${index}`}>
             {htmlChil}
           </div>,
         );
@@ -59,16 +60,18 @@ const LastResultComponent = () => {
   return (
     <div className="div-lastresult">
       {rederResults()}
-      <div className="div-total-result">
-        <div className="text-left">
-          <h3 className="d-inline-block">BUY</h3>
-          <h3 className="text-info d-inline-block m-l-rem">{blockBuyRef.current}</h3>
+      {isMobile ? null : (
+        <div className="div-total-result">
+          <div className="text-left">
+            <h3 className="d-inline-block">BUY</h3>
+            <h3 className="text-info d-inline-block m-l-rem">{blockBuyRef.current}</h3>
+          </div>
+          <div className="text-left">
+            <h3 className="d-inline-block">SELL</h3>
+            <h3 className="text-danger d-inline-block ml-5">{blockSellRef.current}</h3>
+          </div>
         </div>
-        <div className="text-left">
-          <h3 className="d-inline-block">SELL</h3>
-          <h3 className="text-danger d-inline-block ml-5">{blockSellRef.current}</h3>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

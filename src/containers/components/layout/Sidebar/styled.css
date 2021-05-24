@@ -50,7 +50,7 @@ nav#sidebar a {
     border: 2px solid #3d4148;
     z-index: 9999;
     position: fixed;
-    right: 15px;
+    right: 4rem;
     top: 10px;
     outline: 0 !important;
   }
