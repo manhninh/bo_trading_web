@@ -25,4 +25,6 @@ export enum ROUTE_PATH {
   COPY_TRADE = '/copy-trade',
   WALLET = '/wallet',
   WELLCOME = '/wellcome',
+  TERM_OF_USE = '/term_of_use',
+  PRIVATE_POLICY = '/private_policy',
 }

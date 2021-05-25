@@ -2,6 +2,7 @@ import HeaderLayout from 'containers/components/layout/Header';
 import {LoadingProvider} from 'containers/hooks/loadingProvider';
 import React, {useState} from 'react';
 import {Scrollbars} from 'react-custom-scrollbars';
+import { ROUTE_PATH } from 'routers/helpers';
 import './styled.css';
 
 const DashboardComponent = () => {
@@ -24,7 +25,7 @@ const DashboardComponent = () => {
           display: 'block',
           backgroundSize: '100%',
           backgroundRepeat: 'no-repeat',
-          backgroundImage: `url(${process.env.PUBLIC_URL}/img/background.png)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/img/background.jpg)`,
         }}>
         <header>
           <HeaderLayout
@@ -153,11 +154,10 @@ const DashboardComponent = () => {
               </p>
             </div>
             <div className="footer-right d-flex justify-content-between">
-              <a href="#" className="active">
+              <a href={ROUTE_PATH.TERM_OF_USE}>
                 Term of use
               </a>
-              <a href="#">Privacy</a>
-              <a href="#">Contact with us</a>
+              <a href={ROUTE_PATH.PRIVATE_POLICY}>Private Policy</a>
             </div>
           </div>
         </footer>

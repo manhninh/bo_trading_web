@@ -16,6 +16,8 @@ const CopyTrade = lazy(() => import('screens/copyTrade'));
 const Wallet = lazy(() => import('screens/wallet'));
 const NotFound = lazy(() => import('containers/components/exceptions/404'));
 const Settings = lazy(() => import('screens/settings'));
+const TermOfUse = lazy(() => import('screens/termOfUse'));
+const PrivatePolicy = lazy(() => import('screens/privatePolicy'));
 
 const NavigationComponent = () => {
   return (
@@ -26,6 +28,8 @@ const NavigationComponent = () => {
       <TranslationRoute path={ROUTE_PATH.FORGOT_PASSWORD} comp={ForgotPassword} />
       <TranslationRoute path={ROUTE_PATH.WELLCOME} comp={Wellcome} />
       <TranslationRoute path={ROUTE_PATH.VERIFY_EMAIL} comp={VerifyEmail} />
+      <TranslationRoute path={ROUTE_PATH.TERM_OF_USE} comp={TermOfUse} />
+      <TranslationRoute path={ROUTE_PATH.PRIVATE_POLICY} comp={PrivatePolicy} />
       <PrivateRoute path={ROUTE_PATH.TRADE} comp={Trading} />
       <PrivateRoute path={ROUTE_PATH.TRADE_HISTORY} comp={TradeHistory} />
       <PrivateRoute path={ROUTE_PATH.AFFILIATE_LINK} comp={AffiliateLink} />
