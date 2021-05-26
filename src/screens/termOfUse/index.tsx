@@ -36,22 +36,21 @@ const TermOfUseComponent = () => {
               <div className="title text-center">
                 <h2>Terms and Conditions</h2>
                 <p>Retail client agreement</p>
-                <span>
+                <h4>
                   These terms of Use below are transacted between you (hereinafter referred to as “you” or “your”) and
                   Finimix creators. By accessing, using or clicking on “I agree/ I understand” to accept any services
                   provided by Finimix , you agree that you have read, understood and acknowledged and accepted all of
                   the terms and conditions in these Terms of Use (hereinafter referred to as “these Terms”) as well as
                   our Privacy Policy. Besides, when using some features of the Services, you may be subject to specific
                   additional terms and conditions applicable to those features.
-                </span>
-                <br />
-                <span>
+                </h4>
+                <h4>
                   For your benefit, we strongly recommend that you should spend enough time to read the terms and
                   conditions together with other policies and agreements available carefully prior to accepting the
                   terms and conditions, and/or opening a trading account, and/or performing any transactions. If you do
                   not accept these terms and conditions, please do not use the site, and/or opening an account. Your use
                   of the Site constitutes acceptance of these terms and conditions.
-                </span>
+                </h4>
                 <br />
                 <br />
                 <p>1. General Provisions</p>
@@ -97,57 +96,57 @@ const TermOfUseComponent = () => {
                 <br />
                 <p>2. Terms</p>
                 <span>
-                  a. Account – means a unique personified account registered in the name of the Client and which
+                  - Account – means a unique personified account registered in the name of the Client and which
                   contains all of the Client’s transactions/ operations on the Trading Platform (as defined below) of
                   the Company.
                 </span>
-                <span>b. Ask - means the higher price in a quote. The price the Client may buy at.</span>
-                <span>c. Bid - means the lower price in a quote. The price the Client may sell at.</span>
+                <span>- Ask - means the higher price in a quote. The price the Client may buy at.</span>
+                <span>- Bid - means the lower price in a quote. The price the Client may sell at.</span>
                 <span>
-                  d. CFD (contract for difference) - means a tradeable contract entered into between the Client and the
+                  - CFD (contract for difference) - means a tradeable contract entered into between the Client and the
                   Company, who exchange the difference in the value of an Instrument, as specified on the Trading
                   Platform at the time of opening a Transaction, and the value of that Instrument at the contract’s end.
                 </span>
                 <span>
-                  e. Digital Option Contract - means a type of derivative instrument where the Client earns a payout if
+                  - Digital Option Contract - means a type of derivative instrument where the Client earns a payout if
                   they correctly predict the price movement of the underlying asset at the time of the option’s expiry.
                   The prediction can be made as to whether the value of the underlying asset will fall above or below
                   the strike price at time of expiration. Should the option expire at the selected strike price, it will
                   be considered to expire out-of-the money and will result in the loss of the invested amount.
                 </span>
                 <span>
-                  f. Execution - means the execution of Client order(s) by the Company acting as the Client's
+                  - Execution - means the execution of Client order(s) by the Company acting as the Client's
                   counterparty as per the terms of the present agreement.
                 </span>
                 <span>
-                  g. Market - means the market on which the Financial Instruments are subject to and/or traded on
+                  - Market - means the market on which the Financial Instruments are subject to and/or traded on
                 </span>
                 <span>
-                  h. Market Maker - means a company which provides BID and ASK prices for financial instruments.
+                  - Market Maker - means a company which provides BID and ASK prices for financial instruments.
                 </span>
                 <span>
-                  i. Operations – means actions performed at the Client’s Account, following an order placed by the
+                  - Operations – means actions performed at the Client’s Account, following an order placed by the
                   Client,, connected with but not limited to crediting of funds, return of funds, opening and closing of
                   trade transactions/positions and/or that relate to financial instruments.
                 </span>
                 <span>
-                  j. Prices - means the prices offered to the Client for each transaction which may be changed without
+                  - Prices - means the prices offered to the Client for each transaction which may be changed without
                   prior notice. Where this is relevant, the “Prices” given through the Trading Platform include the
                   Spread (see definition below).
                 </span>
                 <span>
-                  k. Trading Platform - means an electronic system on the internet that consists of all programs and
+                  - Trading Platform - means an electronic system on the internet that consists of all programs and
                   technology that present quotes in real-time, allow the placement/modification/deletion of orders and
                   calculate all mutual obligations of the Client and the Company.
                 </span>
                 <span>
-                  l. A Demo Account - a virtual account for the Client on the Trading Platform, reflecting in real time
+                  - A Demo Account - a virtual account for the Client on the Trading Platform, reflecting in real time
                   the results of their Trading Operations on that account. The currency of the Demo Account always
                   matches the currency of the Client's Real Account. Demo Account funds are not a financial obligation
                   of the Company to the Client.
                 </span>
                 <span>
-                  m. Withdrawal of Funds - the debiting of monetary funds from the Account and transfer thereof to the
+                  - Withdrawal of Funds - the debiting of monetary funds from the Account and transfer thereof to the
                   Client's account.
                 </span>
                 <br />
@@ -155,137 +154,137 @@ const TermOfUseComponent = () => {
                 <p>3. Trading mechanisms</p>
                 <span>The trading platform provides the following trading mechanisms to the Client:</span>
                 <span>
-                  a. When opening a Trade, the Client indicates the Asset, the amount invested by the Client in the
+                  - When opening a Trade, the Client indicates the Asset, the amount invested by the Client in the
                   Trade, the direction of the chart movement and when the Trade will close.
                 </span>
-                <span>b. The trade will close when the selected closing time is reached.</span>
+                <span>- The trade will close when the selected closing time is reached.</span>
                 <span>
-                  c. If at the time of closing the Trade, the Quote of the selected Asset at the moment is higher than
+                  - If at the time of closing the Trade, the Quote of the selected Asset at the moment is higher than
                   the Quote at the time of opening the Trade, the Trade is considered profitable if the direction of the
                   selected chart's movement is "up". If at the time of closing the Trade, the Quote of the selected
                   Asset at the moment is lower than the Quote at the time of opening the Trade, the Trade is considered
                   profitable if the direction of the movement of the selected chart is "down".
                 </span>
                 <span>
-                  d. The rate of return of the Trade is fixed and depends on the amount invested by the Client in the
+                  - The rate of return of the Trade is fixed and depends on the amount invested by the Client in the
                   Trade, the Asset and the execution time of the Trade. Profit from Trades is determined by multiplying
                   the rate of return (in percent) by the amount invested by the Client in the Trade.
                 </span>
                 <span>e. The trade closes at the time of closing the selected Trade.</span>
                 <span>
-                  f. The Profit Rate of the Trade is fixed and depends on the amount invested by the Client in the
+                  - The Profit Rate of the Trade is fixed and depends on the amount invested by the Client in the
                   Trade, the Asset, the Strike Price, the direction of the chart movement and the execution time of the
                   Trade. Profit from Trades is determined by multiplying the rate of return (in percent) by the amount
                   invested by the Client in the Trade.
                 </span>
                 <span>
-                  g. Trades can be closed before the specified time. Early strike prices are dynamically calculated and
+                  - Trades can be closed before the specified time. Early strike prices are dynamically calculated and
                   change according to market conditions.
                 </span>
-                <span>3.3.1. Trading mechanism "CFD" is only applicable to Demo Accounts.</span>
+                <span>- Trading mechanism "CFD" is only applicable to Demo Accounts.</span>
                 <span>
-                  h. When opening a Trade, the Client indicates the Asset, the amount invested by the Client in the
+                  - When opening a Trade, the Client indicates the Asset, the amount invested by the Client in the
                   Trade, the Multiplier and the direction of the chart movement.
                 </span>
                 <span>
-                  i. Finimix is ​​a 24/7 exchange with no fixed time frame. Time for 1 session is 30s. At the end of
+                  - Finimix is ​​a 24/7 exchange with no fixed time frame. Time for 1 session is 30s. At the end of
                   30s, the trading session will close and show the profit/loss that the player received
                 </span>
                 <span>
-                  j. Profit from Trading is calculated according to the following formula: Amount invested by Client in
+                  - Profit from Trading is calculated according to the following formula: Amount invested by Client in
                   Trade x 95% rate. (The profit margin at Finimix is ​​fixed 95%)
                 </span>
-                <span>k. Customer Demo Account is completely free.</span>
+                <span>- Customer Demo Account is completely free.</span>
                 <span>
-                  l. If at the time of closing the Trade, the Current Price of the Selected Asset is higher than the
+                  - If at the time of closing the Trade, the Current Price of the Selected Asset is higher than the
                   Price at the time of opening the Trade, then the Trade is considered profitable if the Client predicts
                   the Trade to move in the "bullish" direction. If at the time of closing the Trade, the Current Price
                   of the Selected Asset is lower than the Price at the time of opening the Trade, then the Trade is
                   considered profitable if the Client predicts the Trade to move in the "downward" direction.
                 </span>
                 <span>
-                  m. In the "CFD" trading mechanism, the Loss amount from the Trade does not exceed 100% of the amount
+                  - In the "CFD" trading mechanism, the Loss amount from the Trade does not exceed 100% of the amount
                   invested by the Client in the Trade.
                 </span>
                 <br />
                 <br />
                 <p>4. Procedures for making transactions</p>
                 <span>
-                  4.1. The process of handling Customer Transaction Requests takes place in the following order:
+                  - The process of handling Customer Transaction Requests takes place in the following order:
                 </span>
                 <span>
-                  4.1.1. The Client makes a Trading Request, which is then checked for accuracy on the Trading Platform.
+                  - The Client makes a Trading Request, which is then checked for accuracy on the Trading Platform.
                 </span>
                 <span>
-                  4.1.2. From the Trading Platform, the Client's Trade Request is transmitted to the Server, where the
+                  - From the Trading Platform, the Client's Trade Request is transmitted to the Server, where the
                   Trade Request is rechecked.
                 </span>
                 <span>
-                  4.1.3. Once checked again, the Trade Request is processed on the Server and the results of the
+                  - Once checked again, the Trade Request is processed on the Server and the results of the
                   processing are transmitted to the Trading Platform.
                 </span>
                 <span>
-                  4.2. The processing time of the Client's Trade Request depends on the quality of the connection
+                  - The processing time of the Client's Trade Request depends on the quality of the connection
                   between the Trading Platform and the Server, as well as the market conditions. Under normal market
                   conditions, the Client's Transaction Request processing time ranges from 0-3 seconds. Under unusual
                   market conditions, the processing time of the Client's Trade Request may be lengthy.
                 </span>
-                <span>4.3. Open Trades</span>
+                <span>- Open Trades</span>
                 <span>
-                  4.3.1. The minimum amount the Client can invest in a Transaction on the Trading Platform is $1/ or the
+                  - The minimum amount the Client can invest in a Transaction on the Trading Platform is $1/ or the
                   equivalent of $1 (depending on the currency of the Account)
                 </span>
                 <span>
-                  4.3.2. A Client's Transaction Request to open a Trade will be refused for the following reasons: - The
+                  - A Client's Transaction Request to open a Trade will be refused for the following reasons: - The
                   Client makes a Trade Request before receiving the first quote of the Trading Asset on the Trading
                   Platform at the opening of the market; - The Client does not have enough money left in the Account to
                   open a new Transaction.
                 </span>
                 <span>
-                  4.3.3. The Client's request to open a Trade may also be rejected by the Server under unusual market
+                  - The Client's request to open a Trade may also be rejected by the Server under unusual market
                   conditions.
                 </span>
                 <span>
-                  4.3.4. A Client's transaction request to open a Transaction is deemed executed, and Open, after a
+                  - A Client's transaction request to open a Transaction is deemed executed, and Open, after a
                   corresponding record appears in the Log File. Each Transaction on the Server is attached with a unique
                   identification number.
                 </span>
-                <span>4.4. Closed transactions</span>
+                <span>- Closed transactions</span>
                 <span>
-                  4.4.1. The Trade closes with the Current Price of the Trading Asset on the Server at the time of
+                  - The Trade closes with the Current Price of the Trading Asset on the Server at the time of
                   closing the Trade.
                 </span>
                 <span>
-                  4.4.2. The Client's transaction request to close a Transaction is considered completed and the
+                  - The Client's transaction request to close a Transaction is considered completed and the
                   Transaction closed, after a corresponding record appears in the log file.
                 </span>
                 <span>
-                  4.5. The Company reserves the right to limit the maximum number of Transactions that the Client makes
+                  - The Company reserves the right to limit the maximum number of Transactions that the Client makes
                   in one minute, one hour or one calendar day.
                 </span>
                 <span>
-                  4.6. The Company reserves the right to change the rate of return, the minimum and maximum limits of
+                  - The Company reserves the right to change the rate of return, the minimum and maximum limits of
                   the amount the Client can invest in a Transaction, as well as the Expiry Time of one/many/all Assets.
                 </span>
                 <br />
                 <br />
                 <p>5. Terms of Use for the Company’s Services</p>
                 <span>
-                  a. Services – services provided by the Company to the Client through the Trading Platform of the
+                  - Services – services provided by the Company to the Client through the Trading Platform of the
                   Company, including without limitation to customer, analytics, news and marketing information services.
                 </span>
                 <span>
-                  b. The Company shall facilitate the execution of trade activities/orders and/or transactions of the
+                  - The Company shall facilitate the execution of trade activities/orders and/or transactions of the
                   Client but the Client hereby acknowledges and accepts that the Company shall not at any time provide
                   any trust services and/or trading consultation or advisory services to the Client.
                 </span>
                 <span>
-                  c. The Company shall process all transactions/Operations of the Client in accordance with the terms
+                  - The Company shall process all transactions/Operations of the Client in accordance with the terms
                   and conditions of this Agreement and on an execution-only basis. The Company shall not manage the
                   Client’s Account nor advise the Client in any way.
                 </span>
                 <span>
-                  d. The Company shall process the orders/transactions requested by the Client under this Agreement
+                  - The Company shall process the orders/transactions requested by the Client under this Agreement
                   irrespective of whether such orders/transactions may result to not being beneficial for the Client.
                   The Company is under no obligation, unless otherwise agreed in this Agreement and/or other
                   documentation/information on the Website, to monitor or advise the Client on the status of any
@@ -293,11 +292,11 @@ const TermOfUseComponent = () => {
                   positions.
                 </span>
                 <span>
-                  e. The Company shall not be financially liable for any operations conducted by the Client through the
+                  - The Company shall not be financially liable for any operations conducted by the Client through the
                   Account and/or on the Trading Platform.
                 </span>
                 <span>
-                  f. The Client shall be liable for all orders given through his security information and any orders
+                  - The Client shall be liable for all orders given through his security information and any orders
                   received in this manner by the Company shall be considered to have been given by the Client. So long
                   as any order is submitted through the Account of a Client, the Company shall reasonably assume that
                   such orders are submitted by Client and the Company shall not be under any obligation to investigate
@@ -305,12 +304,12 @@ const TermOfUseComponent = () => {
                   relations with, any third party other than the Client.
                 </span>
                 <span>
-                  g. If the Client acts on behalf of any third party and/or on behalf of any third party’s name, the
+                  - If the Client acts on behalf of any third party and/or on behalf of any third party’s name, the
                   Company shall not accept this person as a Client and shall not be liable before this person regardless
                   if such person was identified or not.
                 </span>
                 <span>
-                  h. The Client is entitled to use such Cancellation or Buyout option subject to the conditions
+                  - The Client is entitled to use such Cancellation or Buyout option subject to the conditions
                   specified on the Trading Platform/Website, including without limitation to any fee to be charged by
                   the Company. The Company shall be obliged to provide all necessary information as to the conditions of
                   Cancellation and Buyout, including any applicable costs, etc. The Client acknowledges, accepts and
@@ -321,7 +320,7 @@ const TermOfUseComponent = () => {
                   associated with the use of Cancellation and/or Buyout option.
                 </span>
                 <span>
-                  i. Provision of investment advice shall only be carried out by the Company subject to a separate
+                  - Provision of investment advice shall only be carried out by the Company subject to a separate
                   written agreement with the Client and after assessing the Client’s personal circumstances. Unless such
                   written agreement has been entered into between the Client and the Company, the provision of reports,
                   news, opinions and any other information by the Company to the Client does not constitute investment
@@ -330,7 +329,7 @@ const TermOfUseComponent = () => {
                 <br />
                 <br />
                 <p>6. Rights and obligations of the parties</p>
-                <span>Client has a right:</span>
+                <h4>6.1. Client has a right</h4>
                 <span>
                   - Perform Fixed Time Trades using the platform offered by the Company. to request and receive from us
                   any information regarding your Account.
@@ -344,7 +343,7 @@ const TermOfUseComponent = () => {
                   - In case of any disputes, to submit a complaint to the Company in a formal email through the email
                   address specified on the Site.
                 </span>
-                <span>Client is obliged:</span>
+                <h4>6.2. Client is obliged</h4>
                 <span>
                   - Comply with the provisions of this Agreement when using Services offered by the Company and/or
                   performing Transactions on the Site and/or through Mobile App.
@@ -376,7 +375,7 @@ const TermOfUseComponent = () => {
                   - Not to open, directly or indirectly, any new accounts with the Company if Client’s current account
                   has been suspended or blocked by the Company.
                 </span>
-                <span>The Company has a right:</span>
+                <h4>6.3. The Company has a right</h4>
                 <span>
                   - Modify or update any provision of this Agreement at any time for any reason and any such changes to
                   this Agreement will supersede and replace any previous provisions of this Agreement effective
@@ -410,7 +409,7 @@ const TermOfUseComponent = () => {
                   - Temporarily or permanently suspend Client’s access to the Site and the Account, and/or terminate the
                   Agreement, and/or take any other actions as the Company may see fit under the circumstances.
                 </span>
-                <span>The Company is obliged:</span>
+                <h4>6.4. The Company is obliged</h4>
                 <span>- Act honestly, fairly, and professionally when providing Services to Clients.</span>
                 <span>- Provide access to the Site and Client’s Account.</span>
                 <span>
@@ -432,7 +431,7 @@ const TermOfUseComponent = () => {
                 <br />
                 <h4>7.1 Risks associated with trading financial instruments</h4>
                 <span>
-                  1. Market Risk: Due to the high volatility of the Market, prices of most Financial Instruments traded
+                  - Market Risk: Due to the high volatility of the Market, prices of most Financial Instruments traded
                   can vary considerably over the course of a day, which may bring you profit as well as loss. Those
                   Financial Instruments with volatile price movements should be carefully considered as there are higher
                   risks of loss. Prices may fluctuate due to changes in market conditions which is beyond your control
@@ -442,7 +441,7 @@ const TermOfUseComponent = () => {
                   economical/political events or announcements.
                 </span>
                 <span>
-                  2. Liquidity Risk: This is the financial risk that for a certain period of time an underlying asset
+                  - Liquidity Risk: This is the financial risk that for a certain period of time an underlying asset
                   cannot be traded quickly enough in the market without impacting the market price. You must acknowledge
                   that some products offered by the Company may suffer from liquidity strains due to adverse market
                   conditions, and as such, the asset may be volatile and have a higher degree of risk. The volatility
@@ -453,11 +452,11 @@ const TermOfUseComponent = () => {
                 <br />
                 <h4>7.2. Risks associated with cryptocurrency trading</h4>
                 <span>
-                  1. Virtual currencies are complex and high risk products and as such, you could lose your entire
+                  - Virtual currencies are complex and high risk products and as such, you could lose your entire
                   invested capital.
                 </span>
                 <span>
-                  2. Virtual currencies can widely fluctuate and may result in significant loss over a short period of
+                  - Virtual currencies can widely fluctuate and may result in significant loss over a short period of
                   time. You should not trade in virtual currencies in case you do not have the necessary knowledge and
                   expertise in these products.
                 </span>
@@ -465,7 +464,7 @@ const TermOfUseComponent = () => {
                 <br />
                 <h4>7.3. Technical risk</h4>
                 <span>
-                  Problems or errors in the operation of software and computer equipment of the Company, unstable
+                  - Problems or errors in the operation of software and computer equipment of the Company, unstable
                   Internet connection, interruption of transmission of information flows, interruption of power supply,
                   problems in transmission, being attacked by hackers, as well as any illegal activity related to the
                   device. We reserve the right to refuse and not accept the results of the technical troubleshooting
