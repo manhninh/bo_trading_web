@@ -36,7 +36,7 @@ const WinLossComponent = (props: IProps = Props) => {
 
   return (
     <Modal
-      show={props.result ? true : false}
+      show={props.result && props.result >= 0 ? true : false}
       centered={true}
       dialogClassName="modal-w-90-per"
       contentClassName="modal-content-custom">
