@@ -53,7 +53,7 @@ const SocketProvider = (props: any) => {
       });
     }
     return () => {
-      calculatorDisconnect(socketCandlestickRef?.current);
+      calculatorDisconnect(socketCalculatorRef?.current);
     };
   }, [calculatorEvents]);
 

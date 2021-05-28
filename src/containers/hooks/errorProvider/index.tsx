@@ -1,12 +1,16 @@
 import {LOCAL_STORE, RESPONSE_STATUS} from 'constants/system';
+import { size } from 'lodash';
 import React, {useCallback} from 'react';
+import { useDispatch } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {toast} from 'react-toastify';
+import { signOut } from 'routers/redux/slice';
 import {Props} from './propState';
 import {ErrorContext} from './useError';
 
 export default function ErrorProvider({children}: Props) {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const addError = async (err: Response | null, message: null) => {
     if (err) {
@@ -16,7 +20,7 @@ export default function ErrorProvider({children}: Props) {
       }
 
       if (err.status === RESPONSE_STATUS.FORBIDDEN) {
-        localStorage.removeItem(LOCAL_STORE.TOKEN);
+        dispatch(signOut());
         history.push('/');
         return;
       }

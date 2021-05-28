@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
 import { ROUTE_PATH } from 'routers/helpers';
-import { signOut } from 'routers/redux/slice';
 import './styled.css';
 
 const SidebarLayout = () => {
