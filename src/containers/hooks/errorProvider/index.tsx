@@ -1,10 +1,9 @@
-import {LOCAL_STORE, RESPONSE_STATUS} from 'constants/system';
-import { size } from 'lodash';
+import {RESPONSE_STATUS} from 'constants/system';
 import React, {useCallback} from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import { signOut } from 'routers/redux/slice';
+import {signOut} from 'routers/redux/slice';
 import {Props} from './propState';
 import {ErrorContext} from './useError';
 
@@ -39,3 +38,51 @@ export default function ErrorProvider({children}: Props) {
 
   return <ErrorContext.Provider value={contextValue}>{children}</ErrorContext.Provider>;
 }
+
+// "DOT/BTC",
+// "ETC/BTC",
+// "UNI/BTC",
+// "ENJ/BTC",
+// "SOL/BTC",
+// "LUNA/BTC",
+// "XLM/BTC",
+// "FIL/BTC",
+// "REEF/BTC",
+// "CHZ/BTC",
+// "ONE/BTC",
+// "AAVE/BTC",
+// "SUSHI/BTC",
+// "CAKE/BTC",
+// "YFI/BTC",
+// "TRX/BTC",
+// "SXP/BTC",
+// "DASH/BTC",
+// "OMG/BTC",
+// "CELR/BTC",
+// "CRV/BTC",
+// "FET/BTC",
+// "QTUM/BTC",
+// "AXS/BTC",
+// "ALICE/BTC",
+// "ICP/BTC",
+// "FTM/BTC",
+// "ZIL/BTC",
+// "OGN/BTC",
+// "SNX/BTC",
+// "XVG/BTC",
+// "DODO/BTC",
+// "LRC/BTC",
+// "ONT/BTC",
+// "ARK/BTC",
+// "NEAR/BTC",
+// "DIA/BTC",
+// "1INCH/BTC",
+// "POND/BTC",
+// "CHR/BTC",
+// "AVA/BTC",
+// "FRONT/BTC",
+// "PERL/BTC",
+// "VET/BTC",
+// "WBTC/BTC",
+// "NMR/BTC",
+// "RUNE/BTC"

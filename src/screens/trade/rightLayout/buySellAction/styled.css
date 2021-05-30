@@ -34,7 +34,13 @@
 }
 
 .text-result {
-  font-size: 10em;
+  font-size: 4rem;
+  font-style: italic;
+  font-weight: 900;
+  font-family: sans-serif;
+  position: relative;
+  bottom: 11.5rem;
+  right: 2rem;
 }
 
 @media (max-width: 575px) {

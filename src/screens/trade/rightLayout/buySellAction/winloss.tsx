@@ -2,10 +2,10 @@ import React, {useEffect} from 'react';
 import {Modal} from 'react-bootstrap';
 import {useDispatch} from 'react-redux';
 import {setTotalBuy, setTotalSell, setWinLoss} from 'screens/trade/redux/slice';
-import './styled.css';
 import useSound from 'use-sound';
-import winSound from './win.mp3';
 import loseSound from './lose.mp3';
+import './styled.css';
+import winSound from './win.mp3';
 
 type IProps = {
   result: number | null;
@@ -41,8 +41,9 @@ const WinLossComponent = (props: IProps = Props) => {
       dialogClassName="modal-w-90-per"
       contentClassName="modal-content-custom">
       <Modal.Body className="modal-body-custom">
-        <h1 className="text-result" style={{color: props.result && props.result >= 0 ? '#28a745' : '#F04B4B'}}>
-          {props.result} USDF
+        <img src={process.env.PUBLIC_URL + '/img/win.png'} alt="" />
+        <h1 className="text-result" style={{color: '#FFF'}}>
+          + {props.result} USDF
         </h1>
       </Modal.Body>
     </Modal>
