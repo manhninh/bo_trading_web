@@ -1,4 +1,4 @@
-.m-t-10-per {
+.m-t-10-percen {
   margin-top: 10%;
 }
 
@@ -8,14 +8,6 @@
   box-shadow: none;
 }
 
-.fontsize50 {
+.f-50 {
   font-size: 50px;
-}
-
-.loader-div {
-  padding: 10px 0 25px;
-}
-
-.m-0-auto {
-  margin: 0 auto;
 }

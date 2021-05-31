@@ -36,14 +36,15 @@ const WinLossComponent = (props: IProps = Props) => {
 
   return (
     <Modal
-      show={props.result && props.result >= 0 ? true : false}
+      // show={props.result && props.result >= 0 ? true : false}
+      show={true}
       centered={true}
       dialogClassName="modal-w-90-per"
       contentClassName="modal-content-custom">
       <Modal.Body className="modal-body-custom">
-        <img src={process.env.PUBLIC_URL + '/img/win.png'} alt="" />
+        <img src={process.env.PUBLIC_URL + '/img/win.png'} alt="" className="img-win" />
         <h1 className="text-result" style={{color: '#FFF'}}>
-          + {props.result} USDF
+          + {props.result}10 USDF
         </h1>
       </Modal.Body>
     </Modal>

@@ -89,7 +89,7 @@ const HeaderLayout = (props: IProps = Props) => {
           <div className="header-top">
             <div className="container d-flex align-items-center">
               <a href={ROUTE_PATH.TRADE} className="logo">
-                <img src={process.env.PUBLIC_URL + '/logo512.png'} alt="" style={{height: '30px'}} />
+                <img src={process.env.PUBLIC_URL + '/logo512.png'} alt="" className="h-30" />
               </a>
               <div className="login_or_register d-flex align-items-center">
                 <a href="javascript:void(0)" onClick={toggleSignIn}>
@@ -112,7 +112,7 @@ const HeaderLayout = (props: IProps = Props) => {
                 <div className="navbar-header">
                   <a href={ROUTE_PATH.TRADE} className="navbar-brand">
                     <div className="brand-big text-uppercase">
-                      <img src={process.env.PUBLIC_URL + '/logo512.png'} alt="" style={{height: '30px'}} />
+                      <img src={process.env.PUBLIC_URL + '/logo512.png'} alt="" className="h-30" />
                     </div>
                   </a>
                 </div>

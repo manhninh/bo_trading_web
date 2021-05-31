@@ -15,5 +15,5 @@
   "workbench.panel.defaultLocation": "bottom",
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.format.semicolons": "insert",
-  "workbench.editor.showTabs": true
+  "workbench.editor.showTabs": true,
 }

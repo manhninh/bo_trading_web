@@ -1,11 +1,11 @@
-import {yupResolver} from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import useError from 'containers/hooks/errorProvider/useError';
-import React, {useState} from 'react';
-import {useForm} from 'react-hook-form';
-import {useTranslation} from 'react-i18next';
-import {ROUTE_PATH} from 'routers/helpers';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { ROUTE_PATH } from 'routers/helpers';
 import * as yup from 'yup';
-import {postForgotPassword} from './services';
+import { postForgotPassword } from './services';
 import './styled.css';
 
 interface IFormInputs {
@@ -13,8 +13,8 @@ interface IFormInputs {
 }
 
 const ForgotPasswordComponent = () => {
-  const {t} = useTranslation();
-  const {addError} = useError();
+  const { t } = useTranslation();
+  const { addError } = useError();
   const [showMess, setShowMess] = useState(false);
 
   const schema = yup.object().shape({
@@ -24,7 +24,7 @@ const ForgotPasswordComponent = () => {
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<IFormInputs>({
     defaultValues: {
       username: '',
@@ -58,7 +58,7 @@ const ForgotPasswordComponent = () => {
                 </div>
                 <div className="row">
                   <div className="col">
-                    <form className="form-validate w-400" style={{margin: '0 auto'}}>
+                    <form className="form-validate w-400 m-0-auto">
                       {!showMess ? (
                         <>
                           <div className="form-group">

@@ -1,13 +1,13 @@
-import {yupResolver} from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useState} from 'react';
-import {useForm} from 'react-hook-form';
-import {useTranslation} from 'react-i18next';
-import {useDispatch} from 'react-redux';
-import {useHistory} from 'react-router';
-import {ROUTE_PATH} from 'routers/helpers';
-import {fetchLogin} from 'routers/redux/thunks';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { ROUTE_PATH } from 'routers/helpers';
+import { fetchLogin } from 'routers/redux/thunks';
 import * as yup from 'yup';
 
 interface IFormInputs {
@@ -18,11 +18,11 @@ interface IFormInputs {
 }
 
 const LogInComponent = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
-  const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
+  const { showLoading, hideLoading } = useLoading();
+  const { addError } = useError();
   const [showTFA, setShowTFA] = useState(false);
 
   const schema = yup.object().shape({
@@ -39,7 +39,7 @@ const LogInComponent = () => {
     register,
     handleSubmit,
     setValue,
-    formState: {errors},
+    formState: { errors },
   } = useForm<IFormInputs>({
     defaultValues: {
       username: '',
@@ -53,7 +53,7 @@ const LogInComponent = () => {
   const onSubmit = async (data: IFormInputs) => {
     showLoading();
     try {
-      await dispatch(fetchLogin({username: data.username, password: data.password, tfa: data.tfa}));
+      await dispatch(fetchLogin({ username: data.username, password: data.password, tfa: data.tfa }));
       history.push(ROUTE_PATH.TRADE);
     } catch (err) {
       const error = await err.json();
@@ -78,7 +78,7 @@ const LogInComponent = () => {
         <div className="is-invalid invalid-feedback">{errors.username?.message}</div>
       </div>
       <div className="form-group">
-        <div className="d-flex" style={{justifyContent: 'space-between'}}>
+        <div className="d-flex justify-content-between">
           <label className="d-inline-block">{t('common:authen.password')}</label>
           <a href={ROUTE_PATH.FORGOT_PASSWORD} className="small text-danger d-inline-block">
             {t('common:authen.forgotPassword')}

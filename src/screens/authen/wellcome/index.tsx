@@ -1,20 +1,21 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {ROUTE_PATH} from 'routers/helpers';
+import { useTranslation } from 'react-i18next';
+import { ROUTE_PATH } from 'routers/helpers';
+import "./styled.css";
 
 const WellcomeComponent = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <>
       <div className="background-img" />
-      <section className="forms" style={{marginTop: '10%'}}>
+      <section className="forms m-t-10-percen">
         <div className="container-fluid">
           <div className="row justify-content-center">
             <div className="col-xl-12">
-              <div className="card p-5" style={{backgroundColor: 'transparent', border: 0, boxShadow: 'none'}}>
+              <div className="card p-5 card-custom">
                 <div className="row">
                   <div className="col text-center">
-                    <h1 className="mb-3 text-info" style={{fontSize: '50px'}}>
+                    <h1 className="mb-3 text-info f-50">
                       {t('common:authen.wellcome')}
                     </h1>
                   </div>

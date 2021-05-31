@@ -72,6 +72,10 @@ nav.navbar .sidebar-toggle {
   top: 12px;
 }
 
+.h-30{
+  height: 30px;
+}
+
 @media (max-width: 1199px) {
   nav.navbar .visible {
     display: none !important;

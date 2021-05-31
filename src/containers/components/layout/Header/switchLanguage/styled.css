@@ -34,18 +34,27 @@
 }
 
 .m-1-3rem {
-  margin-left: .3rem;
+  margin-left: 0.3rem;
 }
 
-.dropdown-toggle-lang:after{
+.dropdown-toggle-lang:after {
   display: none;
 }
 
-.dropdown-toggle-lang:focus{
+.dropdown-toggle-lang:focus {
   box-shadow: none;
   text-decoration: none;
 }
 
-.dropdown-toggle-lang:hover{
+.dropdown-toggle-lang:hover {
   text-decoration: none;
+}
+
+.m-t--27 {
+  margin-top: -27px;
+}
+
+.div-item {
+  display: 'flex';
+  align-items: 'center';
 }
