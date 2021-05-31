@@ -244,5 +244,11 @@
     "title20": "Term of use",
     "title21": "Privacy",
     "title22": ">Contact with us"
+  },
+  "copy_trade": {
+    "community_tab": "community",
+    "expert_area_tab": "expert_area",
+    "community": "Community",
+    "expert_area": "Expert Area"
   }
 }

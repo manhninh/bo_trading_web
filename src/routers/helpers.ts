@@ -1,4 +1,4 @@
-import {AuthState} from './redux/state';
+import { AuthState } from './redux/state';
 
 export const stateConditionString = (state: AuthState) => {
   let navigateTo = '';
