@@ -110,7 +110,7 @@
     "title5": "3. Activate & Receive IB Commissions",
     "subTitle5": "The commission system has 8 levels. You will receive a commission based on your friend's trading volume",
     "title6": "Do you agree to pay",
-    "title7": "30 USDF",
+    "title7": "$30",
     "title8": "to purchase Affiliate License to receive Agent Commissions and Trading Commissions?",
     "title9": "Yes, I'm buy",
     "title10": "No, I'm not buy"
@@ -133,9 +133,9 @@
     "search": "Search",
     "date": "Date",
     "username": "User name",
-    "volume": "Volume (USDF)",
-    "commission": "Commission (USDF)",
-    "withdraw2": "Withdraw (USDF)",
+    "volume": "Volume",
+    "commission": "Commission",
+    "withdraw2": "Withdraw",
     "sponsor": "Sponsor",
     "nodata": "No Data",
     "agency": "Agency"

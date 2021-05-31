@@ -1,19 +1,19 @@
-import {yupResolver} from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import UsdtPng from 'assets/images/usdt.png';
-import {useAppSelector} from 'boot/configureStore';
+import { useAppSelector } from 'boot/configureStore';
 import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {Form, Modal} from 'react-bootstrap';
-import {useGoogleReCaptcha} from 'react-google-recaptcha-v3';
-import {useForm} from 'react-hook-form';
-import {useTranslation} from 'react-i18next';
-import {useDispatch} from 'react-redux';
-import {updateAmount} from 'routers/redux/slice';
-import {formatter2} from 'utils/formatter';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Form, Modal } from 'react-bootstrap';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { updateAmount } from 'routers/redux/slice';
+import { formatter2 } from 'utils/formatter';
 import * as yup from 'yup';
-import {Props, TYPE_WALLET} from './propState';
-import {transferInternalMoney, transferMoney} from './services';
+import { Props, TYPE_WALLET } from './propState';
+import { transferInternalMoney, transferMoney } from './services';
 import './styled.css';
 
 interface IState {
@@ -36,7 +36,7 @@ interface IFormToUserName {
 }
 
 const TransferComponent = (props = Props) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const formDefaultInAccount: Readonly<IFormInAccount> = {
     amount: 0,
     to: props.type_wallet === TYPE_WALLET.SPOT ? 'trade' : 'spot',
@@ -54,15 +54,15 @@ const TransferComponent = (props = Props) => {
     amountTo: 0,
   });
 
-  const {executeRecaptcha} = useGoogleReCaptcha();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const dispatch = useDispatch();
-  const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
+  const { showLoading, hideLoading } = useLoading();
+  const { addError } = useError();
   const authState = useAppSelector((state) => state.authState);
   const isEnabledTFA = authState.accountInfor.isEnabledTFA;
 
   useEffect(() => {
-    reset({...formDefaultToUsername, ...formDefaultInAccount});
+    reset({ ...formDefaultToUsername, ...formDefaultInAccount });
   }, [state.type_transfer]);
 
   const schema = yup.object().shape({
@@ -100,13 +100,13 @@ const TransferComponent = (props = Props) => {
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
     reset,
     getValues,
     watch,
     setValue,
   } = useForm<IFormInAccount | IFormToUserName>({
-    defaultValues: useMemo(() => ({...formDefaultInAccount, ...formDefaultToUsername}), []),
+    defaultValues: useMemo(() => ({ ...formDefaultInAccount, ...formDefaultToUsername }), []),
     resolver: yupResolver(schema),
   });
 
@@ -134,14 +134,14 @@ const TransferComponent = (props = Props) => {
       const functionAPI = state.type_transfer === 'TO_USERNAME' ? transferMoney : transferInternalMoney;
       const res = await functionAPI(params);
       if (res?.data) {
-        setState({...state, show: false});
-        reset({...formDefaultToUsername, ...formDefaultInAccount});
+        setState({ ...state, show: false });
+        reset({ ...formDefaultToUsername, ...formDefaultInAccount });
 
         // update lại số tiền vừa transfer
         if (state.type_transfer === 'IN_ACCOUNT') {
           const amountFrom = selectTypeWallet(props.type_wallet, data.amount, 'from');
           const amountTo = selectTypeWallet(data.to, data.amount, 'to');
-          dispatch(updateAmount({...amountFrom, ...amountTo}));
+          dispatch(updateAmount({ ...amountFrom, ...amountTo }));
         }
         let tabActive = 'TRANSFER';
         tabActive = tabActive
@@ -159,7 +159,7 @@ const TransferComponent = (props = Props) => {
 
   const onSubmit = useCallback(onTransferSubmit, [executeRecaptcha, state]);
 
-  const handleClose = () => setState((state) => ({...state, show: false, type_transfer: 'IN_ACCOUNT'}));
+  const handleClose = () => setState((state) => ({ ...state, show: false, type_transfer: 'IN_ACCOUNT' }));
 
   const handleShow = () => {
     let amountFrom: number = 0;
@@ -181,13 +181,13 @@ const TransferComponent = (props = Props) => {
     let amountTo: number = 0;
     if (to === 'spot') amountTo = authState.accountInfor.amount;
     else if (to === 'trade') amountTo = authState.accountInfor.amount_trade;
-    setState((state) => ({...state, show: true, amountFrom, amountTo}));
+    setState((state) => ({ ...state, show: true, amountFrom, amountTo }));
   };
 
   const selectTransfer = (type) => {
     if (state.type_transfer === type) return;
     if (!state.type_transfer || state.type_transfer !== type) {
-      setState({...state, type_transfer: type});
+      setState({ ...state, type_transfer: type });
     }
   };
 
@@ -226,7 +226,7 @@ const TransferComponent = (props = Props) => {
     else if (evt.target.value === 'trade') amountTo = authState.accountInfor.amount_trade;
     else if (evt.target.value === 'expert') amountTo = authState.accountInfor.amount_expert;
     else if (evt.target.value === 'copytrade') amountTo = authState.accountInfor.amount_copytrade;
-    setState((state) => ({...state, amountTo}));
+    setState((state) => ({ ...state, amountTo }));
   };
 
   const selectTypeWallet = (type_wallet, amount, fromTo: 'from' | 'to') => {
@@ -308,9 +308,9 @@ const TransferComponent = (props = Props) => {
                     max={props.amount}
                   />
                   <p className="text-right mb-0">
-                    {t('common:wallet.balance')}: {formatter2.format(state.amountFrom)} USDF
+                    {t('common:wallet.balance')}: $ {formatter2.format(state.amountFrom)}
                   </p>
-                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                  <div className="is-invalid invalid-feedback" style={{ display: 'block' }}>
                     {errors.amount?.message}
                   </div>
                 </div>
@@ -335,9 +335,9 @@ const TransferComponent = (props = Props) => {
                     </Form.Control>
                   </Form.Group>
                   <p className="text-right mb-0">
-                    {t('common:wallet.balance')}: {formatter2.format(state.amountTo)} USDF
+                    {t('common:wallet.balance')}: $ {formatter2.format(state.amountTo)}
                   </p>
-                  <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                  <div className="is-invalid invalid-feedback" style={{ display: 'block' }}>
                     {errors['to']?.message}
                   </div>
                 </div>
@@ -348,7 +348,7 @@ const TransferComponent = (props = Props) => {
                     <label className="form-control-label">{t('common:wallet.receiverUsername')}</label>
                     <span className="text-danger">*</span>
                     <input type="text" className="form-control form-control-sm" {...register('receiver_username')} />
-                    <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                    <div className="is-invalid invalid-feedback" style={{ display: 'block' }}>
                       {errors['receiver_username']?.message}
                     </div>
                   </div>
@@ -363,7 +363,7 @@ const TransferComponent = (props = Props) => {
                       {t('common:wallet.password')} <span className="text-danger">*</span>
                     </label>
                     <input type="password" className="form-control form-control-sm" {...register('password')} />
-                    <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                    <div className="is-invalid invalid-feedback" style={{ display: 'block' }}>
                       {errors['password']?.message}
                     </div>
                   </div>
@@ -373,7 +373,7 @@ const TransferComponent = (props = Props) => {
                     <div className="form-group">
                       <label className="form-control-label">{t('common:wallet.2fa')}</label>
                       <input type="text" className="form-control form-control-sm" maxLength={6} {...register('tfa')} />
-                      <div className="is-invalid invalid-feedback" style={{display: 'block'}}>
+                      <div className="is-invalid invalid-feedback" style={{ display: 'block' }}>
                         {errors['tfa']?.message}
                       </div>
                     </div>

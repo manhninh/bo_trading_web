@@ -110,7 +110,7 @@
     "title5": "3.激活和接收IB佣金",
     "subTitle5": "佣金系统有8个级别。 您将根据您朋友的交易量获得佣金",
     "title6": "您同意付款",
-    "title7": "30 USDF",
+    "title7": "$30",
     "title8": "要购买会员许可证以接收代理商佣金和交易佣金？",
     "title9": "是的，我要买",
     "title10": "不，我不买"
@@ -133,9 +133,9 @@
     "search": "Search",
     "date": "Date",
     "username": "User name",
-    "volume": "Volume (USDF)",
-    "commission": "Commission (USDF)",
-    "withdraw2": "Withdraw (USDF)",
+    "volume": "Volume",
+    "commission": "Commission",
+    "withdraw2": "Withdraw",
     "sponsor": "Sponsor",
     "nodata": "没有数据",
     "agency": "Agency"

@@ -1,24 +1,27 @@
 import DownImage from 'assets/images/down.png';
 import UpImage from 'assets/images/up.png';
-import {RootState, useAppSelector} from 'boot/configureStore';
-import {RESPONSE_STATUS, TypeUser, TYPE_ORDER} from 'constants/system';
-import {Order} from 'models/orders';
-import React, {useEffect, useMemo, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {useDispatch} from 'react-redux';
-import {useHistory} from 'react-router';
-import {toast} from 'react-toastify';
-import {createSelector} from 'reselect';
-import {restoreAccount, signOut} from 'routers/redux/slice';
-import {setTotalBuy, setTotalSell} from 'screens/trade/redux/slice';
-import {IProps, Props} from './propState';
-import {fetchOrder} from './services';
+import { RootState, useAppSelector } from 'boot/configureStore';
+import { RESPONSE_STATUS, TypeUser, TYPE_ORDER } from 'constants/system';
+import { Order } from 'models/orders';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { toast } from 'react-toastify';
+import { createSelector } from 'reselect';
+import { restoreAccount, signOut } from 'routers/redux/slice';
+import { setTotalBuy, setTotalSell } from 'screens/trade/redux/slice';
+import useSound from 'use-sound';
+import playSound from './play.mp3';
+import { IProps, Props } from './propState';
+import { fetchOrder } from './services';
 import './styled.css';
 import WinLossComponent from './winloss';
 
 const BuySellAction = (props: IProps = Props) => {
+  const [play] = useSound(playSound);
   const history = useHistory();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const buyRef = React.useRef(0);
   const sellRef = React.useRef(0);
@@ -81,6 +84,7 @@ const BuySellAction = (props: IProps = Props) => {
   const trade = useAppSelector((state) => selectorTrade(state, false));
 
   const _btnBuy = () => {
+    play();
     if (props.place === 0) return;
     const totalBuy = buyRef.current + props.place;
     if (amountUser - totalBuy - sellRef.current > 0) {
@@ -110,6 +114,7 @@ const BuySellAction = (props: IProps = Props) => {
   };
 
   const _btnSell = () => {
+    play();
     if (props.place === 0) return;
     const totalSell = sellRef.current + props.place;
     if (amountUser - totalSell - buyRef.current > 0) {

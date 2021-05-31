@@ -30,7 +30,7 @@ const WinLossComponent = (props: IProps = Props) => {
         dispatch(setTotalBuy(0));
         dispatch(setTotalSell(0));
         dispatch(setWinLoss({ amount_demo: null, amount_expert: null, amount_trade: null }));
-      }, 2000);
+      }, 3000);
     }
   }, [props.result]);
 

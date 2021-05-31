@@ -1,7 +1,7 @@
 import WinnerImg from 'assets/images/winner.png';
 import React from 'react';
-import {number2DecimalPlaces} from 'utils/formatter';
-import {Commission} from './propState';
+import { number2DecimalPlaces } from 'utils/formatter';
+import { Commission } from './propState';
 import './styled.css';
 
 interface Iprops {
@@ -16,7 +16,7 @@ const CommissionCopyTradeComponent = (props: Iprops) => {
         <img src={WinnerImg} alt="..." className="img-fluid" />
       </div>
       <a href="#" className="user-title mt-0">
-        <h1 className="h1 mt-0 text-warning">{`${number2DecimalPlaces(props.commission?.commission || 0)} USDF`}</h1>
+        <h1 className="h1 mt-0 text-warning">{`$ ${number2DecimalPlaces(props.commission?.commission || 0)}`}</h1>
         <span className="text-light">Commission Copy Trade</span>
       </a>
       <div className="contributions">

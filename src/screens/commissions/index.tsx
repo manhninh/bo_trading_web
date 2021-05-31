@@ -1,24 +1,24 @@
 import ContainerLayout from 'containers/components/layout/Container';
 import SpinnerLoader from 'containers/components/loader';
 import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import {cloneDeep} from 'lodash';
-import React, {lazy, Suspense, useEffect, useState} from 'react';
-import {Modal, Nav, NavItem, Tab, TabContent} from 'react-bootstrap';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
+import { cloneDeep } from 'lodash';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
+import { Modal, Nav, NavItem, Tab, TabContent } from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
-import {useTranslation} from 'react-i18next';
-import {Redirect, Route, useLocation} from 'react-router';
-import {NavLink} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Redirect, Route, useLocation } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import CommissionTrade from './commissionTrade';
-import {Commission} from './propState';
-import {commissionWithdraw, getCommissions} from './services';
+import { Commission } from './propState';
+import { commissionWithdraw, getCommissions } from './services';
 import './styled.css';
 
 const CommissionComponent = () => {
-  const {t} = useTranslation();
-  const {pathname} = useLocation();
-  const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
+  const { t } = useTranslation();
+  const { pathname } = useLocation();
+  const { showLoading, hideLoading } = useLoading();
+  const { addError } = useError();
   const [commissions, setCommissions] = useState<Commission[]>([]);
   const [state, setState] = useState({
     show: false,
@@ -66,10 +66,10 @@ const CommissionComponent = () => {
     ));
 
   const handleShow = (type, withdraw) => {
-    if (withdraw > 0) setState((state) => ({...state, show: true, typeCommissionWidthPopup: type, withdraw}));
+    if (withdraw > 0) setState((state) => ({ ...state, show: true, typeCommissionWidthPopup: type, withdraw }));
   };
 
-  const handleClose = () => setState((state) => ({...state, show: false, typeCommissionWidthPopup: null, withdraw: 0}));
+  const handleClose = () => setState((state) => ({ ...state, show: false, typeCommissionWidthPopup: null, withdraw: 0 }));
 
   const confirmWithdraw = async () => {
     try {
@@ -81,7 +81,7 @@ const CommissionComponent = () => {
         const newCommissions = cloneDeep(commissions);
         newCommissions[index].commission = 0;
         setCommissions(newCommissions);
-        setState({...state, show: false, typeCommissionWidthPopup: null, withdraw: 0, requestRefesh: path});
+        setState({ ...state, show: false, typeCommissionWidthPopup: null, withdraw: 0, requestRefesh: path });
       }
     } catch (err) {
       addError(err, 'Update commmission withdraw fail!');
@@ -121,7 +121,7 @@ const CommissionComponent = () => {
         <Modal centered={true} show={state.show} onHide={handleClose} backdrop="static" keyboard={false}>
           <Modal.Body>
             <p className="text-light">
-              {t('common:commission.title1')} <span className="text-danger text-bold">{state.withdraw} USDF</span>{' '}
+              {t('common:commission.title1')} <span className="text-danger text-bold">$ {state.withdraw}</span>{' '}
               {t('common:commission.title2')}
             </p>
             <div className="text-right">

@@ -1,15 +1,15 @@
 import ContainerLayout from 'containers/components/layout/Container';
 import Pagination from 'containers/components/pagination';
 import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import {TradeHistory} from 'models/tradeHistory';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
+import { TradeHistory } from 'models/tradeHistory';
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {useTranslation} from 'react-i18next';
-import {formatter2} from 'utils/formatter';
-import {getTradeHistory} from './services';
+import { useTranslation } from 'react-i18next';
+import { formatter2 } from 'utils/formatter';
+import { getTradeHistory } from './services';
 import './styled.css';
 interface FilterSearch {
   from: Date;
@@ -25,9 +25,9 @@ export interface PaginateResult<T> {
 }
 
 const TradeHistoryComponent = () => {
-  const {t} = useTranslation();
-  const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
+  const { t } = useTranslation();
+  const { showLoading, hideLoading } = useLoading();
+  const { addError } = useError();
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
     from: new Date(),
     to: new Date(),
@@ -43,7 +43,7 @@ const TradeHistoryComponent = () => {
   }, [pageActive]);
 
   const _onChangeDate = (type: 'from' | 'to') => (value: Date) => {
-    setFilterSearch({...filterSearch, [type]: value});
+    setFilterSearch({ ...filterSearch, [type]: value });
   };
 
   const _pageChange = (page: number) => setPageActive(page);
@@ -55,7 +55,7 @@ const TradeHistoryComponent = () => {
   const _fetchTradeHistory = async (page: number) => {
     showLoading();
     try {
-      const result = await getTradeHistory({...filterSearch, page, limit: history.limit});
+      const result = await getTradeHistory({ ...filterSearch, page, limit: history.limit });
       setHistory(result.data);
     } catch (err) {
       addError(err, 'Load trade history fail!');
@@ -95,7 +95,7 @@ const TradeHistoryComponent = () => {
               <div className={`${d.amount_result > 0 ? 'text-info' : 'text-danger'}`}>
                 <div className="d-inline-block w-70">{d.amount_result > 0 ? 'WIN' : 'LOSS'}</div>
                 <div className="d-inline-block w-120 text-right">
-                  {d.amount_result > 0 ? `+${d.amount_result}` : `${d.amount_result}`} USDF
+                  {d.amount_result > 0 ? `+${d.amount_result}` : `${d.amount_result}`} $
                 </div>
               </div>
             </td>
