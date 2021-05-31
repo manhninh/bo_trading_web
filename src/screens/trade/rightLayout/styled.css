@@ -48,7 +48,7 @@
 }
 
 .time-action {
-  display: flex;
+  display: block;
   padding: 0 15px 15px;
   justify-content: space-between;
 }
@@ -114,11 +114,11 @@
     margin-bottom: 0;
   }
 
-  .time-action{
+  .time-action {
     padding: 0 15px;
   }
-  
-  .text-currency{
+
+  .text-currency {
     font-size: 14px;
   }
 }

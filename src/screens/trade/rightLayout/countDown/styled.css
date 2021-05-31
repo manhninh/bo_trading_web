@@ -1,10 +1,13 @@
 .timer-wrapper {
-  display: inline-block;
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
 }
 
 .timer-container {
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
 }
 
 .timer {
@@ -15,7 +18,7 @@
 }
 
 .value {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: bold;
 }
 

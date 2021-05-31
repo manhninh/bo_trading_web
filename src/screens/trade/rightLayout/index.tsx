@@ -1,7 +1,7 @@
-import {MaxAmountPlace, PlaceType} from 'constants/system';
-import React, {useState} from 'react';
-import {isMobile} from 'react-device-detect';
-import {useTranslation} from 'react-i18next';
+import { MaxAmountPlace, PlaceType } from 'constants/system';
+import React, { useState } from 'react';
+import { isMobile } from 'react-device-detect';
+import { useTranslation } from 'react-i18next';
 import NumberFormat from 'react-number-format';
 import ActionInfor from './actionInfor';
 import BuySellAction from './buySellAction';
@@ -9,11 +9,11 @@ import CountDownTimer from './countDown';
 import './styled.css';
 
 const RightLayout = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [place, setPlace] = useState(1);
 
   const onChangeAmount = (e: any) => {
-    const {value} = e.target;
+    const { value } = e.target;
     setPlace(value ? parseInt(value.toString().replace(/,/g, '')) : 0);
   };
 
@@ -111,10 +111,10 @@ const RightLayout = () => {
         </div>
       </div>
       <div className="time-action">
-        <BuySellAction place={place} />
         <CountDownTimer />
+        <BuySellAction place={place} />
+        <ActionInfor />
       </div>
-      <ActionInfor />
     </>
   );
 };
