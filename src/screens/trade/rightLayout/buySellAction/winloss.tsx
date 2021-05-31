@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import {Modal} from 'react-bootstrap';
-import {useDispatch} from 'react-redux';
-import {setTotalBuy, setTotalSell, setWinLoss} from 'screens/trade/redux/slice';
+import React, { useEffect } from 'react';
+import { Modal } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { setTotalBuy, setTotalSell, setWinLoss } from 'screens/trade/redux/slice';
 import useSound from 'use-sound';
 import loseSound from './lose.mp3';
 import './styled.css';
@@ -29,21 +29,21 @@ const WinLossComponent = (props: IProps = Props) => {
       setTimeout(() => {
         dispatch(setTotalBuy(0));
         dispatch(setTotalSell(0));
-        dispatch(setWinLoss({amount_demo: null, amount_expert: null, amount_trade: null}));
+        dispatch(setWinLoss({ amount_demo: null, amount_expert: null, amount_trade: null }));
       }, 2000);
     }
   }, [props.result]);
 
   return (
     <Modal
-      // show={props.result && props.result >= 0 ? true : false}
-      show={true}
+      show={props.result && props.result >= 0 ? true : false}
+      // show={true}
       centered={true}
       dialogClassName="modal-w-90-per"
       contentClassName="modal-content-custom">
       <Modal.Body className="modal-body-custom">
         <img src={process.env.PUBLIC_URL + '/img/win.png'} alt="" className="img-win" />
-        <h1 className="text-result" style={{color: '#FFF'}}>
+        <h1 className="text-result" style={{ color: '#FFF' }}>
           + {props.result}10 USDF
         </h1>
       </Modal.Body>
