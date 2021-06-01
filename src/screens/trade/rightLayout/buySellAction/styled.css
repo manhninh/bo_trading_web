@@ -20,6 +20,7 @@
 
 .modal-w-90-per {
   max-width: 90% !important;
+  margin: 0 auto;
 }
 
 .modal-content-custom {
@@ -68,5 +69,18 @@
   .btn-buy-sel-icon {
     height: 15px;
     margin-right: 10px;
+  }
+
+  .img-win {
+    top: 0;
+    left: 0;
+    width: 24rem;
+    height: 20rem;
+  }
+
+  .text-result {
+    position: relative;
+    bottom: 5.3rem;
+    left: 0.5rem;
   }
 }
