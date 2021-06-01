@@ -44,7 +44,7 @@ const WinLossComponent = (props: IProps = Props) => {
       <Modal.Body className="modal-body-custom">
         <img src={process.env.PUBLIC_URL + '/img/win.png'} alt="" className="img-win" />
         <h1 className="text-result" style={{ color: '#FFF' }}>
-          + $10{props.result}
+          + ${props.result}
         </h1>
       </Modal.Body>
     </Modal>
