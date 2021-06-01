@@ -1,12 +1,10 @@
 .action-infor {
-  padding: 0 15px;
+  padding: 0;
+  position: absolute;
+  top: 21rem;
+  text-align: center;
 }
 
-.action-infor h5:nth-child(1) {
-  display: block;
-  width: 4rem;
-}
-
-.action-infor h5:nth-child(3) {
-  display: block;
+.r-0 {
+  right: 0;
 }

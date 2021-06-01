@@ -85,7 +85,7 @@ const RightLayout = () => {
                 </button>
                 <button
                   type="button"
-                  className={`btn btn-secondary ${isMobile ? 'btn-sm' : ''} btn-outline-secondary`}
+                  className={`btn btn-secondary ${isMobile ? 'btn-sm ml-2' : ''} btn-outline-secondary`}
                   onClick={handClickPlace(PlaceType.Subtract)}>
                   <i className="fas fa-minus" />
                 </button>
@@ -111,9 +111,9 @@ const RightLayout = () => {
         </div>
       </div>
       <div className="time-action">
+        {!isMobile && <ActionInfor />}
         <CountDownTimer />
         <BuySellAction place={place} />
-        <ActionInfor />
       </div>
     </>
   );

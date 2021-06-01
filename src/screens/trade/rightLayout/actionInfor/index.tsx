@@ -17,13 +17,13 @@ const ActionInfor = () => {
 
   return (
     <>
-      <div className="title display-flex action-infor" style={{ position: "absolute", top: "20.8rem" }}>
+      <div className="title display-flex action-infor">
         <h5 className="text-info">BUY</h5>
-        <h5 className="text-info">$ {totalBuy}</h5>
+        <h5 className="text-info">{totalBuy}</h5>
       </div>
-      <div className="title display-flex action-infor" style={{ position: "absolute", top: "20.8rem", right: 0, textAlign: "right" }}>
+      <div className="title display-flex action-infor r-0 pr-3">
         <h5 className="text-danger">SELL</h5>
-        <h5 className="text-danger">{totalSell} $</h5>
+        <h5 className="text-danger">{totalSell}</h5>
       </div>
     </>
   );

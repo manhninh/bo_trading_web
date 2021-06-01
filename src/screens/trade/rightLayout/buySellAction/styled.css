@@ -4,15 +4,14 @@
 
 .btn-buy-sel-action {
   border-radius: 10px;
-  height: 55px;
 }
 
 .btn-buy-sel-icon {
-  height: 26px;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .btn-buy-sel-text {
+  margin-left: 5px;
   font-size: 20px;
   line-height: 26px;
   vertical-align: middle;
@@ -52,15 +51,16 @@
 
 @media (max-width: 575px) {
   .buy-sel-action {
-    width: 78%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    bottom: 4.2rem;
+    position: relative;
   }
 
   .btn-buy-sel-action {
     height: 45px;
-    width: 48%;
+    width: 38%;
     margin: 0 !important;
     display: inline-block;
   }
