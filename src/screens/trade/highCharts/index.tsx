@@ -27,7 +27,13 @@ const CryptoChartComponent = (props: IProps) => {
   }, [timeTick]);
 
   return dataChart.ohlc.length > 0 ? (
-    <StockChart ref={chartComponent} height={props.height} ohlc={dataChart.ohlc} volumes={dataChart.volumes} />
+    <StockChart
+      ref={chartComponent}
+      height={props.height}
+      xAxisMin={props.xAxisMin}
+      ohlc={dataChart.ohlc}
+      volumes={dataChart.volumes}
+    />
   ) : (
     <SpinnerLoader />
   );

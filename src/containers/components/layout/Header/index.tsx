@@ -1,9 +1,9 @@
 import {useAppSelector} from 'boot/configureStore';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useEffect, useState} from 'react';
-import {isMobile} from 'react-device-detect';
 import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
+import {useMediaQuery} from 'react-responsive';
 import {useHistory} from 'react-router';
 import {ROUTE_PATH} from 'routers/helpers';
 import {restoreAccount, signOut} from 'routers/redux/slice';
@@ -16,6 +16,7 @@ import SwitchAccountComponent from './switchAccount';
 import SwitchLanguageComponent from './switchLanguage';
 
 const HeaderLayout = (props: IProps = Props) => {
+  const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 1024px)'});
   const {t} = useTranslation();
   const [state, setState] = useState<State>({
     openSignIn: false,
@@ -138,7 +139,9 @@ const HeaderLayout = (props: IProps = Props) => {
                       <div className="list-inline-item">
                         <a className="nav-link" onClick={logOut}>
                           <i className="icomoon-icon-logout"></i>
-                          {isMobile ? null : <span className="d-none d-sm-inline">{t('common:header.logout')}</span>}
+                          {isDesktopOrLaptop ? (
+                            <span className="d-none d-sm-inline">{t('common:header.logout')}</span>
+                          ) : null}
                         </a>
                       </div>
                     </>

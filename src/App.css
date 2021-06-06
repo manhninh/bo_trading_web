@@ -195,7 +195,7 @@ a:not([href]):not([tabindex]):hover {
   box-shadow: none;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 1023px) {
   section {
     margin-left: 0 !important;
   }
@@ -211,7 +211,7 @@ a:not([href]):not([tabindex]):hover {
     font-size: 0.75rem;
   }
 
-  #chat-application{
+  #chat-application {
     display: none !important;
   }
 }

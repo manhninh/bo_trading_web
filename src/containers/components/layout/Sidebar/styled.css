@@ -30,7 +30,7 @@ nav#sidebar a {
   color: #ffffff;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 1023px) {
   .sidebar-container {
     background-color: #21252a;
     border-right: 0;

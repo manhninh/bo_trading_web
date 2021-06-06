@@ -1,7 +1,7 @@
-import { useAppSelector } from 'boot/configureStore';
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchCurrentOrder } from 'screens/trade/redux/thunks';
+import {useAppSelector} from 'boot/configureStore';
+import React, {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
+import {fetchCurrentOrder} from 'screens/trade/redux/thunks';
 import './styled.css';
 
 const ActionInfor = () => {
@@ -17,7 +17,7 @@ const ActionInfor = () => {
 
   return (
     <>
-      <div className="title display-flex action-infor">
+      <div className="title display-flex action-infor l-0 pl-3">
         <h5 className="text-info">BUY</h5>
         <h5 className="text-info">{totalBuy}</h5>
       </div>

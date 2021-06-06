@@ -19,9 +19,27 @@
   font-size: 13px;
 }
 
-@media (max-width: 575px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .icon-eth {
     top: 6px;
     left: 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  .icon-eth {
+    width: 65px;
+    height: 21px;
+    top: 6px;
+    left: 5px;
+  }
+
+  .tootipChart {
+    padding: 5px;
+    font-size: 9.5px;
+  }
+
+  .tootipChart:nth-child(5) {
+    display: none;
   }
 }

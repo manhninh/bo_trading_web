@@ -27,7 +27,7 @@ section {
   bottom: 0;
 }
 
-@media (max-width: 575px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .page-content {
     min-height: calc(100vh - 75px);
     padding-bottom: 0;

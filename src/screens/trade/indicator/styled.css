@@ -6,8 +6,9 @@
 
 .icon-indicator {
   font-size: 80px;
-  margin-left: 1.5rem;
-  display: inline-block;
+  margin-top: -3rem;
+  display: block;
+  text-align: center;
 }
 
 .m-l-10 {

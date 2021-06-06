@@ -53,7 +53,69 @@
   justify-content: space-between;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 1023px) {
+  .right-container {
+    position: fixed;
+    top: auto !important;
+    bottom: -8px;
+    left: 0;
+    width: 100% !important;
+    height: calc(100% - calc(100% - 190px)) !important;
+  }
+
+  .block-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .right-container .action-infor {
+    display: inline-block;
+    width: 24%;
+    top: 6.9rem;
+  }
+
+  .right-container .block-container {
+    padding: 10px;
+    margin: 0;
+    height: 6rem;
+    width: 40%;
+    display: inline-block;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .right-container .block .title {
+    width: 30%;
+  }
+
+  .profit-result {
+    font-size: 0.75rem;
+  }
+
+  .right-container .block-container .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  .amount-wrapper {
+    margin-right: 10px;
+    padding: 3px;
+    font-size: 14px;
+  }
+
+  .time-action {
+    padding: 0 15px;
+  }
+
+  .text-currency {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
   .right-container {
     position: fixed;
     top: auto !important;
@@ -63,16 +125,6 @@
     height: calc(100% - calc(100% - 190px)) !important;
   }
 
-  .right-container .action-infor {
-    display: inline-block;
-    width: 35%;
-    top: 6.6rem;
-  }
-
-  .right-container .action-infor h5 {
-    font-size: 0.9rem;
-  }
-
   .right-container .block-container {
     padding: 10px;
     margin: 0;
@@ -80,10 +132,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
   }
 
   .right-container .block-container:first-child {
     margin-bottom: 15px;
+  }
+
+  .right-container .block-container .form-group:first-child {
+    width: 70%;
   }
 
   .right-container .block .title,
@@ -100,41 +157,7 @@
     font-size: 1rem;
   }
 
-  .profit-text {
-    font-size: 1rem;
-  }
-
-  .profit-result {
-    font-size: 0.75rem;
-  }
-
-  .right-container .block-container .form-group {
-    display: inline-block;
-    margin-bottom: 0;
-  }
-
-  .right-container .block-container .form-group:first-child {
-    width: 70%;
-  }
-
-  .amount-wrapper {
-    margin-right: 10px;
-    padding: 3px;
-    font-size: 14px;
-  }
-
   .block-group {
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-
-  .time-action {
-    padding: 0 15px;
-  }
-
-  .text-currency {
-    font-size: 14px;
+    display: inline-block;
   }
 }

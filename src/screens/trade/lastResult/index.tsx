@@ -1,10 +1,13 @@
 import {RootState, useAppSelector} from 'boot/configureStore';
 import React, {useMemo, useRef} from 'react';
-import {isMobile} from 'react-device-detect';
+import {useMediaQuery} from 'react-responsive';
 import {createSelector} from 'reselect';
 import './styled.css';
 
 const LastResultComponent = () => {
+  const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 1024px)'});
+  const isTablet = useMediaQuery({query: '(min-width: 768px) and (max-width: 1023px)'});
+  const isMobile = useMediaQuery({query: '(max-width: 767px)'});
   const blockBuyRef = useRef(0);
   const blockSellRef = useRef(0);
 
@@ -60,15 +63,15 @@ const LastResultComponent = () => {
   return (
     <div className="div-lastresult">
       {rederResults()}
-      {isMobile ? null : (
+      {isDesktopOrLaptop && (
         <div className="div-total-result">
-          <div className="text-left">
-            <h3 className="d-inline-block">BUY</h3>
-            <h3 className="text-info d-inline-block m-l-rem">{blockBuyRef.current}</h3>
+          <div className="text-center">
+            <h6 className="d-inline-block">BUY</h6>
+            <h6 className="text-info d-inline-block m-l-rem">{blockBuyRef.current}</h6>
           </div>
-          <div className="text-left">
-            <h3 className="d-inline-block">SELL</h3>
-            <h3 className="text-danger d-inline-block ml-5">{blockSellRef.current}</h3>
+          <div className="text-center">
+            <h6 className="d-inline-block">SELL</h6>
+            <h6 className="text-danger d-inline-block ml-5">{blockSellRef.current}</h6>
           </div>
         </div>
       )}

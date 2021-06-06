@@ -15,12 +15,12 @@ const IndicatorComponent = () => {
       (indicator, props) => {
         if (!_.isEqual(indicator, props)) {
           let signal: {type: string; color: string; icon: string} = {type: '', color: '#8a8d93', icon: ''};
-          if (indicator.indicator_type > 0 && indicator.indicator_type < 380)
-            signal = {type: 'Buy', color: '#28a745', icon: 'fas fa-caret-up'};
-          else if (indicator.indicator_type > 380 && indicator.indicator_type < 620)
-            signal = {type: 'Neutral', color: '#ffc107', icon: ''};
-          else if (indicator.indicator_type > 620 && indicator.indicator_type < 1000)
-            signal = {type: 'Sell', color: '#F04B4B', icon: 'fas fa-caret-down'};
+          // if (indicator.indicator_type > 0 && indicator.indicator_type < 380)
+          signal = {type: 'Buy', color: '#28a745', icon: 'fas fa-caret-up'};
+          // else if (indicator.indicator_type > 380 && indicator.indicator_type < 620)
+          //   signal = {type: 'Neutral', color: '#ffc107', icon: ''};
+          // else if (indicator.indicator_type > 620 && indicator.indicator_type < 1000)
+          //   signal = {type: 'Sell', color: '#F04B4B', icon: 'fas fa-caret-down'};
           return {
             ...indicator,
             signal,
@@ -33,8 +33,8 @@ const IndicatorComponent = () => {
   const indicator = useAppSelector((state) => selectorIndicator(state, null));
 
   return (
-    <div className="row m-0">
-      <div className="col-5 mt-3">
+    <div className="row justify-content-center m-0">
+      <div className="mt-3" style={{width: '350px'}}>
         <div className="public-user-block" style={{borderBottom: '1px solid #34373d'}}>
           <div className="row">
             <div className="col-5 pr-0">
@@ -136,7 +136,7 @@ const IndicatorComponent = () => {
           </div>
         </div>
       </div>
-      <div className="col-4 p-0">
+      <div className="p-0 pl-4" style={{width: '260px'}}>
         <ReactSpeedometer
           width={260}
           segments={3}
@@ -169,13 +169,13 @@ const IndicatorComponent = () => {
           customSegmentStops={[0, 380, 620, 1000]}
         />
       </div>
-      <div className="col-3 p-0 mt-3">
-        <div className="py-2 text-left" style={{color: indicator?.signal.color}}>
-          <div className="title text-center d-inline-block">
-            <h3>
+      <div className="p-0 mt-3" style={{width: '150px'}}>
+        <div className="py-2 text-right" style={{color: indicator?.signal.color}}>
+          <div className="title text-center d-block">
+            <h4>
               {t('common:trade.signal')} {indicator?.signal.type}
-            </h3>
-            <h3>{indicator?.indicator} %</h3>
+            </h4>
+            <h4>{indicator?.indicator} %</h4>
           </div>
           {indicator?.signal.icon && (
             <span className="icon-indicator">

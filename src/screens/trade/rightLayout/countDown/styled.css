@@ -22,11 +22,26 @@
   font-weight: bold;
 }
 
-@media (max-width: 575px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+  .timer-container {
+    width: 95px;
+    height: 95px;
+    margin-top: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  .value {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 767px) {
   .timer-container {
     width: 60px;
     height: 60px;
     margin-top: 10px;
+    top: 7.2rem;
   }
 
   .value {

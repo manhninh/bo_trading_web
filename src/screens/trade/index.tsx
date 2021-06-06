@@ -1,9 +1,9 @@
-import { RootState, useAppSelector } from 'boot/configureStore';
-import React, { useMemo } from 'react';
-import { Nav, Tab } from 'react-bootstrap';
-import { isMobile } from 'react-device-detect';
-import { useTranslation } from 'react-i18next';
-import { createSelector } from 'reselect';
+import {RootState, useAppSelector} from 'boot/configureStore';
+import React, {useMemo} from 'react';
+import {Nav, Tab} from 'react-bootstrap';
+import {useTranslation} from 'react-i18next';
+import {useMediaQuery} from 'react-responsive';
+import {createSelector} from 'reselect';
 import Dashboard from 'screens/dashboard';
 import ContainerLayout from './containerLayout';
 import CryptoChart from './highCharts';
@@ -12,10 +12,14 @@ import Indicator from './indicator';
 import LastResult from './lastResult';
 import './styled.css';
 
-const height = window.innerHeight - (isMobile ? 370 : 272);
-
 const TradingComponent = () => {
-  const { t } = useTranslation();
+  const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 1024px)'});
+  const isTablet = useMediaQuery({query: '(min-width: 768px) and (max-width: 1023px)'});
+  const isMobile = useMediaQuery({query: '(max-width: 767px)'});
+  const height = window.innerHeight - (isDesktopOrLaptop ? 272 : 370);
+  const xAxisMin = isDesktopOrLaptop ? 43 : isMobile ? 83 : 63;
+
+  const {t} = useTranslation();
   const makeSelectorAuthState = () =>
     createSelector(
       (state: RootState) => state.authState.userToken,
@@ -28,12 +32,12 @@ const TradingComponent = () => {
   return authState ? (
     <ContainerLayout>
       <div className="row">
-        <div className="col-12 px-0" style={{ height }}>
+        <div className="col-12 px-0" style={{height}}>
           <SocketProvider>
-            <CryptoChart height={height} />
+            <CryptoChart height={height} xAxisMin={xAxisMin} />
           </SocketProvider>
         </div>
-        {!isMobile ?
+        {isDesktopOrLaptop ? (
           <div className="col-lg-12 px-0">
             <div className="card text-center bottom-indicator">
               <Tab.Container defaultActiveKey="indicator">
@@ -63,7 +67,10 @@ const TradingComponent = () => {
                 </div>
               </Tab.Container>
             </div>
-          </div> : <LastResult />}
+          </div>
+        ) : (
+          <LastResult />
+        )}
       </div>
     </ContainerLayout>
   ) : (

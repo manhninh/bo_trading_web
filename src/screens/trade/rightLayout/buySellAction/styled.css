@@ -50,20 +50,27 @@
   left: -5rem;
 }
 
-@media (max-width: 575px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .buy-sel-action {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    bottom: 4.2rem;
     position: relative;
   }
 
   .btn-buy-sel-action {
-    height: 45px;
-    width: 38%;
+    height: 55px;
+    width: 25%;
     margin: 0 !important;
     display: inline-block;
+  }
+
+  .btn-buy-sel-action:nth-child(1) {
+    margin-left: 24% !important;
+  }
+
+  .btn-buy-sel-action:nth-child(2) {
+    margin-right: 24% !important;
   }
 
   .btn-buy-sel-icon {
@@ -82,5 +89,30 @@
     position: relative;
     bottom: 5.3rem;
     left: 0.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .buy-sel-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    top: -4.3rem;
+  }
+
+  .btn-buy-sel-action {
+    height: 45px;
+    width: 38%;
+    margin: 0 !important;
+    display: inline-block;
+  }
+
+  .btn-buy-sel-action:nth-child(1) {
+    margin-left: 0 !important;
+  }
+
+  .btn-buy-sel-action:nth-child(2) {
+    margin-right: 0 !important;
   }
 }

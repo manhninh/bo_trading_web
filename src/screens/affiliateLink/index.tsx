@@ -115,7 +115,26 @@ const AffiliateLinkComponent = () => {
               <a href="#" className="user-title">
                 <h3 className="h5 text-light">{t('common:affiliateLink.title5')}</h3>
               </a>
-              <div className="contributions text-light">{t('common:affiliateLink.subTitle5')}</div>
+              <div className="contributions text-light">
+                {t('common:affiliateLink.subTitle5')}
+                <br />
+                <br />
+                <span className="text-light">{t('common:affiliateLink.tang')} 1: 1%</span>
+                <br />
+                <span className="text-light">{t('common:affiliateLink.tang')} 2: 0.5%</span>
+                <br />
+                <span className="text-light">{t('common:affiliateLink.tang')} 3: 0.25%</span>
+                <br />
+                <span className="text-light">{t('common:affiliateLink.tang')} 4: 0.125%</span>
+                <br />
+                <span className="text-light">{t('common:affiliateLink.tang')} 5: 0.0625%</span>
+                <br />
+                <span className="text-light">{t('common:affiliateLink.tang')} 6: 0.03125%</span>
+                <br />
+                <span className="text-light">{t('common:affiliateLink.tang')} 7: 0.015625%</span>
+                <br />
+                <span className="text-light">{t('common:affiliateLink.tang')} 8: 0.0078125%</span>
+              </div>
             </div>
           </div>
         </div>

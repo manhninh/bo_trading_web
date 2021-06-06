@@ -1,19 +1,22 @@
-import { MaxAmountPlace, PlaceType } from 'constants/system';
-import React, { useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import { useTranslation } from 'react-i18next';
+import {MaxAmountPlace, PlaceType} from 'constants/system';
+import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import NumberFormat from 'react-number-format';
+import {useMediaQuery} from 'react-responsive';
 import ActionInfor from './actionInfor';
 import BuySellAction from './buySellAction';
 import CountDownTimer from './countDown';
 import './styled.css';
 
 const RightLayout = () => {
-  const { t } = useTranslation();
+  const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 1024px)'});
+  const isTablet = useMediaQuery({query: '(min-width: 768px) and (max-width: 1023px)'});
+  const isMobile = useMediaQuery({query: '(max-width: 767px)'});
+  const {t} = useTranslation();
   const [place, setPlace] = useState(1);
 
   const onChangeAmount = (e: any) => {
-    const { value } = e.target;
+    const {value} = e.target;
     setPlace(value ? parseInt(value.toString().replace(/,/g, '')) : 0);
   };
 
@@ -79,17 +82,17 @@ const RightLayout = () => {
               <div className="input-group-append d-flex justify-content-between">
                 <button
                   type="button"
-                  className={`btn btn-secondary ${isMobile ? 'btn-sm' : ''} btn-outline-secondary`}
+                  className={`btn btn-secondary ${!isDesktopOrLaptop ? 'btn-sm' : ''} btn-outline-secondary`}
                   onClick={handClickPlace(PlaceType.Add)}>
                   <i className="fas fa-plus" />
                 </button>
                 <button
                   type="button"
-                  className={`btn btn-secondary ${isMobile ? 'btn-sm ml-2' : ''} btn-outline-secondary`}
+                  className={`btn btn-secondary ${!isDesktopOrLaptop ? 'btn-sm ml-2' : ''} btn-outline-secondary`}
                   onClick={handClickPlace(PlaceType.Subtract)}>
                   <i className="fas fa-minus" />
                 </button>
-                {!isMobile ? (
+                {isDesktopOrLaptop ? (
                   <>
                     <button
                       type="button"
@@ -111,7 +114,7 @@ const RightLayout = () => {
         </div>
       </div>
       <div className="time-action">
-        {!isMobile && <ActionInfor />}
+        {isMobile ? null : <ActionInfor />}
         <CountDownTimer />
         <BuySellAction place={place} />
       </div>
