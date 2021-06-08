@@ -30,7 +30,7 @@ nav#sidebar a {
   color: #ffffff;
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 1024px) {
   .sidebar-container {
     background-color: #21252a;
     border-right: 0;
@@ -52,6 +52,51 @@ nav#sidebar a {
     position: fixed;
     right: 4rem;
     top: 10px;
+    outline: 0 !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar-container {
+    background-color: #21252a;
+    border-right: 0;
+    top: 60px;
+    z-index: 9999;
+  }
+
+  .sidebar-toggle {
+    width: 36px;
+    height: 36px;
+    line-height: 29px;
+    text-align: center;
+    border-radius: 50%;
+    background: #282b2f;
+    color: #8a8d93;
+    font-size: 1.1rem;
+    border: 2px solid #3d4148;
+    z-index: 9999;
+    position: fixed;
+    left: 12rem;
+    top: 1.2rem;
+    outline: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar-toggle {
+    width: 36px;
+    height: 36px;
+    line-height: 29px;
+    text-align: center;
+    border-radius: 50%;
+    background: #282b2f;
+    color: #8a8d93;
+    font-size: 1.1rem;
+    border: 2px solid #3d4148;
+    z-index: 9999;
+    position: fixed;
+    right: 0.7rem;
+    top: 0.7rem;
     outline: 0 !important;
   }
 }

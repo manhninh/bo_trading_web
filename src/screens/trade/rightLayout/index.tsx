@@ -42,21 +42,23 @@ const RightLayout = () => {
   return (
     <>
       <div className="block-group">
-        <div className="block block-container">
-          <div className="title">
-            <strong className="d-block">{t('common:rightbar.profit')}</strong>
-          </div>
-          <div className="block-body">
-            <div className="stats-2 d-flex">
-              <div className="stats-2-content">
-                <strong className="d-block text-primary profit-text">+ 95%</strong>
-              </div>
-              <div className="stats-2-content">
-                <strong className="d-block text-primary profit-result">+ ${((place || 0) * 95) / 100}</strong>
+        {isMobile ? null : (
+          <div className="block block-container">
+            <div className="title">
+              <strong className="d-block">{t('common:rightbar.profit')}</strong>
+            </div>
+            <div className="block-body">
+              <div className="stats-2 d-flex">
+                <div className="stats-2-content">
+                  <strong className="d-block text-primary profit-text">+ 95%</strong>
+                </div>
+                <div className="stats-2-content">
+                  <strong className="d-block text-primary profit-result">+ ${((place || 0) * 95) / 100}</strong>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
         <div className="block block-container">
           <div className="title">
             <strong className="d-block">{t('common:rightbar.invesment')}</strong>

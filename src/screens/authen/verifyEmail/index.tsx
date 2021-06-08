@@ -50,7 +50,7 @@ const VerifyEmailComponent = (props: RouteComponentProps) => {
                       </div>
                     )}
                     <a href={ROUTE_PATH.TRADE} className="btn btn-danger">
-                      {t('common:authen.gotoHome')}Go to Home
+                      {t('common:authen.gotoHome')}
                     </a>
                   </div>
                 </div>

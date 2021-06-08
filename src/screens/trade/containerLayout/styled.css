@@ -23,8 +23,18 @@
   bottom: 0;
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .page-content-custom {
     width: 100%;
+    min-height: calc(100% - 70px) !important;
+    margin-top: 70px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .page-content-custom {
+    width: 100%;
+    min-height: calc(100% - 107px) !important;
+    margin-top: 107px !important;
   }
 }

@@ -195,14 +195,37 @@ a:not([href]):not([tabindex]):hover {
   box-shadow: none;
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   section {
     margin-left: 0 !important;
   }
 
   nav.navbar {
     background-color: #21252a !important;
-    border-bottom: 1px solid #34373d !important;
+    border-bottom: 1px solid #393c43 !important;
+    min-height: 107px;
+  }
+
+  .table td,
+  .table th {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  #chat-application {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  section {
+    margin-left: 0 !important;
+  }
+  
+  nav.navbar {
+    background-color: #21252a !important;
+    border-bottom: 1px solid #28a745 !important;
+    min-height: 107px;
   }
 
   .table td,
