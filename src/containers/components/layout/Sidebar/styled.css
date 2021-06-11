@@ -39,11 +39,8 @@ nav#sidebar a {
   }
 
   .sidebar-toggle {
-    width: 36px;
-    height: 36px;
-    line-height: 29px;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 10%;
     background: #282b2f;
     color: #8a8d93;
     font-size: 1.1rem;
@@ -65,11 +62,8 @@ nav#sidebar a {
   }
 
   .sidebar-toggle {
-    width: 36px;
-    height: 36px;
-    line-height: 29px;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 10%;
     background: #282b2f;
     color: #8a8d93;
     font-size: 1.1rem;
@@ -84,11 +78,8 @@ nav#sidebar a {
 
 @media (max-width: 767px) {
   .sidebar-toggle {
-    width: 36px;
-    height: 36px;
-    line-height: 29px;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 10%;
     background: #282b2f;
     color: #8a8d93;
     font-size: 1.1rem;
