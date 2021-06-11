@@ -57,8 +57,11 @@ nav#sidebar a {
   .sidebar-container {
     background-color: #21252a;
     border-right: 0;
-    top: 60px;
+    top: 72px;
     z-index: 9999;
+    border-top: 1px solid #3d4148;
+    border-right: 1px solid #3d4148;
+    overflow-y: auto;
   }
 
   .sidebar-toggle {
@@ -77,6 +80,15 @@ nav#sidebar a {
 }
 
 @media (max-width: 767px) {
+  .sidebar-container {
+    background-color: #21252a;
+    border-right: 0;
+    top: 107px;
+    z-index: 9999;
+    border-right: 2px solid #3d4148;
+    overflow-y: auto;
+  }
+
   .sidebar-toggle {
     text-align: center;
     border-radius: 10%;
