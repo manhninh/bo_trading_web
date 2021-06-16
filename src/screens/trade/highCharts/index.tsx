@@ -20,8 +20,8 @@ const CryptoChartComponent = (props: IProps) => {
         setDataChart({ohlc, volumes});
       } else {
         const currentChart: any = chartComponent.current;
+        currentChart.updateLastData(real_data, real_volume);
         if (timeTick === 0) currentChart.addData(real_data, real_volume);
-        else currentChart.updateLastData(real_data, real_volume);
       }
     }
   }, [timeTick]);
