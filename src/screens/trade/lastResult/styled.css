@@ -75,6 +75,7 @@
   .div-lastresult {
     align-items: flex-end;
     height: 95px;
+    width: 90%;
   }
 
   .div-result-group:nth-child(1),
