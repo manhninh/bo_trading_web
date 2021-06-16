@@ -1,14 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {Transition, TransitionStatus} from 'react-transition-group';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from 'react-responsive';
+import { Transition, TransitionStatus } from 'react-transition-group';
 import LogInComponent from '../component';
-import {Props, State} from './propState';
+import { Props, State } from './propState';
 import './styled.css';
 
 const duration = 200;
 
 const LogInPopupComponent = (props: Props) => {
-  const {t} = useTranslation();
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
+  const isTablet = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1023px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+
+  const { t } = useTranslation();
   const [state, setState] = useState<State>({
     username: '',
     password: '',
@@ -16,19 +21,19 @@ const LogInPopupComponent = (props: Props) => {
   });
 
   useEffect(() => {
-    setState((state) => ({...state, isOpen: props.isOpen}));
+    setState((state) => ({ ...state, isOpen: props.isOpen }));
   }, [props.isOpen]);
 
   const toogleForm = () => {
-    setState((state) => ({...state, isOpen: !state.isOpen}));
+    setState((state) => ({ ...state, isOpen: !state.isOpen }));
     props.callbackToogle();
   };
 
   const sidebarTransitionStyles = {
-    entering: {width: 0},
-    entered: {width: '400px'},
-    exiting: {width: '400px'},
-    exited: {width: 0},
+    entering: { width: 0 },
+    entered: { width: isDesktopOrLaptop ? '400px' : "100%", height: "100vh", overflow: "auto" },
+    exiting: { width: isDesktopOrLaptop ? '400px' : "100%", height: "100vh", overflow: "auto" },
+    exited: { width: 0 },
   };
 
   return (
