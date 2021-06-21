@@ -38,16 +38,22 @@
   font-style: italic;
   font-weight: 900;
   font-family: sans-serif;
-  position: relative;
-  bottom: 11.2rem;
-  right: 6rem;
+  position: absolute;
+  top: 9.8rem;
+  left: -2rem;
+  color: #FFF;
 }
 
 .img-win {
-  /* width: 30rem; */
+  width: 335px;
+  height: 354px;
   position: relative;
-  top: -5rem;
-  left: -5rem;
+  top: -6rem;
+  left: -8rem;
+}
+
+.modal-w-345{
+  width: 335px;
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -81,14 +87,11 @@
   .img-win {
     top: 0;
     left: 0;
-    width: 24rem;
-    height: 20rem;
   }
 
   .text-result {
-    position: relative;
-    bottom: 5.3rem;
-    left: 0.5rem;
+    top: 15.8rem;
+    left: 6rem;
   }
 }
 
@@ -114,5 +117,15 @@
 
   .btn-buy-sel-action:nth-child(2) {
     margin-right: 0 !important;
+  }
+
+  .img-win {
+    position: relative;
+    top: 0rem;
+    left: 0rem;
+  }
+
+  .text-result {
+    top: 15.8rem;
   }
 }

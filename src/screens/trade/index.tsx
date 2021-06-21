@@ -17,7 +17,7 @@ const TradingComponent = () => {
   const isTablet = useMediaQuery({query: '(min-width: 768px) and (max-width: 1023px)'});
   const isMobile = useMediaQuery({query: '(max-width: 767px)'});
   const height = window.innerHeight - (isDesktopOrLaptop ? 272 : isTablet ? 375 : 340);
-  const xAxisMin = isDesktopOrLaptop ? 43 : isMobile ? 83 : 63;
+  const xAxisMin = isDesktopOrLaptop ? 50 : isMobile ? 83 : 63;
 
   const {t} = useTranslation();
   const makeSelectorAuthState = () =>

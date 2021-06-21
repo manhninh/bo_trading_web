@@ -90,7 +90,7 @@ const StockChartComponent = forwardRef((props: IProps, ref) => {
   }));
 
   const options = {
-    time: {useUTC: false},
+    time: {useUTC: true},
     navigator: {enabled: false},
     rangeSelector: {enabled: false},
     scrollbar: {enabled: false},
