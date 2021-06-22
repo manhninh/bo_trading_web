@@ -1,16 +1,16 @@
-import {useAppSelector} from 'boot/configureStore';
+import { useAppSelector } from 'boot/configureStore';
 import Pagination from 'containers/components/pagination';
 import useError from 'containers/hooks/errorProvider/useError';
-import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
-import {capitalize} from 'lodash';
-import {TransationHistory} from 'models/wallet';
+import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
+import { capitalize } from 'lodash';
+import { TransationHistory } from 'models/wallet';
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import {useTranslation} from 'react-i18next';
-import {fetchTransactionHistory, TYPE_HISTORY} from 'screens/wallet/services';
-import {TRANSACTION_STATUS} from 'screens/wallet/transfer/propState';
-import {FilterSearch, IProps, Props} from './propState';
+import { useTranslation } from 'react-i18next';
+import { fetchTransactionHistory, TYPE_HISTORY } from 'screens/wallet/services';
+import { TRANSACTION_STATUS } from 'screens/wallet/transfer/propState';
+import { FilterSearch, IProps, Props } from './propState';
 
 interface PaginateResult<T> {
   docs: Array<T>;
@@ -22,12 +22,12 @@ interface PaginateResult<T> {
 }
 
 const HistoryTableComponent = (props: IProps = Props) => {
-  const {t} = useTranslation();
-  const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
+  const { t } = useTranslation();
+  const { showLoading, hideLoading } = useLoading();
+  const { addError } = useError();
   const user_id = useAppSelector((state) => state.authState.accountInfor._id);
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
-    from: new Date(),
+    from: new Date(moment().subtract(3, "months").toString()),
     to: new Date(),
   });
   const [pageActive, setPageActive] = useState<number>(1);
@@ -76,7 +76,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   };
 
   const _onChangeDate = (type: 'from' | 'to') => (value: Date) => {
-    setFilterSearch({...filterSearch, [type]: value});
+    setFilterSearch({ ...filterSearch, [type]: value });
   };
 
   const _pageChange = (page: number) => {
@@ -105,8 +105,8 @@ const HistoryTableComponent = (props: IProps = Props) => {
             {d.user_id !== user_id
               ? d.from_username
               : d.from_wallet
-              ? `Wallet ${d.from_wallet}`.toUpperCase()
-              : d.from_username}
+                ? `Wallet ${d.from_wallet}`.toUpperCase()
+                : d.from_username}
           </td>
         )}
         {props.tabActive === 'TRANSFER' && (

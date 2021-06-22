@@ -29,7 +29,7 @@ const TradeHistoryComponent = () => {
   const { showLoading, hideLoading } = useLoading();
   const { addError } = useError();
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
-    from: new Date(),
+    from: new Date(moment().subtract(3, "months").toString()),
     to: new Date(),
   });
   const [pageActive, setPageActive] = useState<number>(1);
