@@ -41,7 +41,7 @@
   position: absolute;
   top: 9.8rem;
   left: -2rem;
-  color: #FFF;
+  color: #fff;
 }
 
 .img-win {
@@ -52,8 +52,9 @@
   left: -8rem;
 }
 
-.modal-w-345{
+.modal-w-345 {
   width: 335px;
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -127,5 +128,6 @@
 
   .text-result {
     top: 15.8rem;
+    left: 5rem;
   }
 }

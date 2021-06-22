@@ -35,7 +35,7 @@ nav#sidebar a {
     background-color: #21252a;
     border-right: 0;
     top: 60px;
-    z-index: 9999;
+    z-index: 999;
   }
 
   .sidebar-toggle {
@@ -45,7 +45,7 @@ nav#sidebar a {
     color: #8a8d93;
     font-size: 1.1rem;
     border: 2px solid #3d4148;
-    z-index: 9999;
+    z-index: 999;
     position: fixed;
     right: 4rem;
     top: 10px;
@@ -58,7 +58,7 @@ nav#sidebar a {
     background-color: #21252a;
     border-right: 0;
     top: 72px;
-    z-index: 9999;
+    z-index: 999;
     border-top: 1px solid #3d4148;
     border-right: 1px solid #3d4148;
     overflow-y: auto;
@@ -71,7 +71,7 @@ nav#sidebar a {
     color: #8a8d93;
     font-size: 1.1rem;
     border: 2px solid #3d4148;
-    z-index: 9999;
+    z-index: 999;
     position: fixed;
     left: 12rem;
     top: 1.2rem;
@@ -84,7 +84,7 @@ nav#sidebar a {
     background-color: #21252a;
     border-right: 0;
     top: 107px;
-    z-index: 9999;
+    z-index: 999;
     border-right: 2px solid #3d4148;
     overflow-y: auto;
   }
@@ -96,7 +96,7 @@ nav#sidebar a {
     color: #8a8d93;
     font-size: 1.1rem;
     border: 2px solid #3d4148;
-    z-index: 9999;
+    z-index: 999;
     position: fixed;
     right: 0.7rem;
     top: 0.7rem;
