@@ -34,7 +34,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   const [history, setHistory] = useState<PaginateResult<TransationHistory>>({
     docs: [],
     total: -1,
-    limit: 50,
+    limit: 10,
   });
 
   useEffect(() => {

@@ -35,7 +35,7 @@ const TradeHistoryComponent = () => {
   const [pageActive, setPageActive] = useState<number>(1);
   const [history, setHistory] = useState<PaginateResult<TradeHistory>>({
     docs: [],
-    limit: 50,
+    limit: 10,
   });
 
   useEffect(() => {
