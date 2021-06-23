@@ -2,18 +2,18 @@ import SpinnerLoader from 'containers/components/loader';
 import Pagination from 'containers/components/pagination';
 import useError from 'containers/hooks/errorProvider/useError';
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import {
   getCommissionsCopyTrade,
   getCommissionsMemberList,
   getCommissionsTradeDetail,
-  getCommissionsWithdrawHistories,
+  getCommissionsWithdrawHistories
 } from 'screens/commissions/services';
-import {number2DecimalPlaces} from 'utils/formatter';
-import {FilterSearch, IProps, NameRoutes, Props} from './propState';
+import { number2DecimalPlaces } from 'utils/formatter';
+import { FilterSearch, IProps, NameRoutes, Props } from './propState';
 
 interface PaginateResult<T> {
   docs: Array<T>;
@@ -25,9 +25,9 @@ interface PaginateResult<T> {
 }
 
 const HistoryTableComponent = (props: IProps = Props) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   // const {showLoading, hideLoading} = useLoading();
-  const {addError} = useError();
+  const { addError } = useError();
   const [filterSearch, setFilterSearch] = useState<FilterSearch>({
     from: new Date(moment().subtract(3, 'months').toString()),
     to: new Date(),
@@ -41,9 +41,9 @@ const HistoryTableComponent = (props: IProps = Props) => {
   });
 
   useEffect(() => {
-    if (props.requestRefesh === props.tabActive) {
-      getHistory(1);
-    }
+    // if (props.requestRefesh === props.tabActive) {
+    getHistory(1);
+    // }
   }, [props.requestRefesh]);
 
   const getHistory = async (page: number, limit?: number, _filterSearch?: FilterSearch) => {
@@ -99,7 +99,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
   };
 
   const _onChangeDate = (type: 'from' | 'to') => (value: Date) => {
-    setFilterSearch({...filterSearch, [type]: value});
+    setFilterSearch({ ...filterSearch, [type]: value });
   };
 
   const _pageChange = (page: number) => {
@@ -150,7 +150,7 @@ const HistoryTableComponent = (props: IProps = Props) => {
       );
     return history?.docs.map((d, i) => (
       <tr key={`${props.tabActive}-history-${i}`}>
-        <td scope="row">{i + 1}</td>
+        <td scope="row">{(pageActive - 1) * 10 + i + 1}</td>
         <td>{d.createdAt && moment(d.createdAt).format('MM/DD/YYYY HH:mm')}</td>
         {_renderValues(d)}
       </tr>
