@@ -204,6 +204,7 @@
     "forgotPassword": "Forgot password?",
     "loginTitle": "Log in to your account",
     "requiredUsername": "Username cannot be empty!",
+    "requiredUsername2": "Username can only contain letters, numbers and underlined characters!",
     "formatEmail": "Email is not in the correct format!",
     "validEmail": "Email cannot be empty!",
     "validPasswordMin": "Password must be at least 6 characters!",

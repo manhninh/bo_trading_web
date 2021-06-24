@@ -28,7 +28,10 @@ const RegisterComponent = () => {
   const sponsor = params.get('sponsor');
 
   const schema = yup.object().shape({
-    username: yup.string().required(t('common:authen.requiredUsername')),
+    username: yup
+      .string()
+      .required(t('common:authen.requiredUsername'))
+      .matches(/^\w+$/, 'common:authen.requiredUsername2'),
     email: yup.string().email(t('common:authen.formatEmail')).required(t('common:authen.validEmail')),
     password: yup
       .string()

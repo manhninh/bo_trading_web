@@ -203,6 +203,7 @@
     "forgetPassword": "Quên mật khẩu?",
     "loginTitle": "Đăng nhập vào tài khoản của bạn",
     "RequiredUsername": "Tài khoản không được để trống!",
+    "requiredUsername2": "Tên người dùng chỉ có thể chứa chữ cái, số và ký tự gạch chân",
     "formatEmail": "Email không đúng định dạng!",
     "validEmail": "Email không được để trống!",
     "validPasswordMin": "Mật khẩu phải có ít nhất 6 ký tự!",
