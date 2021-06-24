@@ -1,15 +1,16 @@
+import {useAppSelector} from 'boot/configureStore';
 import ContainerLayout from 'containers/components/layout/Container';
 import Pagination from 'containers/components/pagination';
 import useError from 'containers/hooks/errorProvider/useError';
-import { useLoading } from 'containers/hooks/loadingProvider/userLoading';
-import { TradeHistory } from 'models/tradeHistory';
+import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
+import {TradeHistory} from 'models/tradeHistory';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useTranslation } from 'react-i18next';
-import { formatter2 } from 'utils/formatter';
-import { getTradeHistory } from './services';
+import {useTranslation} from 'react-i18next';
+import {formatter2} from 'utils/formatter';
+import {getTradeHistory} from './services';
 import './styled.css';
 interface FilterSearch {
   from: Date;
@@ -25,37 +26,39 @@ export interface PaginateResult<T> {
 }
 
 const TradeHistoryComponent = () => {
-  const { t } = useTranslation();
-  const { showLoading, hideLoading } = useLoading();
-  const { addError } = useError();
-  const [filterSearch, setFilterSearch] = useState<FilterSearch>({
-    from: new Date(moment().subtract(3, "months").toString()),
-    to: new Date(),
-  });
-  const [pageActive, setPageActive] = useState<number>(1);
+  const {t} = useTranslation();
+  const accountInfor = useAppSelector((state) => state.authState.accountInfor);
+  const {showLoading, hideLoading} = useLoading();
+  const {addError} = useError();
+  // const [filterSearch, setFilterSearch] = useState<FilterSearch>({
+  //   from: new Date(moment().subtract(3, "months").toString()),
+  //   to: new Date(),
+  // });
+  // const [pageActive, setPageActive] = useState<number>(1);
   const [history, setHistory] = useState<PaginateResult<TradeHistory>>({
     docs: [],
     limit: 10,
   });
 
   useEffect(() => {
-    _fetchTradeHistory(pageActive);
-  }, [pageActive]);
+    _fetchTradeHistory(1);
+  }, [accountInfor.type_user]);
 
-  const _onChangeDate = (type: 'from' | 'to') => (value: Date) => {
-    setFilterSearch({ ...filterSearch, [type]: value });
-  };
+  // const _onChangeDate = (type: 'from' | 'to') => (value: Date) => {
+  //   setFilterSearch({ ...filterSearch, [type]: value });
+  // };
 
-  const _pageChange = (page: number) => setPageActive(page);
+  // const _pageChange = (page: number) => setPageActive(page);
 
-  const _search = (page: number) => async () => {
-    await _fetchTradeHistory(page);
-  };
+  // const _search = (page: number) => async () => {
+  //   await _fetchTradeHistory(page);
+  // };
 
   const _fetchTradeHistory = async (page: number) => {
     showLoading();
     try {
-      const result = await getTradeHistory({ ...filterSearch, page, limit: history.limit });
+      console.log(accountInfor.type_user, "accountInfor.type_user");
+      const result = await getTradeHistory(page.toString(), accountInfor.type_user.toString());
       setHistory(result.data);
     } catch (err) {
       addError(err, 'Load trade history fail!');
@@ -111,7 +114,7 @@ const TradeHistoryComponent = () => {
       <div className="row">
         <div className="col-lg-12">
           <div className="block p-0 mb-0">
-            <div className="title mb-1">
+            {/* <div className="title mb-1">
               <div className="d-flex justify-content-end from-to">
                 <div className="date-group">
                   <div className="input-group input-group-sm datePicker-group">
@@ -149,7 +152,7 @@ const TradeHistoryComponent = () => {
                   {t('common:history.search')}
                 </button>
               </div>
-            </div>
+            </div> */}
             <div className="table-responsive">
               <table className="table table-hover">
                 <thead>
@@ -164,12 +167,12 @@ const TradeHistoryComponent = () => {
                 <tbody>{_renderHistory()}</tbody>
               </table>
             </div>
-            <Pagination
+            {/* <Pagination
               page={pageActive}
               perPage={history.limit ?? 50}
               count={history.total ?? -1}
               pageChange={(page: number) => _pageChange(page)}
-            />
+            /> */}
           </div>
         </div>
       </div>
