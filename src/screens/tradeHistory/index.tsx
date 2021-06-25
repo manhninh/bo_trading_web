@@ -57,7 +57,6 @@ const TradeHistoryComponent = () => {
   const _fetchTradeHistory = async (page: number) => {
     showLoading();
     try {
-      console.log(accountInfor.type_user, "accountInfor.type_user");
       const result = await getTradeHistory(page.toString(), accountInfor.type_user.toString());
       setHistory(result.data);
     } catch (err) {

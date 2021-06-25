@@ -87,7 +87,7 @@ const BuySellAction = (props: IProps = Props) => {
     play();
     if (props.place === 0) return;
     const totalBuy = buyRef.current + props.place;
-    if (amountUser - totalBuy - sellRef.current >= 0) {
+    if (amountUser - totalBuy >= 0) {
       // lưu total buy
       buyRef.current = totalBuy;
       // truyền totalbuy xuống giá trị bên dưới để hiển thị
@@ -117,7 +117,7 @@ const BuySellAction = (props: IProps = Props) => {
     play();
     if (props.place === 0) return;
     const totalSell = sellRef.current + props.place;
-    if (amountUser - totalSell - buyRef.current >= 0) {
+    if (amountUser - totalSell >= 0) {
       // lưu total sell
       sellRef.current = totalSell;
       // truyền total sell xuống giá trị bên dưới để hiển thị
