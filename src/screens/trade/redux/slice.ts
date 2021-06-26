@@ -65,8 +65,8 @@ const tradeSlice = createSlice({
     }),
     addResultToBlocks: (state: TradeState, action: PayloadAction<any>) => {
       const newBlocks = current(state).blocks;
-      const blocks = newBlocks.map((item) => {
-        if (item.groupIndex == action.payload.group) {
+      const blocks = newBlocks.map((item, index) => {
+        if (index == newBlocks.length - 1) {
           const newData = [...item.data];
           newData[action.payload.el_number - 1] = action.payload.result;
           return {

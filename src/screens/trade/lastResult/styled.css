@@ -96,9 +96,4 @@
     height: 150px;
     margin-top: -10px;
   }
-
-  .div-result-group:nth-child(1),
-  .div-result-group:nth-child(2) {
-    display: none;
-  }
 }
