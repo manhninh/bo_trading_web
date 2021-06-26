@@ -1,4 +1,5 @@
 import {useAppSelector} from 'boot/configureStore';
+import {TypeUser} from 'constants/system';
 import {useLoading} from 'containers/hooks/loadingProvider/userLoading';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
@@ -10,7 +11,7 @@ import {restoreAccount, signOut} from 'routers/redux/slice';
 import LogInPopupComponent from 'screens/authen/login/popup';
 import RegisterPopupComponent from 'screens/authen/register/popup';
 import {IProps, Props, State} from './propState';
-import {fetchUserInfor} from './services';
+import {fetchUpdateAmountDemo, fetchUserInfor} from './services';
 import './styled.css';
 import SwitchAccountComponent from './switchAccount';
 import SwitchLanguageComponent from './switchLanguage';
@@ -28,6 +29,7 @@ const HeaderLayout = (props: IProps = Props) => {
   const {showLoading, hideLoading} = useLoading();
   const authState = useAppSelector((state) => state.authState.userToken);
   const username = useAppSelector((state) => state.authState.accountInfor.username);
+  const type_user = useAppSelector((state) => state.authState.accountInfor.type_user);
 
   useEffect(() => {
     if (authState && !state.isAuthen) checkAuthenToken();
@@ -83,6 +85,14 @@ const HeaderLayout = (props: IProps = Props) => {
     history.push(ROUTE_PATH.TRADE);
   };
 
+  const resetAmountDemo = () => {
+    const accountInfor: any = {
+      amount_demo: 10000,
+    };
+    fetchUpdateAmountDemo();
+    dispatch(restoreAccount(accountInfor));
+  };
+
   return (
     <>
       {!state.isAuthen ? (
@@ -123,6 +133,13 @@ const HeaderLayout = (props: IProps = Props) => {
                       <div className="list-inline-item dropdown visible">
                         <SwitchAccountComponent />
                       </div>
+                      {type_user === TypeUser.DEMO ? (
+                        <div className="list-inline-item visible">
+                          <button className="btn btn-link btn-sm none-box-shadow p-0" onClick={resetAmountDemo}>
+                            <i className="fas fa-redo-alt text-success" style={{fontSize: '1.5rem'}} />
+                          </button>
+                        </div>
+                      ) : null}
                       <div className="list-inline-item visible">
                         <a className="nav-link">
                           <i className="icomoon-icon-user text-danger"></i>

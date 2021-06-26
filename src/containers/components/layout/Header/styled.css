@@ -76,6 +76,15 @@ nav.navbar .sidebar-toggle {
   height: 30px;
 }
 
+.none-box-shadow {
+  position: relative;
+  bottom: 0.8rem;
+}
+
+.none-box-shadow:focus {
+  box-shadow: none;
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
   nav.navbar {
     min-height: 60px;
@@ -135,9 +144,13 @@ nav.navbar .sidebar-toggle {
     padding: 5px !important;
   }
 
-  nav.navbar .navbar-brand{
+  nav.navbar .navbar-brand {
     margin: 0;
     padding: 0;
     padding-bottom: 0.5rem;
+  }
+
+  .none-box-shadow {
+    bottom: 0;
   }
 }
