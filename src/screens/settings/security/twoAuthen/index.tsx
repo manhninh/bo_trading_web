@@ -73,6 +73,7 @@ const TwoAuthenComponent = () => {
       hideLoading();
     }
   };
+  console.log(qrcode, 'qrcode');
   return (
     <div className="row">
       <div className="col-12">
@@ -93,8 +94,16 @@ const TwoAuthenComponent = () => {
               <div className="col-lg-4 col-sm-12">
                 <h4 className="text-warning">{t('common:setting.step2')}</h4>
                 <span>{t('common:setting.title2')}</span>
-                <div className="mt-3">
+                <div className="mt-3 text-center">
                   <QRCode value={qrcode} renderAs="svg" includeMargin={true} level="H" size={220} />
+                  <input
+                    type="text"
+                    className="form-control form-control-sm text-center"
+                    style={{background: 'transparent', padding: 0}}
+                    readOnly={true}
+                    disabled={true}
+                    {...register('secret')}
+                  />
                 </div>
               </div>
               <div className="col-lg-4 col-sm-12">
