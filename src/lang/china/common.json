@@ -204,6 +204,7 @@
     "forgotPassword": "忘记密码？",
     "loginTitle": "登录您的帐户",
     "requiredUsername": "用户名不能为空!",
+    "validUserNameMin": "Username must be at least 6 characters!",
     "requiredUsername2": "用户名只能包含字母、数字和带下划线的字符",
     "formatEmail": "Email is not in the correct format!",
     "validEmail": "Email cannot be empty!",

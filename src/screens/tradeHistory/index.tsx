@@ -80,23 +80,15 @@ const TradeHistoryComponent = () => {
       history.docs.map((d, index) =>
         html.push(
           <tr key={`history_tr_${index}`}>
-            <td>{d.order_uuid && moment(parseInt(d.order_uuid)).format('MM/DD/YYYY HH:mm')}</td>
-            <td>
-              <div className="d-flex text-info">
-                <div className="d-inline-block w-40">{t('common:history.buy')}</div>
-                <div className="d-inline-block w-80">{formatter2.format(d.buy_amount_order)}</div>
-              </div>
-              <div className="d-flex text-danger">
-                <div className="d-inline-block w-40">{t('common:history.sell')}</div>
-                <div className="d-inline-block w-80">{formatter2.format(d.sell_amount_order)}</div>
-              </div>
-            </td>
-            <td>{formatter2.format(d.open_result)}</td>
-            <td>{formatter2.format(d.close_result)}</td>
-            <td>
-              <div className={`${d.amount_result > 0 ? 'text-info' : 'text-danger'}`}>
-                <div className="d-inline-block w-70">{d.amount_result > 0 ? 'WIN' : 'LOSS'}</div>
-                <div className="d-inline-block w-120 text-right">
+            <td className="text-center">{d.order_uuid && moment(parseInt(d.order_uuid)).format('MM/DD/YYYY HH:mm')}</td>
+            <td className="text-right text-info align-middle">{formatter2.format(d.buy_amount_order)}</td>
+            <td className="text-right text-danger align-middle">{formatter2.format(d.sell_amount_order)}</td>
+            <td className="text-right align-middle">{formatter2.format(d.open_result)}</td>
+            <td className="text-right align-middle">{formatter2.format(d.close_result)}</td>
+            <td className="text-center align-middle">
+              <div className={`d-flex justify-content-center ${d.amount_result > 0 ? 'text-info' : 'text-danger'}`}>
+                <div className="d-inline-block">{d.amount_result > 0 ? 'WIN' : 'LOSS'}</div>
+                <div className="d-inline-block text-right w-9vh">
                   {d.amount_result > 0 ? `+${d.amount_result}` : `${d.amount_result}`} $
                 </div>
               </div>
@@ -156,11 +148,15 @@ const TradeHistoryComponent = () => {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th className="text-light">{t('common:history.date')}</th>
-                    <th className="text-light">{t('common:history.action')}</th>
-                    <th className="text-light">{t('common:history.open')}</th>
-                    <th className="text-light">{t('common:history.close')}</th>
-                    <th className="text-light">{t('common:history.result')}</th>
+                    <th className="text-light text-center">{t('common:history.date')}</th>
+                    <th className="text-light text-right">{t('common:history.buy')}</th>
+                    <th className="text-light text-right">{t('common:history.sell')}</th>
+                    {/* <th className="text-light text-center" colSpan={2}>
+                      {t('common:history.action')}
+                    </th> */}
+                    <th className="text-light text-right">{t('common:history.open')}</th>
+                    <th className="text-light text-right">{t('common:history.close')}</th>
+                    <th className="text-light text-center">{t('common:history.result')}</th>
                   </tr>
                 </thead>
                 <tbody>{_renderHistory()}</tbody>

@@ -31,6 +31,7 @@ const RegisterComponent = () => {
     username: yup
       .string()
       .required(t('common:authen.requiredUsername'))
+      .min(6, t('common:authen.validUserNameMin'))
       .matches(/^\w+$/, t('common:authen.requiredUsername2')),
     email: yup.string().email(t('common:authen.formatEmail')).required(t('common:authen.validEmail')),
     password: yup
