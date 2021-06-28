@@ -6,11 +6,13 @@ import socketIOClient, {Socket} from 'socket.io-client';
 import {calculatorDisconnect, calculatorEvents} from './calculatorEvents';
 import {candlestickDisconnect, candlestickEvents} from './candlestickEvents';
 import SocketContext, {OHLC, Volumes} from './context';
+import {useMediaQuery} from 'react-responsive';
 
 const SocketProvider = (props: any) => {
   const dispatch = useDispatch();
   const socketCandlestickRef = useRef<Socket | null>(null);
   const socketCalculatorRef = useRef<Socket | null>(null);
+  const isMobile = useMediaQuery({query: '(max-width: 767px)'});
 
   const [value, setValue] = useState({
     ohlc: new Array<OHLC>(),
@@ -32,6 +34,7 @@ const SocketProvider = (props: any) => {
         setValue,
         socketCandlestick: socketCandlestickRef?.current,
         dispatch,
+        isMobile,
       });
     }
     return () => {

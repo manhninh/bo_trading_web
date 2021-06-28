@@ -4,7 +4,7 @@ import {addResultToBlocks, setIndicator, setResultBlocks, setTimeTick} from '../
 import {ContextType, OHLC, Volumes} from './context';
 import {EVENTS, ROOM} from './socketConfig';
 
-export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
+export const candlestickEvents = ({setValue, socketCandlestick, dispatch, isMobile}) => {
   if (!socketCandlestick) return;
 
   socketCandlestick.on('connect', () => {
@@ -58,7 +58,7 @@ export const candlestickEvents = ({setValue, socketCandlestick, dispatch}) => {
   socketCandlestick.on(EVENTS.RESULT_ETHUSDT, (result: any) => {
     const blocks: any[] = [];
     let groupIndex = 1;
-    for (let index = 0; index <= 4; index++) {
+    for (let index = isMobile ? 2 : 0; index <= 4; index++) {
       const group = result[index];
       if (group) {
         if (index === 0) groupIndex = result[index]._id;

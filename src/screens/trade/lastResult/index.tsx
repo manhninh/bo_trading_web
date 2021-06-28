@@ -6,8 +6,6 @@ import './styled.css';
 
 const LastResultComponent = () => {
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 1024px)'});
-  const isTablet = useMediaQuery({query: '(min-width: 768px) and (max-width: 1023px)'});
-  const isMobile = useMediaQuery({query: '(max-width: 767px)'});
   const blockBuyRef = useRef(0);
   const blockSellRef = useRef(0);
 
